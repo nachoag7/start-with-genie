@@ -9,6 +9,7 @@ import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
 import GenieChat from '../../components/GenieChat'
+import llcStates from '../../data/llc_states.json';
 
 interface User {
   id: string
@@ -154,10 +155,7 @@ export default function DashboardPage() {
   }
 
   // Helper: Anchor scroll
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
+  // Remove scrollToSection and any scroll logic
 
   // PDF download handler
   const handleDownloadPDF = async (sectionId: string, fileName: string) => {
@@ -182,6 +180,10 @@ export default function DashboardPage() {
   const [checklistOpen, setChecklistOpen] = useState(false)
   const handleChecklistToggle = () => setChecklistOpen((v) => !v)
 
+  // Group documents into a single collapsible section
+  const [documentsOpen, setDocumentsOpen] = useState(false)
+  const handleDocumentsToggle = () => setDocumentsOpen((v) => !v)
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -200,17 +202,12 @@ export default function DashboardPage() {
 
   // Document HTML content generators (match PDF logic, but HTML)
   const today = new Date().toLocaleDateString()
-  const stateLLCInfo = {
-    'Alabama': { url: 'https://www.sos.alabama.gov/business-entities', fee: 200, time: '1-2 weeks', notes: 'Online filings via Secretary of State' },
-    'Alaska': { url: 'https://www.commerce.alaska.gov/web/cbpl/Corporations.aspx', fee: 250, time: '2-3 weeks', notes: 'File Articles of Organization online' },
-    'Arizona': { url: 'https://ecorp.azcc.gov/', fee: 50, time: '3-5 business days', notes: 'Arizona requires LLC publication after formation' },
-    // ... (copy all state info from pdf-generator.ts) ...
-    'Wyoming': { url: 'https://wyobiz.wyo.gov/', fee: 100, time: '3-5 business days', notes: 'Low fees and no state income tax' }
-  }
-  const stateInfo = stateLLCInfo[user.state as keyof typeof stateLLCInfo] || {}
-  const filingFee = stateInfo.fee ? (typeof stateInfo.fee === 'string' ? stateInfo.fee : `$${stateInfo.fee}`) : 'Unavailable – please check your state’s website'
-  const filingTime = stateInfo.time || 'Unavailable – please check your state’s website'
-  const filingUrl = stateInfo.url || 'Unavailable – please check your state’s website'
+  const stateInfo = llcStates.find(
+    (row) => row.State.toLowerCase().trim() === user.state.toLowerCase().trim()
+  );
+  const filingFee = stateInfo?.['Avg Filing Fee'] ? `$${stateInfo['Avg Filing Fee']}` : 'Unavailable — please check your state’s website.';
+  const filingTime = stateInfo?.['Processing Time'] || 'Unavailable — please check your state’s website.';
+  const filingUrl = stateInfo?.['Filing URL'] || 'Unavailable — please check your state’s website.';
 
   // --- HTML content for each doc ---
   const llcHtml = (
@@ -380,7 +377,7 @@ export default function DashboardPage() {
         <div className="bg-white border-l-4 border-blue-500 rounded-xl shadow-sm p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <span className="mr-1">🧾</span> Your Setup Checklist
+              Your Setup Checklist
             </h3>
             <Button
               variant="outline"
@@ -390,8 +387,8 @@ export default function DashboardPage() {
               aria-expanded={checklistOpen}
               aria-controls="setup-checklist-content"
             >
-              <span className={`transition-transform duration-200 ${checklistOpen ? 'rotate-90' : 'rotate-0'}`}>▶</span>
-              {checklistOpen ? 'Hide checklist' : 'Show checklist'}
+              <span className={`transition-transform ${checklistOpen ? 'rotate-90' : ''}`}>▶</span>
+              {checklistOpen ? 'Hide' : 'Show'}
             </Button>
           </div>
           {checklistOpen && (
@@ -428,11 +425,31 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Inline Documents Section */}
-        <div className="space-y-10">
-          {/* LLC Filing Instructions */}
-          <section id="llc-instructions" className="bg-white shadow rounded-lg p-0">
-            <div className="px-4 py-3 border-b flex flex-col gap-2">
+        {/* Documents Collapsible Section */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <span className="mr-1">📄</span> Your Documents
+            </h3>
+            <Button
+              variant="outline"
+              size="sm"
+              className="ml-2 px-3 py-1 text-sm flex items-center gap-1"
+              onClick={handleDocumentsToggle}
+              aria-expanded={documentsOpen}
+              aria-controls="your-documents-section"
+            >
+              <span className={`transition-transform ${documentsOpen ? 'rotate-90' : ''}`}>▶</span>
+              {documentsOpen ? 'Hide' : 'Show'}
+            </Button>
+          </div>
+          <div
+            id="your-documents-section"
+            className={`transition-all duration-300 overflow-hidden ${documentsOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}
+            style={{ willChange: 'max-height, opacity' }}
+          >
+            {/* LLC Filing Instructions */}
+            <div className="bg-white rounded-lg shadow p-6 mb-6 border border-gray-100">
               <h3 className="text-lg font-semibold mb-2">LLC Filing Instructions</h3>
               <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 <Button
@@ -451,13 +468,10 @@ export default function DashboardPage() {
                   Download as PDF
                 </Button>
               </div>
+              <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
             </div>
-            <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
-          </section>
-
-          {/* EIN Guide */}
-          <section id="ein-guide" className="bg-white shadow rounded-lg p-0">
-            <div className="px-4 py-3 border-b flex flex-col gap-2">
+            {/* EIN Guide */}
+            <div className="bg-white rounded-lg shadow p-6 mb-6 border border-gray-100">
               <h3 className="text-lg font-semibold mb-2">EIN Guide</h3>
               <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 <Button
@@ -476,13 +490,10 @@ export default function DashboardPage() {
                   Download as PDF
                 </Button>
               </div>
+              <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
             </div>
-            <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
-          </section>
-
-          {/* Operating Agreement */}
-          <section id="operating-agreement" className="bg-white shadow rounded-lg p-0">
-            <div className="px-4 py-3 border-b flex flex-col gap-2">
+            {/* Operating Agreement */}
+            <div className="bg-white rounded-lg shadow p-6 border border-gray-100">
               <h3 className="text-lg font-semibold mb-2">Operating Agreement</h3>
               <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 <Button
@@ -501,9 +512,9 @@ export default function DashboardPage() {
                   Download as PDF
                 </Button>
               </div>
+              <div id="operating-agreement-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'operating-agreement' ? 'block' : 'hidden'}`}>{oaHtml}</div>
             </div>
-            <div id="operating-agreement-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'operating-agreement' ? 'block' : 'hidden'}`}>{oaHtml}</div>
-          </section>
+          </div>
         </div>
 
         {/* Add vertical spacing before support section */}
@@ -519,29 +530,26 @@ export default function DashboardPage() {
           </div>
 
           {/* Support */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="px-4 py-5 sm:p-6">
-              <div className="flex items-center">
+          <div className="bg-white overflow-hidden shadow rounded-lg flex flex-col h-full">
+            <div className="px-4 py-5 sm:p-6 flex flex-col h-full justify-between">
+              <div className="flex items-center mb-2">
                 <div className="flex-shrink-0">
                   <Mail className="h-8 w-8 text-primary-600" />
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-medium text-gray-900">Need Help?</h3>
-                  <p className="text-sm text-gray-500">
-                    Contact our support team
-                  </p>
+                  <p className="text-sm text-gray-500 mb-0">Contact our support team</p>
                 </div>
               </div>
-              <div className="mt-4">
-                <a 
-                  href="mailto:info@startwithgenie.com"
-                  className="block w-full"
-                >
-                  <Button variant="outline" className="w-full">
-                    Contact Support
-                  </Button>
-                </a>
-              </div>
+              <a 
+                href="mailto:info@startwithgenie.com"
+                className="block w-full mt-2"
+                style={{ marginTop: 0 }}
+              >
+                <Button variant="outline" className="w-full">
+                  Contact Support
+                </Button>
+              </a>
             </div>
           </div>
         </div>

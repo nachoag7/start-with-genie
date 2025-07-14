@@ -1,0 +1,352 @@
+[
+  {
+    "State": "Alabama",
+    "Filing URL": "https://www.sos.alabama.gov/business-entities",
+    "Avg Filing Fee": "200",
+    "Processing Time": "1-2 weeks",
+    "Notes": "Online filings via Secretary of State"
+  },
+  {
+    "State": "Alaska",
+    "Filing URL": "https://www.commerce.alaska.gov/web/cbpl/Corporations.aspx",
+    "Avg Filing Fee": "250",
+    "Processing Time": "2-3 weeks",
+    "Notes": "File Articles of Organization online"
+  },
+  {
+    "State": "Arizona",
+    "Filing URL": "https://ecorp.azcc.gov/",
+    "Avg Filing Fee": "50",
+    "Processing Time": "3-5 business days",
+    "Notes": "Arizona requires LLC publication after formation"
+  },
+  {
+    "State": "Arkansas",
+    "Filing URL": "https://www.sos.arkansas.gov/business-commercial-services-bcs",
+    "Avg Filing Fee": "45",
+    "Processing Time": "1 week",
+    "Notes": "Online business services available"
+  },
+  {
+    "State": "California",
+    "Filing URL": "https://bizfileonline.sos.ca.gov/",
+    "Avg Filing Fee": "70",
+    "Processing Time": "5-10 business days",
+    "Notes": "Annual $20 Statement of Information required"
+  },
+  {
+    "State": "Colorado",
+    "Filing URL": "https://www.sos.state.co.us/biz/FileDoc.do",
+    "Avg Filing Fee": "50",
+    "Processing Time": "2-3 business days",
+    "Notes": "File online through Secretary of State"
+  },
+  {
+    "State": "Connecticut",
+    "Filing URL": "https://portal.ct.gov/SOTS/Business-Services/Business-Services",
+    "Avg Filing Fee": "120",
+    "Processing Time": "3-5 business days",
+    "Notes": "Form online with Business Services Division"
+  },
+  {
+    "State": "Delaware",
+    "Filing URL": "https://corp.delaware.gov/",
+    "Avg Filing Fee": "90",
+    "Processing Time": "3-5 business days",
+    "Notes": "Known for favorable business laws"
+  },
+  {
+    "State": "Florida",
+    "Filing URL": "https://dos.myflorida.com/sunbiz/start-business/",
+    "Avg Filing Fee": "125",
+    "Processing Time": "1-2 business days",
+    "Notes": "Online filing system Sunbiz is quick and reliable"
+  },
+  {
+    "State": "Georgia",
+    "Filing URL": "https://ecorp.sos.ga.gov/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "5-7 business days",
+    "Notes": "Name reservation optional but recommended"
+  },
+  {
+    "State": "Hawaii",
+    "Filing URL": "https://hbe.ehawaii.gov/",
+    "Avg Filing Fee": "50",
+    "Processing Time": "2-3 business days",
+    "Notes": "Use Hawaii Business Express portal"
+  },
+  {
+    "State": "Idaho",
+    "Filing URL": "https://sosbiz.idaho.gov/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "2-3 business days",
+    "Notes": "LLC setup available fully online"
+  },
+  {
+    "State": "Illinois",
+    "Filing URL": "https://www.ilsos.gov/corporatellc/",
+    "Avg Filing Fee": "150",
+    "Processing Time": "3-5 business days",
+    "Notes": "Filing via Secretary of State"
+  },
+  {
+    "State": "Indiana",
+    "Filing URL": "https://inbiz.in.gov/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "1-2 business days",
+    "Notes": "Use INBiz portal for all filings"
+  },
+  {
+    "State": "Iowa",
+    "Filing URL": "https://sos.iowa.gov/business/",
+    "Avg Filing Fee": "50",
+    "Processing Time": "3-5 business days",
+    "Notes": "Annual Report required every two years"
+  },
+  {
+    "State": "Kansas",
+    "Filing URL": "https://www.kansas.gov/businesscenter/",
+    "Avg Filing Fee": "165",
+    "Processing Time": "3-5 business days",
+    "Notes": "Annual report fee due each year"
+  },
+  {
+    "State": "Kentucky",
+    "Filing URL": "https://onestop.ky.gov/Pages/default.aspx",
+    "Avg Filing Fee": "40",
+    "Processing Time": "3-5 business days",
+    "Notes": "One Stop Business Portal for registrations"
+  },
+  {
+    "State": "Louisiana",
+    "Filing URL": "https://geauxbiz.sos.la.gov/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "5-10 business days",
+    "Notes": "Use GeauxBiz for filings and licensing"
+  },
+  {
+    "State": "Maine",
+    "Filing URL": "https://www.maine.gov/sos/cec/corp/index.html",
+    "Avg Filing Fee": "175",
+    "Processing Time": "3-5 business days",
+    "Notes": "Filing by mail or via third-party service"
+  },
+  {
+    "State": "Maryland",
+    "Filing URL": "https://egov.maryland.gov/BusinessExpress",
+    "Avg Filing Fee": "100",
+    "Processing Time": "2-3 business days",
+    "Notes": "Annual reports required after formation"
+  },
+  {
+    "State": "Massachusetts",
+    "Filing URL": "https://corp.sec.state.ma.us/corpweb/CorpSearch/CorpSearch.aspx",
+    "Avg Filing Fee": "500",
+    "Processing Time": "3-5 business days",
+    "Notes": "Online and in-person options available"
+  },
+  {
+    "State": "Michigan",
+    "Filing URL": "https://www.michigan.gov/lara/bureau-list/cscl",
+    "Avg Filing Fee": "50",
+    "Processing Time": "2-3 business days",
+    "Notes": "File through Michigan LARA system"
+  },
+  {
+    "State": "Minnesota",
+    "Filing URL": "https://mblsportal.sos.state.mn.us/",
+    "Avg Filing Fee": "50",
+    "Processing Time": "3-5 business days",
+    "Notes": "Quickest filing is online"
+  },
+  {
+    "State": "Mississippi",
+    "Filing URL": "https://corp.sos.ms.gov/",
+    "Avg Filing Fee": "50",
+    "Processing Time": "3-5 business days",
+    "Notes": "Annual report is free but required"
+  },
+  {
+    "State": "Missouri",
+    "Filing URL": "https://bsd.sos.mo.gov/",
+    "Avg Filing Fee": "50",
+    "Processing Time": "3-5 business days",
+    "Notes": "No annual LLC fee in Missouri"
+  },
+  {
+    "State": "Montana",
+    "Filing URL": "https://biz.sosmt.gov/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "1 week",
+    "Notes": "Annual report required each year"
+  },
+  {
+    "State": "Nebraska",
+    "Filing URL": "https://sos.nebraska.gov/business-services/start-business",
+    "Avg Filing Fee": "100",
+    "Processing Time": "3-5 business days",
+    "Notes": "Publication of formation required"
+  },
+  {
+    "State": "Nevada",
+    "Filing URL": "https://www.nvsilverflume.gov/",
+    "Avg Filing Fee": "75",
+    "Processing Time": "3-5 business days",
+    "Notes": "Higher-than-average fees and initial list required"
+  },
+  {
+    "State": "New Hampshire",
+    "Filing URL": "https://www.sos.nh.gov/corporation-division",
+    "Avg Filing Fee": "100",
+    "Processing Time": "3-5 business days",
+    "Notes": "File online or by mail"
+  },
+  {
+    "State": "New Jersey",
+    "Filing URL": "https://www.nj.gov/treasury/revenue/",
+    "Avg Filing Fee": "125",
+    "Processing Time": "3-5 business days",
+    "Notes": "Filing handled through Department of Treasury"
+  },
+  {
+    "State": "New Mexico",
+    "Filing URL": "https://portal.sos.state.nm.us/BFS/online/Account",
+    "Avg Filing Fee": "50",
+    "Processing Time": "3-5 business days",
+    "Notes": "No annual reports required"
+  },
+  {
+    "State": "New York",
+    "Filing URL": "https://www.dos.ny.gov/corps/llccorp.html",
+    "Avg Filing Fee": "200",
+    "Processing Time": "3-5 business days",
+    "Notes": "Must publish formation in two newspapers"
+  },
+  {
+    "State": "North Carolina",
+    "Filing URL": "https://www.sosnc.gov/Guides/launching_a_business",
+    "Avg Filing Fee": "125",
+    "Processing Time": "2-3 business days",
+    "Notes": "File Articles of Organization online"
+  },
+  {
+    "State": "North Dakota",
+    "Filing URL": "https://firststop.sos.nd.gov/",
+    "Avg Filing Fee": "125",
+    "Processing Time": "3-5 business days",
+    "Notes": "File via FirstStop portal"
+  },
+  {
+    "State": "Ohio",
+    "Filing URL": "https://bsportal.ohiosos.gov/",
+    "Avg Filing Fee": "135",
+    "Processing Time": "2-3 business days",
+    "Notes": "Expedited filing options available"
+  },
+  {
+    "State": "Oklahoma",
+    "Filing URL": "https://www.sos.ok.gov/corp/filing.aspx",
+    "Avg Filing Fee": "99",
+    "Processing Time": "3-5 business days",
+    "Notes": "Online and paper forms accepted"
+  },
+  {
+    "State": "Oregon",
+    "Filing URL": "https://sos.oregon.gov/business/pages/register.aspx",
+    "Avg Filing Fee": "100",
+    "Processing Time": "1-2 weeks",
+    "Notes": "Annual report and renewal fee required"
+  },
+  {
+    "State": "Pennsylvania",
+    "Filing URL": "https://www.dos.pa.gov/BusinessCharities/Business/Pages/default.aspx",
+    "Avg Filing Fee": "125",
+    "Processing Time": "2-3 business days",
+    "Notes": "Filing is online and affordable"
+  },
+  {
+    "State": "Rhode Island",
+    "Filing URL": "https://www.sos.ri.gov/divisions/business-services",
+    "Avg Filing Fee": "150",
+    "Processing Time": "3-5 business days",
+    "Notes": "Annual reports required"
+  },
+  {
+    "State": "South Carolina",
+    "Filing URL": "https://sos.sc.gov/",
+    "Avg Filing Fee": "125",
+    "Processing Time": "2-3 business days",
+    "Notes": "Use Business Entities Online portal"
+  },
+  {
+    "State": "South Dakota",
+    "Filing URL": "https://sosenterprise.sd.gov/BusinessServices/",
+    "Avg Filing Fee": "150",
+    "Processing Time": "2-3 business days",
+    "Notes": "Quickest processing via online system"
+  },
+  {
+    "State": "Tennessee",
+    "Filing URL": "https://tnbear.tn.gov/Ecommerce/",
+    "Avg Filing Fee": "300",
+    "Processing Time": "5-7 business days",
+    "Notes": "Filing fee based on number of members"
+  },
+  {
+    "State": "Texas",
+    "Filing URL": "https://www.sos.state.tx.us/corp/llc.shtml",
+    "Avg Filing Fee": "70",
+    "Processing Time": "2-3 business days",
+    "Notes": "File Form 205 online via SOSDirect"
+  },
+  {
+    "State": "Utah",
+    "Filing URL": "https://corporations.utah.gov/",
+    "Avg Filing Fee": "125",
+    "Processing Time": "3-5 business days",
+    "Notes": "Fast online processing through state portal"
+  },
+  {
+    "State": "Vermont",
+    "Filing URL": "https://sos.vermont.gov/corporations/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "2-3 business days",
+    "Notes": "Annual report due every year"
+  },
+  {
+    "State": "Virginia",
+    "Filing URL": "https://cis.scc.virginia.gov/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "3-5 business days",
+    "Notes": "Use Clerk’s Information System (CIS)"
+  },
+  {
+    "State": "Washington",
+    "Filing URL": "https://www.sos.wa.gov/corps/llc/",
+    "Avg Filing Fee": "200",
+    "Processing Time": "3-5 business days",
+    "Notes": "Separate state and city filings may apply"
+  },
+  {
+    "State": "West Virginia",
+    "Filing URL": "https://business4.wv.gov/Pages/default.aspx",
+    "Avg Filing Fee": "100",
+    "Processing Time": "3-5 business days",
+    "Notes": "One Stop Business Portal simplifies filing"
+  },
+  {
+    "State": "Wisconsin",
+    "Filing URL": "https://www.wdfi.org/corporations/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "2-3 business days",
+    "Notes": "Register online through DFI site"
+  },
+  {
+    "State": "Wyoming",
+    "Filing URL": "https://wyobiz.wyo.gov/",
+    "Avg Filing Fee": "100",
+    "Processing Time": "3-5 business days",
+    "Notes": "Low fees and no state income tax"
+  }
+]
