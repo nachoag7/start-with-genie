@@ -7,16 +7,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between">
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div />
-            <div className="flex items-center space-x-4">
-              <Link href="/login" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Log In</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
       {/* HERO SECTION */}
       <section className="w-full bg-white pt-16 pb-12 border-b border-gray-100">
         <div className="max-w-4xl mx-auto flex flex-col-reverse sm:flex-row items-center justify-between gap-8 px-4">
