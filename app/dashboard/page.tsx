@@ -514,7 +514,7 @@ export default function DashboardPage() {
           {/* Genie Assistant Inline */}
           <div className="bg-white overflow-hidden shadow rounded-lg mt-10">
             <div className="px-4 py-5 sm:p-6">
-              <GenieChat avatarSrc="/ChatGPT Image Jul 9, 2025, 06_22_31 PM.png" />
+              <GenieChat avatarSrc="/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png" />
             </div>
           </div>
 
