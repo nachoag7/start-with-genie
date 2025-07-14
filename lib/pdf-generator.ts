@@ -11,7 +11,7 @@ export interface DocumentData {
 }
 
 // State-specific LLC filing information
-const stateLLCInfo = {
+const stateLLCInfo: Record<string, { url: string; fee: number; time: string; notes: string }> = {
   'Alabama': { url: 'https://www.sos.alabama.gov/business-entities', fee: 200, time: '1-2 weeks', notes: 'Online filings via Secretary of State' },
   'Alaska': { url: 'https://www.commerce.alaska.gov/web/cbpl/Corporations.aspx', fee: 250, time: '2-3 weeks', notes: 'File Articles of Organization online' },
   'Arizona': { url: 'https://ecorp.azcc.gov/', fee: 50, time: '3-5 business days', notes: 'Arizona requires LLC publication after formation' },
