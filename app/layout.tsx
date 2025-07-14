@@ -54,6 +54,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/genie-preview.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Start With Genie",
+              "url": "https://startwithgenie.com",
+              "logo": "https://startwithgenie.com/genie-og.png",
+              "sameAs": [
+                "https://www.facebook.com/startwithgenie"
+              ]
+            })
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <header className="w-full border-b border-gray-100 bg-white">
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 py-3 gap-3">
@@ -72,5 +90,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
 } 
