@@ -77,6 +77,11 @@ export default function DashboardPage() {
     fetchUserData()
   }, [router])
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     router.push('/')
@@ -425,11 +430,11 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Documents Collapsible Section */}
-        <div className="mb-8">
+        {/* Documents Collapsible Section - updated style */}
+        <div className="bg-white border-l-4 border-blue-500 rounded-xl shadow-sm p-4 mb-8">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <span className="mr-1">📄</span> Your Documents
+              Your Documents
             </h3>
             <Button
               variant="outline"
@@ -523,21 +528,21 @@ export default function DashboardPage() {
         {/* Actions Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Genie Assistant Inline */}
-          <div className="bg-white overflow-hidden shadow rounded-lg mt-10">
-            <div className="px-4 py-5 sm:p-6">
+          <div className="bg-white overflow-hidden shadow rounded-lg flex flex-col justify-between h-full min-h-[220px]">
+            <div className="px-4 py-5 sm:p-6 flex-1 flex flex-col justify-between">
               <GenieChat avatarSrc="/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png" />
             </div>
           </div>
 
-          {/* Support */}
-          <div className="bg-white overflow-hidden shadow rounded-lg flex flex-col h-full">
-            <div className="px-4 py-5 sm:p-6 flex flex-col h-full justify-between">
-              <div className="flex items-center mb-2">
+          {/* Support - cleaned up */}
+          <div className="bg-white overflow-hidden shadow rounded-lg flex flex-col justify-between h-full min-h-[220px]">
+            <div className="px-4 py-4 sm:p-5 flex flex-col h-full justify-between">
+              <div className="flex items-center mb-1">
                 <div className="flex-shrink-0">
-                  <Mail className="h-8 w-8 text-primary-600" />
+                  <Mail className="h-7 w-7 text-primary-600" />
                 </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Need Help?</h3>
+                <div className="ml-3">
+                  <h3 className="text-base font-medium text-gray-900">Need Help?</h3>
                   <p className="text-sm text-gray-500 mb-0">Contact our support team</p>
                 </div>
               </div>
@@ -546,7 +551,7 @@ export default function DashboardPage() {
                 className="block w-full mt-2"
                 style={{ marginTop: 0 }}
               >
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full text-sm py-2">
                   Contact Support
                 </Button>
               </a>
