@@ -6,10 +6,29 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Start With Genie',
-  description: 'Smart, simple LLC setup — guided every step of the way.',
+  title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
+  description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
   icons: {
-    icon: '/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png',
+    icon: '/genie-logo.png',
+    apple: '/genie-logo.png',
+  },
+  openGraph: {
+    title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
+    description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
+    images: [
+      {
+        url: 'https://startwithgenie.com/genie-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Start With Genie Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
+    description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
+    images: ['https://startwithgenie.com/genie-logo.png'],
   },
 };
 

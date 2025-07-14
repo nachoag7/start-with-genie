@@ -221,7 +221,7 @@ export default function DashboardPage() {
   // Document HTML content generators (match PDF logic, but HTML)
   const today = new Date().toLocaleDateString()
   const stateInfo = llcStates.find(
-    (row) => row.State.toLowerCase().trim() === user.state.toLowerCase().trim()
+    row => row.Abbreviation?.toUpperCase().trim() === user.state.toUpperCase().trim()
   );
   const filingFee = stateInfo?.['Avg Filing Fee'] ? `$${stateInfo['Avg Filing Fee']}` : 'Unavailable — please check your state’s website.';
   const filingTime = stateInfo?.['Processing Time'] || 'Unavailable — please check your state’s website.';
