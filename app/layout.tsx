@@ -55,7 +55,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/genie-preview.png" />
+        <link rel="icon" href="/genie-preview.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/genie-preview.png" />
+        <link rel="shortcut icon" href="/genie-preview.png" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         {/* Fallback meta tags for universal preview compatibility */}
         <meta property="og:title" content="Start With Genie — Fast, Clear LLC Formation" />
         <meta property="og:description" content="Get step-by-step help to form your LLC — including personalized state instructions, EIN setup guidance, an operating agreement, and a launch checklist. Just $49, no upsells." />
