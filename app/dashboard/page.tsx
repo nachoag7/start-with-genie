@@ -8,7 +8,6 @@ import { Download, MessageCircle, Mail, RefreshCw } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
-import html2pdf from 'html2pdf.js'
 
 interface User {
   id: string
@@ -160,7 +159,8 @@ export default function DashboardPage() {
   }
 
   // PDF download handler
-  const handleDownloadPDF = (sectionId: string, fileName: string) => {
+  const handleDownloadPDF = async (sectionId: string, fileName: string) => {
+    const html2pdf = (await import('html2pdf.js')).default;
     const element = document.getElementById(sectionId)
     if (!element) return
     html2pdf().set({
