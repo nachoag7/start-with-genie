@@ -414,18 +414,18 @@ export default function DashboardPage() {
               <ol className="list-decimal pl-6 text-gray-800">
                 <li className="mb-2">
                   <span className="font-semibold">File your LLC in {user.state}</span>
-                  <div className="text-gray-500 text-sm">This registers your business with the state and gives it legal status.</div>
-                  <div className="text-blue-600 text-sm mt-1">We’ll give you exact steps once your documents are ready.</div>
+                  <div className="text-gray-700 text-sm">This registers your business with the state and gives it legal status.</div>
+                  <div className="text-gray-700 text-sm mt-1">We’ll give you exact steps once your documents are ready.</div>
                 </li>
                 <li className="mb-2">
                   <span className="font-semibold">Apply for your EIN</span>
-                  <div className="text-gray-500 text-sm">This is your business’s tax ID — required to open a bank account or hire employees.</div>
-                  <div className="text-blue-600 text-sm mt-1">We’ll show you how to get it free from the IRS.</div>
+                  <div className="text-gray-700 text-sm">This is your business’s tax ID — required to open a bank account or hire employees.</div>
+                  <div className="text-gray-700 text-sm mt-1">We’ll show you how to get it free from the IRS.</div>
                 </li>
                 <li className="mb-2">
                   <span className="font-semibold">Sign your Operating Agreement</span>
-                  <div className="text-gray-500 text-sm">This outlines how your LLC runs and protects you legally.</div>
-                  <div className="text-blue-600 text-sm mt-1">Just review and save the one we generate for you.</div>
+                  <div className="text-gray-700 text-sm">This outlines how your LLC runs and protects you legally.</div>
+                  <div className="text-gray-700 text-sm mt-1">Just review and save the one we generate for you.</div>
                 </li>
               </ol>
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
