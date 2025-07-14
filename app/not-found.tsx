@@ -1,13 +1,14 @@
+import React from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
+import { Button } from '../components/ui/Button'
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <h1 className="text-6xl font-bold text-primary-600">404</h1>
-          <h2 className="mt-4 text-2xl font-bold text-gray-900">Page not found</h2>
+          <h1 className="text-4xl font-semibold text-gray-800">404</h1>
+          <h2 className="mt-4 text-2xl font-semibold text-gray-800">Page not found</h2>
           <p className="mt-2 text-gray-600">
             Sorry, we couldn't find the page you're looking for.
           </p>
@@ -22,12 +23,12 @@ export default function NotFound() {
             </p>
             <div className="space-y-3">
               <Link href="/">
-                <Button className="w-full">
+                <Button className="w-full hover:scale-105">
                   Go back home
                 </Button>
               </Link>
               <Link href="/onboarding">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full hover:scale-105">
                   Get started
                 </Button>
               </Link>

@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Button } from '../components/ui/Button'
 import Image from 'next/image'
+import { CheckCircle, ArrowRight } from 'lucide-react'
 // Remove Lucide imports, use inline SVGs below
 
 // Minimal SVG icons for steps/trust
@@ -16,9 +17,6 @@ const StepList = () => (
 )
 const CheckAnimated = () => (
   <svg className="h-5 w-5 text-green-500 transition-transform duration-200 group-hover:scale-110" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#e0fce0"/><path d="M8 12.5l3 3 5-5" stroke="#22c55e" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-)
-const ArrowRight = () => (
-  <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 )
 
 export default function HomePage() {
@@ -36,22 +34,22 @@ export default function HomePage() {
         </div>
       </nav>
       {/* Hero Section */}
-      <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-white py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-screen-lg mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6">Start With Genie</h1>
           <p className="text-gray-600 mb-6 text-center text-lg sm:text-xl">Smart, simple LLC setup — guided every step of the way.</p>
           <Link href="/onboarding">
-            <Button size="lg" className="px-12 py-4 text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-2 mx-auto mb-2">
-              Get Started <ArrowRight />
+            <Button size="lg" className="px-12 py-4 text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-2 mx-auto mb-2 hover:scale-105">
+              Get Started <ArrowRight className="h-5 w-5" />
             </Button>
           </Link>
         </div>
       </section>
       <div className="border-t border-gray-100" />
       {/* 3-Step Process Section */}
-      <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-white py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-screen-lg mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-14">Simple 3-step process</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 text-center mb-14">Simple 3-step process</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center">
@@ -80,17 +78,17 @@ export default function HomePage() {
           </div>
           {/* Checklist visually connected to Step 3 */}
           <div id="checklist" className="flex justify-center mt-12">
-            <div className="bg-[#f9f9f9] rounded-xl shadow-[0_4px_24px_0_rgba(0,0,0,0.04)] px-8 py-7 max-w-md w-full text-center border border-gray-100 transition-shadow group hover:shadow-[0_8px_32px_0_rgba(0,0,0,0.08)]">
+            <div className="bg-[#F9FAFB] rounded-xl shadow-[0_4px_24px_0_rgba(0,0,0,0.04)] px-8 py-7 max-w-md w-full text-center border border-gray-100 transition-shadow group hover:shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] hover:scale-105">
               <h4 className="text-base sm:text-lg font-bold mb-4">Your LLC Setup Checklist</h4>
               <ul className="space-y-3 text-sm sm:text-base font-medium text-gray-800">
                 <li className="flex items-center gap-2 justify-center group hover:bg-green-50 rounded transition-colors px-2 py-1">
-                  <CheckAnimated /> File your LLC
+                  <CheckCircle className="h-5 w-5 text-green-500 group-hover:scale-110 transition-transform duration-200" /> File your LLC
                 </li>
                 <li className="flex items-center gap-2 justify-center group hover:bg-green-50 rounded transition-colors px-2 py-1">
-                  <CheckAnimated /> Get your EIN
+                  <CheckCircle className="h-5 w-5 text-green-500 group-hover:scale-110 transition-transform duration-200" /> Get your EIN
                 </li>
                 <li className="flex items-center gap-2 justify-center group hover:bg-green-50 rounded transition-colors px-2 py-1">
-                  <CheckAnimated /> Sign your agreement
+                  <CheckCircle className="h-5 w-5 text-green-500 group-hover:scale-110 transition-transform duration-200" /> Sign your agreement
                 </li>
               </ul>
             </div>
@@ -99,13 +97,13 @@ export default function HomePage() {
       </section>
       <div className="border-t border-gray-100" />
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
         <div className="max-w-screen-lg w-full flex flex-col items-center justify-center text-center">
           <h3 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">Start your business with clarity and confidence</h3>
           <p className="text-lg text-gray-600 mb-8">Personalized step-by-step help. No fluff. Just what you need to move forward.</p>
           <Link href="/onboarding">
-            <Button size="lg" className="px-12 py-4 text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-2 mx-auto">
-              Get Started <ArrowRight />
+            <Button size="lg" className="px-12 py-4 text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-2 mx-auto hover:scale-105">
+              Get Started <ArrowRight className="h-5 w-5" />
             </Button>
           </Link>
         </div>
@@ -114,7 +112,7 @@ export default function HomePage() {
       {/* Trust Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-screen-lg mx-auto">
-          <h4 className="text-xl font-bold text-gray-900 mb-8 text-center">Why founders trust Start With Genie</h4>
+          <h4 className="text-xl font-semibold text-gray-900 mb-8 text-center">Why founders trust Start With Genie</h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div className="flex items-center justify-center gap-2">
               {/* Shield/Check SVG */}
