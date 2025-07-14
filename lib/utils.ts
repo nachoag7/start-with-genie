@@ -1,12 +1,13 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import * as XLSX from 'xlsx'
+import { StateLLCInfo } from './pdf-generator'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function getStateLLCFilingInfoFromExcel(filePath = 'LLC State Look Up (3).xlsx') {
+export function getStateLLCFilingInfoFromExcel(filePath = 'LLC State Look Up (3).xlsx'): Record<string, StateLLCInfo> {
   const workbook = XLSX.readFile(filePath)
   const sheetName = workbook.SheetNames[0]
   const sheet = workbook.Sheets[sheetName]
