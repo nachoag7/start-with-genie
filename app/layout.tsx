@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       {
         url: '/genie-og.png',
         width: 1200,
-        height: 630,
+        height: 628,
         alt: 'Start With Genie Logo',
       },
     ],
