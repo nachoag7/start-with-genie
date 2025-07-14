@@ -13,8 +13,8 @@ export function getStateLLCFilingInfoFromExcel(filePath = 'LLC State Look Up (3)
   const sheet = workbook.Sheets[sheetName]
   const rows = XLSX.utils.sheet_to_json(sheet)
   // Assume columns: State, Filing Fee, Processing Time, Filing URL, Notes
-  const lookup = {}
-  for (const row of rows as any[]) {
+  const lookup: Record<string, StateLLCInfo> = {}
+  for (const row of rows as Record<string, any>[]) {
     const state = row['State']?.trim()
     if (!state) continue
     lookup[state] = {

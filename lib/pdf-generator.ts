@@ -124,7 +124,7 @@ export async function generateLLCFilingInstructions(data: DocumentData & {
   let stateInfo: StateLLCInfo = {}
   try {
     const excelLookup = getStateLLCFilingInfoFromExcel()
-    stateInfo = excelLookup[data.state] || {}
+    stateInfo = excelLookup[data.state as keyof typeof excelLookup] || {}
   } catch (e) {
     stateInfo = {}
   }
