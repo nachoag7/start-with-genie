@@ -18,16 +18,20 @@ export default function HomePage() {
         </div>
       </nav>
       {/* HERO SECTION */}
-      <section className="bg-white pt-20 pb-24 px-4 sm:px-6 lg:px-8 border-b border-gray-100">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight">Start With Genie</h1>
-          <p className="text-xl sm:text-2xl text-gray-600 mb-8 font-medium">Smart, simple LLC setup — guided every step of the way.</p>
-          <Link href="/onboarding">
-            <Button size="lg" className="px-12 py-4 text-lg font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all duration-200 flex items-center justify-center gap-2 mx-auto mb-2 hover:scale-105 shadow-lg">
-              Get Started <ArrowRight className="h-5 w-5" />
-            </Button>
-          </Link>
-          <div className="mt-4 text-gray-500 text-base">$100+ value, yours for <span className="font-bold text-blue-600">$49 flat</span></div>
+      <section className="w-full bg-white pt-16 pb-12 border-b border-gray-100">
+        <div className="max-w-4xl mx-auto flex flex-col-reverse sm:flex-row items-center justify-between gap-8 px-4">
+          <div className="flex-1 text-center sm:text-left">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Start With Genie</h1>
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 font-medium">Smart, simple LLC setup — guided every step of the way.</p>
+            <Link href="/onboarding">
+              <Button size="lg" className="px-8 py-3 text-lg font-semibold shadow-md">
+                Get Started <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+          </div>
+          <div className="flex-1 flex justify-center sm:justify-end mb-8 sm:mb-0">
+            <img src="/genie-mascot.png" alt="Genie Mascot" className="h-40 w-40 sm:h-56 sm:w-56 object-contain drop-shadow-xl" />
+          </div>
         </div>
       </section>
       {/* 3-STEP PROCESS SECTION */}
