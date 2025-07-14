@@ -1,9 +1,9 @@
 import React from 'react';
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Start With Genie — Fast, Clear LLC Formation',
@@ -33,30 +33,27 @@ export const metadata: Metadata = {
     description: 'Simple, clear LLC setup for $49. No upsells, just guidance.',
     images: ['/genie-og.png'],
   },
+  other: {
+    'application/ld+json': JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Start With Genie",
+      "url": "https://startwithgenie.com",
+      "logo": "https://startwithgenie.com/genie-og.png",
+      "sameAs": [
+        "https://www.facebook.com/startwithgenie"
+      ]
+    })
+  }
 };
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/genie-preview.png" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Start With Genie",
-            "url": "https://startwithgenie.com",
-            "logo": "https://startwithgenie.com/genie-og.png",
-            "sameAs": [
-              "https://www.facebook.com/startwithgenie"
-            ]
-          })}
-        </script>
-      </head>
       <body className={inter.className}>
         <header className="w-full border-b border-gray-100 bg-white">
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 py-3 gap-3">
@@ -74,5 +71,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  )
+  );
+}
 } 
