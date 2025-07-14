@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Download, MessageCircle, Mail, RefreshCw } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
@@ -33,6 +33,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isRegenerating, setIsRegenerating] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
 
   const fetchUserData = async () => {
     try {
@@ -76,6 +77,18 @@ export default function DashboardPage() {
   useEffect(() => {
     fetchUserData()
   }, [router])
+
+  // Robust scroll-to-top: on route change and after loading
+  useEffect(() => {
+    if (pathname === '/dashboard') {
+      window.scrollTo(0, 0)
+    }
+  }, [pathname])
+  useEffect(() => {
+    if (!isLoading) {
+      window.scrollTo(0, 0)
+    }
+  }, [isLoading])
 
   // Scroll to top on mount
   useEffect(() => {
@@ -534,24 +547,24 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Support - cleaned up */}
-          <div className="bg-white overflow-hidden shadow rounded-lg flex flex-col justify-between h-full min-h-[220px]">
-            <div className="px-4 py-4 sm:p-5 flex flex-col h-full justify-between">
+          {/* Support - compact version */}
+          <div className="bg-white overflow-hidden shadow rounded-lg flex flex-col items-start justify-start min-h-0 max-h-[180px] p-0">
+            <div className="px-4 py-3 sm:px-4 sm:py-3 flex flex-col gap-2 w-full">
               <div className="flex items-center mb-1">
                 <div className="flex-shrink-0">
-                  <Mail className="h-7 w-7 text-primary-600" />
+                  <Mail className="h-6 w-6 text-primary-600" />
                 </div>
-                <div className="ml-3">
-                  <h3 className="text-base font-medium text-gray-900">Need Help?</h3>
-                  <p className="text-sm text-gray-500 mb-0">Contact our support team</p>
+                <div className="ml-2">
+                  <h3 className="text-base font-medium text-gray-900 leading-tight">Need Help?</h3>
+                  <p className="text-xs text-gray-500 mb-0 leading-tight">Contact our support team</p>
                 </div>
               </div>
               <a 
                 href="mailto:info@startwithgenie.com"
-                className="block w-full mt-2"
+                className="block w-full mt-1"
                 style={{ marginTop: 0 }}
               >
-                <Button variant="outline" className="w-full text-sm py-2">
+                <Button variant="outline" className="w-full text-xs py-1.5">
                   Contact Support
                 </Button>
               </a>
