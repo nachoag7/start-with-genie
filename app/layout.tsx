@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Start With Genie',
   description: 'Smart, simple LLC setup — guided every step of the way.',
   icons: {
-    icon: '/genie-mascot.png',
+    icon: '/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png',
   },
 };
 
@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <header className="w-full border-b border-gray-100 bg-white">
           <div className="max-w-4xl mx-auto flex items-center px-4 py-3 gap-3">
-            <img src="/genie-mascot.png" alt="Genie Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
+            <img src="/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png" alt="Genie Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
             <span className="font-bold text-lg sm:text-2xl tracking-tight text-gray-900">Start With Genie</span>
             {/* ...rest of nav... */}
           </div>

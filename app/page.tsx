@@ -30,7 +30,7 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="flex-1 flex justify-center sm:justify-end mb-8 sm:mb-0">
-            <img src="/genie-mascot.png" alt="Genie Mascot" className="h-40 w-40 sm:h-56 sm:w-56 object-contain drop-shadow-xl" />
+            <img src="/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png" alt="Genie Mascot" className="h-40 w-40 sm:h-56 sm:w-56 object-contain drop-shadow-xl" />
           </div>
         </div>
       </section>
