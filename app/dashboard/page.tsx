@@ -177,6 +177,10 @@ export default function DashboardPage() {
     setOpenSection(openSection === id ? null : id)
   }
 
+  // Checklist collapsible state
+  const [checklistOpen, setChecklistOpen] = useState(true)
+  const handleChecklistToggle = () => setChecklistOpen((v) => !v)
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -382,67 +386,71 @@ export default function DashboardPage() {
 
         {/* Setup Checklist */}
         <div className="bg-white border-l-4 border-blue-500 rounded-xl shadow-sm p-4 mb-6">
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
               🧾 Your Setup Checklist
             </h3>
-            <p className="text-gray-600 mb-4">
-              Here's what to do to make your business official:
-            </p>
-            
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-medium text-gray-900">
-                  1. <strong>File your LLC in {user.state}</strong>
-                </h4>
-                <p className="text-sm text-gray-600 mt-1">
-                  This registers your business with the state and gives it legal status.
-                </p>
-                <p className="text-sm text-blue-600 mt-1">
-                  👉 We'll give you exact steps once your documents are ready.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium text-gray-900">
-                  2. <strong>Apply for your EIN</strong>
-                </h4>
-                <p className="text-sm text-gray-600 mt-1">
-                  This is your business's tax ID — required to open a bank account or hire employees.
-                </p>
-                <p className="text-sm text-blue-600 mt-1">
-                  👉 We'll show you how to get it free from the IRS.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium text-gray-900">
-                  3. <strong>Sign your Operating Agreement</strong>
-                </h4>
-                <p className="text-sm text-gray-600 mt-1">
-                  This outlines how your LLC runs and protects you legally.
-                </p>
-                <p className="text-sm text-blue-600 mt-1">
-                  👉 Just review and save the one we generate for you.
-                </p>
-              </div>
-            </div>
-            
-            <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-sm text-green-800 font-medium">
-                ✅ Once you complete these three steps, your business is fully set up and ready to operate.
-              </p>
-              <p className="text-sm text-green-700 mt-1">
-                You'll be able to open a bank account, accept payments, file taxes, and start working under your business name.
-              </p>
-            </div>
-            
-            <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-              <p className="text-sm text-gray-600">
-                If you've already done any of these — awesome. Just download the documents once they're ready.
-              </p>
-            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="ml-2 px-3 py-1 text-sm"
+              onClick={handleChecklistToggle}
+            >
+              {checklistOpen ? 'Hide checklist' : 'Show checklist'}
+            </Button>
           </div>
+          {checklistOpen && (
+            <div className="space-y-4">
+              <p className="text-gray-600 mb-4">
+                Here's what to do to make your business official:
+              </p>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-gray-900">
+                    1. <strong>File your LLC in {user.state}</strong>
+                  </h4>
+                  <p className="text-sm text-gray-600 mt-1">
+                    This registers your business with the state and gives it legal status.
+                  </p>
+                  <p className="text-sm text-blue-600 mt-1">
+                    👉 We'll give you exact steps once your documents are ready.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-900">
+                    2. <strong>Apply for your EIN</strong>
+                  </h4>
+                  <p className="text-sm text-gray-600 mt-1">
+                    This is your business's tax ID — required to open a bank account or hire employees.
+                  </p>
+                  <p className="text-sm text-blue-600 mt-1">
+                    👉 We'll show you how to get it free from the IRS.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-900">
+                    3. <strong>Sign your Operating Agreement</strong>
+                  </h4>
+                  <p className="text-sm text-gray-600 mt-1">
+                    This outlines how your LLC runs and protects you legally.
+                  </p>
+                  <p className="text-sm text-blue-600 mt-1">
+                    👉 Just review and save the one we generate for you.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-sm text-green-800 font-medium">
+                  ✅ Once you complete these three steps, your business is fully set up and ready to operate. You’ll find all the documents and instructions you need below — no downloads required.
+                </p>
+              </div>
+              <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                <p className="text-sm text-gray-600">
+                  You can view your documents right here in your dashboard.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Inline Documents Section */}

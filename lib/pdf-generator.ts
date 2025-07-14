@@ -120,17 +120,36 @@ export async function generateLLCFilingInstructions(data: DocumentData & {
   const doc = new jsPDF()
   const today = new Date().toLocaleDateString()
   const managerType = data.managerType || 'Member-managed'
-  // Prefer Excel-based lookup if available
+  // Normalize state name for lookup
+  const normalizedState = (data.state || '').trim()
   let stateInfo: StateLLCInfo = {}
   try {
     const excelLookup = getStateLLCFilingInfoFromExcel()
-    stateInfo = excelLookup[data.state as keyof typeof excelLookup] || {}
+    // Try exact match, then case-insensitive match
+    stateInfo = excelLookup[normalizedState]
+    if (!stateInfo) {
+      const foundKey = Object.keys(excelLookup).find(
+        key => key.trim().toLowerCase() === normalizedState.toLowerCase()
+      )
+      if (foundKey) stateInfo = excelLookup[foundKey]
+    }
+    if (!stateInfo) stateInfo = {}
   } catch (e) {
     stateInfo = {}
   }
   if (!stateInfo || Object.keys(stateInfo).length === 0) {
-    stateInfo = stateLLCInfo[data.state as keyof typeof stateLLCInfo] || {}
+    // Fallback to hardcoded
+    stateInfo = stateLLCInfo[normalizedState]
+    if (!stateInfo) {
+      const foundKey = Object.keys(stateLLCInfo).find(
+        key => key.trim().toLowerCase() === normalizedState.toLowerCase()
+      )
+      if (foundKey) stateInfo = stateLLCInfo[foundKey]
+    }
+    if (!stateInfo) stateInfo = {}
   }
+  // Debug logging
+  console.log('DEBUG: State lookup for', normalizedState, '->', stateInfo)
   // Use spreadsheet values or fallback
   const filingFee = stateInfo.fee ? (typeof stateInfo.fee === 'string' ? stateInfo.fee : `$${stateInfo.fee}`) : 'Unavailable – please check your state’s website'
   const filingTime = stateInfo.time || 'Unavailable – please check your state’s website'

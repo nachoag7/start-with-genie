@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
 
-const GENIE_AVATAR = '/ChatGPT Image Jul 9, 2025, 06_22_31 PM.png'; // Custom avatar
+const GENIE_AVATAR = '/ChatGPT Image.png'; // Custom avatar (ensure this file is in /public)
 
 interface Message {
   id: string;
