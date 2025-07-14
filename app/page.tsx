@@ -93,19 +93,19 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-10">Start With Genie vs. LegalZoom</h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm sm:text-base border-collapse rounded-xl overflow-hidden shadow-sm bg-white">
-              <thead className="bg-gray-50">
+            <table className="w-full text-sm text-left border border-gray-200 rounded-lg overflow-hidden mt-6">
+              <thead className="bg-gray-50 text-gray-700 font-semibold">
                 <tr>
-                  <th className="py-3 px-4 text-left font-semibold text-gray-700">Feature</th>
-                  <th className="py-3 px-4 text-center font-semibold text-gray-700">Start With Genie</th>
-                  <th className="py-3 px-4 text-center font-semibold text-gray-700">LegalZoom</th>
+                  <th className="px-4 py-3">Feature</th>
+                  <th className="px-4 py-3 text-center">Start With Genie</th>
+                  <th className="px-4 py-3 text-center">LegalZoom</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="bg-white">
                 <tr className="border-t">
-                  <td className="py-3 px-4">Personalized state filing steps</td>
-                  <td className="py-3 px-4 text-center">✅ Included</td>
-                  <td className="py-3 px-4 text-center text-gray-400">❌ Not emphasized</td>
+                  <td className="px-4 py-3 font-medium">Personalized state filing steps</td>
+                  <td className="px-4 py-3 text-center">✅ Included</td>
+                  <td className="px-4 py-3 text-center">❌ Not included</td>
                 </tr>
                 <tr className="border-t">
                   <td className="py-3 px-4">LLC filing</td>
@@ -140,12 +140,16 @@ export default function HomePage() {
               </tbody>
             </table>
           </div>
-          {/* Comparison summary */}
-          <div className="mt-8 text-gray-700 text-base sm:text-lg text-center max-w-2xl mx-auto">
-            <p className="mb-2 font-medium">Start With Genie gives you everything you need to file your LLC on your own — with guided instructions, personalized documents, and AI + human support.</p>
-            <p className="mb-2">LegalZoom handles the filing for you, but often includes upsells and extra fees.</p>
-            <p>If you want clarity, simplicity, and full ownership of the process — <span className="font-bold text-blue-600">Start With Genie is the better fit.</span></p>
-          </div>
+
+{/* Comparison summary (Linear style) */}
+<h3 className="text-xl font-semibold mt-8 mb-2">Why founders choose Genie</h3>
+<p className="text-base leading-relaxed">
+  All the tools to form your LLC, plus AI and human support — for a flat $49.
+</p>
+<p className="text-base leading-relaxed mt-2">
+  LegalZoom files for you, but adds upsells and extras.<br />
+  Genie keeps it simple. No fluff. No surprises.
+</p>
         </div>
       </section>
       {/* FOOTER */}
