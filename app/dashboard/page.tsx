@@ -8,6 +8,7 @@ import { Download, MessageCircle, Mail, RefreshCw } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
+import GenieChat from '../../components/GenieChat'
 
 interface User {
   id: string
@@ -363,15 +364,6 @@ export default function DashboardPage() {
       </header>
 
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {/* Anchor Links */}
-        <nav className="mb-6 flex flex-wrap gap-4 justify-center">
-          {docAnchors.map(a => (
-            <button key={a.id} onClick={() => scrollToSection(a.id)} className="text-blue-700 underline hover:text-blue-900 font-medium focus:outline-none">
-              {a.label}
-            </button>
-          ))}
-        </nav>
-
         {/* Welcome Section */}
         <div className="bg-white overflow-hidden shadow rounded-lg mb-6">
           <div className="px-4 py-5 sm:p-6">
@@ -516,27 +508,10 @@ export default function DashboardPage() {
 
         {/* Actions Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Genie Assistant */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          {/* Genie Assistant Inline */}
+          <div className="bg-white overflow-hidden shadow rounded-lg mt-10">
             <div className="px-4 py-5 sm:p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <MessageCircle className="h-8 w-8 text-primary-600" />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Genie Assistant</h3>
-                  <p className="text-sm text-gray-500">
-                    Get help with your LLC setup process
-                  </p>
-                </div>
-              </div>
-              <div className="mt-4">
-                <Link href="/genie">
-                  <Button className="w-full">
-                    Chat with Genie
-                  </Button>
-                </Link>
-              </div>
+              <GenieChat avatarSrc="/ChatGPT Image Jul 9, 2025, 06_22_31 PM.png" />
             </div>
           </div>
 
