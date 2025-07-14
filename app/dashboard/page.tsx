@@ -179,7 +179,7 @@ export default function DashboardPage() {
   }
 
   // Checklist collapsible state
-  const [checklistOpen, setChecklistOpen] = useState(true)
+  const [checklistOpen, setChecklistOpen] = useState(false)
   const handleChecklistToggle = () => setChecklistOpen((v) => !v)
 
   if (isLoading) {
@@ -380,19 +380,22 @@ export default function DashboardPage() {
         <div className="bg-white border-l-4 border-blue-500 rounded-xl shadow-sm p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              🧾 Your Setup Checklist
+              <span className="mr-1">🧾</span> Your Setup Checklist
             </h3>
             <Button
               variant="outline"
               size="sm"
-              className="ml-2 px-3 py-1 text-sm"
+              className="ml-2 px-3 py-1 text-sm flex items-center gap-1"
               onClick={handleChecklistToggle}
+              aria-expanded={checklistOpen}
+              aria-controls="setup-checklist-content"
             >
+              <span className={`transition-transform duration-200 ${checklistOpen ? 'rotate-90' : 'rotate-0'}`}>▶</span>
               {checklistOpen ? 'Hide checklist' : 'Show checklist'}
             </Button>
           </div>
           {checklistOpen && (
-            <div className="space-y-4">
+            <div id="setup-checklist-content" className="space-y-4 transition-all duration-300">
               <ol className="list-decimal pl-6 text-gray-800">
                 <li className="mb-2">
                   <span className="font-semibold">File your LLC in {user.state}</span>
