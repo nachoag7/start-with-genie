@@ -41,6 +41,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/genie-preview.png" />
+      </head>
       <body className={inter.className}>
         <header className="w-full border-b border-gray-100 bg-white">
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 py-3 gap-3">
