@@ -27,10 +27,6 @@ export default function GenieChat({ avatarSrc }: GenieChatProps) {
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
     const userMessage: Message = {
