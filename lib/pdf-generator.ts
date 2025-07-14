@@ -308,4 +308,129 @@ export async function generateOperatingAgreement(data: DocumentData & {
   y += 10
   doc.setFontSize(11)
   doc.setFont('helvetica', 'normal')
-  doc.text(`
+  doc.text(`Prepared for ${data.fullName} | Formed in ${data.state}`, 20, y)
+  y += 7
+  doc.text('Start With Genie – Your silent assistant for setup', 20, y)
+  y += 7
+  doc.text(`Effective Date: ${today}`, 20, y)
+  y += 10
+
+  doc.setFontSize(12)
+  doc.setFont('helvetica', 'bold')
+  doc.text('1. Introduction', 20, y)
+  y += 7
+  doc.setFontSize(10)
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `This Operating Agreement ("Agreement") is made effective as of the date above by and among the Member(s) of ${data.businessName}, a limited liability company formed under the laws of the State of ${data.state}.`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('2. Company Overview', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `Business Name: ${data.businessName}\n\nState of Formation: ${data.state}\n\nEffective Date: ${today}\n\nEntity Type: ${llcType}\n\nManaged By: ${managerType}\n\nPrincipal Address: ${principalAddress}`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('3. Purpose of the LLC', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `The purpose of the LLC is to engage in any lawful business activity permitted under the laws of ${data.state}. The Member(s) may modify the purpose as needed.`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('4. Ownership', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `Member(s):\n${memberList}`, 20, y)
+  y += 7
+  if (isSingleMember) {
+    y = addTextWithPageBreak(doc, `This is a Single-Member LLC, owned and operated by ${data.fullName}.`, 20, y)
+    y += 7
+  }
+  y = addTextWithPageBreak(doc, 'Each Member owns an equal share of the LLC unless otherwise agreed in writing.', 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('5. Capital Contributions', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `Initial contributions from Member(s):\n${contributionSummary}\n\nNo additional contributions are required unless agreed in writing by all Members.`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('6. Profit and Loss Allocation', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, 'All profits and losses will be distributed in proportion to ownership, unless otherwise agreed upon.\n\nDistributions will be made at the discretion of the Member(s).', 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('7. Management and Voting', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `The LLC is ${managerType}.\n\nMajor decisions (such as admitting new members or dissolving the LLC) require approval by ${votingRules}.`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('8. Liability Protection', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, 'Member(s) are not personally liable for the debts or obligations of the LLC. The LLC will indemnify Member(s) to the extent permitted by law.', 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('9. Ownership Changes', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, 'No Member may transfer ownership without written consent from the other Member(s), unless required by law.', 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('10. Dissolution', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `The LLC may be dissolved upon:\n\n- A majority vote by Member(s)\n- Completion of its business purpose\n- Only one Member remaining (if multi-member)\n\nUpon dissolution, assets will be distributed in this order:\n1. Creditors\n2. Taxes\n3. Members based on ownership`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('11. Governing Law', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `This Agreement is governed by the laws of the State of ${data.state}.`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('12. Signatures', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, `By signing below, the Member(s) agree to the terms outlined above.\n\nSigned on: ${today}\n\nMember(s):\n${data.fullName}${optionalAdditionalMembers ? '\n' + optionalAdditionalMembers : ''}`, 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('📬 Need Help?', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, 'If your business changes, you can revise and re-sign this agreement at any time.\nHave questions? Email us at info@startwithgenie.com — we’re happy to help.', 20, y)
+  y += 7
+
+  doc.setFont('helvetica', 'bold')
+  doc.text('⚖️ Disclaimer', 20, y)
+  y += 7
+  doc.setFont('helvetica', 'normal')
+  y = addTextWithPageBreak(doc, 'This document is for informational and educational purposes only and is not legal advice.\nStart With Genie is not a law firm and does not provide legal services.\nWe recommend consulting a qualified attorney to ensure this agreement suits your specific situation.', 20, y)
+  // Footer
+  doc.setFontSize(8)
+  doc.text('Generated by Start With Genie', 20, 280)
+
+  const pdfBlob = doc.output('blob')
+
+  // Get current user ID for file naming
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    throw new Error('User not authenticated')
+  }
+
+  const fileName = `Operating-Agreement-operating-agreement-${Date.now()}.pdf`
+  return await uploadPDFToSupabase(pdfBlob, fileName, user.id)
+}
