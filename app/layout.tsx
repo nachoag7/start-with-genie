@@ -6,31 +6,31 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
-  description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
+  title: 'Start With Genie — Fast, Clear LLC Formation With No Hidden Fees',
+  description: 'Form your LLC fast with clear instructions, EIN setup help, and an operating agreement included. No lawyers, no upsells — just what you need to launch your business the right way.',
   icons: {
-    icon: '/genie-logo.png',
-    apple: '/genie-logo.png',
+    icon: '/genie-preview.png',
+    apple: '/genie-preview.png',
   },
   openGraph: {
-    title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
-    description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
-    url: 'https://startwithgenie.com',
-    type: 'website',
+    title: 'Start With Genie — Fast, Clear LLC Formation With No Hidden Fees',
+    description: 'Form your LLC fast with clear instructions, EIN setup help, and an operating agreement included. No lawyers, no upsells — just what you need to launch your business the right way.',
     images: [
       {
-        url: 'https://startwithgenie.com/genie-preview.png',
+        url: 'https://startwithgenie.com/genie-og.png',
         width: 1200,
         height: 630,
-        alt: 'Start With Genie Preview',
+        alt: 'Start With Genie Blue Genie Logo',
       },
     ],
+    type: 'website',
+    url: 'https://startwithgenie.com',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
-    description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
-    images: ['https://startwithgenie.com/genie-preview.png'],
+    title: 'Start With Genie — Fast, Clear LLC Formation With No Hidden Fees',
+    description: 'Form your LLC fast with clear instructions, EIN setup help, and an operating agreement included. No lawyers, no upsells — just what you need to launch your business the right way.',
+    images: ['https://startwithgenie.com/genie-og.png'],
   },
 };
 
