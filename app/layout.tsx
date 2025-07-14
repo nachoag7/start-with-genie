@@ -6,31 +6,32 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Start With Genie — Fast, Clear LLC Formation With No Hidden Fees',
-  description: 'Form your LLC fast with clear instructions, EIN setup help, and an operating agreement included. No lawyers, no upsells — just what you need to launch your business the right way.',
+  title: 'Start With Genie — Fast, Clear LLC Formation',
+  description: 'Get step-by-step help to form your LLC — including personalized state instructions, EIN setup guidance, an operating agreement, and a launch checklist. Just $49, no upsells.',
   icons: {
     icon: '/genie-preview.png',
     apple: '/genie-preview.png',
   },
   openGraph: {
-    title: 'Start With Genie — Fast, Clear LLC Formation With No Hidden Fees',
-    description: 'Form your LLC fast with clear instructions, EIN setup help, and an operating agreement included. No lawyers, no upsells — just what you need to launch your business the right way.',
+    title: 'Start With Genie — Fast, Clear LLC Formation',
+    description: 'Launch your business with a simple step-by-step assistant. LLC setup, EIN guide, and docs included. $49 flat.',
+    url: 'https://startwithgenie.com',
+    siteName: 'Start With Genie',
     images: [
       {
-        url: 'https://startwithgenie.com/genie-og.png',
+        url: '/genie-og.png',
         width: 1200,
         height: 630,
-        alt: 'Start With Genie Blue Genie Logo',
+        alt: 'Start With Genie Logo',
       },
     ],
     type: 'website',
-    url: 'https://startwithgenie.com',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Start With Genie — Fast, Clear LLC Formation With No Hidden Fees',
-    description: 'Form your LLC fast with clear instructions, EIN setup help, and an operating agreement included. No lawyers, no upsells — just what you need to launch your business the right way.',
-    images: ['https://startwithgenie.com/genie-og.png'],
+    title: 'Start With Genie',
+    description: 'Simple, clear LLC setup for $49. No upsells, just guidance.',
+    images: ['/genie-og.png'],
   },
 };
 
@@ -43,6 +44,18 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/genie-preview.png" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Start With Genie",
+            "url": "https://startwithgenie.com",
+            "logo": "https://startwithgenie.com/genie-og.png",
+            "sameAs": [
+              "https://www.facebook.com/startwithgenie"
+            ]
+          })}
+        </script>
       </head>
       <body className={inter.className}>
         <header className="w-full border-b border-gray-100 bg-white">
