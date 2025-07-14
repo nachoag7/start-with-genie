@@ -15,12 +15,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
     description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
+    url: 'https://startwithgenie.com',
+    type: 'website',
     images: [
       {
-        url: 'https://startwithgenie.com/genie-logo.png',
+        url: 'https://startwithgenie.com/genie-preview.png',
         width: 1200,
         height: 630,
-        alt: 'Start With Genie Logo',
+        alt: 'Start With Genie Preview',
       },
     ],
   },
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Start With Genie — Simple, Guided LLC Setup Without the Legal Headache',
     description: 'Get clear, step-by-step instructions to launch your LLC. No confusing legal jargon, no hidden fees — just your business set up right, with the guidance of your silent assistant.',
-    images: ['https://startwithgenie.com/genie-logo.png'],
+    images: ['https://startwithgenie.com/genie-preview.png'],
   },
 };
 
@@ -43,7 +45,7 @@ export default function RootLayout({
         <header className="w-full border-b border-gray-100 bg-white">
           <div className="max-w-4xl mx-auto flex items-center justify-between px-4 py-3 gap-3">
             <div className="flex items-center gap-3">
-              <img src="/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png" alt="Genie Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
+              <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
               <span className="font-bold text-lg sm:text-2xl tracking-tight text-gray-900">Start With Genie</span>
             </div>
             <nav>
