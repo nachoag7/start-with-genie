@@ -642,10 +642,10 @@ export default function DashboardPage() {
         {/* Welcome Section */}
         <div className="bg-white overflow-hidden shadow rounded-lg mb-6">
           <div className="px-4 py-5 sm:p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Welcome back, {user.full_name}!
-            </h2>
-            <p className="text-gray-600">
+            <p className="text-base text-gray-700 mb-1">
+              Welcome back, <span className="font-semibold">{user.full_name}</span>!
+            </p>
+            <p className="text-sm text-gray-600">
               Your business: <span className="font-semibold">{user.business_name}</span> in {user.state}
             </p>
           </div>
@@ -737,16 +737,14 @@ export default function DashboardPage() {
                 >
                   {openSection === 'llc-instructions' ? 'Hide' : 'Show More'}
                 </Button>
-                {openSection === 'llc-instructions' && (
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
-                    onClick={handlePrintLLCInstructions}
-                  >
-                    Print / Save as PDF
-                  </Button>
-                )}
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
+                  onClick={handlePrintLLCInstructions}
+                >
+                  Print / Save as PDF
+                </Button>
               </div>
               <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
               {/* Hidden version for printing - always available */}
@@ -769,16 +767,14 @@ export default function DashboardPage() {
                 >
                   {openSection === 'ein-guide' ? 'Hide' : 'Show More'}
                 </Button>
-                {openSection === 'ein-guide' && (
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
-                    onClick={handlePrintEINGuide}
-                  >
-                    Print / Save as PDF
-                  </Button>
-                )}
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
+                  onClick={handlePrintEINGuide}
+                >
+                  Print / Save as PDF
+                </Button>
               </div>
               <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
               {/* Hidden version for printing - always available */}
