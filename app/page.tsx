@@ -23,6 +23,24 @@ export default function HomePage() {
         <meta name="twitter:image" content="https://startwithgenie.com/genie-preview.png" />
       </Head>
       <div className="min-h-screen bg-white flex flex-col justify-between">
+        {/* Homepage Header */}
+        <header className="bg-white shadow-sm">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center gap-3">
+                <img src="/genie-preview.png" alt="Genie Logo" className="h-9 w-9 rounded-full" />
+                <span className="text-xl font-bold text-gray-900">Start With Genie</span>
+              </div>
+              <div>
+                <Link href="/login">
+                  <Button variant="outline" className="font-semibold px-5 py-2">
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </header>
         {/* Navigation */}
         {/* HERO SECTION */}
         <section className="w-full bg-white pt-16 pb-12 border-b border-gray-100">
