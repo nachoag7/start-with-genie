@@ -417,6 +417,12 @@ export default function DashboardPage() {
   // PDF download handlers
   // Remove handleDownloadOA, handleDownloadLLC, handleDownloadEIN (all @react-pdf/renderer usage)
 
+  // 1. Add handlePrintOperatingAgreement function:
+  const handlePrintOperatingAgreement = () => {
+    // Hide all except #printable-operating-agreement for print
+    window.print();
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -633,7 +639,7 @@ export default function DashboardPage() {
                 </li>
                 <li className="mb-2">
                   <span className="font-semibold">Sign your Operating Agreement</span>
-                  <div className="text-gray-700 text-sm">This outlines how your LLC runs and protects you legally.</div>
+                  <div className="text-gray-700 text-sm">We’ve already prepared one for you — it’s at the bottom of this page. Just print it, review it, and sign it. Most banks ask for a signed Operating Agreement when opening a business account, and it helps clearly define how your LLC runs.</div>
                   <div className="text-gray-700 text-sm mt-1">Just review and save the one we generate for you.</div>
                 </li>
               </ol>
@@ -687,7 +693,6 @@ export default function DashboardPage() {
                   {openSection === 'llc-instructions' ? 'Hide' : 'Show More'}
                 </Button>
                 <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
-                <div style={{display:'none'}}><div ref={llcRef}>{llcHtml}</div></div>
               </div>
             </div>
             {/* EIN Guide */}
@@ -702,7 +707,6 @@ export default function DashboardPage() {
                   {openSection === 'ein-guide' ? 'Hide' : 'Show More'}
                 </Button>
                 <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
-                <div style={{display:'none'}}><div ref={einRef}>{einHtml}</div></div>
               </div>
             </div>
             {/* Operating Agreement */}
@@ -727,6 +731,14 @@ export default function DashboardPage() {
                   ) : (
                     'Download PDF'
                   )}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
+                  onClick={handlePrintOperatingAgreement}
+                >
+                  Print / Save as PDF
                 </Button>
               </div>
               <div 
@@ -757,9 +769,8 @@ export default function DashboardPage() {
                     background: #a0aec0;
                   }
                 `}</style>
-                {oaHtmlPDF}
+                <div id="printable-operating-agreement">{oaHtmlPDF}</div>
               </div>
-              <div style={{display:'none'}}><div ref={oaRef}>{oaHtml}</div></div>
             </div>
           </div>
         </div>
@@ -801,6 +812,26 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+      <style jsx global>{`
+        @media print {
+          body * {
+            visibility: hidden !important;
+          }
+          #printable-operating-agreement, #printable-operating-agreement * {
+            visibility: visible !important;
+          }
+          #printable-operating-agreement {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            background: white;
+            z-index: 9999;
+            padding: 0;
+            margin: 0;
+          }
+        }
+      `}</style>
     </div>
   )
 } 
