@@ -152,15 +152,24 @@ export default function HomePage() {
               </table>
             </div>
 
-{/* Comparison summary (Linear style) */}
-<h3 className="text-xl font-semibold mt-8 mb-2">Why founders choose Genie</h3>
-<p className="text-base leading-relaxed">
-  All the tools to form your LLC, plus AI and human support — for a flat $49.
-</p>
-<p className="text-base leading-relaxed mt-2">
-  LegalZoom files for you, but adds upsells and extras.<br />
-  Genie keeps it simple. No fluff. No surprises.
-</p>
+            {/* SECONDARY CTA BUTTON - below comparison, above 'Why founders choose Genie' */}
+            <div className="flex justify-center mt-12 mb-10">
+              <Link href="/onboarding" className="w-full sm:w-auto flex justify-center">
+                <Button size="lg" className="px-8 py-3 text-lg font-semibold shadow-md w-full sm:w-auto">
+                  Get Started <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Comparison summary (Linear style) */}
+            <h3 className="text-xl font-semibold mt-8 mb-2">Why founders choose Genie</h3>
+            <p className="text-base leading-relaxed">
+              All the tools to form your LLC, plus AI and human support — for a flat $49.
+            </p>
+            <p className="text-base leading-relaxed mt-2">
+              LegalZoom files for you, but adds upsells and extras.<br />
+              Genie keeps it simple. No fluff. No surprises.
+            </p>
           </div>
         </section>
         {/* FOOTER */}
