@@ -227,19 +227,19 @@ export default function DashboardPage() {
               position: fixed;
               bottom: 20px;
               right: 20px;
-              opacity: 0.1;
+              opacity: 0.15;
               z-index: 1000;
               pointer-events: none;
             }
             .watermark img {
-              width: 60px;
-              height: 60px;
+              width: 50px;
+              height: 50px;
             }
           </style>
         </head>
         <body>
           <div class="watermark">
-            <img src="/genie-preview.png" alt="Genie Logo">
+            <img src="/genie-og.png" alt="Genie Logo">
           </div>
           ${cleanHtml}
         </body>
@@ -306,7 +306,7 @@ export default function DashboardPage() {
       document.body.appendChild(tempContainer);
 
       // Wait for content to render and images to load
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 2500));
 
       // Generate PDF with improved settings
       const pdf = await html2pdf().set({
@@ -323,7 +323,9 @@ export default function DashboardPage() {
           scrollY: 0,
           windowWidth: 800,
           windowHeight: tempContainer.scrollHeight,
-          logging: false
+          logging: false,
+          imageTimeout: 0,
+          removeContainer: true
         },
         jsPDF: { 
           unit: 'in', 
@@ -337,47 +339,52 @@ export default function DashboardPage() {
       // Clean up
       document.body.removeChild(tempContainer);
 
-      // Download the PDF
+      // Create download link and trigger download
       const url = URL.createObjectURL(pdf);
       const link = document.createElement('a');
       link.href = url;
       link.download = fileName;
+      link.style.display = 'none';
+      link.style.position = 'absolute';
+      link.style.left = '-9999px';
+      
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      
+      // Clean up after a short delay
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 100);
 
     } catch (error) {
       console.error('Error generating PDF:', error);
       
-      // Fallback to window.print() if html2pdf fails
+      // Try alternative approach with jsPDF directly
       try {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const originalDisplay = element.style.display;
-          const originalPosition = element.style.position;
-          const originalWidth = element.style.width;
-          const originalHeight = element.style.height;
-          const originalOverflow = element.style.overflow;
-          
-          element.style.display = 'block';
-          element.style.position = 'static';
-          element.style.width = '100%';
-          element.style.height = 'auto';
-          element.style.overflow = 'visible';
-          
-          window.print();
-          
-          // Restore original styles
-          element.style.display = originalDisplay;
-          element.style.position = originalPosition;
-          element.style.width = originalWidth;
-          element.style.height = originalHeight;
-          element.style.overflow = originalOverflow;
-        }
-      } catch (printError) {
-        console.error('Print fallback also failed:', printError);
-        alert('There was an error generating the PDF. Please try again or use the browser\'s print function.');
+        const { jsPDF } = await import('jspdf');
+        const doc = new jsPDF();
+        
+        // Add a simple text-based version as fallback
+        doc.setFontSize(16);
+        doc.text('Document Generation Failed', 20, 20);
+        doc.setFontSize(12);
+        doc.text('Please try again or contact support if the issue persists.', 20, 40);
+        
+        const pdfBlob = doc.output('blob');
+        const url = URL.createObjectURL(pdfBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+      } catch (fallbackError) {
+        console.error('Fallback PDF generation also failed:', fallbackError);
+        alert('There was an error generating the PDF. Please try again or contact support.');
       }
     } finally {
       setIsGeneratingPDF(null);
@@ -697,10 +704,17 @@ export default function DashboardPage() {
                   variant="secondary"
                   size="sm"
                   className="w-full sm:w-auto"
-                  onClick={() => handleDownloadPDF('llc-instructions-content', 'LLC-Filing-Instructions.pdf')}
+                  onClick={() => handleDownloadPDF('llc-instructions-content', 'LLC_Filing_Instructions.pdf')}
                   disabled={isGeneratingPDF === 'llc-instructions-content'}
                 >
-                  {isGeneratingPDF === 'llc-instructions-content' ? 'Generating...' : 'Download as PDF'}
+                  {isGeneratingPDF === 'llc-instructions-content' ? (
+                    <span className="flex items-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Generating PDF...
+                    </span>
+                  ) : (
+                    'Download as PDF'
+                  )}
                 </Button>
               </div>
               <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
@@ -720,10 +734,17 @@ export default function DashboardPage() {
                   variant="secondary"
                   size="sm"
                   className="w-full sm:w-auto"
-                  onClick={() => handleDownloadPDF('ein-guide-content', 'EIN-Guide.pdf')}
+                  onClick={() => handleDownloadPDF('ein-guide-content', 'EIN_Guide.pdf')}
                   disabled={isGeneratingPDF === 'ein-guide-content'}
                 >
-                  {isGeneratingPDF === 'ein-guide-content' ? 'Generating...' : 'Download as PDF'}
+                  {isGeneratingPDF === 'ein-guide-content' ? (
+                    <span className="flex items-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Generating PDF...
+                    </span>
+                  ) : (
+                    'Download as PDF'
+                  )}
                 </Button>
               </div>
               <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
@@ -743,10 +764,17 @@ export default function DashboardPage() {
                   variant="secondary"
                   size="sm"
                   className="w-full sm:w-auto"
-                  onClick={() => handleDownloadPDF('operating-agreement-content', 'Operating-Agreement.pdf')}
+                  onClick={() => handleDownloadPDF('operating-agreement-content', 'Operating_Agreement.pdf')}
                   disabled={isGeneratingPDF === 'operating-agreement-content'}
                 >
-                  {isGeneratingPDF === 'operating-agreement-content' ? 'Generating...' : 'Download as PDF'}
+                  {isGeneratingPDF === 'operating-agreement-content' ? (
+                    <span className="flex items-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Generating PDF...
+                    </span>
+                  ) : (
+                    'Download as PDF'
+                  )}
                 </Button>
               </div>
               <div 
