@@ -650,8 +650,8 @@ export default function DashboardPage() {
             </div>
 
             {/* Setup Checklist & Documents as equal-height cards */}
-            <div className="flex flex-col md:flex-row gap-8 md:gap-10">
-              <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex-1 flex flex-col gap-4 min-h-[520px] justify-between">
+            <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
+              <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex-1 flex flex-col gap-4 min-h-[520px] justify-between w-full">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <h2 className="text-xl font-bold text-gray-900">Setup Checklist</h2>
@@ -701,7 +701,7 @@ export default function DashboardPage() {
                   )}
                 </div>
               </div>
-              <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex-1 flex flex-col gap-6 min-h-[520px] justify-between">
+              <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex-1 flex flex-col gap-6 min-h-[520px] justify-between w-full">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <h2 className="text-xl font-bold text-gray-900">Your Documents</h2>
