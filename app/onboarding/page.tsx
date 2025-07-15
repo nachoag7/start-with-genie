@@ -39,6 +39,7 @@ export default function OnboardingPage() {
   const [businessAddress, setBusinessAddress] = useState("");
   const [autocomplete, setAutocomplete] = useState<any>(null);
   const [selectedState, setSelectedState] = useState("");
+  const autocompleteOptions = { componentRestrictions: { country: 'us' } };
   const router = useRouter();
 
   const {
@@ -236,6 +237,7 @@ export default function OnboardingPage() {
                     <Autocomplete
                       onLoad={setAutocomplete}
                       onPlaceChanged={onPlaceChanged}
+                      options={autocompleteOptions}
                     >
                       <input
                         type="text"
