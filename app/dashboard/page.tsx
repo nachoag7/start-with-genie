@@ -346,42 +346,46 @@ export default function DashboardPage() {
 
   // 1. Add handlePrintOperatingAgreement function:
   const handlePrintOperatingAgreement = () => {
-    // Create a temporary print container
-    const printContainer = document.createElement('div');
-    printContainer.id = 'temp-print-container';
-    printContainer.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: white;
-      z-index: 9999;
-      padding: 20px;
-      overflow: auto;
-      display: none;
-    `;
-    
-    // Clone the content to avoid affecting the original
-    const contentClone = document.createElement('div');
-    contentClone.innerHTML = document.getElementById('printable-operating-agreement-hidden')?.innerHTML || '';
-    
-    // Add the cloned content to the print container
-    printContainer.appendChild(contentClone);
-    document.body.appendChild(printContainer);
-    
-    // Show the print container
-    printContainer.style.display = 'block';
-    
-    // Trigger print
-    window.print();
-    
-    // Clean up after printing
-    setTimeout(() => {
-      if (printContainer.parentNode) {
-        printContainer.parentNode.removeChild(printContainer);
-      }
-    }, 100);
+    // Render the OA content as HTML string
+    const oaHtmlString = document.getElementById('printable-operating-agreement-hidden')?.innerHTML || '';
+    const printWindow = window.open('', '_blank', 'width=900,height=1200');
+    if (!printWindow) return;
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Operating Agreement</title>
+          <style>
+            body { font-family: Arial, sans-serif; color: #222; background: white; margin: 0; padding: 32px; }
+            h2, h3 { color: #1f2937; }
+            ul, ol { margin-left: 1.5em; }
+            .text-gray-700 { color: #374151; }
+            .text-gray-900 { color: #1f2937; }
+            .text-xs { font-size: 12px; }
+            .bg-yellow-50 { background: #fef3c7; }
+            .border-yellow-200 { border-color: #f59e0b; }
+            .rounded { border-radius: 8px; }
+            .font-bold { font-weight: bold; }
+            .font-semibold { font-weight: 600; }
+            .mt-4 { margin-top: 24px; }
+            .mb-2 { margin-bottom: 8px; }
+            .mb-4 { margin-bottom: 16px; }
+            .mb-6 { margin-bottom: 24px; }
+            .p-4 { padding: 16px; }
+            .list-disc { list-style-type: disc; }
+            .ml-6 { margin-left: 24px; }
+            .signature-line { border-bottom: 1px solid #222; width: 200px; height: 32px; margin-bottom: 8px; }
+            @media print {
+              body { margin: 0; padding: 0; }
+            }
+          </style>
+        </head>
+        <body>
+          ${oaHtmlString}
+          <script>window.onload = function() { window.print(); window.onafterprint = function() { window.close(); }; };</script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
   };
 
   if (isLoading) {
