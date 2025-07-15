@@ -346,32 +346,40 @@ export default function DashboardPage() {
 
   // 1. Add handlePrintOperatingAgreement function:
   const handlePrintOperatingAgreement = () => {
-    // Always use the hidden version for consistent printing
-    // Hide the visible version and show the hidden version before printing
-    const visibleElement = document.getElementById('printable-operating-agreement');
-    const hiddenElement = document.getElementById('printable-operating-agreement-hidden');
+    // Create a temporary print container
+    const printContainer = document.createElement('div');
+    printContainer.id = 'temp-print-container';
+    printContainer.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      z-index: 9999;
+      padding: 20px;
+      overflow: auto;
+      display: none;
+    `;
     
-    if (visibleElement && hiddenElement) {
-      // Hide the visible version
-      visibleElement.style.display = 'none';
-      // Show the hidden version
-      hiddenElement.style.display = 'block';
-      hiddenElement.style.position = 'static';
-      hiddenElement.style.left = 'auto';
-      hiddenElement.style.top = 'auto';
-    }
+    // Clone the content to avoid affecting the original
+    const contentClone = document.createElement('div');
+    contentClone.innerHTML = document.getElementById('printable-operating-agreement-hidden')?.innerHTML || '';
+    
+    // Add the cloned content to the print container
+    printContainer.appendChild(contentClone);
+    document.body.appendChild(printContainer);
+    
+    // Show the print container
+    printContainer.style.display = 'block';
     
     // Trigger print
     window.print();
     
-    // Restore original state after printing
+    // Clean up after printing
     setTimeout(() => {
-      if (visibleElement && hiddenElement) {
-        visibleElement.style.display = '';
-        hiddenElement.style.display = 'none';
-        hiddenElement.style.position = 'absolute';
-        hiddenElement.style.left = '-9999px';
-        hiddenElement.style.top = '-9999px';
+      if (printContainer.parentNode) {
+        printContainer.parentNode.removeChild(printContainer);
       }
     }, 100);
   };
@@ -756,13 +764,13 @@ export default function DashboardPage() {
           body * {
             visibility: hidden !important;
           }
-          #printable-operating-agreement-hidden, #printable-operating-agreement-hidden * {
+          #temp-print-container, #temp-print-container * {
             visibility: visible !important;
             display: block !important;
             position: static !important;
             left: 0 !important;
           }
-          #printable-operating-agreement-hidden {
+          #temp-print-container {
             position: absolute;
             left: 0;
             top: 0;
