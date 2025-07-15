@@ -10,6 +10,7 @@ import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
 import GenieChat from '../../components/GenieChat'
 import llcStates from '../../data/llc_states.json';
+import ReactDOMServer from 'react-dom/server';
 
 interface User {
   id: string
@@ -32,6 +33,7 @@ export default function DashboardPage() {
   const [documents, setDocuments] = useState<Document[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isRegenerating, setIsRegenerating] = useState(false)
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState<string | null>(null)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -175,61 +177,138 @@ export default function DashboardPage() {
   // Helper: Anchor scroll
   // Remove scrollToSection and any scroll logic
 
+  // Helper function to generate clean HTML content for PDF
+  const generatePDFContent = (content: React.ReactElement, title: string) => {
+    const cleanHtml = ReactDOMServer.renderToString(content);
+    
+    return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>${title}</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              font-size: 14px;
+              line-height: 1.6;
+              color: #374151;
+              margin: 0;
+              padding: 40px;
+              background: white;
+            }
+            h1, h2, h3 {
+              color: #1f2937;
+              margin-top: 24px;
+              margin-bottom: 12px;
+            }
+            h1 { font-size: 24px; font-weight: bold; }
+            h2, h3 { font-size: 18px; font-weight: 600; }
+            p { margin-bottom: 16px; }
+            ul, ol { 
+              margin-bottom: 16px; 
+              padding-left: 24px; 
+            }
+            li { margin-bottom: 4px; }
+            a { color: #2563eb; text-decoration: underline; }
+            .disclaimer {
+              margin-top: 24px;
+              padding: 16px;
+              background-color: #fef3c7;
+              border: 1px solid #f59e0b;
+              border-radius: 8px;
+            }
+            .footer {
+              font-size: 12px;
+              color: #9ca3af;
+              margin-top: 8px;
+            }
+            .watermark {
+              position: fixed;
+              bottom: 20px;
+              right: 20px;
+              opacity: 0.1;
+              z-index: 1000;
+              pointer-events: none;
+            }
+            .watermark img {
+              width: 60px;
+              height: 60px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="watermark">
+            <img src="/genie-preview.png" alt="Genie Logo">
+          </div>
+          ${cleanHtml}
+        </body>
+      </html>
+    `;
+  };
+
   // PDF download handler
   const handleDownloadPDF = async (sectionId: string, fileName: string) => {
+    setIsGeneratingPDF(sectionId);
+    
     try {
       const html2pdf = (await import('html2pdf.js')).default;
-      const element = document.getElementById(sectionId)
-      if (!element) {
-        console.error('Element not found:', sectionId)
-        return
+      
+      // Get the content based on section ID
+      let content: React.ReactElement;
+      let title: string;
+      
+      switch (sectionId) {
+        case 'llc-instructions-content':
+          content = llcHtml;
+          title = 'LLC Filing Instructions';
+          break;
+        case 'ein-guide-content':
+          content = einHtml;
+          title = 'EIN Guide';
+          break;
+        case 'operating-agreement-content':
+          content = oaHtml;
+          title = 'Operating Agreement';
+          break;
+        default:
+          console.error('Unknown section ID:', sectionId);
+          setIsGeneratingPDF(null);
+          return;
       }
 
-      // Ensure the element is visible for proper rendering
-      const originalDisplay = element.style.display
-      const originalVisibility = element.style.visibility
-      element.style.display = 'block'
-      element.style.visibility = 'visible'
-      element.style.position = 'absolute'
-      element.style.left = '-9999px'
-      element.style.top = '0'
-      element.style.width = '800px' // Set a fixed width for consistent rendering
-      element.style.backgroundColor = 'white'
-      element.style.color = 'black'
-      element.style.fontSize = '14px'
-      element.style.lineHeight = '1.5'
-      element.style.padding = '20px'
-      element.style.margin = '0'
+      // Generate clean HTML content with proper styling
+      const htmlContent = generatePDFContent(content, title);
 
-      // Add watermark container
-      const watermarkContainer = document.createElement('div')
-      watermarkContainer.style.position = 'relative'
-      watermarkContainer.style.minHeight = '100vh'
-      watermarkContainer.appendChild(element.cloneNode(true))
+      // Create a temporary container for PDF generation
+      const tempContainer = document.createElement('div');
+      tempContainer.style.cssText = `
+        position: fixed;
+        top: -9999px;
+        left: -9999px;
+        width: 800px;
+        background: white;
+        color: black;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        padding: 40px;
+        margin: 0;
+        z-index: -1;
+        overflow: visible;
+        box-sizing: border-box;
+      `;
 
-      // Add watermark
-      const watermark = document.createElement('div')
-      watermark.style.position = 'absolute'
-      watermark.style.bottom = '20px'
-      watermark.style.right = '20px'
-      watermark.style.opacity = '0.1'
-      watermark.style.zIndex = '1000'
-      watermark.style.pointerEvents = 'none'
-      
-      const watermarkImg = document.createElement('img')
-      watermarkImg.src = '/genie-preview.png'
-      watermarkImg.style.width = '60px'
-      watermarkImg.style.height = '60px'
-      watermark.appendChild(watermarkImg)
-      watermarkContainer.appendChild(watermark)
+      // Set the HTML content
+      tempContainer.innerHTML = htmlContent;
 
-      // Temporarily add to DOM for rendering
-      document.body.appendChild(watermarkContainer)
+      // Add to DOM temporarily
+      document.body.appendChild(tempContainer);
 
-      // Wait for images and fonts to load
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // Wait for content to render and images to load
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
-      // Generate PDF
+      // Generate PDF with improved settings
       const pdf = await html2pdf().set({
         margin: [0.5, 0.5, 0.5, 0.5],
         filename: fileName,
@@ -237,44 +316,71 @@ export default function DashboardPage() {
           scale: 2,
           useCORS: true,
           allowTaint: true,
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          width: 800,
+          height: tempContainer.scrollHeight,
+          scrollX: 0,
+          scrollY: 0,
+          windowWidth: 800,
+          windowHeight: tempContainer.scrollHeight,
+          logging: false
         },
         jsPDF: { 
           unit: 'in', 
           format: 'letter', 
           orientation: 'portrait',
-          compress: true
+          compress: true,
+          precision: 16
         }
-      }).from(watermarkContainer).outputPdf('blob')
+      }).from(tempContainer).outputPdf('blob');
 
       // Clean up
-      document.body.removeChild(watermarkContainer)
-      element.style.display = originalDisplay
-      element.style.visibility = originalVisibility
-      element.style.position = ''
-      element.style.left = ''
-      element.style.top = ''
-      element.style.width = ''
-      element.style.backgroundColor = ''
-      element.style.color = ''
-      element.style.fontSize = ''
-      element.style.lineHeight = ''
-      element.style.padding = ''
-      element.style.margin = ''
+      document.body.removeChild(tempContainer);
 
       // Download the PDF
-      const url = URL.createObjectURL(pdf)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = fileName
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
+      const url = URL.createObjectURL(pdf);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
 
     } catch (error) {
-      console.error('Error generating PDF:', error)
-      alert('There was an error generating the PDF. Please try again.')
+      console.error('Error generating PDF:', error);
+      
+      // Fallback to window.print() if html2pdf fails
+      try {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const originalDisplay = element.style.display;
+          const originalPosition = element.style.position;
+          const originalWidth = element.style.width;
+          const originalHeight = element.style.height;
+          const originalOverflow = element.style.overflow;
+          
+          element.style.display = 'block';
+          element.style.position = 'static';
+          element.style.width = '100%';
+          element.style.height = 'auto';
+          element.style.overflow = 'visible';
+          
+          window.print();
+          
+          // Restore original styles
+          element.style.display = originalDisplay;
+          element.style.position = originalPosition;
+          element.style.width = originalWidth;
+          element.style.height = originalHeight;
+          element.style.overflow = originalOverflow;
+        }
+      } catch (printError) {
+        console.error('Print fallback also failed:', printError);
+        alert('There was an error generating the PDF. Please try again or use the browser\'s print function.');
+      }
+    } finally {
+      setIsGeneratingPDF(null);
     }
   }
 
@@ -592,8 +698,9 @@ export default function DashboardPage() {
                   size="sm"
                   className="w-full sm:w-auto"
                   onClick={() => handleDownloadPDF('llc-instructions-content', 'LLC-Filing-Instructions.pdf')}
+                  disabled={isGeneratingPDF === 'llc-instructions-content'}
                 >
-                  Download as PDF
+                  {isGeneratingPDF === 'llc-instructions-content' ? 'Generating...' : 'Download as PDF'}
                 </Button>
               </div>
               <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
@@ -614,8 +721,9 @@ export default function DashboardPage() {
                   size="sm"
                   className="w-full sm:w-auto"
                   onClick={() => handleDownloadPDF('ein-guide-content', 'EIN-Guide.pdf')}
+                  disabled={isGeneratingPDF === 'ein-guide-content'}
                 >
-                  Download as PDF
+                  {isGeneratingPDF === 'ein-guide-content' ? 'Generating...' : 'Download as PDF'}
                 </Button>
               </div>
               <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
@@ -636,8 +744,9 @@ export default function DashboardPage() {
                   size="sm"
                   className="w-full sm:w-auto"
                   onClick={() => handleDownloadPDF('operating-agreement-content', 'Operating-Agreement.pdf')}
+                  disabled={isGeneratingPDF === 'operating-agreement-content'}
                 >
-                  Download as PDF
+                  {isGeneratingPDF === 'operating-agreement-content' ? 'Generating...' : 'Download as PDF'}
                 </Button>
               </div>
               <div 
