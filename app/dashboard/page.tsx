@@ -652,22 +652,6 @@ export default function DashboardPage() {
                   scrollbarColor: '#cbd5e0 #f7fafc'
                 }}
               >
-                <style jsx>{`
-                  #operating-agreement-content::-webkit-scrollbar {
-                    width: 8px;
-                  }
-                  #operating-agreement-content::-webkit-scrollbar-track {
-                    background: #f7fafc;
-                    border-radius: 4px;
-                  }
-                  #operating-agreement-content::-webkit-scrollbar-thumb {
-                    background: #cbd5e0;
-                    border-radius: 4px;
-                  }
-                  #operating-agreement-content::-webkit-scrollbar-thumb:hover {
-                    background: #a0aec0;
-                  }
-                `}</style>
                 <div id="printable-operating-agreement">{oaHtmlPDF}</div>
               </div>
             </div>
