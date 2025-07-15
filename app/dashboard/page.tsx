@@ -721,18 +721,6 @@ export default function DashboardPage() {
                   {openSection === 'operating-agreement' ? 'Hide' : 'Show More'}
                 </Button>
                 <Button
-                  size="lg"
-                  className="font-bold w-full sm:w-auto text-base"
-                  onClick={() => handleDownloadPDF('operating-agreement', `${user.business_name} Operating Agreement.pdf`)}
-                  disabled={isGeneratingPDF === 'operating-agreement'}
-                >
-                  {isGeneratingPDF === 'operating-agreement' ? (
-                    <RefreshCw className="h-5 w-5 animate-spin" />
-                  ) : (
-                    'Download PDF'
-                  )}
-                </Button>
-                <Button
                   variant="outline"
                   size="lg"
                   className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
