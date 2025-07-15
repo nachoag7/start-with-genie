@@ -642,7 +642,7 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         {/* Main Content and Sidebar Layout */}
         <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-16 items-start justify-center">
-          {/* Main Content Column: Stacked Cards */}
+          {/* Main Content Column: Stacked, Symmetrical Cards */}
           <div className="w-full max-w-2xl mx-auto flex flex-col gap-8">
             {/* Welcome Section */}
             <div className="bg-white shadow-sm rounded-2xl px-8 py-8 flex flex-col items-center text-center border border-gray-100 mb-2">
@@ -650,7 +650,7 @@ export default function DashboardPage() {
               <p className="text-base text-gray-500 font-light mb-1">{user.business_name} &mdash; {user.state}</p>
             </div>
             {/* Setup Checklist Card */}
-            <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex flex-col gap-4 w-full" style={{ minHeight: 'unset' }}>
+            <div className="bg-white rounded-2xl shadow-sm px-8 py-8 border border-gray-100 w-full max-w-xl mx-auto flex flex-col gap-4 transition-all duration-300" style={{ minHeight: checklistOpen ? undefined : 120 }}>
               <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xl font-bold text-gray-900">Setup Checklist</h2>
                 <Button
@@ -699,7 +699,7 @@ export default function DashboardPage() {
               )}
             </div>
             {/* Your Documents Card */}
-            <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex flex-col gap-6 w-full" style={{ minHeight: 'unset' }}>
+            <div className="bg-white rounded-2xl shadow-sm px-8 py-8 border border-gray-100 w-full max-w-xl mx-auto flex flex-col gap-6 transition-all duration-300" style={{ minHeight: documentsOpen ? undefined : 120 }}>
               <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xl font-bold text-gray-900">Your Documents</h2>
                 <Button
