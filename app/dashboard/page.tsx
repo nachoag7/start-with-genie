@@ -760,7 +760,35 @@ export default function DashboardPage() {
                     variant="secondary"
                     size="sm"
                     className="w-full sm:w-auto"
-                    onClick={() => handleDownloadPDF('operating-agreement-content', 'Operating_Agreement.pdf')}
+                    onClick={async () => {
+                      setIsGeneratingPDF('operating-agreement-content');
+                      try {
+                        const response = await fetch('/api/documents/operating-agreement', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            fullName: user?.full_name,
+                            businessName: user?.business_name,
+                            state: user?.state,
+                            email: user?.email,
+                          }),
+                        });
+                        if (!response.ok) {
+                          throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const blob = await response.blob();
+                        const url = URL.createObjectURL(blob);
+                        window.open(url, '_blank');
+                        setTimeout(() => URL.revokeObjectURL(url), 10000);
+                      } catch (error) {
+                        console.error('Error generating Operating Agreement PDF:', error);
+                        alert('PDF generation failed. Please try again or contact support if the issue persists.');
+                      } finally {
+                        setIsGeneratingPDF(null);
+                      }
+                    }}
                     disabled={isGeneratingPDF === 'operating-agreement-content'}
                   >
                     {isGeneratingPDF === 'operating-agreement-content' ? (
