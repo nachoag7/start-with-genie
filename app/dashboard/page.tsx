@@ -529,23 +529,6 @@ export default function DashboardPage() {
                 >
                   Download as PDF
                 </Button>
-                {openSection === 'operating-agreement' && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full sm:w-auto"
-                    onClick={() => {
-                      const element = document.getElementById('operating-agreement-content');
-                      if (element) {
-                        element.requestFullscreen().catch(err => {
-                          console.log('Fullscreen failed:', err);
-                        });
-                      }
-                    }}
-                  >
-                    View Fullscreen
-                  </Button>
-                )}
               </div>
               <div 
                 id="operating-agreement-content" 

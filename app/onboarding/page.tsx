@@ -125,7 +125,7 @@ export default function OnboardingPage() {
 
             <Input
               label="Business name"
-              placeholder="LLC name"
+              placeholder="Name of your business"
               {...register("businessName", { required: "Business name is required" })}
               error={errors.businessName?.message}
             />
