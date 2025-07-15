@@ -177,24 +177,9 @@ export default function DashboardPage() {
   // Helper: Anchor scroll
   // Remove scrollToSection and any scroll logic
 
-  // Helper function to wait for all images in a container to load
-  const waitForImagesToLoad = (container: HTMLElement): Promise<void> => {
-    const images = Array.from(container.getElementsByTagName('img'));
-    if (images.length === 0) return Promise.resolve<void>(void 0);
-    return Promise.all(
-      images.map(img => {
-        if (img.complete && img.naturalHeight !== 0) return Promise.resolve<void>(void 0);
-        return new Promise<void>(resolve => {
-          img.onload = img.onerror = () => resolve();
-        });
-      })
-    ).then(() => void 0);
-  };
-
   // Helper function to generate clean HTML content for PDF
   const generatePDFContent = (content: React.ReactElement, title: string) => {
     const cleanHtml = ReactDOMServer.renderToString(content);
-    const absLogo = typeof window !== 'undefined' ? `${window.location.origin}/genie-og.png` : '/genie-og.png';
     return `
       <!DOCTYPE html>
       <html>
@@ -237,24 +222,9 @@ export default function DashboardPage() {
               color: #9ca3af;
               margin-top: 8px;
             }
-            .watermark {
-              position: fixed;
-              bottom: 20px;
-              right: 20px;
-              opacity: 0.15;
-              z-index: 1000;
-              pointer-events: none;
-            }
-            .watermark img {
-              width: 50px;
-              height: 50px;
-            }
           </style>
         </head>
         <body>
-          <div class="watermark">
-            <img src="${absLogo}" alt="Genie Logo">
-          </div>
           ${cleanHtml}
         </body>
       </html>
@@ -268,6 +238,7 @@ export default function DashboardPage() {
       const html2pdf = (await import('html2pdf.js')).default;
       let content: React.ReactElement;
       let title: string;
+      
       switch (sectionId) {
         case 'llc-instructions-content':
           content = llcHtml;
@@ -285,6 +256,7 @@ export default function DashboardPage() {
           setIsGeneratingPDF(null);
           return;
       }
+
       const htmlContent = generatePDFContent(content, title);
       const tempContainer = document.createElement('div');
       tempContainer.style.cssText = `
@@ -305,8 +277,10 @@ export default function DashboardPage() {
       `;
       tempContainer.innerHTML = htmlContent;
       document.body.appendChild(tempContainer);
-      await waitForImagesToLoad(tempContainer);
+
+      // Simple delay to ensure rendering
       await new Promise(resolve => setTimeout(resolve, 500));
+
       const pdf = await html2pdf().set({
         margin: [0.5, 0.5, 0.5, 0.5],
         filename: fileName,
@@ -322,7 +296,7 @@ export default function DashboardPage() {
           windowWidth: 800,
           windowHeight: tempContainer.scrollHeight,
           logging: false,
-          imageTimeout: 0,
+          imageTimeout: 5000,
           removeContainer: true
         },
         jsPDF: { 
@@ -333,7 +307,9 @@ export default function DashboardPage() {
           precision: 16
         }
       }).from(tempContainer).outputPdf('blob');
+
       document.body.removeChild(tempContainer);
+      
       const url = URL.createObjectURL(pdf);
       const link = document.createElement('a');
       link.href = url;
@@ -343,13 +319,23 @@ export default function DashboardPage() {
       link.style.left = '-9999px';
       document.body.appendChild(link);
       link.click();
+      
       setTimeout(() => {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
       }, 100);
+      
     } catch (error) {
       console.error('Error generating PDF:', error);
-      alert('There was an error generating the PDF. Please check your internet connection and that genie-og.png is present in /public, then try again.');
+      
+      // Clean up temp container if it exists
+      const tempContainer = document.querySelector('div[style*="position: fixed"][style*="top: -9999px"]');
+      if (tempContainer) {
+        document.body.removeChild(tempContainer);
+      }
+      
+      // Show user-friendly error message
+      alert('PDF generation failed. Please try again or contact support if the issue persists.');
     } finally {
       setIsGeneratingPDF(null);
     }
