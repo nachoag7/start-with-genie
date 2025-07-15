@@ -44,19 +44,26 @@ export default function HomePage() {
         {/* Navigation */}
         {/* HERO SECTION */}
         <section className="w-full bg-white pt-16 pb-12 border-b border-gray-100">
-          <div className="max-w-4xl mx-auto flex flex-col-reverse sm:flex-row items-center justify-between gap-8 px-4">
-            <div className="flex-1 text-center sm:text-left">
-              <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Start With Genie</h1>
-              <p className="text-lg sm:text-xl text-gray-600 mb-8 font-medium">Smart, simple LLC setup — guided every step of the way.</p>
-              <Link href="/onboarding">
-                <Button size="lg" className="px-8 py-3 text-lg font-semibold shadow-md">
-                  Get Started <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-            </div>
-            <div className="flex-1 flex justify-center sm:justify-end mb-8 sm:mb-0">
-              <img src="/genie-preview.png" alt="Genie Mascot" className="h-40 w-40 sm:h-56 sm:w-56 object-contain drop-shadow-xl" />
-            </div>
+          <div className="max-w-4xl mx-auto px-4 flex flex-col items-center text-center">
+            <img
+              src="/genie-preview.png"
+              alt="Genie Mascot"
+              className="h-28 w-28 sm:h-40 sm:w-40 md:h-48 md:w-48 object-contain drop-shadow-xl mb-6 md:mb-8"
+            />
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 md:mb-6 tracking-tight">
+              Start With Genie
+            </h1>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 md:mb-10 font-medium">
+              Smart, simple LLC setup — guided every step of the way.
+            </p>
+            <Link href="/onboarding">
+              <Button
+                size="lg"
+                className="px-8 md:px-12 py-3 text-lg md:text-xl font-semibold shadow-md"
+              >
+                Get Started <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
           </div>
         </section>
         {/* 3-STEP PROCESS SECTION */}
