@@ -9,7 +9,13 @@ const styles = StyleSheet.create({
   listItem: { marginBottom: 6 },
 });
 
-export function LLCInstructionsPDF({ user, instructions }: { user: any, instructions: string[] }) {
+export function LLCInstructionsPDF({ user, instructions, filingFee, processingTime, filingUrl }: {
+  user: any,
+  instructions: string[],
+  filingFee: string,
+  processingTime: string,
+  filingUrl: string
+}) {
   return (
     <Document>
       <Page style={styles.page}>
@@ -21,6 +27,11 @@ export function LLCInstructionsPDF({ user, instructions }: { user: any, instruct
             <Text style={styles.listItem}>• Business address: {user.business_address}</Text>
             {/* ...other fields... */}
           </View>
+        </View>
+        <View style={styles.section}>
+          <Text>Filing Fee: {filingFee}</Text>
+          <Text>Processing Time: {processingTime}</Text>
+          <Text>Where to File: {filingUrl}</Text>
         </View>
         <View style={styles.section}>
           <Text>Step-by-Step Instructions:</Text>

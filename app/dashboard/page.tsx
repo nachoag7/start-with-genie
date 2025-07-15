@@ -395,7 +395,7 @@ export default function DashboardPage() {
   const handleDownloadLLC = async () => {
     try {
       setPdfError(null);
-      const doc = <LLCInstructionsPDF user={user} instructions={llcInstructions} />;
+      const doc = <LLCInstructionsPDF user={user} instructions={llcInstructions} filingFee={filingFee} processingTime={processingTime} filingUrl={filingUrl} />;
       const asPdf = pdf(doc);
       const blob = await asPdf.toBlob();
       const url = URL.createObjectURL(blob);
@@ -444,12 +444,11 @@ export default function DashboardPage() {
 
   // Document HTML content generators (match PDF logic, but HTML)
   const today = new Date().toLocaleDateString()
-  const stateInfo = llcStates.find(
-    row => row.Abbreviation?.toUpperCase().trim() === user.state.toUpperCase().trim()
-  );
-  const filingFee = stateInfo?.['Avg Filing Fee'] ? `$${stateInfo['Avg Filing Fee']}` : 'Unavailable — please check your state’s website.';
-  const filingTime = stateInfo?.['Processing Time'] || 'Unavailable — please check your state’s website.';
-  const filingUrl = stateInfo?.['Filing URL'] || 'Unavailable — please check your state’s website.';
+  // Find state info for the user's state abbreviation
+  const stateInfo = llcStates.find(row => row.Abbreviation?.toUpperCase() === user.state?.toUpperCase());
+  const filingFee = stateInfo?.['Avg Filing Fee'] ? `$${stateInfo['Avg Filing Fee']}` : 'Unavailable – please check your state’s website';
+  const processingTime = stateInfo?.['Processing Time'] || 'Unavailable – please check your state’s website';
+  const filingUrl = stateInfo?.['Filing URL'] || 'Unavailable – please check your state’s website';
 
   // --- HTML content for each doc ---
   const llcHtml = (
@@ -475,7 +474,7 @@ export default function DashboardPage() {
       <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. Filing Details for {user.state}</h3>
       <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
         <li style={{ marginBottom: '4px' }}>Filing Fee: {filingFee}</li>
-        <li style={{ marginBottom: '4px' }}>Processing Time: {filingTime}</li>
+        <li style={{ marginBottom: '4px' }}>Processing Time: {processingTime}</li>
         <li style={{ marginBottom: '4px' }}>Where to File: <a href={filingUrl} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>{filingUrl}</a></li>
       </ul>
       
