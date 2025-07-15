@@ -177,10 +177,24 @@ export default function DashboardPage() {
   // Helper: Anchor scroll
   // Remove scrollToSection and any scroll logic
 
+  // Helper function to wait for all images in a container to load
+  const waitForImagesToLoad = (container: HTMLElement): Promise<void> => {
+    const images = Array.from(container.getElementsByTagName('img'));
+    if (images.length === 0) return Promise.resolve<void>(void 0);
+    return Promise.all(
+      images.map(img => {
+        if (img.complete && img.naturalHeight !== 0) return Promise.resolve<void>(void 0);
+        return new Promise<void>(resolve => {
+          img.onload = img.onerror = () => resolve();
+        });
+      })
+    ).then(() => void 0);
+  };
+
   // Helper function to generate clean HTML content for PDF
   const generatePDFContent = (content: React.ReactElement, title: string) => {
     const cleanHtml = ReactDOMServer.renderToString(content);
-    
+    const absLogo = typeof window !== 'undefined' ? `${window.location.origin}/genie-og.png` : '/genie-og.png';
     return `
       <!DOCTYPE html>
       <html>
@@ -239,7 +253,7 @@ export default function DashboardPage() {
         </head>
         <body>
           <div class="watermark">
-            <img src="/genie-og.png" alt="Genie Logo">
+            <img src="${absLogo}" alt="Genie Logo">
           </div>
           ${cleanHtml}
         </body>
@@ -250,14 +264,10 @@ export default function DashboardPage() {
   // PDF download handler
   const handleDownloadPDF = async (sectionId: string, fileName: string) => {
     setIsGeneratingPDF(sectionId);
-    
     try {
       const html2pdf = (await import('html2pdf.js')).default;
-      
-      // Get the content based on section ID
       let content: React.ReactElement;
       let title: string;
-      
       switch (sectionId) {
         case 'llc-instructions-content':
           content = llcHtml;
@@ -272,15 +282,10 @@ export default function DashboardPage() {
           title = 'Operating Agreement';
           break;
         default:
-          console.error('Unknown section ID:', sectionId);
           setIsGeneratingPDF(null);
           return;
       }
-
-      // Generate clean HTML content with proper styling
       const htmlContent = generatePDFContent(content, title);
-
-      // Create a temporary container for PDF generation
       const tempContainer = document.createElement('div');
       tempContainer.style.cssText = `
         position: fixed;
@@ -298,17 +303,10 @@ export default function DashboardPage() {
         overflow: visible;
         box-sizing: border-box;
       `;
-
-      // Set the HTML content
       tempContainer.innerHTML = htmlContent;
-
-      // Add to DOM temporarily
       document.body.appendChild(tempContainer);
-
-      // Wait for content to render and images to load
-      await new Promise(resolve => setTimeout(resolve, 2500));
-
-      // Generate PDF with improved settings
+      await waitForImagesToLoad(tempContainer);
+      await new Promise(resolve => setTimeout(resolve, 500));
       const pdf = await html2pdf().set({
         margin: [0.5, 0.5, 0.5, 0.5],
         filename: fileName,
@@ -335,11 +333,7 @@ export default function DashboardPage() {
           precision: 16
         }
       }).from(tempContainer).outputPdf('blob');
-
-      // Clean up
       document.body.removeChild(tempContainer);
-
-      // Create download link and trigger download
       const url = URL.createObjectURL(pdf);
       const link = document.createElement('a');
       link.href = url;
@@ -347,45 +341,15 @@ export default function DashboardPage() {
       link.style.display = 'none';
       link.style.position = 'absolute';
       link.style.left = '-9999px';
-      
       document.body.appendChild(link);
       link.click();
-      
-      // Clean up after a short delay
       setTimeout(() => {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
       }, 100);
-
     } catch (error) {
       console.error('Error generating PDF:', error);
-      
-      // Try alternative approach with jsPDF directly
-      try {
-        const { jsPDF } = await import('jspdf');
-        const doc = new jsPDF();
-        
-        // Add a simple text-based version as fallback
-        doc.setFontSize(16);
-        doc.text('Document Generation Failed', 20, 20);
-        doc.setFontSize(12);
-        doc.text('Please try again or contact support if the issue persists.', 20, 40);
-        
-        const pdfBlob = doc.output('blob');
-        const url = URL.createObjectURL(pdfBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName;
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-        
-      } catch (fallbackError) {
-        console.error('Fallback PDF generation also failed:', fallbackError);
-        alert('There was an error generating the PDF. Please try again or contact support.');
-      }
+      alert('There was an error generating the PDF. Please check your internet connection and that genie-og.png is present in /public, then try again.');
     } finally {
       setIsGeneratingPDF(null);
     }
