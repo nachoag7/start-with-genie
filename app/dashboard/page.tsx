@@ -854,12 +854,6 @@ export default function DashboardPage() {
               </Button>
             </div>
           </div>
-
-          {/* Floating Help Module (Assistant + Support) */}
-          <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10">
-            {/* Collapsible Help: Minimized as Need Help tab, expands to show GenieChat + Support */}
-            <HelpWidget />
-          </div>
         </div>
       </div>
 

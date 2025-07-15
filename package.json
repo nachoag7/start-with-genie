@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nativedocuments/docx-wasm": "^2.2.13-1561490777",
+    "@react-google-maps/api": "^2.20.7",
     "@react-pdf/renderer": "^4.3.0",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/supabase-js": "^2.38.5",
@@ -24,8 +25,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
-    "tailwind-merge": "^2.0.0",
-    "xlsx": "^0.18.5"
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
