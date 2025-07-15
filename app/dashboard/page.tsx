@@ -177,15 +177,105 @@ export default function DashboardPage() {
 
   // PDF download handler
   const handleDownloadPDF = async (sectionId: string, fileName: string) => {
-    const html2pdf = (await import('html2pdf.js')).default;
-    const element = document.getElementById(sectionId)
-    if (!element) return
-    html2pdf().set({
-      margin: 0.5,
-      filename: fileName,
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    }).from(element).save()
+    try {
+      const html2pdf = (await import('html2pdf.js')).default;
+      const element = document.getElementById(sectionId)
+      if (!element) {
+        console.error('Element not found:', sectionId)
+        return
+      }
+
+      // Ensure the element is visible for proper rendering
+      const originalDisplay = element.style.display
+      const originalVisibility = element.style.visibility
+      element.style.display = 'block'
+      element.style.visibility = 'visible'
+      element.style.position = 'absolute'
+      element.style.left = '-9999px'
+      element.style.top = '0'
+      element.style.width = '800px' // Set a fixed width for consistent rendering
+      element.style.backgroundColor = 'white'
+      element.style.color = 'black'
+      element.style.fontSize = '14px'
+      element.style.lineHeight = '1.5'
+      element.style.padding = '20px'
+      element.style.margin = '0'
+
+      // Add watermark container
+      const watermarkContainer = document.createElement('div')
+      watermarkContainer.style.position = 'relative'
+      watermarkContainer.style.minHeight = '100vh'
+      watermarkContainer.appendChild(element.cloneNode(true))
+
+      // Add watermark
+      const watermark = document.createElement('div')
+      watermark.style.position = 'absolute'
+      watermark.style.bottom = '20px'
+      watermark.style.right = '20px'
+      watermark.style.opacity = '0.1'
+      watermark.style.zIndex = '1000'
+      watermark.style.pointerEvents = 'none'
+      
+      const watermarkImg = document.createElement('img')
+      watermarkImg.src = '/genie-preview.png'
+      watermarkImg.style.width = '60px'
+      watermarkImg.style.height = '60px'
+      watermark.appendChild(watermarkImg)
+      watermarkContainer.appendChild(watermark)
+
+      // Temporarily add to DOM for rendering
+      document.body.appendChild(watermarkContainer)
+
+      // Wait for images and fonts to load
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // Generate PDF
+      const pdf = await html2pdf().set({
+        margin: [0.5, 0.5, 0.5, 0.5],
+        filename: fileName,
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff'
+        },
+        jsPDF: { 
+          unit: 'in', 
+          format: 'letter', 
+          orientation: 'portrait',
+          compress: true
+        }
+      }).from(watermarkContainer).outputPdf('blob')
+
+      // Clean up
+      document.body.removeChild(watermarkContainer)
+      element.style.display = originalDisplay
+      element.style.visibility = originalVisibility
+      element.style.position = ''
+      element.style.left = ''
+      element.style.top = ''
+      element.style.width = ''
+      element.style.backgroundColor = ''
+      element.style.color = ''
+      element.style.fontSize = ''
+      element.style.lineHeight = ''
+      element.style.padding = ''
+      element.style.margin = ''
+
+      // Download the PDF
+      const url = URL.createObjectURL(pdf)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = fileName
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+      alert('There was an error generating the PDF. Please try again.')
+    }
   }
 
   // Collapsible state
@@ -229,132 +319,152 @@ export default function DashboardPage() {
 
   // --- HTML content for each doc ---
   const llcHtml = (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">LLC Filing Instructions for {user.business_name}</h2>
-      <div className="text-gray-700">Prepared for {user.full_name} | Forming in {user.state}</div>
-      <div className="text-gray-500 text-sm mb-2">Start With Genie – Your silent assistant for setup</div>
-      <div className="text-gray-500 text-sm mb-4">Effective Date: {today}</div>
-      <h3 className="font-semibold text-lg mt-4">1. Why This Step Matters</h3>
-      <p>Filing your Articles of Organization is what officially creates your LLC with the state. Once approved, your business becomes legally recognized and ready to operate.</p>
-      <h3 className="font-semibold text-lg mt-4">2. What You’ll Need</h3>
-      <ul className="list-disc ml-6">
-        <li>Business name: {user.business_name}</li>
-        <li>Owner name(s): {user.full_name}</li>
-        <li>Business address</li>
-        <li>Registered Agent (you or someone else in {user.state})</li>
-        <li>Management structure: Member-managed</li>
-        <li>Filing website login (some states require creating an account)</li>
+    <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
+      <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>LLC Filing Instructions for {user.business_name}</h2>
+      <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Forming in {user.state}</div>
+      <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your silent assistant for setup</div>
+      <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {today}</div>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. Why This Step Matters</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Filing your Articles of Organization is what officially creates your LLC with the state. Once approved, your business becomes legally recognized and ready to operate.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. What You'll Need</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Business name: {user.business_name}</li>
+        <li style={{ marginBottom: '4px' }}>Owner name(s): {user.full_name}</li>
+        <li style={{ marginBottom: '4px' }}>Business address</li>
+        <li style={{ marginBottom: '4px' }}>Registered Agent (you or someone else in {user.state})</li>
+        <li style={{ marginBottom: '4px' }}>Management structure: Member-managed</li>
+        <li style={{ marginBottom: '4px' }}>Filing website login (some states require creating an account)</li>
       </ul>
-      <h3 className="font-semibold text-lg mt-4">3. Filing Details for {user.state}</h3>
-      <ul className="list-disc ml-6">
-        <li>Filing Fee: {filingFee}</li>
-        <li>Processing Time: {filingTime}</li>
-        <li>Where to File: <a href={filingUrl} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">{filingUrl}</a></li>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. Filing Details for {user.state}</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Filing Fee: {filingFee}</li>
+        <li style={{ marginBottom: '4px' }}>Processing Time: {filingTime}</li>
+        <li style={{ marginBottom: '4px' }}>Where to File: <a href={filingUrl} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>{filingUrl}</a></li>
       </ul>
-      <h3 className="font-semibold text-lg mt-4">4. Step-by-Step Instructions</h3>
-      <ol className="list-decimal ml-6">
-        <li>Go to the link above and create an account (if required)</li>
-        <li>Select “Form a New LLC” or “Articles of Organization”</li>
-        <li>Enter your business and owner information</li>
-        <li>Add your Registered Agent</li>
-        <li>Pay the filing fee online</li>
-        <li>Submit the application and wait for approval</li>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. Step-by-Step Instructions</h3>
+      <ol className="list-decimal ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Go to the link above and create an account (if required)</li>
+        <li style={{ marginBottom: '4px' }}>Select "Form a New LLC" or "Articles of Organization"</li>
+        <li style={{ marginBottom: '4px' }}>Enter your business and owner information</li>
+        <li style={{ marginBottom: '4px' }}>Add your Registered Agent</li>
+        <li style={{ marginBottom: '4px' }}>Pay the filing fee online</li>
+        <li style={{ marginBottom: '4px' }}>Submit the application and wait for approval</li>
       </ol>
-      <h3 className="font-semibold text-lg mt-4">5. After You File</h3>
-      <p>Once approved, you’ll receive a confirmation document or certificate from the state. Save this — you’ll need it for your EIN, bank account, and taxes.<br/>Next step: Apply for your EIN and sign your Operating Agreement.</p>
-      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded">
-        <strong>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. After You File</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Once approved, you'll receive a confirmation document or certificate from the state. Save this — you'll need it for your EIN, bank account, and taxes.<br/>Next step: Apply for your EIN and sign your Operating Agreement.</p>
+      
+      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded" style={{ marginTop: '24px', padding: '16px', backgroundColor: '#fef3c7', border: '1px solid #f59e0b', borderRadius: '8px' }}>
+        <strong style={{ fontWeight: '600' }}>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
       </div>
-      <div className="text-xs text-gray-400 mt-2">Generated by Start With Genie</div>
+      <div className="text-xs text-gray-400 mt-2" style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px' }}>Generated by Start With Genie</div>
     </div>
   )
 
   const einHtml = (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">EIN Instructions for {user.business_name}</h2>
-      <div className="text-gray-700">Prepared for {user.full_name} | Formed in {user.state}</div>
-      <div className="text-gray-500 text-sm mb-2">Start With Genie – Your silent assistant for setup</div>
-      <div className="text-gray-500 text-sm mb-4">Effective Date: {today}</div>
-      <h3 className="font-semibold text-lg mt-4">1. What Is an EIN?</h3>
-      <p>An EIN (Employer Identification Number) is a unique ID issued by the IRS. Think of it as your business's Social Security Number — it’s required to:<br/>- Open a business bank account<br/>- File taxes<br/>- Hire employees<br/>- Apply for business credit<br/>Even if you're the only owner, most banks and services will ask for your EIN.</p>
-      <h3 className="font-semibold text-lg mt-4">2. Do You Need One?</h3>
-      <p>Most LLCs do need an EIN. Even if you're a single-member LLC with no employees, you'll likely need it for banking, taxes, or applying for licenses.<br/>Good news: getting an EIN is completely free and only takes a few minutes.</p>
-      <h3 className="font-semibold text-lg mt-4">3. How to Apply Online (Recommended)</h3>
-      <ul className="list-disc ml-6">
-        <li>The IRS provides a free online application for EINs.</li>
-        <li>Where to apply: <a href="https://irs.gov/ein" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">https://irs.gov/ein</a></li>
-        <li>When: Monday through Friday, 7:00 AM – 10:00 PM EST</li>
-        <li>What you'll need: your name ({user.full_name}), your business name ({user.business_name}), business address, business structure: LLC, whether you are the owner</li>
-        <li>The application takes about 10 minutes. You'll receive your EIN immediately after submission.</li>
+    <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
+      <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>EIN Instructions for {user.business_name}</h2>
+      <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Formed in {user.state}</div>
+      <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your silent assistant for setup</div>
+      <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {today}</div>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. What Is an EIN?</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>An EIN (Employer Identification Number) is a unique ID issued by the IRS. Think of it as your business's Social Security Number — it's required to:<br/>- Open a business bank account<br/>- File taxes<br/>- Hire employees<br/>- Apply for business credit<br/>Even if you're the only owner, most banks and services will ask for your EIN.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. Do You Need One?</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Most LLCs do need an EIN. Even if you're a single-member LLC with no employees, you'll likely need it for banking, taxes, or applying for licenses.<br/>Good news: getting an EIN is completely free and only takes a few minutes.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. How to Apply Online (Recommended)</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>The IRS provides a free online application for EINs.</li>
+        <li style={{ marginBottom: '4px' }}>Where to apply: <a href="https://irs.gov/ein" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>https://irs.gov/ein</a></li>
+        <li style={{ marginBottom: '4px' }}>When: Monday through Friday, 7:00 AM – 10:00 PM EST</li>
+        <li style={{ marginBottom: '4px' }}>What you'll need: your name ({user.full_name}), your business name ({user.business_name}), business address, business structure: LLC, whether you are the owner</li>
+        <li style={{ marginBottom: '4px' }}>The application takes about 10 minutes. You'll receive your EIN immediately after submission.</li>
       </ul>
-      <h3 className="font-semibold text-lg mt-4">4. After You Apply</h3>
-      <ul className="list-disc ml-6">
-        <li>Save the confirmation letter (CP 575) — this is your proof of EIN</li>
-        <li>You'll need it to open a business bank account, file taxes, and set up payroll</li>
-        <li>Come back to your Genie Dashboard to download your Operating Agreement</li>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. After You Apply</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Save the confirmation letter (CP 575) — this is your proof of EIN</li>
+        <li style={{ marginBottom: '4px' }}>You'll need it to open a business bank account, file taxes, and set up payroll</li>
+        <li style={{ marginBottom: '4px' }}>Come back to your Genie Dashboard to download your Operating Agreement</li>
       </ul>
-      <h3 className="font-semibold text-lg mt-4">5. Alternate Filing (Mail or Fax)</h3>
-      <ul className="list-disc ml-6">
-        <li>If you don’t have a Social Security Number or can’t use the online form: download Form SS-4, fill it out and send it by mail or fax to the IRS</li>
-        <li>This method takes longer, but works for non-U.S. residents and others with special cases.</li>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. Alternate Filing (Mail or Fax)</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>If you don't have a Social Security Number or can't use the online form: download Form SS-4, fill it out and send it by mail or fax to the IRS</li>
+        <li style={{ marginBottom: '4px' }}>This method takes longer, but works for non-U.S. residents and others with special cases.</li>
       </ul>
-      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded">
-        <strong>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
+      
+      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded" style={{ marginTop: '24px', padding: '16px', backgroundColor: '#fef3c7', border: '1px solid #f59e0b', borderRadius: '8px' }}>
+        <strong style={{ fontWeight: '600' }}>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
       </div>
-      <div className="text-xs text-gray-400 mt-2">Generated by Start With Genie</div>
+      <div className="text-xs text-gray-400 mt-2" style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px' }}>Generated by Start With Genie</div>
     </div>
   )
 
   const oaHtml = (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">Operating Agreement for {user.business_name}</h2>
-      <div className="text-gray-700">Prepared for {user.full_name} | Formed in {user.state}</div>
-      <div className="text-gray-500 text-sm mb-2">Start With Genie – Your silent assistant for setup</div>
-      <div className="text-gray-500 text-sm mb-4">Effective Date: {today}</div>
-      <h3 className="font-semibold text-lg mt-4">1. Introduction</h3>
-      <p>This Operating Agreement ("Agreement") is made effective as of the date above by and among the Member(s) of {user.business_name}, a limited liability company formed under the laws of the State of {user.state}.</p>
-      <h3 className="font-semibold text-lg mt-4">2. Company Overview</h3>
-      <ul className="list-disc ml-6">
-        <li>Business Name: {user.business_name}</li>
-        <li>State of Formation: {user.state}</li>
-        <li>Effective Date: {today}</li>
-        <li>Entity Type: Single-Member LLC</li>
-        <li>Managed By: Member-managed</li>
-        <li>Principal Address: [Not specified]</li>
+    <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
+      <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Operating Agreement for {user.business_name}</h2>
+      <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Formed in {user.state}</div>
+      <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your silent assistant for setup</div>
+      <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {today}</div>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. Introduction</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Operating Agreement ("Agreement") is made effective as of the date above by and among the Member(s) of {user.business_name}, a limited liability company formed under the laws of the State of {user.state}.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. Company Overview</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Business Name: {user.business_name}</li>
+        <li style={{ marginBottom: '4px' }}>State of Formation: {user.state}</li>
+        <li style={{ marginBottom: '4px' }}>Effective Date: {today}</li>
+        <li style={{ marginBottom: '4px' }}>Entity Type: Single-Member LLC</li>
+        <li style={{ marginBottom: '4px' }}>Managed By: Member-managed</li>
+        <li style={{ marginBottom: '4px' }}>Principal Address: [Not specified]</li>
       </ul>
-      <h3 className="font-semibold text-lg mt-4">3. Purpose of the LLC</h3>
-      <p>The purpose of the LLC is to engage in any lawful business activity permitted under the laws of {user.state}. The Member(s) may modify the purpose as needed.</p>
-      <h3 className="font-semibold text-lg mt-4">4. Ownership</h3>
-      <ul className="list-disc ml-6">
-        <li>Member(s): {user.full_name}</li>
-        <li>This is a Single-Member LLC, owned and operated by {user.full_name}.</li>
-        <li>Each Member owns an equal share of the LLC unless otherwise agreed in writing.</li>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. Purpose of the LLC</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The purpose of the LLC is to engage in any lawful business activity permitted under the laws of {user.state}. The Member(s) may modify the purpose as needed.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. Ownership</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Member(s): {user.full_name}</li>
+        <li style={{ marginBottom: '4px' }}>This is a Single-Member LLC, owned and operated by {user.full_name}.</li>
+        <li style={{ marginBottom: '4px' }}>Each Member owns an equal share of the LLC unless otherwise agreed in writing.</li>
       </ul>
-      <h3 className="font-semibold text-lg mt-4">5. Capital Contributions</h3>
-      <ul className="list-disc ml-6">
-        <li>Initial contributions from Member(s): [Not specified]</li>
-        <li>No additional contributions are required unless agreed in writing by all Members.</li>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. Capital Contributions</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Initial contributions from Member(s): [Not specified]</li>
+        <li style={{ marginBottom: '4px' }}>No additional contributions are required unless agreed in writing by all Members.</li>
       </ul>
-      <h3 className="font-semibold text-lg mt-4">6. Profit and Loss Allocation</h3>
-      <p>All profits and losses will be distributed in proportion to ownership, unless otherwise agreed upon. Distributions will be made at the discretion of the Member(s).</p>
-      <h3 className="font-semibold text-lg mt-4">7. Management and Voting</h3>
-      <p>The LLC is Member-managed. Major decisions (such as admitting new members or dissolving the LLC) require approval by all Member(s).</p>
-      <h3 className="font-semibold text-lg mt-4">8. Liability Protection</h3>
-      <p>Member(s) are not personally liable for the debts or obligations of the LLC. The LLC will indemnify Member(s) to the extent permitted by law.</p>
-      <h3 className="font-semibold text-lg mt-4">9. Ownership Changes</h3>
-      <p>No Member may transfer ownership without written consent from the other Member(s), unless required by law.</p>
-      <h3 className="font-semibold text-lg mt-4">10. Dissolution</h3>
-      <p>The LLC may be dissolved upon:<br/>- A majority vote by Member(s)<br/>- Completion of its business purpose<br/>- Only one Member remaining (if multi-member)<br/>Upon dissolution, assets will be distributed in this order:<br/>1. Creditors<br/>2. Taxes<br/>3. Members based on ownership</p>
-      <h3 className="font-semibold text-lg mt-4">11. Governing Law</h3>
-      <p>This Agreement is governed by the laws of the State of {user.state}.</p>
-      <h3 className="font-semibold text-lg mt-4">12. Signatures</h3>
-      <p>By signing below, the Member(s) agree to the terms outlined above.<br/>Signed on: {today}<br/>Member(s): {user.full_name}</p>
-      <h3 className="font-semibold text-lg mt-4">Need Help?</h3>
-      <p>If your business changes, you can revise and re-sign this agreement at any time. Have questions? Email us at info@startwithgenie.com — we’re happy to help.</p>
-      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded">
-        <strong>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>6. Profit and Loss Allocation</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>All profits and losses will be distributed in proportion to ownership, unless otherwise agreed upon. Distributions will be made at the discretion of the Member(s).</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>7. Management and Voting</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC is Member-managed. Major decisions (such as admitting new members or dissolving the LLC) require approval by all Member(s).</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>8. Liability Protection</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Member(s) are not personally liable for the debts or obligations of the LLC. The LLC will indemnify Member(s) to the extent permitted by law.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>9. Ownership Changes</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>No Member may transfer ownership without written consent from the other Member(s), unless required by law.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>10. Dissolution</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC may be dissolved upon:<br/>- A majority vote by Member(s)<br/>- Completion of its business purpose<br/>- Only one Member remaining (if multi-member)<br/>Upon dissolution, assets will be distributed in this order:<br/>1. Creditors<br/>2. Taxes<br/>3. Members based on ownership</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>11. Governing Law</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Agreement is governed by the laws of the State of {user.state}.</p>
+      
+      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded" style={{ marginTop: '24px', padding: '16px', backgroundColor: '#fef3c7', border: '1px solid #f59e0b', borderRadius: '8px' }}>
+        <strong style={{ fontWeight: '600' }}>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
       </div>
-      <div className="text-xs text-gray-400 mt-2">Generated by Start With Genie</div>
+      <div className="text-xs text-gray-400 mt-2" style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px' }}>Generated by Start With Genie</div>
     </div>
   )
 
