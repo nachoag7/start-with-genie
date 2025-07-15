@@ -11,6 +11,7 @@ import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgree
 import GenieChat from '../../components/GenieChat'
 import ContactSupportModal from '../../components/ContactSupportModal'
 import llcStates from '../../data/llc_states.json';
+import HelpWidget from '../../components/HelpWidget';
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
 // Remove: import { OperatingAgreementPDF } from '../../components/pdf/OperatingAgreementPDF';
@@ -641,185 +642,185 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-16 items-start justify-center">
           {/* Main Content Column */}
-          <div className="w-full lg:w-2/3 max-w-2xl mx-auto flex flex-col gap-8">
+          <div className="w-full lg:w-2/3 max-w-2xl mx-auto flex flex-col gap-12">
             {/* Welcome Section */}
             <div className="bg-white shadow-sm rounded-2xl px-8 py-8 flex flex-col items-center text-center border border-gray-100">
-              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Welcome back, <span className="text-primary-600">{user.full_name}</span>!</h1>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Welcome back, <span className="font-bold text-black">{user.full_name}</span>!</h1>
               <p className="text-base text-gray-500 font-light mb-1">{user.business_name} &mdash; {user.state}</p>
             </div>
 
-            {/* Setup Checklist */}
-            <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex flex-col gap-4">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-xl font-bold text-gray-900">Setup Checklist</h2>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center gap-1"
-                  onClick={handleChecklistToggle}
-                  aria-expanded={checklistOpen}
-                  aria-controls="setup-checklist-content"
-                >
-                  <span className={`transition-transform ${checklistOpen ? 'rotate-90' : ''}`}>▶</span>
-                  {checklistOpen ? 'Hide' : 'Show'}
-                </Button>
-              </div>
-              {checklistOpen && (
-                <div id="setup-checklist-content" className="space-y-4 transition-all duration-300">
-                  <ol className="list-decimal pl-6 text-gray-800">
-                    <li className="mb-2">
-                      <span className="font-semibold">File your LLC in {user.state}</span>
-                      <div className="text-gray-700 text-sm">This registers your business with the state and gives it legal status.</div>
-                      <div className="text-gray-700 text-sm mt-1">We’ll give you exact steps once your documents are ready.</div>
-                    </li>
-                    <li className="mb-2">
-                      <span className="font-semibold">Apply for your EIN</span>
-                      <div className="text-gray-700 text-sm">This is your business’s tax ID — required to open a bank account or hire employees.</div>
-                      <div className="text-gray-700 text-sm mt-1">We’ll show you how to get it free from the IRS.</div>
-                    </li>
-                    <li className="mb-2">
-                      <span className="font-semibold">Sign your Operating Agreement</span>
-                      <div className="text-gray-700 text-sm">We’ve already prepared one for you — it’s at the bottom of this page. Just print it, review it, and sign it. Most banks ask for a signed Operating Agreement when opening a business account, and it helps clearly define how your LLC runs.</div>
-                      <div className="text-gray-700 text-sm mt-1">Just review and save the one we generate for you.</div>
-                    </li>
-                  </ol>
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
-                    <div className="text-green-700 font-medium mb-1">
-                      Once you complete these three steps, your business is fully set up and ready to operate. You’ll find all the documents and instructions you need below — no downloads required.
+            {/* Setup Checklist & Documents as aligned cards */}
+            <div className="flex flex-col gap-8 md:gap-10">
+              <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex flex-col gap-4 w-full">
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-xl font-bold text-gray-900">Setup Checklist</h2>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center gap-1"
+                    onClick={handleChecklistToggle}
+                    aria-expanded={checklistOpen}
+                    aria-controls="setup-checklist-content"
+                  >
+                    <span className={`transition-transform ${checklistOpen ? 'rotate-90' : ''}`}>▶</span>
+                    {checklistOpen ? 'Hide' : 'Show'}
+                  </Button>
+                </div>
+                {checklistOpen && (
+                  <div id="setup-checklist-content" className="space-y-4 transition-all duration-300">
+                    <ol className="list-decimal pl-6 text-gray-800">
+                      <li className="mb-2">
+                        <span className="font-semibold">File your LLC in {user.state}</span>
+                        <div className="text-gray-700 text-sm">This registers your business with the state and gives it legal status.</div>
+                        <div className="text-gray-700 text-sm mt-1">We’ll give you exact steps once your documents are ready.</div>
+                      </li>
+                      <li className="mb-2">
+                        <span className="font-semibold">Apply for your EIN</span>
+                        <div className="text-gray-700 text-sm">This is your business’s tax ID — required to open a bank account or hire employees.</div>
+                        <div className="text-gray-700 text-sm mt-1">We’ll show you how to get it free from the IRS.</div>
+                      </li>
+                      <li className="mb-2">
+                        <span className="font-semibold">Sign your Operating Agreement</span>
+                        <div className="text-gray-700 text-sm">We’ve already prepared one for you — it’s at the bottom of this page. Just print it, review it, and sign it. Most banks ask for a signed Operating Agreement when opening a business account, and it helps clearly define how your LLC runs.</div>
+                        <div className="text-gray-700 text-sm mt-1">Just review and save the one we generate for you.</div>
+                      </li>
+                    </ol>
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
+                      <div className="text-green-700 font-medium mb-1">
+                        Once you complete these three steps, your business is fully set up and ready to operate. You’ll find all the documents and instructions you need below — no downloads required.
+                      </div>
+                      <div className="text-green-700 text-sm">
+                        You’ll be able to open a bank account, accept payments, file taxes, and start working under your business name.
+                      </div>
                     </div>
-                    <div className="text-green-700 text-sm">
-                      You’ll be able to open a bank account, accept payments, file taxes, and start working under your business name.
+                    <div className="text-gray-400 text-xs mt-2 font-light">
+                      You can view your documents right here in your dashboard.
                     </div>
                   </div>
-                  <div className="text-gray-400 text-xs mt-2 font-light">
-                    You can view your documents right here in your dashboard.
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Documents Section */}
-            <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex flex-col gap-6">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-xl font-bold text-gray-900">Your Documents</h2>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center gap-1"
-                  onClick={handleDocumentsToggle}
-                  aria-expanded={documentsOpen}
-                  aria-controls="your-documents-section"
-                >
-                  <span className={`transition-transform ${documentsOpen ? 'rotate-90' : ''}`}>▶</span>
-                  {documentsOpen ? 'Hide' : 'Show'}
-                </Button>
+                )}
               </div>
-              <div
-                id="your-documents-section"
-                className={`transition-all duration-300 overflow-hidden ${documentsOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}
-                style={{ willChange: 'max-height, opacity' }}
-              >
-                {/* LLC Filing Instructions */}
-                <div className="bg-gray-50 rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
-                  <h3 className="text-lg font-semibold mb-2">LLC Filing Instructions</h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <Button
-                      size="lg"
-                      className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
-                      onClick={() => toggleSection('llc-instructions')}
-                    >
-                      {openSection === 'llc-instructions' ? 'Hide' : 'Show More'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
-                      onClick={handlePrintLLCInstructions}
-                    >
-                      Print / Save as PDF
-                    </Button>
-                  </div>
-                  <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
-                  {/* Hidden version for printing - always available */}
-                  <div
-                    id="printable-llc-instructions-hidden"
-                    className="hidden"
-                    style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
+              <div className="bg-white rounded-2xl shadow-sm px-8 py-7 border border-gray-100 flex flex-col gap-6 w-full">
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-xl font-bold text-gray-900">Your Documents</h2>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center gap-1"
+                    onClick={handleDocumentsToggle}
+                    aria-expanded={documentsOpen}
+                    aria-controls="your-documents-section"
                   >
-                    {llcHtml}
-                  </div>
+                    <span className={`transition-transform ${documentsOpen ? 'rotate-90' : ''}`}>▶</span>
+                    {documentsOpen ? 'Hide' : 'Show'}
+                  </Button>
                 </div>
-                {/* EIN Guide */}
-                <div className="bg-gray-50 rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
-                  <h3 className="text-lg font-semibold mb-2">EIN Guide</h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <Button
-                      size="lg"
-                      className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
-                      onClick={() => toggleSection('ein-guide')}
+                <div
+                  id="your-documents-section"
+                  className={`transition-all duration-300 overflow-hidden ${documentsOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}
+                  style={{ willChange: 'max-height, opacity' }}
+                >
+                  {/* LLC Filing Instructions */}
+                  <div className="bg-gray-50 rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
+                    <h3 className="text-lg font-semibold mb-2">LLC Filing Instructions</h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                      <Button
+                        size="lg"
+                        className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
+                        onClick={() => toggleSection('llc-instructions')}
+                      >
+                        {openSection === 'llc-instructions' ? 'Hide' : 'Show More'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
+                        onClick={handlePrintLLCInstructions}
+                      >
+                        Print / Save as PDF
+                      </Button>
+                    </div>
+                    <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
+                    {/* Hidden version for printing - always available */}
+                    <div
+                      id="printable-llc-instructions-hidden"
+                      className="hidden"
+                      style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
                     >
-                      {openSection === 'ein-guide' ? 'Hide' : 'Show More'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
-                      onClick={handlePrintEINGuide}
+                      {llcHtml}
+                    </div>
+                  </div>
+                  {/* EIN Guide */}
+                  <div className="bg-gray-50 rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
+                    <h3 className="text-lg font-semibold mb-2">EIN Guide</h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                      <Button
+                        size="lg"
+                        className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
+                        onClick={() => toggleSection('ein-guide')}
+                      >
+                        {openSection === 'ein-guide' ? 'Hide' : 'Show More'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
+                        onClick={handlePrintEINGuide}
+                      >
+                        Print / Save as PDF
+                      </Button>
+                    </div>
+                    <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
+                    {/* Hidden version for printing - always available */}
+                    <div
+                      id="printable-ein-guide-hidden"
+                      className="hidden"
+                      style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
                     >
-                      Print / Save as PDF
-                    </Button>
+                      {einHtml}
+                    </div>
                   </div>
-                  <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
-                  {/* Hidden version for printing - always available */}
-                  <div
-                    id="printable-ein-guide-hidden"
-                    className="hidden"
-                    style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
-                  >
-                    {einHtml}
-                  </div>
-                </div>
-                {/* Operating Agreement */}
-                <div className="bg-gray-50 rounded-xl shadow-sm p-6 border border-gray-100">
-                  <h3 className="text-lg font-semibold mb-2">Operating Agreement</h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
-                    <Button
-                      size="lg"
-                      className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
-                      onClick={() => toggleSection('operating-agreement')}
+                  {/* Operating Agreement */}
+                  <div className="bg-gray-50 rounded-xl shadow-sm p-6 border border-gray-100">
+                    <h3 className="text-lg font-semibold mb-2">Operating Agreement</h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+                      <Button
+                        size="lg"
+                        className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
+                        onClick={() => toggleSection('operating-agreement')}
+                      >
+                        {openSection === 'operating-agreement' ? 'Hide' : 'Show More'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
+                        onClick={handlePrintOperatingAgreement}
+                      >
+                        Print / Save as PDF
+                      </Button>
+                    </div>
+                    <div 
+                      id="operating-agreement-content" 
+                      className={`transition-all duration-300 px-6 py-4 ${
+                        openSection === 'operating-agreement' 
+                          ? 'block max-h-[70vh] overflow-y-auto' 
+                          : 'hidden'
+                      }`}
+                      style={{ 
+                        scrollbarWidth: 'thin',
+                        scrollbarColor: '#cbd5e0 #f7fafc'
+                      }}
                     >
-                      {openSection === 'operating-agreement' ? 'Hide' : 'Show More'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
-                      onClick={handlePrintOperatingAgreement}
+                      <div id="printable-operating-agreement">{oaHtmlPDF}</div>
+                    </div>
+                    {/* Hidden version for printing - always available */}
+                    <div 
+                      id="printable-operating-agreement-hidden" 
+                      className="hidden"
+                      style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
                     >
-                      Print / Save as PDF
-                    </Button>
-                  </div>
-                  <div 
-                    id="operating-agreement-content" 
-                    className={`transition-all duration-300 px-6 py-4 ${
-                      openSection === 'operating-agreement' 
-                        ? 'block max-h-[70vh] overflow-y-auto' 
-                        : 'hidden'
-                    }`}
-                    style={{ 
-                      scrollbarWidth: 'thin',
-                      scrollbarColor: '#cbd5e0 #f7fafc'
-                    }}
-                  >
-                    <div id="printable-operating-agreement">{oaHtmlPDF}</div>
-                  </div>
-                  {/* Hidden version for printing - always available */}
-                  <div 
-                    id="printable-operating-agreement-hidden" 
-                    className="hidden"
-                    style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
-                  >
-                    {oaHtmlPDF}
+                      {oaHtmlPDF}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -854,8 +855,11 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Vertical Divider for desktop */}
-          <div className="hidden lg:block absolute left-2/3 top-0 h-full w-px bg-gray-200" style={{ zIndex: 0 }} />
+          {/* Floating Help Module (Assistant + Support) */}
+          <div className="fixed z-50 right-6 bottom-6 md:right-10 md:bottom-10">
+            {/* Collapsible Help: Minimized as Need Help tab, expands to show GenieChat + Support */}
+            <HelpWidget />
+          </div>
         </div>
       </div>
 
