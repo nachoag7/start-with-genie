@@ -388,6 +388,85 @@ export default function DashboardPage() {
     printWindow.document.close();
   };
 
+  // Print handlers for each document
+  const handlePrintLLCInstructions = () => {
+    const llcHtmlString = document.getElementById('printable-llc-instructions-hidden')?.innerHTML || '';
+    const printWindow = window.open('', '_blank', 'width=900,height=1200');
+    if (!printWindow) return;
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>LLC Filing Instructions</title>
+          <style>
+            body { font-family: Arial, sans-serif; color: #222; background: white; margin: 0; padding: 32px; }
+            h2, h3 { color: #1f2937; }
+            ul, ol { margin-left: 1.5em; }
+            .text-gray-700 { color: #374151; }
+            .text-gray-900 { color: #1f2937; }
+            .text-xs { font-size: 12px; }
+            .bg-yellow-50 { background: #fef3c7; }
+            .border-yellow-200 { border-color: #f59e0b; }
+            .rounded { border-radius: 8px; }
+            .font-bold { font-weight: bold; }
+            .font-semibold { font-weight: 600; }
+            .mt-4 { margin-top: 24px; }
+            .mb-2 { margin-bottom: 8px; }
+            .mb-4 { margin-bottom: 16px; }
+            .mb-6 { margin-bottom: 24px; }
+            .p-4 { padding: 16px; }
+            .list-disc { list-style-type: disc; }
+            .ml-6 { margin-left: 24px; }
+            @media print { body { margin: 0; padding: 0; } }
+          </style>
+        </head>
+        <body>
+          ${llcHtmlString}
+          <script>window.onload = function() { window.print(); window.onafterprint = function() { window.close(); }; };</script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
+  const handlePrintEINGuide = () => {
+    const einHtmlString = document.getElementById('printable-ein-guide-hidden')?.innerHTML || '';
+    const printWindow = window.open('', '_blank', 'width=900,height=1200');
+    if (!printWindow) return;
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>EIN Guide</title>
+          <style>
+            body { font-family: Arial, sans-serif; color: #222; background: white; margin: 0; padding: 32px; }
+            h2, h3 { color: #1f2937; }
+            ul, ol { margin-left: 1.5em; }
+            .text-gray-700 { color: #374151; }
+            .text-gray-900 { color: #1f2937; }
+            .text-xs { font-size: 12px; }
+            .bg-yellow-50 { background: #fef3c7; }
+            .border-yellow-200 { border-color: #f59e0b; }
+            .rounded { border-radius: 8px; }
+            .font-bold { font-weight: bold; }
+            .font-semibold { font-weight: 600; }
+            .mt-4 { margin-top: 24px; }
+            .mb-2 { margin-bottom: 8px; }
+            .mb-4 { margin-bottom: 16px; }
+            .mb-6 { margin-bottom: 24px; }
+            .p-4 { padding: 16px; }
+            .list-disc { list-style-type: disc; }
+            .ml-6 { margin-left: 24px; }
+            @media print { body { margin: 0; padding: 0; } }
+          </style>
+        </head>
+        <body>
+          ${einHtmlString}
+          <script>window.onload = function() { window.print(); window.onafterprint = function() { window.close(); }; };</script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -546,8 +625,8 @@ export default function DashboardPage() {
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Start With Genie</h1>
+            <div className="flex items-center gap-3">
+              <img src="/genie-preview.png" alt="Genie Logo" className="h-9 w-9 rounded-full" />
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="outline" onClick={handleSignOut}>
@@ -657,7 +736,25 @@ export default function DashboardPage() {
                 >
                   {openSection === 'llc-instructions' ? 'Hide' : 'Show More'}
                 </Button>
-                <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
+                {openSection === 'llc-instructions' && (
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
+                    onClick={handlePrintLLCInstructions}
+                  >
+                    Print / Save as PDF
+                  </Button>
+                )}
+              </div>
+              <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
+              {/* Hidden version for printing - always available */}
+              <div
+                id="printable-llc-instructions-hidden"
+                className="hidden"
+                style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
+              >
+                {llcHtml}
               </div>
             </div>
             {/* EIN Guide */}
@@ -671,7 +768,25 @@ export default function DashboardPage() {
                 >
                   {openSection === 'ein-guide' ? 'Hide' : 'Show More'}
                 </Button>
-                <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
+                {openSection === 'ein-guide' && (
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100"
+                    onClick={handlePrintEINGuide}
+                  >
+                    Print / Save as PDF
+                  </Button>
+                )}
+              </div>
+              <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
+              {/* Hidden version for printing - always available */}
+              <div
+                id="printable-ein-guide-hidden"
+                className="hidden"
+                style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
+              >
+                {einHtml}
               </div>
             </div>
             {/* Operating Agreement */}
