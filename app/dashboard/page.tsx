@@ -10,7 +10,6 @@ import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
 import GenieChat from '../../components/GenieChat'
 import llcStates from '../../data/llc_states.json';
-import ReactDOMServer from 'react-dom/server';
 
 interface User {
   id: string
@@ -186,58 +185,8 @@ export default function DashboardPage() {
   // Remove scrollToSection and any scroll logic
 
   // Helper function to generate clean HTML content for PDF
-  const generatePDFContent = (content: React.ReactElement, title: string) => {
-    const cleanHtml = ReactDOMServer.renderToString(content);
-    return `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <title>${title}</title>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              font-size: 14px;
-              line-height: 1.6;
-              color: #374151;
-              margin: 0;
-              padding: 40px;
-              background: white;
-            }
-            h1, h2, h3 {
-              color: #1f2937;
-              margin-top: 24px;
-              margin-bottom: 12px;
-            }
-            h1 { font-size: 24px; font-weight: bold; }
-            h2, h3 { font-size: 18px; font-weight: 600; }
-            p { margin-bottom: 16px; }
-            ul, ol { 
-              margin-bottom: 16px; 
-              padding-left: 24px; 
-            }
-            li { margin-bottom: 4px; }
-            a { color: #2563eb; text-decoration: underline; }
-            .disclaimer {
-              margin-top: 24px;
-              padding: 16px;
-              background-color: #fef3c7;
-              border: 1px solid #f59e0b;
-              border-radius: 8px;
-            }
-            .footer {
-              font-size: 12px;
-              color: #9ca3af;
-              margin-top: 8px;
-            }
-          </style>
-        </head>
-        <body>
-          ${cleanHtml}
-        </body>
-      </html>
-    `;
-  };
+  // Remove generatePDFContent and all usage of ReactDOMServer.renderToString
+  // Only use DOM nodes for html2pdf.js
 
   // Helper to render OA content with/without signature section
   const renderOAContent = (user: User, isPDF: boolean) => (
@@ -338,22 +287,15 @@ export default function DashboardPage() {
     try {
       const html2pdf = (await import('html2pdf.js')).default;
       let node: HTMLDivElement | null = null;
-      let content: React.ReactElement;
-      let title: string;
       switch (sectionId) {
         case 'llc-instructions-content':
           node = llcRef.current;
-          content = llcHtml;
-          title = 'LLC Filing Instructions';
           break;
         case 'ein-guide-content':
           node = einRef.current;
-          content = einHtml;
-          title = 'EIN Guide';
           break;
         case 'operating-agreement-content':
-          content = renderOAContent(user!, true);
-          title = 'Operating Agreement';
+          node = oaRef.current;
           break;
         default:
           setIsGeneratingPDF(null);
