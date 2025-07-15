@@ -20,6 +20,8 @@ interface User {
   state: string
   status: string
   business_address: string // ADDED
+  is_solo_owner: string // "yes" or "no"
+  partner_name?: string // optional, if partner
 }
 
 interface Document {
@@ -237,21 +239,121 @@ export default function DashboardPage() {
     `;
   };
 
+  // Helper to render OA content with/without signature section
+  const renderOAContent = (user: User, isPDF: boolean) => (
+    <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
+      <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Operating Agreement for {user.business_name}</h2>
+      <div className="text-gray-700" style={{ fontSize: '16px', marginBottom: '16px' }}>
+        <strong>Company Overview</strong><br />
+        <b>Business Name:</b> {user.business_name}<br />
+        <b>Principal Address:</b> {user.business_address || '[Not specified]'}<br />
+        <b>State:</b> {user.state}
+      </div>
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. Introduction</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Operating Agreement ("Agreement") is made effective as of the date above by and among the Member(s) of {user.business_name}, a limited liability company formed under the laws of the State of {user.state}.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. Company Overview</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Business Name: {user.business_name}</li>
+        <li style={{ marginBottom: '4px' }}>State of Formation: {user.state}</li>
+        <li style={{ marginBottom: '4px' }}>Effective Date: {new Date().toLocaleDateString()}</li>
+        <li style={{ marginBottom: '4px' }}>Entity Type: Single-Member LLC</li>
+        <li style={{ marginBottom: '4px' }}>Managed By: Member-managed</li>
+        <li style={{ marginBottom: '4px' }}>Principal Address: {user.business_address || '[Not specified]'}</li>
+      </ul>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. Purpose of the LLC</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The purpose of the LLC is to engage in any lawful business activity permitted under the laws of {user.state}. The Member(s) may modify the purpose as needed.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. Ownership</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Member(s): {user.full_name}</li>
+        <li style={{ marginBottom: '4px' }}>This is a Single-Member LLC, owned and operated by {user.full_name}.</li>
+        <li style={{ marginBottom: '4px' }}>Each Member owns an equal share of the LLC unless otherwise agreed in writing.</li>
+      </ul>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. Capital Contributions</h3>
+      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
+        <li style={{ marginBottom: '4px' }}>Initial contributions from Member(s): [Not specified]</li>
+        <li style={{ marginBottom: '4px' }}>No additional contributions are required unless agreed in writing by all Members.</li>
+      </ul>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>6. Profit and Loss Allocation</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>All profits and losses will be distributed in proportion to ownership, unless otherwise agreed upon. Distributions will be made at the discretion of the Member(s).</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>7. Management and Voting</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC is Member-managed. Major decisions (such as admitting new members or dissolving the LLC) require approval by all Member(s).</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>8. Liability Protection</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Member(s) are not personally liable for the debts or obligations of the LLC. The LLC will indemnify Member(s) to the extent permitted by law.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>9. Ownership Changes</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>No Member may transfer ownership without written consent from the other Member(s), unless required by law.</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>10. Dissolution</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC may be dissolved upon:<br/>- A majority vote by Member(s)<br/>- Completion of its business purpose<br/>- Only one Member remaining (if multi-member)<br/>Upon dissolution, assets will be distributed in this order:<br/>1. Creditors<br/>2. Taxes<br/>3. Members based on ownership</p>
+      
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>11. Governing Law</h3>
+      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Agreement is governed by the laws of the State of {user.state}.</p>
+      
+      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded" style={{ marginTop: '24px', padding: '16px', backgroundColor: '#fef3c7', border: '1px solid #f59e0b', borderRadius: '8px' }}>
+        <strong style={{ fontWeight: '600' }}>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
+      </div>
+      <div className="text-xs text-gray-400 mt-2" style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px' }}>Generated by Start With Genie</div>
+      {isPDF && (
+        <div style={{ marginTop: 48 }}>
+          {user.is_solo_owner === 'yes' ? (
+            <>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: 24 }}>
+                <div style={{ borderBottom: '1px solid #222', width: 260, height: 32 }} />
+                <div style={{ fontSize: 14, marginTop: 4 }}>Signature</div>
+                <div style={{ fontSize: 14, marginTop: 4 }}>{user.full_name}</div>
+                <div style={{ fontSize: 14, marginTop: 4 }}>Date: _______________</div>
+              </div>
+            </>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 48 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: 24 }}>
+                <div style={{ borderBottom: '1px solid #222', width: 220, height: 32 }} />
+                <div style={{ fontSize: 14, marginTop: 4 }}>Signature</div>
+                <div style={{ fontSize: 14, marginTop: 4 }}>{user.full_name}</div>
+                <div style={{ fontSize: 14, marginTop: 4 }}>Date: _______________</div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: 24 }}>
+                <div style={{ borderBottom: '1px solid #222', width: 220, height: 32 }} />
+                <div style={{ fontSize: 14, marginTop: 4 }}>Signature</div>
+                <div style={{ fontSize: 14, marginTop: 4 }}>{user.partner_name || '[Partner Name]'} </div>
+                <div style={{ fontSize: 14, marginTop: 4 }}>Date: _______________</div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+
   // PDF download handler using DOM node
   const handleDownloadPDF = async (sectionId: string, fileName: string) => {
     setIsGeneratingPDF(sectionId);
     try {
       const html2pdf = (await import('html2pdf.js')).default;
       let node: HTMLDivElement | null = null;
+      let content: React.ReactElement;
+      let title: string;
       switch (sectionId) {
         case 'llc-instructions-content':
           node = llcRef.current;
+          content = llcHtml;
+          title = 'LLC Filing Instructions';
           break;
         case 'ein-guide-content':
           node = einRef.current;
+          content = einHtml;
+          title = 'EIN Guide';
           break;
         case 'operating-agreement-content':
-          node = oaRef.current;
+          content = renderOAContent(user!, true);
+          title = 'Operating Agreement';
           break;
         default:
           setIsGeneratingPDF(null);
@@ -421,66 +523,11 @@ export default function DashboardPage() {
     </div>
   )
 
-  const oaHtml = (
-    <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
-      <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Operating Agreement for {user.business_name}</h2>
-      <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Formed in {user.state}</div>
-      <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your silent assistant for setup</div>
-      <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {today}</div>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. Introduction</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Operating Agreement ("Agreement") is made effective as of the date above by and among the Member(s) of {user.business_name}, a limited liability company formed under the laws of the State of {user.state}.</p>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. Company Overview</h3>
-      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-        <li style={{ marginBottom: '4px' }}>Business Name: {user.business_name}</li>
-        <li style={{ marginBottom: '4px' }}>State of Formation: {user.state}</li>
-        <li style={{ marginBottom: '4px' }}>Effective Date: {today}</li>
-        <li style={{ marginBottom: '4px' }}>Entity Type: Single-Member LLC</li>
-        <li style={{ marginBottom: '4px' }}>Managed By: Member-managed</li>
-        <li style={{ marginBottom: '4px' }}>Principal Address: {user.business_address || '[Not specified]'}</li>
-      </ul>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. Purpose of the LLC</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The purpose of the LLC is to engage in any lawful business activity permitted under the laws of {user.state}. The Member(s) may modify the purpose as needed.</p>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. Ownership</h3>
-      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-        <li style={{ marginBottom: '4px' }}>Member(s): {user.full_name}</li>
-        <li style={{ marginBottom: '4px' }}>This is a Single-Member LLC, owned and operated by {user.full_name}.</li>
-        <li style={{ marginBottom: '4px' }}>Each Member owns an equal share of the LLC unless otherwise agreed in writing.</li>
-      </ul>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. Capital Contributions</h3>
-      <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-        <li style={{ marginBottom: '4px' }}>Initial contributions from Member(s): [Not specified]</li>
-        <li style={{ marginBottom: '4px' }}>No additional contributions are required unless agreed in writing by all Members.</li>
-      </ul>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>6. Profit and Loss Allocation</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>All profits and losses will be distributed in proportion to ownership, unless otherwise agreed upon. Distributions will be made at the discretion of the Member(s).</p>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>7. Management and Voting</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC is Member-managed. Major decisions (such as admitting new members or dissolving the LLC) require approval by all Member(s).</p>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>8. Liability Protection</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Member(s) are not personally liable for the debts or obligations of the LLC. The LLC will indemnify Member(s) to the extent permitted by law.</p>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>9. Ownership Changes</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>No Member may transfer ownership without written consent from the other Member(s), unless required by law.</p>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>10. Dissolution</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC may be dissolved upon:<br/>- A majority vote by Member(s)<br/>- Completion of its business purpose<br/>- Only one Member remaining (if multi-member)<br/>Upon dissolution, assets will be distributed in this order:<br/>1. Creditors<br/>2. Taxes<br/>3. Members based on ownership</p>
-      
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>11. Governing Law</h3>
-      <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Agreement is governed by the laws of the State of {user.state}.</p>
-      
-      <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded" style={{ marginTop: '24px', padding: '16px', backgroundColor: '#fef3c7', border: '1px solid #f59e0b', borderRadius: '8px' }}>
-        <strong style={{ fontWeight: '600' }}>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
-      </div>
-      <div className="text-xs text-gray-400 mt-2" style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px' }}>Generated by Start With Genie</div>
-    </div>
-  )
+  // For dashboard preview:
+  const oaHtml = renderOAContent(user!, false);
+
+  // For PDF generation:
+  const oaHtmlPDF = renderOAContent(user!, true);
 
   // --- END HTML content ---
 
