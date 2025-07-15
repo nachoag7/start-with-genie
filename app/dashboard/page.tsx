@@ -10,6 +10,10 @@ import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
 import GenieChat from '../../components/GenieChat'
 import llcStates from '../../data/llc_states.json';
+import { pdf } from '@react-pdf/renderer';
+import { OperatingAgreementPDF } from '../../components/pdf/OperatingAgreementPDF';
+import { LLCInstructionsPDF } from '../../components/pdf/LLCInstructionsPDF';
+import { EINGuidePDF } from '../../components/pdf/EINGuidePDF';
 
 interface User {
   id: string
@@ -367,6 +371,61 @@ export default function DashboardPage() {
   const [documentsOpen, setDocumentsOpen] = useState(false)
   const handleDocumentsToggle = () => setDocumentsOpen((v) => !v)
 
+  // Add error state
+  const [pdfError, setPdfError] = useState<string | null>(null);
+
+  // PDF download handlers
+  const handleDownloadOA = async () => {
+    try {
+      setPdfError(null);
+      const doc = <OperatingAgreementPDF user={user} isMultiMember={user?.is_solo_owner === 'no'} />;
+      const asPdf = pdf(doc);
+      const blob = await asPdf.toBlob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Operating_Agreement.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setPdfError('We’re having trouble generating your document — please try again or contact support.');
+    }
+  };
+
+  const handleDownloadLLC = async () => {
+    try {
+      setPdfError(null);
+      const doc = <LLCInstructionsPDF user={user} instructions={llcInstructions} />;
+      const asPdf = pdf(doc);
+      const blob = await asPdf.toBlob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'LLC_Filing_Instructions.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setPdfError('We’re having trouble generating your document — please try again or contact support.');
+    }
+  };
+
+  const handleDownloadEIN = async () => {
+    try {
+      setPdfError(null);
+      const doc = <EINGuidePDF user={user} guideSteps={einGuideSteps} />;
+      const asPdf = pdf(doc);
+      const blob = await asPdf.toBlob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'EIN_Guide.pdf';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setPdfError('We’re having trouble generating your document — please try again or contact support.');
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -502,6 +561,22 @@ export default function DashboardPage() {
   // For PDF generation:
   const oaHtmlPDF = renderOAContent(user!, true);
 
+  // Define instructions for LLC and EIN PDFs
+  const llcInstructions = [
+    'Go to the link above and create an account (if required)',
+    'Select "Form a New LLC" or "Articles of Organization"',
+    'Enter your business name and address',
+    'Add your Registered Agent',
+    'Pay the filing fee online',
+    'Submit the application and wait for approval',
+  ];
+  const einGuideSteps = [
+    'Go to https://irs.gov/ein and start the online application',
+    'Enter your business and personal information',
+    'Select LLC as your business structure',
+    'Complete the application and submit',
+    'Download and save your EIN confirmation letter',
+  ];
   // --- END HTML content ---
 
   return (
@@ -719,13 +794,13 @@ export default function DashboardPage() {
                     variant="secondary"
                     size="sm"
                     className="w-full sm:w-auto"
-                    onClick={() => handleDownloadPDF('operating-agreement-content', 'Operating_Agreement.pdf')}
-                    disabled={isGeneratingPDF === 'operating-agreement-content'}
+                    onClick={handleDownloadOA}
+                    disabled={pdfError !== null}
                   >
-                    {isGeneratingPDF === 'operating-agreement-content' ? (
-                      <span className="flex items-center gap-2">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                        Generating PDF...
+                    {pdfError ? (
+                      <span className="flex items-center gap-2 text-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        {pdfError}
                       </span>
                     ) : (
                       'Download as PDF'
