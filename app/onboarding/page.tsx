@@ -38,6 +38,7 @@ export default function OnboardingPage() {
   const [businessName, setBusinessName] = useState("");
   const [businessAddress, setBusinessAddress] = useState("");
   const [autocomplete, setAutocomplete] = useState<any>(null);
+  const [selectedState, setSelectedState] = useState("");
   const router = useRouter();
 
   const {
@@ -74,6 +75,18 @@ export default function OnboardingPage() {
       const formatted = place.formatted_address || '';
       setBusinessAddress(formatted);
       setValue('businessAddress', formatted, { shouldValidate: true });
+      // Extract state from address components
+      const stateComponent = place.address_components?.find((c: any) => c.types.includes('administrative_area_level_1'));
+      if (stateComponent) {
+        // Try to match abbreviation first, then full name
+        const abbr = stateComponent.short_name;
+        const full = stateComponent.long_name;
+        const match = US_STATES.find(s => s.value === abbr || s.label === full);
+        if (match) {
+          setSelectedState(match.value);
+          setValue('state', match.value, { shouldValidate: true });
+        }
+      }
     }
   };
 
@@ -87,6 +100,7 @@ export default function OnboardingPage() {
     data.fullName = formattedFullName;
     data.businessName = formattedBusinessName;
     data.businessAddress = businessAddress;
+    data.state = selectedState || data.state;
 
     // Validate ownership if multi-member
     if (data.isSoloOwner === 'no') {
@@ -243,6 +257,11 @@ export default function OnboardingPage() {
                     label="Which state are you setting it up in?"
                     options={US_STATES}
                     {...register("state", { required: "State is required" })}
+                    value={selectedState}
+                    onChange={e => {
+                      setSelectedState(e.target.value);
+                      setValue('state', e.target.value, { shouldValidate: true });
+                    }}
                     error={errors.state?.message}
                   />
 
