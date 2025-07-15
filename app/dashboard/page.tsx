@@ -543,7 +543,7 @@ export default function DashboardPage() {
           {/* Genie Assistant Inline */}
           <div className="bg-white overflow-hidden shadow rounded-lg flex flex-col justify-between h-full min-h-[220px]">
             <div className="px-4 py-5 sm:p-6 flex-1 flex flex-col justify-between">
-              <GenieChat avatarSrc="/ChatGPT Image Jul 14, 2025, 03_27_13 PM.png" />
+              <GenieChat avatarSrc="/genie-preview.png" />
             </div>
           </div>
 

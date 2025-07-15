@@ -95,8 +95,8 @@ export default function OnboardingPage() {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <Input
-              label="Your Name"
-              placeholder="So we know what to call you"
+              label="Name"
+              placeholder="Your first name"
               {...register("fullName", { required: "Full name is required" })}
               error={errors.fullName?.message}
             />
@@ -104,7 +104,7 @@ export default function OnboardingPage() {
             <Input
               label="Email"
               type="email"
-              placeholder="This will be your login and where we send your setup info"
+              placeholder="Your email"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -116,16 +116,16 @@ export default function OnboardingPage() {
             />
 
             <Input
-              label="Create a Password"
+              label="Password"
               type="password"
-              placeholder="Make it something you'll remember — this secures your dashboard"
+              placeholder="Create a password"
               {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
               error={errors.password?.message}
             />
 
             <Input
-              label="Your Business Name"
-              placeholder="What’s the name of your LLC?"
+              label="Business name"
+              placeholder="LLC name"
               {...register("businessName", { required: "Business name is required" })}
               error={errors.businessName?.message}
             />
@@ -139,8 +139,7 @@ export default function OnboardingPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Are you the only owner?
-                <span className="block text-xs text-gray-500">Just you or will there be partners?</span>
+                Who owns the LLC?
               </label>
               <div className="flex gap-4">
                 <label className="inline-flex items-center">
@@ -150,7 +149,7 @@ export default function OnboardingPage() {
                     {...register("isSoloOwner", { required: "Please select an option" })}
                     className="form-radio text-primary-600"
                   />
-                  <span className="ml-2">Yes, just me</span>
+                  <span className="ml-2">Just me</span>
                 </label>
                 <label className="inline-flex items-center">
                   <input
@@ -159,7 +158,7 @@ export default function OnboardingPage() {
                     {...register("isSoloOwner", { required: "Please select an option" })}
                     className="form-radio text-primary-600"
                   />
-                  <span className="ml-2">No, I have a partner</span>
+                  <span className="ml-2">Me and a partner</span>
                 </label>
               </div>
               {errors.isSoloOwner && (
@@ -168,8 +167,8 @@ export default function OnboardingPage() {
             </div>
 
             <Input
-              label="What kind of business are you starting? (optional)"
-              placeholder="Just a few words — helps us customize your docs"
+              label="Business type (optional)"
+              placeholder="What do you do? (optional)"
               {...register("businessType")}
               error={errors.businessType?.message}
             />

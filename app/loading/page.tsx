@@ -139,29 +139,46 @@ export default function LoadingPage() {
   }, [router])
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <h2 className="mt-6 text-2xl font-bold text-gray-900">
-              Setting up your custom dashboard...
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              {currentStep}
-            </p>
-            
-            <div className="mt-6">
-              <div className="bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-primary-600 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${progress}%` }}
-                ></div>
-              </div>
-              <p className="mt-2 text-xs text-gray-500">
-                {progress}% complete
-              </p>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="max-w-md w-full mx-auto px-4">
+        <div className="bg-white py-12 px-8 shadow-lg rounded-2xl text-center">
+          {/* Logo with Spinner Animation */}
+          <div className="relative mb-8">
+            {/* Spinner ring */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-24 h-24 border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin"></div>
             </div>
+            {/* Genie logo in center */}
+            <div className="relative z-10 flex items-center justify-center">
+              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm">
+                <img 
+                  src="/genie-preview.png" 
+                  alt="Genie" 
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Text Content */}
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Setting up your custom dashboard...
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            {currentStep}
+          </p>
+          
+          {/* Progress Bar */}
+          <div className="mb-4">
+            <div className="bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div 
+                className="bg-primary-600 h-2 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <p className="mt-2 text-xs text-gray-500 font-medium">
+              {progress}% complete
+            </p>
           </div>
         </div>
       </div>
