@@ -651,12 +651,12 @@ export default function DashboardPage() {
             </div>
             {/* Setup Checklist Card */}
             <div className="bg-white rounded-2xl shadow-sm px-8 py-8 border border-gray-100 w-full max-w-xl mx-auto flex flex-col gap-4 transition-all duration-300" style={{ minHeight: checklistOpen ? undefined : 120 }}>
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-xl font-bold text-gray-900">Setup Checklist</h2>
+              <div className="flex items-center justify-center gap-3 mb-2 w-full py-1.5">
+                <h2 className="text-xl font-bold text-gray-900 text-center flex-1">Setup Checklist</h2>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center gap-1"
+                  className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center justify-center gap-1"
                   onClick={handleChecklistToggle}
                   aria-expanded={checklistOpen}
                   aria-controls="setup-checklist-content"
@@ -700,12 +700,12 @@ export default function DashboardPage() {
             </div>
             {/* Your Documents Card */}
             <div className="bg-white rounded-2xl shadow-sm px-8 py-8 border border-gray-100 w-full max-w-xl mx-auto flex flex-col gap-6 transition-all duration-300" style={{ minHeight: documentsOpen ? undefined : 120 }}>
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-xl font-bold text-gray-900">Your Documents</h2>
+              <div className="flex items-center justify-center gap-3 mb-2 w-full py-1.5">
+                <h2 className="text-xl font-bold text-gray-900 text-center flex-1">Your Documents</h2>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center gap-1"
+                  className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center justify-center gap-1"
                   onClick={handleDocumentsToggle}
                   aria-expanded={documentsOpen}
                   aria-controls="your-documents-section"

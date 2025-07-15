@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { Resend } from 'resend'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+const resendApiKey = process.env.RESEND_API_KEY
 
-// Check if environment variables are available
 if (!supabaseUrl || !supabaseServiceKey) {
   console.error('Missing Supabase environment variables')
 }
@@ -12,6 +13,8 @@ if (!supabaseUrl || !supabaseServiceKey) {
 const supabase = supabaseUrl && supabaseServiceKey 
   ? createClient(supabaseUrl, supabaseServiceKey)
   : null
+
+const resend = resendApiKey ? new Resend(resendApiKey) : null
 
 export async function POST(request: NextRequest) {
   try {
@@ -63,9 +66,33 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Optional: Send email notification to support team
-    // This would require setting up an email service like Resend, SendGrid, etc.
-    // For now, we'll just log the message to the database
+    // Send email notification to support team
+    if (resend) {
+      try {
+        await resend.emails.send({
+          from: 'Start With Genie <noreply@startwithgenie.com>',
+          to: 'info@startwithgenie.com',
+          subject: 'New Support Message from Start With Genie',
+          html: `<h2>New Support Message</h2>
+            <p><strong>Name:</strong> ${fullName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message.replace(/\n/g, '<br/>')}</p>`
+        })
+      } catch (emailError) {
+        console.error('Failed to send support email:', emailError)
+        return NextResponse.json(
+          { error: 'Failed to send email. Please try emailing info@startwithgenie.com directly.' },
+          { status: 500 }
+        )
+      }
+    } else {
+      console.error('Resend not configured (missing RESEND_API_KEY)')
+      return NextResponse.json(
+        { error: 'Email service not configured. Please try emailing info@startwithgenie.com directly.' },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json(
       { message: 'Message sent successfully' },
