@@ -394,6 +394,9 @@ export default function DashboardPage() {
     }
   }
 
+  // Helper to get document URL by type
+  const getDocUrl = (type: string) => documents.find(d => d.doc_type === type)?.url;
+
   // Collapsible state
   const [openSection, setOpenSection] = useState<string | null>(null)
   const toggleSection = (id: string) => {
@@ -461,14 +464,28 @@ export default function DashboardPage() {
         <li style={{ marginBottom: '4px' }}>Where to File: <a href={filingUrl} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>{filingUrl}</a></li>
       </ul>
       
-      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. Step-by-Step Instructions</h3>
-      <ol className="list-decimal ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-        <li style={{ marginBottom: '4px' }}>Go to the link above and create an account (if required)</li>
-        <li style={{ marginBottom: '4px' }}>Select "Form a New LLC" or "Articles of Organization"</li>
-        <li style={{ marginBottom: '4px' }}>Enter your business and owner information</li>
-        <li style={{ marginBottom: '4px' }}>Add your Registered Agent</li>
-        <li style={{ marginBottom: '4px' }}>Pay the filing fee online</li>
-        <li style={{ marginBottom: '4px' }}>Submit the application and wait for approval</li>
+      {/* Step-by-Step Instructions - PDF formatting fix */}
+      <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: 600, marginTop: 24, marginBottom: 12, color: '#1f2937' }}>4. Step-by-Step Instructions</h3>
+      <ol
+        className="list-decimal ml-6"
+        style={{
+          fontSize: '14px',
+          marginBottom: '16px',
+          color: '#374151',
+          paddingLeft: '28px',
+          lineHeight: 1.7,
+          textAlign: 'left',
+          maxWidth: '100%',
+          wordBreak: 'break-word',
+          overflowWrap: 'anywhere',
+        }}
+      >
+        <li style={{ marginBottom: '10px' }}>Go to the link above and create an account (if required)</li>
+        <li style={{ marginBottom: '10px' }}>Select "Form a New LLC" or "Articles of Organization"</li>
+        <li style={{ marginBottom: '10px' }}>Enter your business and owner information</li>
+        <li style={{ marginBottom: '10px' }}>Add your Registered Agent</li>
+        <li style={{ marginBottom: '10px' }}>Pay the filing fee online</li>
+        <li style={{ marginBottom: '10px' }}>Submit the application and wait for approval</li>
       </ol>
       
       <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. After You File</h3>
@@ -648,22 +665,33 @@ export default function DashboardPage() {
                 >
                   {openSection === 'llc-instructions' ? 'Hide' : 'Show More'}
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="w-full sm:w-auto"
-                  onClick={() => handleDownloadPDF('llc-instructions-content', 'LLC_Filing_Instructions.pdf')}
-                  disabled={isGeneratingPDF === 'llc-instructions-content'}
-                >
-                  {isGeneratingPDF === 'llc-instructions-content' ? (
-                    <span className="flex items-center gap-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      Generating PDF...
-                    </span>
-                  ) : (
-                    'Download as PDF'
-                  )}
-                </Button>
+                {getDocUrl('LLC Filing Instructions') ? (
+                  <a
+                    href={getDocUrl('LLC Filing Instructions')}
+                    download
+                    className="inline-flex items-center justify-center rounded-lg font-medium transition-colors transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none hover:scale-105 bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500 px-4 py-2 text-sm w-full sm:w-auto"
+                    style={{ minWidth: 140, textAlign: 'center' }}
+                  >
+                    Download PDF
+                  </a>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="w-full sm:w-auto"
+                    onClick={() => handleDownloadPDF('llc-instructions-content', 'LLC_Filing_Instructions.pdf')}
+                    disabled={isGeneratingPDF === 'llc-instructions-content'}
+                  >
+                    {isGeneratingPDF === 'llc-instructions-content' ? (
+                      <span className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Generating PDF...
+                      </span>
+                    ) : (
+                      'Download as PDF'
+                    )}
+                  </Button>
+                )}
               </div>
               <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
               <div style={{display:'none'}}><div ref={llcRef}>{llcHtml}</div></div>
@@ -679,22 +707,33 @@ export default function DashboardPage() {
                 >
                   {openSection === 'ein-guide' ? 'Hide' : 'Show More'}
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="w-full sm:w-auto"
-                  onClick={() => handleDownloadPDF('ein-guide-content', 'EIN_Guide.pdf')}
-                  disabled={isGeneratingPDF === 'ein-guide-content'}
-                >
-                  {isGeneratingPDF === 'ein-guide-content' ? (
-                    <span className="flex items-center gap-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      Generating PDF...
-                    </span>
-                  ) : (
-                    'Download as PDF'
-                  )}
-                </Button>
+                {getDocUrl('EIN Guide') ? (
+                  <a
+                    href={getDocUrl('EIN Guide')}
+                    download
+                    className="inline-flex items-center justify-center rounded-lg font-medium transition-colors transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none hover:scale-105 bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500 px-4 py-2 text-sm w-full sm:w-auto"
+                    style={{ minWidth: 140, textAlign: 'center' }}
+                  >
+                    Download PDF
+                  </a>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="w-full sm:w-auto"
+                    onClick={() => handleDownloadPDF('ein-guide-content', 'EIN_Guide.pdf')}
+                    disabled={isGeneratingPDF === 'ein-guide-content'}
+                  >
+                    {isGeneratingPDF === 'ein-guide-content' ? (
+                      <span className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Generating PDF...
+                      </span>
+                    ) : (
+                      'Download as PDF'
+                    )}
+                  </Button>
+                )}
               </div>
               <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
               <div style={{display:'none'}}><div ref={einRef}>{einHtml}</div></div>
@@ -710,22 +749,33 @@ export default function DashboardPage() {
                 >
                   {openSection === 'operating-agreement' ? 'Hide' : 'Show More'}
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="w-full sm:w-auto"
-                  onClick={() => handleDownloadPDF('operating-agreement-content', 'Operating_Agreement.pdf')}
-                  disabled={isGeneratingPDF === 'operating-agreement-content'}
-                >
-                  {isGeneratingPDF === 'operating-agreement-content' ? (
-                    <span className="flex items-center gap-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      Generating PDF...
-                    </span>
-                  ) : (
-                    'Download as PDF'
-                  )}
-                </Button>
+                {getDocUrl('Operating Agreement') ? (
+                  <a
+                    href={getDocUrl('Operating Agreement')}
+                    download
+                    className="inline-flex items-center justify-center rounded-lg font-medium transition-colors transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none hover:scale-105 bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500 px-4 py-2 text-sm w-full sm:w-auto"
+                    style={{ minWidth: 140, textAlign: 'center' }}
+                  >
+                    Download PDF
+                  </a>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="w-full sm:w-auto"
+                    onClick={() => handleDownloadPDF('operating-agreement-content', 'Operating_Agreement.pdf')}
+                    disabled={isGeneratingPDF === 'operating-agreement-content'}
+                  >
+                    {isGeneratingPDF === 'operating-agreement-content' ? (
+                      <span className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Generating PDF...
+                      </span>
+                    ) : (
+                      'Download as PDF'
+                    )}
+                  </Button>
+                )}
               </div>
               <div 
                 id="operating-agreement-content" 
