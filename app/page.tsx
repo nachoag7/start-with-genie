@@ -125,60 +125,60 @@ export default function HomePage() {
           </div>
         </section>
         {/* FEATURE COMPARISON SECTION */}
-        <section className="bg-white py-20 px-4 sm:px-6 lg:px-8 border-b border-gray-100">
+        <section className="bg-white pt-28 pb-24 px-4 sm:px-6 lg:px-8 border-b border-gray-100">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-10">Start With Genie vs. LegalZoom</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left border border-gray-200 rounded-lg overflow-hidden mt-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-14">Start With Genie vs. LegalZoom</h2>
+            <div className="overflow-x-auto mb-14">
+              <table className="w-full text-xs sm:text-sm text-left border border-gray-200 rounded-lg overflow-hidden mt-10 mb-10">
                 <thead className="bg-gray-50 text-gray-700 font-semibold">
                   <tr>
-                    <th className="px-4 py-3">Feature</th>
-                    <th className="px-4 py-3 text-center">Start With Genie</th>
-                    <th className="px-4 py-3 text-center">LegalZoom</th>
+                    <th className="px-6 py-4">Feature</th>
+                    <th className="px-6 py-4 text-center">Start With Genie</th>
+                    <th className="px-6 py-4 text-center">LegalZoom</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
                   <tr className="border-t">
-                    <td className="px-4 py-3 font-medium">Personalized state filing steps</td>
-                    <td className="px-4 py-3 text-center">✅ Included</td>
-                    <td className="px-4 py-3 text-center">❌ Not included</td>
+                    <td className="px-6 py-4 font-medium">Personalized state filing steps</td>
+                    <td className="px-6 py-4 text-center">✅ Included</td>
+                    <td className="px-6 py-4 text-center">❌ Not included</td>
                   </tr>
                   <tr className="border-t">
-                    <td className="py-3 px-4">LLC filing</td>
-                    <td className="py-3 px-4 text-center text-gray-400">❌ Guided self-filing</td>
-                    <td className="py-3 px-4 text-center">✅ They file it for you</td>
+                    <td className="px-6 py-4">LLC filing</td>
+                    <td className="px-6 py-4 text-center text-gray-400">❌ Guided self-filing</td>
+                    <td className="px-6 py-4 text-center">✅ They file it for you</td>
                   </tr>
                   <tr className="border-t">
-                    <td className="py-3 px-4">EIN registration help</td>
-                    <td className="py-3 px-4 text-center">✅ Free step-by-step guide</td>
-                    <td className="py-3 px-4 text-center">✅ Available for extra</td>
+                    <td className="px-6 py-4">EIN registration help</td>
+                    <td className="px-6 py-4 text-center">✅ Free step-by-step guide</td>
+                    <td className="px-6 py-4 text-center">✅ Available for extra</td>
                   </tr>
                   <tr className="border-t">
-                    <td className="py-3 px-4">Operating agreement</td>
-                    <td className="py-3 px-4 text-center">✅ Included</td>
-                    <td className="py-3 px-4 text-center text-gray-400">❌ Often a paid add-on</td>
+                    <td className="px-6 py-4">Operating agreement</td>
+                    <td className="px-6 py-4 text-center">✅ Included</td>
+                    <td className="px-6 py-4 text-center text-gray-400">❌ Often a paid add-on</td>
                   </tr>
                   <tr className="border-t">
-                    <td className="py-3 px-4">Dashboard + AI assistant</td>
-                    <td className="py-3 px-4 text-center">✅ Included</td>
-                    <td className="py-3 px-4 text-center text-gray-400">❌ Not available</td>
+                    <td className="px-6 py-4">Dashboard + AI assistant</td>
+                    <td className="px-6 py-4 text-center">✅ Included</td>
+                    <td className="px-6 py-4 text-center text-gray-400">❌ Not available</td>
                   </tr>
                   <tr className="border-t">
-                    <td className="py-3 px-4">Human support</td>
-                    <td className="py-3 px-4 text-center">✅ Included</td>
-                    <td className="py-3 px-4 text-center">✅ Included</td>
+                    <td className="px-6 py-4">Human support</td>
+                    <td className="px-6 py-4 text-center">✅ Included</td>
+                    <td className="px-6 py-4 text-center">✅ Included</td>
                   </tr>
                   <tr className="border-t">
-                    <td className="py-3 px-4">Pricing</td>
-                    <td className="py-3 px-4 text-center font-bold">💵 $49 flat</td>
-                    <td className="py-3 px-4 text-center font-bold">💵 $199+</td>
+                    <td className="px-6 py-4">Pricing</td>
+                    <td className="px-6 py-4 text-center font-bold">💵 $49 flat</td>
+                    <td className="px-6 py-4 text-center font-bold">💵 $199+</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             {/* SECONDARY CTA BUTTON - below comparison, above 'Why founders choose Genie' */}
-            <div className="flex justify-center mt-12 mb-10">
+            <div className="flex justify-center mt-16 mb-12">
               <Link href="/onboarding" className="w-full sm:w-auto flex justify-center">
                 <Button size="lg" className="px-8 py-3 text-lg font-semibold shadow-md w-full sm:w-auto">
                   Get Started <ArrowRight className="ml-2 w-5 h-5" />
@@ -187,7 +187,7 @@ export default function HomePage() {
             </div>
 
             {/* Comparison summary (Linear style) */}
-            <h3 className="text-xl font-semibold mt-8 mb-2">Why founders choose Genie</h3>
+            <h3 className="text-xl font-semibold mt-14 mb-2">Why founders choose Genie</h3>
             <p className="text-base leading-relaxed">
               All the tools to form your LLC, plus AI and human support — for a flat $49.
             </p>
