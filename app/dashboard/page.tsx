@@ -12,6 +12,7 @@ import GenieChat from '../../components/GenieChat'
 import ContactSupportModal from '../../components/ContactSupportModal'
 import llcStates from '../../data/llc_states.json';
 import HelpWidget from '../../components/HelpWidget';
+import { motion, AnimatePresence } from 'framer-motion'
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
 // Remove: import { OperatingAgreementPDF } from '../../components/pdf/OperatingAgreementPDF';
@@ -30,6 +31,7 @@ interface User {
   partner_name?: string // optional, if partner
   ownership_primary?: string // NEW
   ownership_partner?: string // NEW
+  checklist_status?: boolean[] // NEW
 }
 
 interface Document {
@@ -53,6 +55,11 @@ export default function DashboardPage() {
   const llcRef = useRef<HTMLDivElement>(null)
   const einRef = useRef<HTMLDivElement>(null)
   const oaRef = useRef<HTMLDivElement>(null)
+
+  // Checklist state
+  const [checklist, setChecklist] = useState([false, false, false])
+  const [isChecklistLoading, setIsChecklistLoading] = useState(true)
+  const [showCongrats, setShowCongrats] = useState(false)
 
   const fetchUserData = async () => {
     try {
@@ -113,6 +120,47 @@ export default function DashboardPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  // Fetch checklist status from Supabase after user is loaded
+  useEffect(() => {
+    if (user) {
+      const status = Array.isArray(user.checklist_status)
+        ? user.checklist_status
+        : (typeof user.checklist_status === 'string' ? JSON.parse(user.checklist_status) : [false, false, false])
+      setChecklist(status)
+      setShowCongrats(status.every(Boolean))
+      setIsChecklistLoading(false)
+    }
+  }, [user])
+
+  // Update checklist in Supabase
+  const updateChecklist = async (newChecklist: boolean[]) => {
+    setChecklist(newChecklist)
+    setShowCongrats(newChecklist.every(Boolean))
+    if (user) {
+      await supabase.from('users').update({ checklist_status: newChecklist }).eq('id', user.id)
+    }
+  }
+
+  // Progress calculation
+  const completedCount = checklist.filter(Boolean).length
+  const progress = completedCount / 3
+
+  // Checklist step data
+  const checklistSteps = [
+    {
+      title: `File your LLC in ${user?.state || '[State]'}`,
+      description: 'This legally registers your business and gives it the authority to operate. Once filed, you\'ll receive your official registration documents.'
+    },
+    {
+      title: 'Apply for your EIN',
+      description: 'Your Employer Identification Number (EIN) is your business’s tax ID — required to open a bank account, hire employees, or file taxes. It’s free through the IRS.'
+    },
+    {
+      title: 'Print and Sign Your Operating Agreement',
+      description: 'We’ve prepared one for you. Just download it, print, review, and sign. Most banks require a signed Operating Agreement to open an account, and it helps clearly define how your LLC runs.'
+    }
+  ]
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -649,8 +697,25 @@ export default function DashboardPage() {
               <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Welcome back, <span className="font-bold text-black">{user.full_name}</span>!</h1>
               <p className="text-base text-gray-500 font-light mb-1">{user.business_name} &mdash; {user.state}</p>
             </div>
-            {/* Setup Checklist Card */}
+            {/* Progress Bar + Checklist Card */}
             <div className="bg-white rounded-2xl shadow-sm px-8 py-8 border border-gray-100 w-full max-w-xl mx-auto flex flex-col gap-4 transition-all duration-300" style={{ minHeight: checklistOpen ? undefined : 120 }}>
+              {/* Progress Bar */}
+              <div className="w-full flex flex-col items-center mb-4">
+                <motion.div
+                  className="relative w-full h-4 bg-gray-100 rounded-full overflow-hidden"
+                  style={{ maxWidth: 420 }}
+                  initial={false}
+                >
+                  <motion.div
+                    className="absolute left-0 top-0 h-4 bg-blue-500 rounded-full"
+                    style={{ width: `${progress * 100}%` }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress * 100}%` }}
+                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                  />
+                </motion.div>
+                <div className="text-xs text-gray-400 mt-1 font-light tracking-wide">{Math.round(progress * 100)}% complete</div>
+              </div>
               <div className="flex items-center justify-center gap-3 mb-2 w-full py-1.5">
                 <h2 className="text-xl font-bold text-gray-900 text-center flex-1">Setup Checklist</h2>
                 <Button
@@ -665,38 +730,72 @@ export default function DashboardPage() {
                   {checklistOpen ? 'Hide' : 'Show'}
                 </Button>
               </div>
-              {checklistOpen && (
-                <div id="setup-checklist-content" className="space-y-4 transition-all duration-300">
-                  <ol className="list-decimal pl-6 text-gray-800">
-                    <li className="mb-2">
-                      <span className="font-semibold">File your LLC in {user.state}</span>
-                      <div className="text-gray-700 text-sm">This registers your business with the state and gives it legal status.</div>
-                      <div className="text-gray-700 text-sm mt-1">We’ll give you exact steps once your documents are ready.</div>
-                    </li>
-                    <li className="mb-2">
-                      <span className="font-semibold">Apply for your EIN</span>
-                      <div className="text-gray-700 text-sm">This is your business’s tax ID — required to open a bank account or hire employees.</div>
-                      <div className="text-gray-700 text-sm mt-1">We’ll show you how to get it free from the IRS.</div>
-                    </li>
-                    <li className="mb-2">
-                      <span className="font-semibold">Sign your Operating Agreement</span>
-                      <div className="text-gray-700 text-sm">We’ve already prepared one for you — it’s at the bottom of this page. Just print it, review it, and sign it. Most banks ask for a signed Operating Agreement when opening a business account, and it helps clearly define how your LLC runs.</div>
-                      <div className="text-gray-700 text-sm mt-1">Just review and save the one we generate for you.</div>
-                    </li>
-                  </ol>
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
-                    <div className="text-green-700 font-medium mb-1">
-                      Once you complete these three steps, your business is fully set up and ready to operate. You’ll find all the documents and instructions you need below — no downloads required.
-                    </div>
-                    <div className="text-green-700 text-sm">
-                      You’ll be able to open a bank account, accept payments, file taxes, and start working under your business name.
-                    </div>
-                  </div>
-                  <div className="text-gray-400 text-xs mt-2 font-light">
-                    You can view your documents right here in your dashboard.
-                  </div>
-                </div>
-              )}
+              <AnimatePresence>
+                {checklistOpen && !isChecklistLoading && (
+                  <motion.div
+                    id="setup-checklist-content"
+                    className="space-y-4 transition-all duration-300"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 16 }}
+                  >
+                    <ol className="space-y-3">
+                      {checklistSteps.map((step, idx) => (
+                        <li key={idx} className="flex items-start gap-3 group">
+                          <button
+                            className={`flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-200 focus:outline-none ${checklist[idx] ? 'bg-blue-500 border-blue-500' : 'bg-white border-gray-300 group-hover:border-blue-400'}`}
+                            aria-checked={checklist[idx]}
+                            onClick={() => {
+                              const updated = [...checklist]
+                              updated[idx] = !updated[idx]
+                              updateChecklist(updated)
+                            }}
+                          >
+                            <motion.span
+                              initial={false}
+                              animate={checklist[idx] ? { scale: 1.1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+                              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                              className="text-white"
+                            >
+                              {checklist[idx] && (
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.3 }} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                              )}
+                            </motion.span>
+                          </button>
+                          <div className={`flex-1 transition-all ${checklist[idx] ? 'opacity-60' : 'opacity-100'}`}>
+                            <div className={`font-semibold text-base ${checklist[idx] ? 'line-through text-gray-500' : 'text-gray-900'}`}>{step.title}</div>
+                            <div className="text-gray-700 text-sm mt-0.5">{step.description}</div>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                    <AnimatePresence>
+                      {showCongrats && (
+                        <motion.div
+                          className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4 flex items-center gap-3"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <motion.span
+                            className="inline-flex items-center justify-center rounded-full bg-green-200 text-green-700 mr-2"
+                            initial={{ scale: 1 }}
+                            animate={{ scale: [1, 1.15, 1] }}
+                            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                          >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6 }} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                          </motion.span>
+                          <div>
+                            <div className="font-semibold text-green-800 text-base">🎉 Congratulations! Your business is now fully set up and ready to operate.</div>
+                            <div className="text-green-700 text-sm mt-1">You’ve completed all the essential steps. You’re ready to open a bank account, accept payments, and start working under your business name.</div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             {/* Your Documents Card */}
             <div className="bg-white rounded-2xl shadow-sm px-8 py-8 border border-gray-100 w-full max-w-xl mx-auto flex flex-col gap-6 transition-all duration-300" style={{ minHeight: documentsOpen ? undefined : 120 }}>
