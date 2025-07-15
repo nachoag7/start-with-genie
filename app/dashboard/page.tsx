@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -36,6 +36,11 @@ export default function DashboardPage() {
   const [isGeneratingPDF, setIsGeneratingPDF] = useState<string | null>(null)
   const router = useRouter()
   const pathname = usePathname()
+
+  // Add refs for each document section
+  const llcRef = useRef<HTMLDivElement>(null)
+  const einRef = useRef<HTMLDivElement>(null)
+  const oaRef = useRef<HTMLDivElement>(null)
 
   const fetchUserData = async () => {
     try {
@@ -231,57 +236,35 @@ export default function DashboardPage() {
     `;
   };
 
-  // PDF download handler
+  // PDF download handler using DOM node
   const handleDownloadPDF = async (sectionId: string, fileName: string) => {
     setIsGeneratingPDF(sectionId);
     try {
       const html2pdf = (await import('html2pdf.js')).default;
-      let content: React.ReactElement;
-      let title: string;
-      
+      let node: HTMLDivElement | null = null;
       switch (sectionId) {
         case 'llc-instructions-content':
-          content = llcHtml;
-          title = 'LLC Filing Instructions';
+          node = llcRef.current;
           break;
         case 'ein-guide-content':
-          content = einHtml;
-          title = 'EIN Guide';
+          node = einRef.current;
           break;
         case 'operating-agreement-content':
-          content = oaHtml;
-          title = 'Operating Agreement';
+          node = oaRef.current;
           break;
         default:
           setIsGeneratingPDF(null);
           return;
       }
-
-      const htmlContent = generatePDFContent(content, title);
-      const tempContainer = document.createElement('div');
-      tempContainer.style.cssText = `
-        position: fixed;
-        top: -9999px;
-        left: -9999px;
-        width: 800px;
-        background: white;
-        color: black;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        padding: 40px;
-        margin: 0;
-        z-index: -1;
-        overflow: visible;
-        box-sizing: border-box;
-      `;
-      tempContainer.innerHTML = htmlContent;
-      document.body.appendChild(tempContainer);
-
-      // Simple delay to ensure rendering
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      const pdf = await html2pdf().set({
+      if (!node) {
+        console.error('PDF source node not found for', sectionId);
+        alert('PDF source not found.');
+        setIsGeneratingPDF(null);
+        return;
+      }
+      console.log('Starting PDF generation for', sectionId, 'with node:', node);
+      await new Promise(resolve => setTimeout(resolve, 200)); // let DOM render
+      await html2pdf().set({
         margin: [0.5, 0.5, 0.5, 0.5],
         filename: fileName,
         html2canvas: { 
@@ -289,15 +272,7 @@ export default function DashboardPage() {
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
-          width: 800,
-          height: tempContainer.scrollHeight,
-          scrollX: 0,
-          scrollY: 0,
-          windowWidth: 800,
-          windowHeight: tempContainer.scrollHeight,
-          logging: false,
-          imageTimeout: 5000,
-          removeContainer: true
+          logging: true,
         },
         jsPDF: { 
           unit: 'in', 
@@ -306,35 +281,10 @@ export default function DashboardPage() {
           compress: true,
           precision: 16
         }
-      }).from(tempContainer).outputPdf('blob');
-
-      document.body.removeChild(tempContainer);
-      
-      const url = URL.createObjectURL(pdf);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      link.style.display = 'none';
-      link.style.position = 'absolute';
-      link.style.left = '-9999px';
-      document.body.appendChild(link);
-      link.click();
-      
-      setTimeout(() => {
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      }, 100);
-      
+      }).from(node).save();
+      console.log('PDF generation complete for', sectionId);
     } catch (error) {
       console.error('Error generating PDF:', error);
-      
-      // Clean up temp container if it exists
-      const tempContainer = document.querySelector('div[style*="position: fixed"][style*="top: -9999px"]');
-      if (tempContainer) {
-        document.body.removeChild(tempContainer);
-      }
-      
-      // Show user-friendly error message
       alert('PDF generation failed. Please try again or contact support if the issue persists.');
     } finally {
       setIsGeneratingPDF(null);
@@ -668,6 +618,7 @@ export default function DashboardPage() {
                 </Button>
               </div>
               <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
+              <div style={{display:'none'}}><div ref={llcRef}>{llcHtml}</div></div>
             </div>
             {/* EIN Guide */}
             <div className="bg-white rounded-lg shadow p-6 mb-6 border border-gray-100">
@@ -698,6 +649,7 @@ export default function DashboardPage() {
                 </Button>
               </div>
               <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
+              <div style={{display:'none'}}><div ref={einRef}>{einHtml}</div></div>
             </div>
             {/* Operating Agreement */}
             <div className="bg-white rounded-lg shadow p-6 border border-gray-100">
@@ -757,6 +709,7 @@ export default function DashboardPage() {
                 `}</style>
                 {oaHtml}
               </div>
+              <div style={{display:'none'}}><div ref={oaRef}>{oaHtml}</div></div>
             </div>
           </div>
         </div>
