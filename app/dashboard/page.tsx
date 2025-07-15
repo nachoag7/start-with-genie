@@ -627,6 +627,7 @@ export default function DashboardPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
               <img src="/genie-preview.png" alt="Genie Logo" className="h-9 w-9 rounded-full" />
+              <span className="text-xl font-bold text-gray-900">Start With Genie</span>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="outline" onClick={handleSignOut}>
