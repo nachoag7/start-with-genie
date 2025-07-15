@@ -9,6 +9,7 @@ import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
 import GenieChat from '../../components/GenieChat'
+import ContactSupportModal from '../../components/ContactSupportModal'
 import llcStates from '../../data/llc_states.json';
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
@@ -26,6 +27,8 @@ interface User {
   business_address: string // ADDED
   is_solo_owner: string // "yes" or "no"
   partner_name?: string // optional, if partner
+  ownership_primary?: string // NEW
+  ownership_partner?: string // NEW
 }
 
 interface Document {
@@ -41,6 +44,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isRegenerating, setIsRegenerating] = useState(false)
   const [isGeneratingPDF, setIsGeneratingPDF] = useState<string | null>(null)
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -196,6 +200,11 @@ export default function DashboardPage() {
   // Helper to render OA content with/without signature section
   const renderOAContent = (user: User, isPDF: boolean) => {
     const isSingleMember = user.is_solo_owner === 'yes';
+    const memberNames = isSingleMember
+      ? user.full_name
+      : `${user.full_name} and ${user.partner_name || '[Partner Name]'}`;
+    const ownershipPrimary = user.ownership_primary || '50';
+    const ownershipPartner = user.ownership_partner || '50';
     return (
       <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
         <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Operating Agreement for {user.business_name}</h2>
@@ -206,52 +215,56 @@ export default function DashboardPage() {
           <b>State:</b> {user.state}
         </div>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. Introduction</h3>
-        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Operating Agreement ("Agreement") is made effective as of the date above by and among the Member(s) of {user.business_name}, a limited liability company formed under the laws of the State of {user.state}.</p>
-        
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>
+          This Operating Agreement ("Agreement") is made effective as of the date above by and among the Member{isSingleMember ? '' : 's'} of {user.business_name}, a limited liability company formed under the laws of the State of {user.state}.
+        </p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. Company Overview</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
           <li style={{ marginBottom: '4px' }}>Business Name: {user.business_name}</li>
           <li style={{ marginBottom: '4px' }}>State of Formation: {user.state}</li>
           <li style={{ marginBottom: '4px' }}>Effective Date: {new Date().toLocaleDateString()}</li>
-          <li style={{ marginBottom: '4px' }}>Entity Type: Single-Member LLC</li>
+          <li style={{ marginBottom: '4px' }}>Entity Type: {isSingleMember ? 'Single-Member LLC' : 'Multi-Member LLC'}</li>
           <li style={{ marginBottom: '4px' }}>Managed By: Member-managed</li>
           <li style={{ marginBottom: '4px' }}>Principal Address: {user.business_address || '[Not specified]'}</li>
         </ul>
-        
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. Purpose of the LLC</h3>
-        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The purpose of the LLC is to engage in any lawful business activity permitted under the laws of {user.state}. The Member(s) may modify the purpose as needed.</p>
-        
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The purpose of the LLC is to engage in any lawful business activity permitted under the laws of {user.state}. The Member{isSingleMember ? '' : 's'} may modify the purpose as needed.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. Ownership</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-          <li style={{ marginBottom: '4px' }}>Member(s): {user.full_name}</li>
-          <li style={{ marginBottom: '4px' }}>This is a Single-Member LLC, owned and operated by {user.full_name}.</li>
+          <li style={{ marginBottom: '4px' }}>Member{isSingleMember ? '' : 's'}: {memberNames}</li>
+          {isSingleMember ? (
+            <li style={{ marginBottom: '4px' }}>This is a Single-Member LLC, owned and operated by {user.full_name}.</li>
+          ) : (
+            <>
+              <li style={{ marginBottom: '4px' }}>{user.full_name}: {ownershipPrimary}% ownership</li>
+              <li style={{ marginBottom: '4px' }}>{user.partner_name || '[Partner Name]'}: {ownershipPartner}% ownership</li>
+              <li style={{ marginBottom: '4px' }}>This is a Multi-Member LLC, owned and operated by both members.</li>
+            </>
+          )}
           <li style={{ marginBottom: '4px' }}>Each Member owns an equal share of the LLC unless otherwise agreed in writing.</li>
         </ul>
-        
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. Capital Contributions</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-          <li style={{ marginBottom: '4px' }}>Initial contributions from Member(s): [Not specified]</li>
-          <li style={{ marginBottom: '4px' }}>No additional contributions are required unless agreed in writing by all Members.</li>
+          <li style={{ marginBottom: '4px' }}>Initial contributions from Member{isSingleMember ? '' : 's'}: [Not specified]</li>
+          <li style={{ marginBottom: '4px' }}>No additional contributions are required unless agreed in writing by all Member{isSingleMember ? '' : 's'}.</li>
         </ul>
-        
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>6. Profit and Loss Allocation</h3>
-        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>All profits and losses will be distributed in proportion to ownership, unless otherwise agreed upon. Distributions will be made at the discretion of the Member(s).</p>
-        
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>
+          All profits and losses will be distributed in proportion to ownership, unless otherwise agreed upon. Distributions will be made at the discretion of the Member{isSingleMember ? '' : 's'}.
+        </p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>7. Management and Voting</h3>
-        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC is Member-managed. Major decisions (such as admitting new members or dissolving the LLC) require approval by all Member(s).</p>
-        
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>
+          The LLC is Member-managed. Major decisions (such as admitting new members or dissolving the LLC) require approval by all Member{isSingleMember ? '' : 's'}.
+          {isSingleMember ? '' : ' Each member’s voting power is proportional to their ownership percentage.'}
+        </p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>8. Liability Protection</h3>
-        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Member(s) are not personally liable for the debts or obligations of the LLC. The LLC will indemnify Member(s) to the extent permitted by law.</p>
-        
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Member{isSingleMember ? '' : 's'} are not personally liable for the debts or obligations of the LLC. The LLC will indemnify Member{isSingleMember ? '' : 's'} to the extent permitted by law.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>9. Ownership Changes</h3>
-        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>No Member may transfer ownership without written consent from the other Member(s), unless required by law.</p>
-        
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>No Member may transfer ownership without written consent from the other Member{isSingleMember ? '' : 's'}, unless required by law.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>10. Dissolution</h3>
-        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC may be dissolved upon:<br/>- A majority vote by Member(s)<br/>- Completion of its business purpose<br/>- Only one Member remaining (if multi-member)<br/>Upon dissolution, assets will be distributed in this order:<br/>1. Creditors<br/>2. Taxes<br/>3. Members based on ownership</p>
-        
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>The LLC may be dissolved upon:<br/>- A majority vote by Member{isSingleMember ? '' : 's'}<br/>- Completion of its business purpose<br/>- Only one Member remaining (if multi-member)<br/>Upon dissolution, assets will be distributed in this order:<br/>1. Creditors<br/>2. Taxes<br/>3. Members based on ownership</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>11. Governing Law</h3>
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Agreement is governed by the laws of the State of {user.state}.</p>
-        
         <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded" style={{ marginTop: '24px', padding: '16px', backgroundColor: '#fef3c7', border: '1px solid #f59e0b', borderRadius: '8px' }}>
           <strong style={{ fontWeight: '600' }}>Disclaimer:</strong> This document is for informational and educational purposes only. It is not legal, tax, or financial advice. Start With Genie is not a law firm and does not provide legal services. You should consult a qualified attorney, accountant, or advisor to ensure this document is appropriate for your specific situation.
         </div>
@@ -264,6 +277,7 @@ export default function DashboardPage() {
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 220 }}>
                   <div style={{ borderBottom: '1px solid #222', width: 200, height: 32 }} />
                   <div style={{ fontSize: 14, marginTop: 8 }}>Member Signature</div>
+                  <div style={{ fontSize: 13, marginTop: 2 }}>{user.full_name}</div>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 220 }}>
                   <div style={{ borderBottom: '1px solid #222', width: 200, height: 32 }} />
@@ -276,6 +290,7 @@ export default function DashboardPage() {
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 220 }}>
                     <div style={{ borderBottom: '1px solid #222', width: 200, height: 32 }} />
                     <div style={{ fontSize: 14, marginTop: 8 }}>Member 1 Signature</div>
+                    <div style={{ fontSize: 13, marginTop: 2 }}>{user.full_name}</div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 220 }}>
                     <div style={{ borderBottom: '1px solid #222', width: 200, height: 32 }} />
@@ -286,6 +301,7 @@ export default function DashboardPage() {
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 220 }}>
                     <div style={{ borderBottom: '1px solid #222', width: 200, height: 32 }} />
                     <div style={{ fontSize: 14, marginTop: 8 }}>Member 2 Signature</div>
+                    <div style={{ fontSize: 13, marginTop: 2 }}>{user.partner_name || '[Partner Name]'}</div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 220 }}>
                     <div style={{ borderBottom: '1px solid #222', width: 200, height: 32 }} />
@@ -682,19 +698,24 @@ export default function DashboardPage() {
                   <p className="text-xs text-gray-500 mb-0 leading-tight">Contact our support team</p>
                 </div>
               </div>
-              <a 
-                href="mailto:info@startwithgenie.com"
-                className="block w-full mt-1"
-                style={{ marginTop: 0 }}
+              <Button 
+                variant="outline" 
+                className="w-full text-xs py-1.5"
+                onClick={() => setIsContactModalOpen(true)}
               >
-                <Button variant="outline" className="w-full text-xs py-1.5">
-                  Contact Support
-                </Button>
-              </a>
+                Contact Support
+              </Button>
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Contact Support Modal */}
+      <ContactSupportModal 
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
+      
       <style jsx global>{`
         @media print {
           body * {
@@ -702,6 +723,9 @@ export default function DashboardPage() {
           }
           #printable-operating-agreement, #printable-operating-agreement * {
             visibility: visible !important;
+            display: block !important;
+            position: static !important;
+            left: 0 !important;
           }
           #printable-operating-agreement {
             position: absolute;

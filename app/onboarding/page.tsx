@@ -19,22 +19,40 @@ interface OnboardingFormData {
   isSoloOwner: string; // "yes" or "no"
   businessType?: string;
   businessAddress: string; // ADDED
+  partnerName?: string; // NEW
+  ownershipPrimary?: string; // NEW
+  ownershipPartner?: string; // NEW
 }
 
 export default function OnboardingPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [memberCount, setMemberCount] = useState<'single' | 'multi'>('single');
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<OnboardingFormData>();
+
+  const isSoloOwner = watch('isSoloOwner');
 
   const onSubmit = async (data: OnboardingFormData) => {
     setIsLoading(true);
     setError("");
+
+    // Validate ownership if multi-member
+    if (data.isSoloOwner === 'no') {
+      const own1 = parseFloat(data.ownershipPrimary || '0');
+      const own2 = parseFloat(data.ownershipPartner || '0');
+      if (own1 + own2 !== 100) {
+        setError('Ownership percentages must add up to 100.');
+        setIsLoading(false);
+        return;
+      }
+    }
 
     try {
       // Create user account with Supabase Auth
@@ -49,6 +67,9 @@ export default function OnboardingPage() {
             is_solo_owner: data.isSoloOwner,
             business_type: data.businessType,
             business_address: data.businessAddress, // ADDED
+            partner_name: data.partnerName || null, // NEW
+            ownership_primary: data.ownershipPrimary || null, // NEW
+            ownership_partner: data.ownershipPartner || null, // NEW
           },
         },
       });
@@ -68,6 +89,9 @@ export default function OnboardingPage() {
         is_solo_owner: data.isSoloOwner,
         business_type: data.businessType,
         business_address: data.businessAddress, // ADDED
+        partner_name: data.partnerName || null, // NEW
+        ownership_primary: data.ownershipPrimary || null, // NEW
+        ownership_partner: data.ownershipPartner || null, // NEW
       });
 
       if (insertError) {
@@ -175,6 +199,38 @@ export default function OnboardingPage() {
                 <p className="text-sm text-red-600 mt-1">{errors.isSoloOwner.message}</p>
               )}
             </div>
+
+            {isSoloOwner === 'no' && (
+              <>
+                <Input
+                  label="Second member's name"
+                  placeholder="Partner's full name"
+                  {...register('partnerName', { required: "Partner's name is required" })}
+                  error={errors.partnerName?.message}
+                />
+                <div className="flex gap-4">
+                  <Input
+                    label="Your ownership %"
+                    type="number"
+                    min="1"
+                    max="99"
+                    step="1"
+                    {...register('ownershipPrimary', { required: 'Required', min: 1, max: 99 })}
+                    error={errors.ownershipPrimary?.message}
+                  />
+                  <Input
+                    label="Partner's ownership %"
+                    type="number"
+                    min="1"
+                    max="99"
+                    step="1"
+                    {...register('ownershipPartner', { required: 'Required', min: 1, max: 99 })}
+                    error={errors.ownershipPartner?.message}
+                  />
+                </div>
+                <div className="text-xs text-gray-500 mt-1">Percentages must add up to 100.</div>
+              </>
+            )}
 
             <Input
               label="Business type (optional)"
