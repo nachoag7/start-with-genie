@@ -513,7 +513,7 @@ export default function DashboardPage() {
             {/* Operating Agreement */}
             <div className="bg-white rounded-lg shadow p-6 border border-gray-100">
               <h3 className="text-lg font-semibold mb-2">Operating Agreement</h3>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
                 <Button
                   size="lg"
                   className="font-bold w-full sm:w-auto text-base"
@@ -529,8 +529,54 @@ export default function DashboardPage() {
                 >
                   Download as PDF
                 </Button>
+                {openSection === 'operating-agreement' && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full sm:w-auto"
+                    onClick={() => {
+                      const element = document.getElementById('operating-agreement-content');
+                      if (element) {
+                        element.requestFullscreen().catch(err => {
+                          console.log('Fullscreen failed:', err);
+                        });
+                      }
+                    }}
+                  >
+                    View Fullscreen
+                  </Button>
+                )}
               </div>
-              <div id="operating-agreement-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'operating-agreement' ? 'block' : 'hidden'}`}>{oaHtml}</div>
+              <div 
+                id="operating-agreement-content" 
+                className={`transition-all duration-300 px-6 py-4 ${
+                  openSection === 'operating-agreement' 
+                    ? 'block max-h-[70vh] overflow-y-auto' 
+                    : 'hidden'
+                }`}
+                style={{ 
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: '#cbd5e0 #f7fafc'
+                }}
+              >
+                <style jsx>{`
+                  #operating-agreement-content::-webkit-scrollbar {
+                    width: 8px;
+                  }
+                  #operating-agreement-content::-webkit-scrollbar-track {
+                    background: #f7fafc;
+                    border-radius: 4px;
+                  }
+                  #operating-agreement-content::-webkit-scrollbar-thumb {
+                    background: #cbd5e0;
+                    border-radius: 4px;
+                  }
+                  #operating-agreement-content::-webkit-scrollbar-thumb:hover {
+                    background: #a0aec0;
+                  }
+                `}</style>
+                {oaHtml}
+              </div>
             </div>
           </div>
         </div>
