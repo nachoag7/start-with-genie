@@ -1,14 +1,14 @@
 "use client"
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Select } from "@/components/ui/Select";
-import { US_STATES } from "@/lib/utils";
-import { supabase } from "@/lib/supabase";
+import { Button } from "../../components/ui/Button";
+import { Input } from "../../components/ui/Input";
+import { Select } from "../../components/ui/Select";
+import { US_STATES } from "../../lib/utils";
+import { supabase } from "../../lib/supabase";
 
 interface OnboardingFormData {
   fullName: string;
@@ -18,6 +18,7 @@ interface OnboardingFormData {
   state: string;
   isSoloOwner: string; // "yes" or "no"
   businessType?: string;
+  businessAddress: string; // ADDED
 }
 
 export default function OnboardingPage() {
@@ -47,6 +48,7 @@ export default function OnboardingPage() {
             state: data.state,
             is_solo_owner: data.isSoloOwner,
             business_type: data.businessType,
+            business_address: data.businessAddress, // ADDED
           },
         },
       });
@@ -65,6 +67,7 @@ export default function OnboardingPage() {
         status: "pending",
         is_solo_owner: data.isSoloOwner,
         business_type: data.businessType,
+        business_address: data.businessAddress, // ADDED
       });
 
       if (insertError) {
@@ -128,6 +131,13 @@ export default function OnboardingPage() {
               placeholder="Name of your business"
               {...register("businessName", { required: "Business name is required" })}
               error={errors.businessName?.message}
+            />
+
+            <Input
+              label="Business address"
+              placeholder="123 Main St, Denver, CO 80202"
+              {...register("businessAddress", { required: "Business address is required" })}
+              error={errors.businessAddress?.message}
             />
 
             <Select

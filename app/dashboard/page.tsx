@@ -19,6 +19,7 @@ interface User {
   email: string
   state: string
   status: string
+  business_address: string // ADDED
 }
 
 interface Document {
@@ -345,7 +346,7 @@ export default function DashboardPage() {
       <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
         <li style={{ marginBottom: '4px' }}>Business name: {user.business_name}</li>
         <li style={{ marginBottom: '4px' }}>Owner name(s): {user.full_name}</li>
-        <li style={{ marginBottom: '4px' }}>Business address</li>
+        <li style={{ marginBottom: '4px' }}>Business address: {user.business_address}</li>
         <li style={{ marginBottom: '4px' }}>Registered Agent (you or someone else in {user.state})</li>
         <li style={{ marginBottom: '4px' }}>Management structure: Member-managed</li>
         <li style={{ marginBottom: '4px' }}>Filing website login (some states require creating an account)</li>
@@ -437,7 +438,7 @@ export default function DashboardPage() {
         <li style={{ marginBottom: '4px' }}>Effective Date: {today}</li>
         <li style={{ marginBottom: '4px' }}>Entity Type: Single-Member LLC</li>
         <li style={{ marginBottom: '4px' }}>Managed By: Member-managed</li>
-        <li style={{ marginBottom: '4px' }}>Principal Address: [Not specified]</li>
+        <li style={{ marginBottom: '4px' }}>Principal Address: {user.business_address || '[Not specified]'}</li>
       </ul>
       
       <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. Purpose of the LLC</h3>

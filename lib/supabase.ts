@@ -28,6 +28,7 @@ export type Database = {
           business_name: string
           state: string
           status: string
+          business_address: string
           created_at: string
           updated_at: string
         }
@@ -38,6 +39,7 @@ export type Database = {
           business_name: string
           state: string
           status?: string
+          business_address: string
           created_at?: string
           updated_at?: string
         }
@@ -48,6 +50,7 @@ export type Database = {
           business_name?: string
           state?: string
           status?: string
+          business_address?: string
           created_at?: string
           updated_at?: string
         }
