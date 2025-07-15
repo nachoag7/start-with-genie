@@ -346,8 +346,34 @@ export default function DashboardPage() {
 
   // 1. Add handlePrintOperatingAgreement function:
   const handlePrintOperatingAgreement = () => {
-    // Hide all except #printable-operating-agreement for print
+    // Always use the hidden version for consistent printing
+    // Hide the visible version and show the hidden version before printing
+    const visibleElement = document.getElementById('printable-operating-agreement');
+    const hiddenElement = document.getElementById('printable-operating-agreement-hidden');
+    
+    if (visibleElement && hiddenElement) {
+      // Hide the visible version
+      visibleElement.style.display = 'none';
+      // Show the hidden version
+      hiddenElement.style.display = 'block';
+      hiddenElement.style.position = 'static';
+      hiddenElement.style.left = 'auto';
+      hiddenElement.style.top = 'auto';
+    }
+    
+    // Trigger print
     window.print();
+    
+    // Restore original state after printing
+    setTimeout(() => {
+      if (visibleElement && hiddenElement) {
+        visibleElement.style.display = '';
+        hiddenElement.style.display = 'none';
+        hiddenElement.style.position = 'absolute';
+        hiddenElement.style.left = '-9999px';
+        hiddenElement.style.top = '-9999px';
+      }
+    }, 100);
   };
 
   if (isLoading) {
@@ -670,6 +696,15 @@ export default function DashboardPage() {
               >
                 <div id="printable-operating-agreement">{oaHtmlPDF}</div>
               </div>
+              
+              {/* Hidden version for printing - always available */}
+              <div 
+                id="printable-operating-agreement-hidden" 
+                className="hidden"
+                style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
+              >
+                {oaHtmlPDF}
+              </div>
             </div>
           </div>
         </div>
@@ -721,13 +756,13 @@ export default function DashboardPage() {
           body * {
             visibility: hidden !important;
           }
-          #printable-operating-agreement, #printable-operating-agreement * {
+          #printable-operating-agreement-hidden, #printable-operating-agreement-hidden * {
             visibility: visible !important;
             display: block !important;
             position: static !important;
             left: 0 !important;
           }
-          #printable-operating-agreement {
+          #printable-operating-agreement-hidden {
             position: absolute;
             left: 0;
             top: 0;
