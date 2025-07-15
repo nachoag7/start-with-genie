@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
+import { Button } from '../../components/ui/Button'
+import { motion } from 'framer-motion'
 
 const GENIE_AVATAR = '/ChatGPT Image.png'; // Custom avatar (ensure this file is in /public)
 
@@ -87,12 +89,14 @@ export default function GeniePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-2">
-      <div className="w-full max-w-2xl bg-white shadow rounded-xl flex flex-col h-[80vh]">
-        <div className="px-6 py-4 border-b border-gray-200 flex items-center gap-3">
-          <img src={GENIE_AVATAR} alt="Genie" className="h-10 w-10 rounded-full border" />
-          <h1 className="text-xl font-bold text-primary-700">Genie Assistant</h1>
-        </div>
+    <main className="min-h-screen bg-neutral-50 flex flex-col items-center justify-center px-4 py-12">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="w-full max-w-2xl bg-white rounded-xl shadow-md p-10 flex flex-col gap-8"
+      >
+        <h1 className="font-semibold text-3xl text-neutral-900 text-center">Genie Assistant</h1>
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-gray-50">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}>
@@ -135,17 +139,17 @@ export default function GeniePage() {
               disabled={isLoading}
               autoFocus
             />
-            <button
+            <Button
               type="submit"
               className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 flex items-center gap-1 disabled:opacity-50"
               disabled={!inputValue.trim() || isLoading}
             >
               <Send className="h-5 w-5" />
               <span className="hidden sm:inline">Send</span>
-            </button>
+            </Button>
           </form>
         </div>
-      </div>
-    </div>
+      </motion.section>
+    </main>
   );
 } 

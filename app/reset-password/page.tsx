@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { supabase } from '../../lib/supabase'
+import { motion } from 'framer-motion'
 
 interface ResetFormData {
   email: string
@@ -36,38 +37,37 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Reset your password
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+    <main className="min-h-screen bg-neutral-50 flex flex-col items-center justify-center px-4 py-12">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="w-full max-w-md bg-white rounded-xl shadow-md p-8 flex flex-col gap-6"
+      >
+        <h1 className="font-semibold text-3xl text-neutral-900 text-center">Reset Your Password</h1>
+        <p className="text-neutral-700 text-center">
           Enter your email and we'll send you a reset link.
         </p>
-      </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              label="Email Address"
-              type="email"
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Invalid email address',
-                },
-              })}
-              error={errors.email?.message}
-            />
-            {error && <div className="text-red-600 text-sm">{error}</div>}
-            {success && <div className="text-green-600 text-sm">{success}</div>}
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Sending...' : 'Send reset link'}
-            </Button>
-          </form>
-        </div>
-      </div>
-    </div>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Email Address"
+            type="email"
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address',
+              },
+            })}
+            error={errors.email?.message}
+          />
+          {error && <div className="text-red-600 text-sm">{error}</div>}
+          {success && <div className="text-green-600 text-sm">{success}</div>}
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? 'Sending...' : 'Send reset link'}
+          </Button>
+        </form>
+      </motion.section>
+    </main>
   )
 } 

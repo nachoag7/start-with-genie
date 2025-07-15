@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { supabase } from '../../lib/supabase'
+import { motion } from 'framer-motion'
 
 interface LoginFormData {
   email: string
@@ -68,19 +69,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Welcome back to Start With Genie
-        </p>
-      </div>
-
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <main className="min-h-screen bg-neutral-50 flex flex-col items-center justify-center px-4 py-12">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="w-full max-w-md bg-white rounded-xl shadow-md p-8 flex flex-col gap-6"
+      >
+        <h1 className="font-semibold text-3xl text-neutral-900 text-center">Sign In to Genie</h1>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <Input
               label="Email Address"
               type="email"
@@ -140,8 +137,7 @@ export default function LoginPage() {
               </Link>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+      </motion.section>
+    </main>
   )
 } 
