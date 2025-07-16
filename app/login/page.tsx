@@ -9,6 +9,7 @@ import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { supabase } from '../../lib/supabase'
 import { motion } from 'framer-motion'
+import Footer from '../../components/Footer'
 
 interface LoginFormData {
   email: string
@@ -69,15 +70,16 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-neutral-50 flex flex-col items-center justify-center px-4 py-12">
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="w-full max-w-md bg-white rounded-xl shadow-md p-8 flex flex-col gap-6"
-      >
-        <h1 className="font-semibold text-3xl text-neutral-900 text-center">Sign In to Genie</h1>
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <div className="min-h-screen bg-neutral-50 flex flex-col">
+      <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="w-full max-w-md bg-white rounded-xl shadow-md p-8 flex flex-col gap-6"
+        >
+          <h1 className="font-semibold text-3xl text-neutral-900 text-center">Sign In to Genie</h1>
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <Input
               label="Email Address"
               type="email"
@@ -137,7 +139,9 @@ export default function LoginPage() {
               </Link>
             </div>
           </div>
-      </motion.section>
-    </main>
+        </motion.section>
+      </main>
+      <Footer />
+    </div>
   )
 } 

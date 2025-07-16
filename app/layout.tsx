@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="antialiased">
       <head>
         <link rel="icon" href="/genie-preview.png" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" href="/genie-preview.png" />
@@ -88,7 +88,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} antialiased`}>
         {/* Removed global header/nav to prevent duplication on dashboard and other signed-in pages */}
         <div className="min-h-screen bg-gray-50">
           {children}

@@ -1,108 +1,119 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-import { Resend } from 'resend'
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '../../../lib/supabase';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-const resendApiKey = process.env.RESEND_API_KEY
-
-if (!supabaseUrl || !supabaseServiceKey) {
-  console.error('Missing Supabase environment variables')
-}
-
-const supabase = supabaseUrl && supabaseServiceKey 
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null
-
-const resend = resendApiKey ? new Resend(resendApiKey) : null
-
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const { fullName, email, message } = await request.json()
+    const { name, email, subject, message } = await req.json();
 
     // Validate required fields
-    if (!fullName || !email || !message) {
+    if (!name || !email || !subject || !message) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'All fields are required' },
         { status: 400 }
-      )
+      );
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { error: 'Invalid email format' },
+        { error: 'Please enter a valid email address' },
         { status: 400 }
-      )
+      );
     }
 
-    // Check if Supabase is configured
-    if (!supabase) {
-      console.error('Supabase not configured')
-      return NextResponse.json(
-        { error: 'Service temporarily unavailable' },
-        { status: 503 }
-      )
-    }
-
-    // Log the support message to database
-    const { error: dbError } = await supabase
+    // Store in Supabase
+    const { data: supabaseData, error: supabaseError } = await supabase
       .from('support_messages')
       .insert([
         {
-          full_name: fullName,
-          email: email,
-          message: message,
-          status: 'new'
-        }
+          full_name: name,
+          email,
+          message: `Subject: ${subject}\n\n${message}`,
+          status: 'new',
+        },
       ])
+      .select();
 
-    if (dbError) {
-      console.error('Database error:', dbError)
+    if (supabaseError) {
+      console.error('Supabase error:', supabaseError);
       return NextResponse.json(
         { error: 'Failed to save message' },
         { status: 500 }
-      )
+      );
     }
 
-    // Send email notification to support team
-    if (resend) {
-      try {
-        await resend.emails.send({
-          from: 'Start With Genie <noreply@startwithgenie.com>',
-          to: 'info@startwithgenie.com',
-          subject: 'New Support Message from Start With Genie',
-          html: `<h2>New Support Message</h2>
-            <p><strong>Name:</strong> ${fullName}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Message:</strong></p>
-            <p>${message.replace(/\n/g, '<br/>')}</p>`
-        })
-      } catch (emailError) {
-        console.error('Failed to send support email:', emailError)
-        return NextResponse.json(
-          { error: 'Failed to send email. Please try emailing info@startwithgenie.com directly.' },
-          { status: 500 }
-        )
-      }
-    } else {
-      console.error('Resend not configured (missing RESEND_API_KEY)')
+    // Send email via Resend
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.error('Resend API key not configured');
       return NextResponse.json(
-        { error: 'Email service not configured. Please try emailing info@startwithgenie.com directly.' },
+        { error: 'Email service not configured' },
         { status: 500 }
-      )
+      );
+    }
+
+    const emailResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Start With Genie <noreply@startwithgenie.com>',
+        to: 'info@startwithgenie.com',
+        subject: `Contact Support: ${subject}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #1f2937; margin-bottom: 20px;">New Contact Support Message</h2>
+            
+            <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+              <h3 style="color: #374151; margin-top: 0;">Message Details:</h3>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Subject:</strong> ${subject}</p>
+              <p><strong>Message:</strong></p>
+              <div style="background-color: white; padding: 15px; border-radius: 4px; border-left: 4px solid #3b82f6;">
+                ${message.replace(/\n/g, '<br>')}
+              </div>
+            </div>
+            
+            <div style="background-color: #fef3c7; padding: 15px; border-radius: 8px; border: 1px solid #f59e0b;">
+              <p style="margin: 0; color: #92400e; font-size: 14px;">
+                <strong>Note:</strong> This message was sent from the Start With Genie contact form.
+                Please respond to the user at: ${email}
+              </p>
+            </div>
+          </div>
+        `,
+      }),
+    });
+
+    if (!emailResponse.ok) {
+      const errorText = await emailResponse.text();
+      console.error('Resend API error:', emailResponse.status, errorText);
+      
+      // Even if email fails, we still saved to Supabase, so return success
+      // but log the email failure
+      return NextResponse.json(
+        { 
+          message: 'Message received! We\'ll get back to you soon.',
+          warning: 'Message saved but email delivery failed'
+        },
+        { status: 200 }
+      );
     }
 
     return NextResponse.json(
-      { message: 'Message sent successfully' },
+      { message: 'Message sent successfully! We\'ll get back to you soon.' },
       { status: 200 }
-    )
+    );
+
   } catch (error) {
-    console.error('Contact support error:', error)
+    console.error('Contact support API error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
-    )
+    );
   }
 } 

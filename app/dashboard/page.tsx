@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Download, MessageCircle, Mail, RefreshCw } from 'lucide-react'
+import { Download, MessageCircle, Mail, RefreshCw, FileText, Building2, CreditCard, CheckCircle, ChevronRight, HelpCircle, X, Bot, BadgeDollarSign, BookOpen, Clock, Eye, Download as DownloadIcon, ScrollText, Send } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
@@ -50,6 +50,7 @@ export default function DashboardPage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+  const [showGenie, setShowGenie] = useState(false)
 
   // Add refs for each document section
   const llcRef = useRef<HTMLDivElement>(null)
@@ -60,6 +61,34 @@ export default function DashboardPage() {
   const [checklist, setChecklist] = useState([false, false, false])
   const [isChecklistLoading, setIsChecklistLoading] = useState(true)
   const [showCongrats, setShowCongrats] = useState(false)
+  
+  // UI state
+  const [openSection, setOpenSection] = useState<string | null>(null)
+  const [checklistOpen, setChecklistOpen] = useState(false)
+  const [documentsOpen, setDocumentsOpen] = useState(false)
+
+  // Get current date and time for welcome message
+  const [currentDateTime, setCurrentDateTime] = useState('')
+  
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date()
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      }
+      setCurrentDateTime(now.toLocaleDateString('en-US', options))
+    }
+    
+    updateDateTime()
+    const interval = setInterval(updateDateTime, 60000) // Update every minute
+    
+    return () => clearInterval(interval)
+  }, [])
 
   const fetchUserData = async () => {
     try {
@@ -104,22 +133,7 @@ export default function DashboardPage() {
     fetchUserData()
   }, [router])
 
-  // Robust scroll-to-top: on route change and after loading
-  useEffect(() => {
-    if (pathname === '/dashboard') {
-      window.scrollTo(0, 0)
-    }
-  }, [pathname])
-  useEffect(() => {
-    if (!isLoading) {
-      window.scrollTo(0, 0)
-    }
-  }, [isLoading])
-
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  // Remove auto-scrolling behavior - let users stay where they are
 
   // Fetch checklist status from Supabase after user is loaded
   useEffect(() => {
@@ -373,18 +387,12 @@ export default function DashboardPage() {
   // Helper to get document URL by type
   const getDocUrl = (type: string) => documents.find(d => d.doc_type === type)?.url;
 
-  // Collapsible state
-  const [openSection, setOpenSection] = useState<string | null>(null)
   const toggleSection = (id: string) => {
     setOpenSection(openSection === id ? null : id)
   }
 
-  // Checklist collapsible state
-  const [checklistOpen, setChecklistOpen] = useState(false)
   const handleChecklistToggle = () => setChecklistOpen((v) => !v)
 
-  // Group documents into a single collapsible section
-  const [documentsOpen, setDocumentsOpen] = useState(false)
   const handleDocumentsToggle = () => setDocumentsOpen((v) => !v)
 
   // Add error state
@@ -669,286 +677,379 @@ export default function DashboardPage() {
   // --- END HTML content ---
 
   return (
-    <main className="min-h-screen bg-neutral-50 flex flex-col items-center px-4 py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="w-full max-w-4xl flex flex-col gap-10"
-      >
-        {/* Progress Bar + Checklist Card */}
-        <section className="bg-white rounded-xl shadow-md p-8 flex flex-col gap-8">
+    <div className="min-h-screen bg-[#f9fafb] font-inter flex flex-col">
+      {/* Header */}
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-[#f2f2f2]">
+        <div className="max-w-4xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <img src="/genie-preview.png" alt="Start With Genie" className="w-8 h-8" />
+              <h1 className="text-lg font-semibold text-[#1d1d1f]">Dashboard</h1>
+            </div>
+            <div className="text-sm text-[#8e8e93]">
+              {user?.business_name} • {user?.state}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="flex-1 max-w-4xl mx-auto px-6 py-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="space-y-8"
+        >
+          {/* Welcome Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="mb-8"
+          >
+            <h2 className="text-xl font-medium text-[#1c1c1e] mb-1">
+              Welcome back, {user?.full_name?.split(' ')[0]} 👋
+            </h2>
+            <p className="text-sm text-[#8e8e93] flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              {currentDateTime}
+            </p>
+          </motion.div>
+
           {/* Progress Bar */}
-          <div className="w-full flex flex-col items-center mb-4">
-            <motion.div
-              className="relative w-full h-4 bg-gray-100 rounded-full overflow-hidden"
-              style={{ maxWidth: 420 }}
-              initial={false}
-            >
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-[#1d1d1f]">Get Set Up</h2>
+              <span className="text-sm font-medium text-[#8e8e93]">{Math.round(progress * 100)}% complete</span>
+            </div>
+            <div className="relative w-full h-1.5 bg-[#f2f2f2] rounded-full overflow-hidden">
               <motion.div
-                className="absolute left-0 top-0 h-4 bg-blue-500 rounded-full"
-                style={{ width: `${progress * 100}%` }}
+                className="absolute left-0 top-0 h-1.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress * 100}%` }}
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
+                transition={{ duration: 0.8, ease: 'easeInOut' }}
               />
-            </motion.div>
-            <div className="text-xs text-gray-400 mt-1 font-light tracking-wide">{Math.round(progress * 100)}% complete</div>
-          </div>
-          <div className="flex items-center justify-center gap-3 mb-2 w-full py-1.5">
-            <h2 className="text-xl font-bold text-gray-900 text-center flex-1">Setup Checklist</h2>
-            <Button
-              variant="outline"
-              size="sm"
-              className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center justify-center gap-1"
-              onClick={handleChecklistToggle}
-              aria-expanded={checklistOpen}
-              aria-controls="setup-checklist-content"
-            >
-              <span className={`transition-transform ${checklistOpen ? 'rotate-90' : ''}`}>▶</span>
-              {checklistOpen ? 'Hide' : 'Show'}
-            </Button>
-          </div>
-          <AnimatePresence>
-            {checklistOpen && !isChecklistLoading && (
-              <motion.div
-                id="setup-checklist-content"
-                className="space-y-4 transition-all duration-300"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 16 }}
-              >
-                <ol className="space-y-3">
-                  {checklistSteps.map((step, idx) => (
-                    <li key={idx} className="flex items-start gap-3 group">
-                      <button
-                        className={`flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-200 focus:outline-none ${checklist[idx] ? 'bg-blue-500 border-blue-500' : 'bg-white border-gray-300 group-hover:border-blue-400'}`}
-                        aria-checked={checklist[idx]}
-                        onClick={() => {
-                          const updated = [...checklist]
-                          updated[idx] = !updated[idx]
-                          updateChecklist(updated)
-                        }}
+            </div>
+          </motion.div>
+
+          {/* Checklist Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6"
+          >
+            <div className="space-y-4">
+              {checklistSteps.map((step, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className={`flex items-start space-x-4 p-4 rounded-lg border transition-all duration-200 ${
+                    checklist[idx] 
+                      ? 'bg-green-50 border-green-200' 
+                      : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center">
+                    {checklist[idx] ? (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                        className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
                       >
-                        <motion.span
-                          initial={false}
-                          animate={checklist[idx] ? { scale: 1.1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-                          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                          className="text-white"
-                        >
-                          {checklist[idx] && (
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.3 }} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                          )}
-                        </motion.span>
-                      </button>
-                      <div className={`flex-1 transition-all ${checklist[idx] ? 'opacity-60' : 'opacity-100'}`}>
-                        <div className={`font-semibold text-base ${checklist[idx] ? 'line-through text-gray-500' : 'text-gray-900'}`}>{step.title}</div>
-                        <div className="text-gray-700 text-sm mt-0.5">{step.description}</div>
+                        <CheckCircle className="w-4 h-4 text-white" />
+                      </motion.div>
+                    ) : (
+                      <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center">
+                        <Clock className="w-4 h-4 text-gray-500" />
                       </div>
-                    </li>
-                  ))}
-                </ol>
-                <AnimatePresence>
-                  {showCongrats && (
-                    <motion.div
-                      className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4 flex items-center gap-3"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <motion.span
-                        className="inline-flex items-center justify-center rounded-full bg-green-200 text-green-700 mr-2"
-                        initial={{ scale: 1 }}
-                        animate={{ scale: [1, 1.15, 1] }}
-                        transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-                      >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6 }} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                      </motion.span>
+                    )}
+                  </div>
+                  <div className={`flex-1 transition-all ${checklist[idx] ? 'opacity-70' : 'opacity-100'}`}>
+                    <div className={`font-semibold text-[#1d1d1f] ${checklist[idx] ? 'line-through' : ''}`}>
+                      {step.title}
+                    </div>
+                    <div className="text-sm text-[#8e8e93] mt-1">
+                      {step.description}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const updated = [...checklist]
+                      updated[idx] = !updated[idx]
+                      updateChecklist(updated)
+                    }}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                      checklist[idx]
+                        ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                        : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    }`}
+                  >
+                    {checklist[idx] ? 'Completed' : 'Mark Complete'}
+                  </button>
+                </motion.div>
+              ))}
+              <AnimatePresence>
+                {showCongrats && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-6 h-6 text-white" />
+                      </div>
                       <div>
-                        <div className="font-semibold text-green-800 text-base">🎉 Congratulations! Your business is now fully set up and ready to operate.</div>
-                        <div className="text-green-700 text-sm mt-1">You’ve completed all the essential steps. You’re ready to open a bank account, accept payments, and start working under your business name.</div>
+                        <div className="font-semibold text-[#1d1d1f] text-lg">🎉 All Set!</div>
+                        <div className="text-sm text-[#8e8e93] mt-1">
+                          Your business is now fully set up and ready to operate.
+                        </div>
                       </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+
+          {/* Documents Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6"
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-[#1d1d1f] flex items-center gap-2">
+                <FileText className="w-5 h-5 text-blue-500" /> Your Documents
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* LLC Filing Instructions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+                className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
+                    <FileText className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">LLC Filing Instructions</h3>
+                  <p className="text-sm text-[#8e8e93]">Step-by-step guide</p>
+                </div>
+                <div className="flex gap-2 mt-6">
+                  <button
+                    onClick={() => toggleSection('llc-instructions')}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center"
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    View
+                  </button>
+                  <button
+                    onClick={handlePrintLLCInstructions}
+                    className="flex-1 bg-[#f2f2f7] text-[#1d1d1f] hover:bg-[#e5e5ea] rounded-md text-sm font-medium transition-all duration-200 flex items-center justify-center px-4 py-2"
+                  >
+                    <DownloadIcon className="w-4 h-4 mr-2" />
+                    PDF
+                  </button>
+                </div>
+                <AnimatePresence>
+                  {openSection === 'llc-instructions' && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-4 p-4 bg-gray-50 rounded-lg text-sm"
+                    >
+                      {llcHtml}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </motion.div>
-            )}
-          </AnimatePresence>
-        </section>
-        {/* Genie Assistant & Support Card */}
-        <section className="bg-white rounded-xl shadow-md p-8 flex flex-col gap-6">
-          {/* Genie Assistant */}
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
-              <img src="/genie-preview.png" alt="Genie" className="h-7 w-7 rounded-full" /> Genie Assistant
-            </h2>
-            <div>
+
+              {/* EIN Guide */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.6 }}
+                className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4">
+                    <Building2 className="w-5 h-5 text-green-600" />
+                  </div>
+                  <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">EIN Guide</h3>
+                  <p className="text-sm text-[#8e8e93]">Tax ID application</p>
+                </div>
+                <div className="flex gap-2 mt-6">
+                  <button
+                    onClick={() => toggleSection('ein-guide')}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center"
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    View
+                  </button>
+                  <button
+                    onClick={handlePrintEINGuide}
+                    className="flex-1 bg-[#f2f2f7] text-[#1d1d1f] hover:bg-[#e5e5ea] rounded-md text-sm font-medium transition-all duration-200 flex items-center justify-center px-4 py-2"
+                  >
+                    <DownloadIcon className="w-4 h-4 mr-2" />
+                    PDF
+                  </button>
+                </div>
+                <AnimatePresence>
+                  {openSection === 'ein-guide' && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-4 p-4 bg-gray-50 rounded-lg text-sm"
+                    >
+                      {einHtml}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Operating Agreement */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.7 }}
+                className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4">
+                    <ScrollText className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">Operating Agreement</h3>
+                  <p className="text-sm text-[#8e8e93]">Legal document</p>
+                </div>
+                <div className="flex gap-2 mt-6">
+                  <button
+                    onClick={() => toggleSection('operating-agreement')}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center"
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    View
+                  </button>
+                  <button
+                    onClick={handlePrintOperatingAgreement}
+                    className="flex-1 bg-[#f2f2f7] text-[#1d1d1f] hover:bg-[#e5e5ea] rounded-md text-sm font-medium transition-all duration-200 flex items-center justify-center px-4 py-2"
+                  >
+                    <DownloadIcon className="w-4 h-4 mr-2" />
+                    PDF
+                  </button>
+                </div>
+                <AnimatePresence>
+                  {openSection === 'operating-agreement' && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-4 p-4 bg-gray-50 rounded-lg text-sm"
+                    >
+                      {oaHtmlPDF}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Genie Assistant Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.8 }}
+            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6 max-w-4xl"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <img src="/genie-preview.png" alt="Genie" className="w-10 h-10 rounded-full" />
+              <div>
+                <h2 className="text-xl font-medium text-gray-900">Your Genie Assistant</h2>
+                <p className="text-sm text-gray-500">Ask anything about your LLC setup — we'll guide you step-by-step.</p>
+              </div>
+            </div>
+
+            {/* Smart Prompt Suggestions */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              <button 
+                onClick={() => {
+                  // Trigger a predefined question
+                  const input = document.getElementById('genie-input') as HTMLInputElement;
+                  if (input) {
+                    input.value = "How do I get my EIN?";
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                  }
+                }}
+                className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
+              >
+                How do I get my EIN?
+              </button>
+              <button 
+                onClick={() => {
+                  const input = document.getElementById('genie-input') as HTMLInputElement;
+                  if (input) {
+                    input.value = "Where do I file my LLC?";
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                  }
+                }}
+                className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
+              >
+                Where do I file my LLC?
+              </button>
+              <button 
+                onClick={() => {
+                  const input = document.getElementById('genie-input') as HTMLInputElement;
+                  if (input) {
+                    input.value = "What's an Operating Agreement?";
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                  }
+                }}
+                className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
+              >
+                What's an Operating Agreement?
+              </button>
+            </div>
+
+            {/* Chat Interface */}
+            <div className="min-h-[300px] max-h-[400px] overflow-y-auto">
               <GenieChat avatarSrc="/genie-preview.png" />
             </div>
-          </div>
-          {/* Divider */}
-          <div className="border-t border-gray-100 my-2" />
-          {/* Support Card (now inside unified card) */}
-          <div className="flex flex-col gap-2 items-start">
-            <div className="flex items-center mb-1">
-              <Mail className="h-6 w-6 text-primary-600" />
-              <span className="ml-2 text-base font-semibold text-gray-900">Need Help?</span>
-            </div>
-            <p className="text-sm text-gray-500 font-light mb-2">Contact our support team</p>
-            <Button 
-              variant="outline" 
-              className="rounded-full px-6 py-2 font-semibold"
-              onClick={() => setIsContactModalOpen(true)}
-            >
-              Contact Support
-            </Button>
-          </div>
-        </section>
-        {/* Documents Card */}
-        <section className="bg-white rounded-xl shadow-md p-8 flex flex-col gap-6">
-          <div className="flex items-center justify-center gap-3 mb-2 w-full py-1.5">
-            <h2 className="text-xl font-bold text-gray-900 text-center flex-1">Your Documents</h2>
-            <Button
-              variant="outline"
-              size="sm"
-              className="rounded-full px-4 py-1.5 font-semibold text-sm flex items-center justify-center gap-1"
-              onClick={handleDocumentsToggle}
-              aria-expanded={documentsOpen}
-              aria-controls="your-documents-section"
-            >
-              <span className={`transition-transform ${documentsOpen ? 'rotate-90' : ''}`}>▶</span>
-              {documentsOpen ? 'Hide' : 'Show'}
-            </Button>
-          </div>
-          <div
-            id="your-documents-section"
-            className={`transition-all duration-300 overflow-hidden ${documentsOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}
-            style={{ willChange: 'max-height, opacity' }}
-          >
-            {/* LLC Filing Instructions */}
-            <div className="bg-gray-50 rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-2">LLC Filing Instructions</h3>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                <Button
-                  size="lg"
-                  className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
-                  onClick={() => toggleSection('llc-instructions')}
-                >
-                  {openSection === 'llc-instructions' ? 'Hide' : 'Show More'}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
-                  onClick={handlePrintLLCInstructions}
-                >
-                  Print / Save as PDF
-                </Button>
-              </div>
-              <div id="llc-instructions-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'llc-instructions' ? 'block' : 'hidden'}`}>{llcHtml}</div>
-              {/* Hidden version for printing - always available */}
-              <div
-                id="printable-llc-instructions-hidden"
-                className="hidden"
-                style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
-              >
-                {llcHtml}
-              </div>
-            </div>
-            {/* EIN Guide */}
-            <div className="bg-gray-50 rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-2">EIN Guide</h3>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                <Button
-                  size="lg"
-                  className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
-                  onClick={() => toggleSection('ein-guide')}
-                >
-                  {openSection === 'ein-guide' ? 'Hide' : 'Show More'}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
-                  onClick={handlePrintEINGuide}
-                >
-                  Print / Save as PDF
-                </Button>
-              </div>
-              <div id="ein-guide-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'ein-guide' ? 'block' : 'hidden'}`}>{einHtml}</div>
-              {/* Hidden version for printing - always available */}
-              <div
-                id="printable-ein-guide-hidden"
-                className="hidden"
-                style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
-              >
-                {einHtml}
-              </div>
-            </div>
-            {/* Operating Agreement */}
-            <div className="bg-gray-50 rounded-xl shadow-sm p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-2">Operating Agreement</h3>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
-                <Button
-                  size="lg"
-                  className="rounded-full font-bold w-full sm:w-auto text-base px-6 py-2"
-                  onClick={() => toggleSection('operating-agreement')}
-                >
-                  {openSection === 'operating-agreement' ? 'Hide' : 'Show More'}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="rounded-full w-full sm:w-auto text-base border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2"
-                  onClick={handlePrintOperatingAgreement}
-                >
-                  Print / Save as PDF
-                </Button>
-              </div>
-              <div id="operating-agreement-content" className={`transition-all duration-300 px-6 py-4 ${openSection === 'operating-agreement' ? 'block' : 'hidden'}`}>{oaHtmlPDF}</div>
-              {/* Hidden version for printing - always available */}
-              <div
-                id="printable-operating-agreement-hidden"
-                className="hidden"
-                style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
-              >
-                {oaHtmlPDF}
-              </div>
-            </div>
-          </div>
-        </section>
-      </motion.div>
+          </motion.div>
+        </motion.div>
 
-      {/* Contact Support Modal */}
-      <ContactSupportModal 
-        isOpen={isContactModalOpen}
-        onClose={() => setIsContactModalOpen(false)}
-      />
-      
-      <style jsx global>{`
-        @media print {
-          body * {
-            visibility: hidden !important;
-          }
-          #temp-print-container, #temp-print-container * {
-            visibility: visible !important;
-            display: block !important;
-            position: static !important;
-            left: 0 !important;
-          }
-          #temp-print-container {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            background: white;
-            z-index: 9999;
-            padding: 0;
-            margin: 0;
-          }
-        }
-      `}</style>
-    </main>
+
+      </main>
+
+      {/* Help Widget */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <HelpWidget />
+      </div>
+
+      {/* Sticky Minimal Footer */}
+      <footer className="sticky bottom-0 w-full bg-white/80 backdrop-blur-md border-t border-[#f2f2f2] py-4 flex items-center justify-center text-sm text-[#8e8e93] z-30">
+        <Link href="/contact" className="flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors font-medium">
+          <HelpCircle className="w-4 h-4" />
+          Need help? Contact Support
+        </Link>
+      </footer>
+    </div>
   )
 } 
