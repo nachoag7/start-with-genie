@@ -314,106 +314,106 @@ function CompareSection() {
   );
 }
 
-function WhatsIncludedLinear() {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+function PreviewSection({ 
+  title, 
+  subtitle, 
+  image, 
+  imageAlt, 
+  bgColor = "bg-gray-50",
+  reverse = false 
+}: {
+  title: string
+  subtitle: string
+  image: string
+  imageAlt: string
+  bgColor?: string
+  reverse?: boolean
+}) {
   return (
-    <section className="mt-16">
-      <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">What’s Included</h2>
-      <div
-        className="w-full"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: 32,
-        }}
-      >
-        {featureDetails.map((item, idx) => (
-          <motion.div
-            key={item.label}
-            initial={{ opacity: 0, y: 16 }}
+    <motion.section
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`w-full ${bgColor} py-24`}
+    >
+      <div className="max-w-6xl mx-auto px-6">
+        <div className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-16`}>
+          {/* Text Content */}
+          <div className="flex-1 space-y-6">
+            <motion.h2 
+              className="text-3xl md:text-4xl font-semibold text-neutral-900 leading-tight tracking-tight"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+            >
+              {title}
+            </motion.h2>
+            <motion.p 
+              className="text-lg text-neutral-600 leading-relaxed max-w-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+            >
+              {subtitle}
+            </motion.p>
+          </div>
+          
+          {/* Image */}
+          <motion.img
+            src={image}
+            alt={imageAlt}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.4, delay: idx * 0.09, ease: 'easeOut' }}
-            className="relative group"
-            style={{
-              minHeight: 160,
-              padding: '32px 24px',
-              background: '#fff',
-              borderRadius: 12,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-              transition: 'background 200ms ease, box-shadow 200ms ease',
-              cursor: 'default',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden',
-              position: 'relative',
-            }}
-            whileHover={{
-              background: '#f9f9f9',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-              transition: { duration: 0.2, ease: 'easeOut' },
-            }}
-            onMouseEnter={() => setHoveredIdx(idx)}
-            onMouseLeave={() => setHoveredIdx(null)}
-          >
-            <div style={{ width: '100%', minHeight: 32, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <AnimatePresence initial={false} mode="wait">
-                {hoveredIdx !== idx && (
-                  <motion.span
-                    key="title"
-                    initial={{ opacity: 1, y: 0 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4, transition: { duration: 0.2, ease: 'easeIn' } }}
-                    transition={{ duration: 0.2, ease: 'easeIn' }}
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 500,
-                      color: '#111',
-                      minHeight: 32,
-                      position: 'absolute',
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            viewport={{ once: true }}
+            className="rounded-xl border border-gray-200 shadow-sm w-full max-w-3xl mx-auto"
+          />
+        </div>
+      </div>
+    </motion.section>
+  )
+}
+
+function WhatsIncludedLinear() {
+  return (
+    <section className="bg-gray-50 py-24">
+      <div className="max-w-6xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-semibold text-gray-900">What's Included</h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto mt-4">Everything you need to get your business off the ground — nothing you don't.</p>
+        </motion.div>
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          {featureDetails.map((item, idx) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              viewport={{ once: true }}
+            >
+              <div className="group relative overflow-hidden rounded-xl border border-neutral-200 bg-white/80 backdrop-blur-sm p-6 min-h-[220px] h-full w-full flex flex-col justify-center items-center transition-all duration-300 hover:shadow-xl hover:backdrop-blur-md hover:bg-white/90">
+                <div className="transition-all duration-300 ease-out group-hover:opacity-0 group-hover:-translate-y-2 w-full">
+                  <h3 className="text-lg font-medium text-gray-900 text-center">
                     {item.label}
-                  </motion.span>
-                )}
-                {hoveredIdx === idx && (
-                  <motion.span
-                    key="desc"
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0, transition: { duration: 0.2, delay: 0.05, ease: 'easeOut' } }}
-                    exit={{ opacity: 0, y: 4, transition: { duration: 0.15, ease: 'easeIn' } }}
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 400,
-                      color: '#666',
-                      lineHeight: 1.6,
-                      minHeight: 32,
-                      position: 'absolute',
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
+                  </h3>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center px-6 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out w-full">
+                  <p className="text-sm text-gray-500 text-center">
                     {item.description}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        ))}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -526,6 +526,34 @@ export default function Home() {
         {/* Comparison Sections */}
         <WhyGenieSection />
         <CompareSection />
+        
+        {/* Dashboard Preview Section */}
+        <PreviewSection
+          title="Your Business Dashboard"
+          subtitle="Track progress and stay organized — all in one place."
+          image="/Dashboard1.png"
+          imageAlt="Dashboard preview showing progress tracking and document management"
+          bgColor="bg-gray-50"
+        />
+        
+        {/* Document Preview Section */}
+        <PreviewSection
+          title="Launch-Ready Documents"
+          subtitle="Everything you need, beautifully packaged and ready to download."
+          image="/document-preview.png"
+          imageAlt="Document preview showing LLC filing instructions and operating agreement"
+          bgColor="bg-white"
+          reverse={true}
+        />
+        
+        {/* Genie Assistant Preview Section */}
+        <PreviewSection
+          title="Your Genie Assistant"
+          subtitle="Ask anything about your LLC setup — real-time support from our silent assistant."
+          image="/Help-preview.png"
+          imageAlt="Genie assistant chat interface showing helpful responses"
+          bgColor="bg-gray-50"
+        />
         
         {/* Divider */}
         <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
