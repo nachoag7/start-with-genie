@@ -43,7 +43,7 @@ const featureDetails = [
   },
   {
     label: 'Customizable operating agreement',
-    description: 'Download a lawyer-vetted operating agreement, personalized for your LLC and ready to sign.'
+    description: 'Personalize and print a simple LLC Operating Agreement — ready to sign.'
   },
   {
     label: 'Personalized dashboard to track your progress',
