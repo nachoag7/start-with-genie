@@ -87,10 +87,10 @@ export default function GenieChat({ avatarSrc }: GenieChatProps) {
     }
   };
 
-  // Auto-scroll to bottom when new messages arrive
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  // Remove auto-scroll to bottom when new messages arrive
+  // useEffect(() => {
+  //   chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // }, [messages]);
 
   return (
     <div className="w-full flex flex-col h-full">

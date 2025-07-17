@@ -30,8 +30,14 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true)
     setError('')
-
+    let timeoutId: NodeJS.Timeout | null = null;
     try {
+      // Timeout fallback (10s)
+      timeoutId = setTimeout(() => {
+        setIsLoading(false);
+        setError('Login is taking too long. Please try again.');
+      }, 10000);
+
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
@@ -42,30 +48,40 @@ export default function LoginPage() {
       }
 
       // Get the current user
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) {
+        throw userError;
+      }
       if (!user) {
-        throw new Error('Could not get user session after login.')
+        throw new Error('Could not get user session after login.');
       }
 
       // Check if user row exists in users table
-      const { data: userRow } = await supabase
+      const { data: userRow, error: userRowError } = await supabase
         .from('users')
         .select('*')
         .eq('id', user.id)
         .single();
-
+      if (userRowError) {
+        throw userRowError;
+      }
       if (!userRow) {
         // No user row, redirect to onboarding
+        if (timeoutId) clearTimeout(timeoutId);
+        setIsLoading(false);
         router.push('/onboarding');
         return;
       }
 
       // User row exists, redirect to dashboard
+      if (timeoutId) clearTimeout(timeoutId);
+      setIsLoading(false);
       router.push('/dashboard')
     } catch (err: any) {
+      if (timeoutId) clearTimeout(timeoutId);
       setError(err.message || 'Invalid email or password.')
-    } finally {
       setIsLoading(false)
+      console.error('Login error:', err);
     }
   }
 
@@ -111,7 +127,7 @@ export default function LoginPage() {
             <div>
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3 text-lg font-medium shadow-sm hover:shadow-md transition-all duration-200"
                 disabled={isLoading}
               >
                 {isLoading ? 'Signing in...' : 'Sign in'}

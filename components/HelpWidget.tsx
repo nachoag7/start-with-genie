@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import GenieChat from './GenieChat';
 import ContactSupportModal from './ContactSupportModal';
 import { Mail } from 'lucide-react';
 import { Button } from './ui/Button';
@@ -22,17 +21,17 @@ export default function HelpWidget() {
           Need Help?
         </button>
       )}
-      {/* Expanded Help Widget */}
+      {/* Expanded Help Widget (only support card) */}
       {open && (
         <div
           className="bg-white shadow-2xl rounded-2xl p-0 w-[350px] max-w-[95vw] flex flex-col border border-gray-200 animate-fade-in"
-          style={{ minHeight: 420 }}
+          style={{ minHeight: 220 }}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
             <div className="flex items-center gap-2">
-              <img src="/genie-preview.png" alt="Genie" className="h-7 w-7 rounded-full" />
-              <span className="font-bold text-gray-900 text-lg">Genie Help</span>
+              <Mail className="h-7 w-7 text-primary-600" />
+              <span className="font-bold text-gray-900 text-lg">Contact Support</span>
             </div>
             <button
               className="text-gray-400 hover:text-gray-600 text-xl font-bold px-2 py-1 rounded-full focus:outline-none"
@@ -42,18 +41,8 @@ export default function HelpWidget() {
               ×
             </button>
           </div>
-          {/* GenieChat */}
-          <div className="flex-1 px-5 py-4 overflow-y-auto" style={{ maxHeight: 320 }}>
-            <GenieChat avatarSrc="/genie-preview.png" />
-          </div>
-          {/* Divider */}
-          <div className="border-t border-gray-100 mx-5" />
-          {/* Support Card */}
-          <div className="px-5 py-4 flex flex-col gap-2">
-            <div className="flex items-center gap-2 mb-1">
-              <Mail className="h-5 w-5 text-primary-600" />
-              <span className="text-base font-semibold text-gray-900">Contact Support</span>
-            </div>
+          {/* Support Card Only */}
+          <div className="px-5 py-6 flex flex-col gap-2">
             <p className="text-sm text-gray-500 font-light mb-2">Need more help? Reach out to our support team.</p>
             <Button
               variant="outline"
