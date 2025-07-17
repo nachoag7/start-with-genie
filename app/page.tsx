@@ -361,16 +361,41 @@ function PreviewSection({
             </motion.p>
           </div>
           
-          {/* Image */}
-          <motion.img
-            src={image}
-            alt={imageAlt}
+          {/* Image with error handling and fallback */}
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             viewport={{ once: true }}
-            className="rounded-xl border border-gray-200 shadow-sm w-full max-w-3xl mx-auto"
-          />
+            className="w-full max-w-3xl mx-auto"
+          >
+            <img
+              src={image}
+              alt={imageAlt}
+              className="rounded-xl border border-gray-200 shadow-sm w-full h-auto object-contain"
+              loading="eager"
+              decoding="sync"
+              onError={(e) => {
+                // Fallback to a clean placeholder if image fails to load
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const fallback = target.nextElementSibling as HTMLElement;
+                if (fallback) fallback.style.display = 'flex';
+              }}
+            />
+            {/* Fallback placeholder */}
+            <div 
+              className="hidden rounded-xl border border-gray-200 shadow-sm w-full h-64 bg-gray-50 flex items-center justify-center"
+              style={{ display: 'none' }}
+            >
+              <div className="text-center text-gray-500">
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gray-200 mb-4">
+                  <span className="text-2xl">📄</span>
+                </div>
+                <p className="text-sm font-medium">Preview Image</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </motion.section>
@@ -540,7 +565,7 @@ export default function Home() {
         <PreviewSection
           title="Launch-Ready Documents"
           subtitle="Everything you need, beautifully packaged and ready to download."
-          image="/document-preview.png"
+          image="/Document-Preview.png"
           imageAlt="Document preview showing LLC filing instructions and operating agreement"
           bgColor="bg-white"
           reverse={true}
