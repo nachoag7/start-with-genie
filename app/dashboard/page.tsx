@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Download, MessageCircle, Mail, RefreshCw, FileText, Building2, CreditCard, CheckCircle, ChevronRight, HelpCircle, X, Bot, BadgeDollarSign, BookOpen, Clock, Eye, Download as DownloadIcon, ScrollText, Send } from 'lucide-react'
+import { Download, MessageCircle, Mail, RefreshCw, FileText, Building2, CreditCard, CheckCircle, ChevronRight, HelpCircle, X, Bot, BadgeDollarSign, BookOpen, Clock, Eye, Download as DownloadIcon, ScrollText, Send, LogOut } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
@@ -696,11 +696,22 @@ export default function DashboardPage() {
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <img src="/genie-preview.png" alt="Start With Genie" className="w-8 h-8" />
+              <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+                <img src="/genie-preview.png" alt="Start With Genie" className="w-10 h-10" />
+              </Link>
               <h1 className="text-lg font-semibold text-[#1d1d1f]">Dashboard</h1>
             </div>
-            <div className="text-sm text-[#8e8e93]">
-              {user?.business_name} • {user?.state}
+            <div className="flex items-center space-x-4">
+              <div className="text-sm text-[#8e8e93]">
+                {user?.business_name} • {user?.state}
+              </div>
+              <button
+                onClick={handleSignOut}
+                className="flex items-center space-x-2 px-3 py-2 text-sm text-[#88e93] hover:text-[#1d1d1f] hover:bg-[#f2f2f2] rounded-lg transition-all duration-200"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out</span>
+              </button>
             </div>
           </div>
         </div>

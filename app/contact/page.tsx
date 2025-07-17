@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Footer from '../../components/Footer'
+import Link from 'next/link'
 
 export default function ContactPage() {
   return (
@@ -14,11 +15,9 @@ export default function ContactPage() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="w-full max-w-2xl bg-white rounded-xl shadow-md p-10 flex flex-col gap-8 items-center"
         >
-          <img 
-            src="/genie-og.png" 
-            alt="Genie Mascot" 
-            className="w-24 h-24 object-contain drop-shadow-xl mb-4" 
-          />
+          <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+            <img src="/genie-og.png" alt="Genie Logo" className="h-10 w-10 rounded-full opacity-90" />
+          </Link>
           
           <div className="text-center space-y-4">
             <h1 className="font-semibold text-3xl text-neutral-900">Need help?</h1>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function LoadingPage() {
   const router = useRouter()
@@ -51,18 +52,9 @@ export default function LoadingPage() {
               }}
               className="relative"
             >
-              <div className="relative">
-                <Image
-                  src="/genie-preview.png"
-                  alt="Start With Genie"
-                  width={140}
-                  height={140}
-                  className="w-28 h-28 drop-shadow-lg"
-                  priority
-                />
-                {/* Subtle glow effect */}
-                <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl scale-110" />
-              </div>
+              <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+                <img src="/genie-preview.png" alt="Genie Logo" className="h-10 w-10 rounded-full opacity-90" />
+              </Link>
             </motion.div>
 
             {/* Animated dots spinner */}

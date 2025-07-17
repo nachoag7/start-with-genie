@@ -485,7 +485,9 @@ export default function Home() {
         {/* Header */}
         <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
           <div className="flex items-center gap-3">
-            <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 rounded-full opacity-90" />
+            <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+              <img src="/genie-preview.png" alt="Genie Logo" className="h-10 w-10 rounded-full opacity-90" />
+            </Link>
             <span className="text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
           </div>
           <Link 
