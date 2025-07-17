@@ -390,31 +390,15 @@ export default function DashboardPage() {
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>This Agreement is governed by the laws of the State of {user.state}.</p>
         {isPDF && (
           <div style={{ marginTop: '60px', marginBottom: '56px', width: '100%' }}>
-            {isSingleMember ? (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', marginBottom: '32px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '40px', width: '100%' }}>
-                  <span style={{ fontSize: '13px', color: '#888', minWidth: 90 }}>Signature:</span>
-                  <span style={{ borderBottom: '1.5px solid #bbb', flex: 1, height: 0, marginRight: 24 }}></span>
-                  <span style={{ fontSize: '13px', color: '#888', minWidth: 40, marginLeft: 24 }}>Date:</span>
-                  <span style={{ borderBottom: '1.5px solid #bbb', width: 120, height: 0 }}></span>
-                </div>
-                <div style={{ fontSize: '13px', color: '#888', marginTop: 10, marginLeft: 0 }}>Printed Name: <span style={{ color: '#222', fontWeight: 500 }}>{user.full_name}</span></div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', marginBottom: '32px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '40px', width: '100%' }}>
+                <span style={{ fontSize: '13px', color: '#888', minWidth: 90 }}>Signature:</span>
+                <span style={{ borderBottom: '1.5px solid #bbb', flex: 1, height: 0, marginRight: 24 }}></span>
+                <span style={{ fontSize: '13px', color: '#888', minWidth: 40, marginLeft: 24 }}>Date:</span>
+                <span style={{ borderBottom: '1.5px solid #bbb', width: 120, height: 0 }}></span>
               </div>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
-                {[{ name: user.full_name }, { name: user.partner_name || 'Partner Name' }].map((member, idx) => (
-                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '40px', width: '100%' }}>
-                      <span style={{ fontSize: '13px', color: '#888', minWidth: 90 }}>Signature:</span>
-                      <span style={{ borderBottom: '1.5px solid #bbb', flex: 1, height: 0, marginRight: 24 }}></span>
-                      <span style={{ fontSize: '13px', color: '#888', minWidth: 40, marginLeft: 24 }}>Date:</span>
-                      <span style={{ borderBottom: '1.5px solid #bbb', width: 120, height: 0 }}></span>
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#888', marginTop: 10, marginLeft: 0 }}>Printed Name: <span style={{ color: '#222', fontWeight: 500 }}>{member.name}</span></div>
-                  </div>
-                ))}
-              </div>
-            )}
+              <div style={{ fontSize: '13px', color: '#888', marginTop: 10, marginLeft: 0 }}>Printed Name: <span style={{ color: '#222', fontWeight: 500 }}>{user.full_name}</span></div>
+            </div>
           </div>
         )}
       </div>
@@ -874,21 +858,23 @@ export default function DashboardPage() {
                   <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">LLC Filing Instructions</h3>
                   <p className="text-sm text-[#8e8e93]">Step-by-step guide</p>
                 </div>
-                <div className="flex gap-2 mt-6">
-                  <button
+                <div className="flex gap-2 mt-6 justify-center">
+                  <Button 
                     onClick={() => setModalOpen('llc-instructions')}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center"
+                    size="md"
                   >
-                    <Eye className="w-4 h-4 mr-2" />
+                    <Eye className="w-4 h-4" />
                     View
-                  </button>
-                  <button
-                    onClick={handlePrintLLCInstructions}
-                    className="flex-1 bg-[#f2f2f7] text-[#1d1d1f] hover:bg-[#e5e5ea] rounded-md text-sm font-medium transition-all duration-200 flex items-center justify-center px-4 py-2"
-                  >
-                    <DownloadIcon className="w-4 h-4 mr-2" />
-                    PDF
-                  </button>
+                  </Button>
+                  {getDocUrl('LLC Filing Instructions') ? (
+                    <a href={getDocUrl('LLC Filing Instructions')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] hover:scale-[1.02] bg-[#f3f4f6] text-[#222] border border-[#d1d5db] shadow-sm hover:bg-[#e5e7eb] focus:ring-gray-400 px-4 py-2 text-sm rounded-lg h-10">
+                      <Download className="w-4 h-4 mr-2" /> PDF
+                    </a>
+                  ) : (
+                    <button type="button" onClick={() => alert('PDF not available yet. Please try again in a moment.')} className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 bg-[#f3f4f6] text-[#444] border border-[#e5e7eb] shadow-sm px-4 py-2 text-sm rounded-lg h-10 cursor-pointer select-none">
+                      <Download className="w-4 h-4 mr-2" /> PDF
+                    </button>
+                  )}
                 </div>
               </motion.div>
 
@@ -906,21 +892,23 @@ export default function DashboardPage() {
                   <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">EIN Guide</h3>
                   <p className="text-sm text-[#8e8e93]">Tax ID application</p>
                 </div>
-                <div className="flex gap-2 mt-6">
-                  <button
+                <div className="flex gap-2 mt-6 justify-center">
+                  <Button 
                     onClick={() => setModalOpen('ein-guide')}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center"
+                    size="md"
                   >
-                    <Eye className="w-4 h-4 mr-2" />
+                    <Eye className="w-4 h-4" />
                     View
-                  </button>
-                  <button
-                    onClick={handlePrintEINGuide}
-                    className="flex-1 bg-[#f2f2f7] text-[#1d1d1f] hover:bg-[#e5e5ea] rounded-md text-sm font-medium transition-all duration-200 flex items-center justify-center px-4 py-2"
-                  >
-                    <DownloadIcon className="w-4 h-4 mr-2" />
-                    PDF
-                  </button>
+                  </Button>
+                  {getDocUrl('EIN Guide') ? (
+                    <a href={getDocUrl('EIN Guide')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] hover:scale-[1.02] bg-[#f3f4f6] text-[#222] border border-[#d1d5db] shadow-sm hover:bg-[#e5e7eb] focus:ring-gray-400 px-4 py-2 text-sm rounded-lg h-10">
+                      <Download className="w-4 h-4 mr-2" /> PDF
+                    </a>
+                  ) : (
+                    <button type="button" onClick={() => alert('PDF not available yet. Please try again in a moment.')} className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 bg-[#f3f4f6] text-[#444] border border-[#e5e7eb] shadow-sm px-4 py-2 text-sm rounded-lg h-10 cursor-pointer select-none">
+                      <Download className="w-4 h-4 mr-2" /> PDF
+                    </button>
+                  )}
                 </div>
               </motion.div>
 
@@ -938,21 +926,23 @@ export default function DashboardPage() {
                   <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">Operating Agreement</h3>
                   <p className="text-sm text-[#8e8e93]">Legal document</p>
                 </div>
-                <div className="flex gap-2 mt-6">
-                  <button
+                <div className="flex gap-2 mt-6 justify-center">
+                  <Button 
                     onClick={() => setModalOpen('operating-agreement')}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center"
+                    size="md"
                   >
-                    <Eye className="w-4 h-4 mr-2" />
+                    <Eye className="w-4 h-4" />
                     View
-                  </button>
-                  <button
-                    onClick={handlePrintOperatingAgreement}
-                    className="flex-1 bg-[#f2f2f7] text-[#1d1d1f] hover:bg-[#e5e5ea] rounded-md text-sm font-medium transition-all duration-200 flex items-center justify-center px-4 py-2"
-                  >
-                    <DownloadIcon className="w-4 h-4 mr-2" />
-                    PDF
-                  </button>
+                  </Button>
+                  {getDocUrl('Operating Agreement') ? (
+                    <a href={getDocUrl('Operating Agreement')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] hover:scale-[1.02] bg-[#f3f4f6] text-[#222] border border-[#d1d5db] shadow-sm hover:bg-[#e5e7eb] focus:ring-gray-400 px-4 py-2 text-sm rounded-lg h-10">
+                      <Download className="w-4 h-4 mr-2" /> PDF
+                    </a>
+                  ) : (
+                    <button type="button" onClick={() => alert('PDF not available yet. Please try again in a moment.')} className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 bg-[#f3f4f6] text-[#444] border border-[#e5e7eb] shadow-sm px-4 py-2 text-sm rounded-lg h-10 cursor-pointer select-none">
+                      <Download className="w-4 h-4 mr-2" /> PDF
+                    </button>
+                  )}
                 </div>
               </motion.div>
             </div>

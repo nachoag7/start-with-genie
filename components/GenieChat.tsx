@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
+import { Button } from './ui/Button';
 
 interface GenieChatProps {
   avatarSrc: string;
@@ -145,15 +146,21 @@ export default function GenieChat({ avatarSrc }: GenieChatProps) {
             onKeyDown={handleKeyDown}
             disabled={isLoading}
           />
-          <button
+          <Button
             type="submit"
-            className="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 hover:scale-105 flex items-center justify-center disabled:opacity-50"
+            size="md"
             disabled={!inputValue.trim() || isLoading}
+            className="text-white !text-white"
           >
-            <Send className="w-4 h-4" />
-          </button>
+            <Send className="w-4 h-4 text-white" />
+            <span className="hidden sm:inline text-white">Send</span>
+          </Button>
         </form>
       </div>
     </div>
   );
 } 
+ 
+
+
+

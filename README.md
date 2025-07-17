@@ -166,3 +166,7 @@ This project is licensed under the MIT License.
 ## Support
 
 For support, email info@startwithgenie.com 
+ 
+ 
+ 
+ 

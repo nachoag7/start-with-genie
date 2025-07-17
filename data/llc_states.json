@@ -44,7 +44,7 @@
   {"State": "Texas", "Abbreviation": "TX", "Filing URL": "https://www.sos.state.tx.us/corp/llc.shtml", "Avg Filing Fee": "70", "Processing Time": "2-3 business days", "Notes": "File Form 205 online via SOSDirect"},
   {"State": "Utah", "Abbreviation": "UT", "Filing URL": "https://corporations.utah.gov/", "Avg Filing Fee": "125", "Processing Time": "3-5 business days", "Notes": "Fast online processing through state portal"},
   {"State": "Vermont", "Abbreviation": "VT", "Filing URL": "https://sos.vermont.gov/corporations/", "Avg Filing Fee": "100", "Processing Time": "2-3 business days", "Notes": "Annual report due every year"},
-  {"State": "Virginia", "Abbreviation": "VA", "Filing URL": "https://cis.scc.virginia.gov/", "Avg Filing Fee": "100", "Processing Time": "3-5 business days", "Notes": "Use Clerk’s Information System (CIS)"},
+  {"State": "Virginia", "Abbreviation": "VA", "Filing URL": "https://cis.scc.virginia.gov/", "Avg Filing Fee": "100", "Processing Time": "3-5 business days", "Notes": "Use Clerk's Information System (CIS)"},
   {"State": "Washington", "Abbreviation": "WA", "Filing URL": "https://www.sos.wa.gov/corps/llc/", "Avg Filing Fee": "200", "Processing Time": "3-5 business days", "Notes": "Separate state and city filings may apply"},
   {"State": "West Virginia", "Abbreviation": "WV", "Filing URL": "https://business4.wv.gov/Pages/default.aspx", "Avg Filing Fee": "100", "Processing Time": "3-5 business days", "Notes": "One Stop Business Portal simplifies filing"},
   {"State": "Wisconsin", "Abbreviation": "WI", "Filing URL": "https://www.wdfi.org/corporations/", "Avg Filing Fee": "100", "Processing Time": "2-3 business days", "Notes": "Register online through DFI site"},

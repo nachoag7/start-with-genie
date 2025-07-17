@@ -87,3 +87,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'Hmm, I couldn\'t respond right now. Try again in a moment.' }, { status: 500 });
   }
 } 
+ 
+ 
+ 
+ 

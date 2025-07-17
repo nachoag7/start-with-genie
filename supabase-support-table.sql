@@ -38,3 +38,7 @@ CREATE POLICY "Allow update for authenticated users" ON support_messages
 
 -- Add a comment to describe the table
 COMMENT ON TABLE support_messages IS 'Stores contact form submissions from the support modal'; 
+ 
+ 
+ 
+ 

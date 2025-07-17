@@ -127,7 +127,7 @@ export default function LoginPage() {
             <div>
               <Button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3 text-lg font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                className="w-full"
                 disabled={isLoading}
               >
                 {isLoading ? 'Signing in...' : 'Sign in'}
@@ -148,8 +148,8 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-6">
-              <Link href="/onboarding">
-                <Button variant="outline" className="w-full">
+              <Link href="/checkout">
+                <Button className="w-full">
                   Get started
                 </Button>
               </Link>
@@ -161,3 +161,7 @@ export default function LoginPage() {
     </div>
   )
 } 
+ 
+
+ 
+ 

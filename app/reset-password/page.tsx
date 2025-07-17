@@ -63,7 +63,11 @@ export default function ResetPasswordPage() {
           />
           {error && <div className="text-red-600 text-sm">{error}</div>}
           {success && <div className="text-green-600 text-sm">{success}</div>}
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isLoading}
+          >
             {isLoading ? 'Sending...' : 'Send reset link'}
           </Button>
         </form>
@@ -71,3 +75,7 @@ export default function ResetPasswordPage() {
     </main>
   )
 } 
+ 
+ 
+ 
+ 

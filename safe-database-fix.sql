@@ -153,3 +153,7 @@ SELECT table_name
 FROM information_schema.tables 
 WHERE table_name IN ('users', 'documents', 'support_messages')
   AND table_schema = 'public'; 
+ 
+ 
+ 
+ 

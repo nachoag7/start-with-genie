@@ -12,12 +12,12 @@ export default function HelpWidget() {
       {/* Minimized Floating Button */}
       {!open && (
         <button
-          className="bg-white shadow-lg rounded-full px-6 py-3 text-base font-semibold text-primary-700 flex items-center gap-2 border border-gray-200 hover:shadow-xl transition-all focus:outline-none focus:ring-2 focus:ring-primary-300"
+          className="bg-white shadow-lg rounded-md px-4 py-2 text-sm font-medium text-primary-700 flex items-center gap-2 border border-gray-200 hover:shadow-xl transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-300"
           style={{ minWidth: 120 }}
           onClick={() => setOpen(true)}
           aria-label="Open Help"
         >
-          <Mail className="w-5 h-5 text-primary-600" />
+          <Mail className="w-4 h-4 text-primary-600" />
           Need Help?
         </button>
       )}
@@ -45,8 +45,7 @@ export default function HelpWidget() {
           <div className="px-5 py-6 flex flex-col gap-2">
             <p className="text-sm text-gray-500 font-light mb-2">Need more help? Reach out to our support team.</p>
             <Button
-              variant="outline"
-              className="rounded-full px-6 py-2 font-semibold"
+              className="rounded-md px-4 py-2 text-sm font-medium bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
               onClick={() => setModalOpen(true)}
             >
               Contact Support
@@ -78,3 +77,7 @@ export default function HelpWidget() {
     </>
   );
 } 
+ 
+ 
+ 
+ 

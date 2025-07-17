@@ -141,10 +141,10 @@ export default function GeniePage() {
             />
             <Button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 flex items-center gap-1 disabled:opacity-50"
+              className="text-sm flex items-center gap-1"
               disabled={!inputValue.trim() || isLoading}
             >
-              <Send className="h-5 w-5" />
+              <Send className="h-5 w-5 text-white" />
               <span className="hidden sm:inline">Send</span>
             </Button>
           </form>
@@ -153,3 +153,7 @@ export default function GeniePage() {
     </main>
   );
 } 
+ 
+ 
+ 
+ 

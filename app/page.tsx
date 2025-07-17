@@ -472,7 +472,7 @@ export default function Home() {
 
   const handleGetStarted = (e: React.MouseEvent) => {
     e.preventDefault()
-    router.push('/onboarding')
+    router.push('/checkout')
   }
 
   const toggleFAQ = (index: number) => {
@@ -542,7 +542,7 @@ export default function Home() {
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
           >
             <Button 
-              className="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg font-medium rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
+              className="mt-6 px-8 py-3 text-lg"
               onClick={handleGetStarted}
             >
               Get Started →
@@ -550,6 +550,74 @@ export default function Home() {
           </motion.div>
         </motion.section>
         
+        {/* What is an LLC Section */}
+        <motion.section
+          id="what-is-an-llc"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="w-full bg-white py-20"
+        >
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              {/* Left Column - Content */}
+              <div className="space-y-8">
+                {/* Title and Subheading */}
+                <div className="space-y-4">
+                  <h2 className="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight tracking-tight">
+                    What is an LLC?
+                  </h2>
+                  <p className="text-xl text-neutral-500 leading-relaxed">
+                    A simple way to protect your business and stay legally compliant.
+                  </p>
+                </div>
+
+                {/* Body Paragraphs */}
+                <p className="text-lg text-neutral-600 leading-relaxed">
+                  A Limited Liability Company (LLC) is a legal business structure that protects your personal assets—like your car, home, or savings—if your business is ever sued or runs into debt. It's one of the easiest and most flexible ways to formalize your business while keeping things simple.
+                </p>
+
+                <p className="text-lg text-neutral-600 leading-relaxed">
+                  With an LLC, you get the legal protections of a corporation without the complexity. You can form one as a solo founder or with business partners, and you can choose how you're taxed—either as a sole proprietorship, partnership, or corporation.
+                </p>
+
+                <p className="text-lg text-neutral-600 leading-relaxed">
+                  Whether you're just starting out or already growing fast, forming an LLC is often the first real step in making your business official.
+                </p>
+              </div>
+
+              {/* Right Column - Bullet List */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: 'easeInOut', delay: 1.0 }}
+                className="space-y-6 mt-12"
+              >
+                <h3 className="text-xl font-medium text-neutral-900">Why people form LLCs:</h3>
+                <ul className="space-y-4">
+                  {[
+                    "Personal liability protection",
+                    "Flexible tax options",
+                    "Simple maintenance compared to corporations",
+                    "Better trust with clients and partners",
+                    "Easier to open a business bank account"
+                  ].map((text, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center gap-3"
+                    >
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      <span className="text-neutral-700 text-lg">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
         {/* Comparison Sections */}
         <WhyGenieSection />
         <CompareSection />
@@ -592,7 +660,7 @@ export default function Home() {
         <section className="w-full bg-white py-16 flex flex-col items-center justify-center mt-10 border-t border-neutral-100">
           <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-6 text-center">Ready to Launch Your Business?</h2>
           <Button 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-medium rounded-full shadow-sm hover:shadow-md transition-all duration-200 w-full max-w-xs"
+            className="px-10 py-4 text-lg w-full max-w-xs"
             onClick={handleGetStarted}
           >
             Get Started →
@@ -653,3 +721,7 @@ export default function Home() {
     </div>
   )
 } 
+ 
+ 
+ 
+ 

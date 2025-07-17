@@ -34,3 +34,7 @@ export function EINGuidePDF({ user, guideSteps }: { user: any, guideSteps: strin
     </Document>
   );
 } 
+ 
+ 
+ 
+ 

@@ -171,7 +171,7 @@ export default function ContactSupportModal({ isOpen, onClose }: ContactSupportM
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
+                className="bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] text-white font-medium text-sm rounded-lg transition-all ease-in-out duration-200 hover:shadow-md hover:brightness-110 active:scale-[0.98] flex items-center gap-1 px-4 py-2"
               >
                 {isSubmitting ? (
                   <>
@@ -180,7 +180,7 @@ export default function ContactSupportModal({ isOpen, onClose }: ContactSupportM
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4 text-white" />
                     Send Message
                   </>
                 )}
@@ -220,3 +220,7 @@ export default function ContactSupportModal({ isOpen, onClose }: ContactSupportM
     </AnimatePresence>
   );
 } 
+ 
+ 
+ 
+ 

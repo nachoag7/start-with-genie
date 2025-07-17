@@ -21,14 +21,18 @@ export default function NotFound() {
             <p className="text-sm text-gray-500 mb-6">
               The page you're looking for doesn't exist or has been moved.
             </p>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <Link href="/">
-                <Button className="w-full hover:scale-105">
+                <Button className="w-full hover:scale-105 bg-[#1E40AF] text-white border border-[#1E40AF] focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                   Go back home
                 </Button>
               </Link>
-              <Link href="/onboarding">
-                <Button variant="outline" className="w-full hover:scale-105">
+              <Link href="/checkout">
+                <Button
+                  variant="ghost"
+                  className="w-full border border-[#1E40AF] text-[#1E40AF] bg-white hover:bg-[#EFF6FF] focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"
+                  style={{ boxShadow: 'none' }}
+                >
                   Get started
                 </Button>
               </Link>
@@ -39,3 +43,7 @@ export default function NotFound() {
     </div>
   )
 } 
+ 
+
+ 
+ 

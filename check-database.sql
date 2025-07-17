@@ -49,3 +49,7 @@ SELECT
 FROM pg_indexes 
 WHERE tablename IN ('users', 'documents', 'support_messages')
   AND schemaname = 'public'; 
+ 
+ 
+ 
+ 

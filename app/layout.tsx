@@ -6,6 +6,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://startwithgenie.com'),
   title: 'Start With Genie — Fast, Clear LLC Formation',
   description: 'Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right.',
   icons: {
