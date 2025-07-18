@@ -1,15 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { PaymentElement } from "@stripe/react-stripe-js";
+import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Lock, ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowLeft, Lock, ArrowRight, CheckCircle, XCircle } from "lucide-react";
 import ContactSupportModal from "./ContactSupportModal";
 import { Button } from "./ui/Button";
 import Link from "next/link";
 
 export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
   const router = useRouter();
+  const stripe = useStripe();
+  const elements = useElements();
   const [email, setEmail] = useState("");
   const [inputHover, setInputHover] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,28 +24,41 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
     setLoading(true);
     setError("");
 
+    if (!stripe || !elements) {
+      setError("Stripe has not loaded yet. Please try again.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch("/api/process-payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/success`,
         },
-        body: JSON.stringify({ email }),
+        redirect: 'if_required',
       });
 
-      const result = await response.json();
+      if (error) {
+        // Handle payment error
+        setError(error.message || "Payment failed. Please try again.");
+        setLoading(false);
+        return;
+      }
 
-      if (result.success) {
+      if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // Payment succeeded
         setSuccess(true);
         setTimeout(() => {
           router.push("/onboarding");
         }, 2000);
       } else {
-        setError(result.error || "Payment failed. Please try again.");
+        // Payment failed or incomplete
+        setError("Payment was not completed. Please try again.");
+        setLoading(false);
       }
-    } catch (err) {
+    } catch (err: any) {
       setError("Something went wrong. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
@@ -158,7 +173,10 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
               animate={{ opacity: 1, y: 0 }}
               className="bg-red-50 border border-red-200 rounded-lg p-4"
             >
-              <p className="text-red-700 text-sm">{error}</p>
+              <div className="flex items-start">
+                <XCircle className="w-5 h-5 text-red-500 mt-0.5 mr-2 flex-shrink-0" />
+                <p className="text-red-700 text-sm">{error}</p>
+              </div>
             </motion.div>
           )}
 
