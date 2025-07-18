@@ -2,23 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
-import CheckoutForm from "../../components/CheckoutForm";
-import { motion } from "framer-motion";
-import { PaymentElement } from "@stripe/react-stripe-js";
+import { motion, AnimatePresence } from "framer-motion";
+import CheckoutOverview from "../../components/CheckoutOverview";
+import CheckoutFormStep from "../../components/CheckoutFormStep";
 
 export default function CheckoutPage() {
-  // Only animate if not already animated in this session
-  const [shouldAnimate, setShouldAnimate] = React.useState(false);
+  const [currentStep, setCurrentStep] = useState<'overview' | 'checkout'>('overview');
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (!window.sessionStorage.getItem("checkoutAnimated")) {
-        setShouldAnimate(true);
-        window.sessionStorage.setItem("checkoutAnimated", "true");
-      }
-    }
-  }, []);
 
   // Fetch clientSecret from API on mount
   useEffect(() => {
@@ -69,23 +59,43 @@ export default function CheckoutPage() {
     },
   };
 
+  const handleContinueToCheckout = () => {
+    setCurrentStep('checkout');
+  };
+
+  const handleBackToOverview = () => {
+    setCurrentStep('overview');
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      {clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
-          {shouldAnimate ? (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-            >
-              <CheckoutForm />
-            </motion.div>
-          ) : (
-            <CheckoutForm />
-          )}
-        </Elements>
-      )}
+    <div className="min-h-screen">
+      <AnimatePresence mode="wait">
+        {currentStep === 'overview' && (
+          <motion.div
+            key="overview"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <CheckoutOverview onContinue={handleContinueToCheckout} />
+          </motion.div>
+        )}
+        
+        {currentStep === 'checkout' && clientSecret && (
+          <motion.div
+            key="checkout"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
+              <CheckoutFormStep onBack={handleBackToOverview} />
+            </Elements>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 } 
