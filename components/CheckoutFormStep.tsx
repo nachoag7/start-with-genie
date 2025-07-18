@@ -39,6 +39,7 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
           payment_method_data: {
             billing_details: {
               name: cardName,
+              email: email,
             },
           },
         },
@@ -268,3 +269,4 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
     </motion.div>
   );
 } 
+ 

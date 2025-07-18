@@ -203,3 +203,5 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
     </motion.div>
   );
 } 
+ 
+ 
