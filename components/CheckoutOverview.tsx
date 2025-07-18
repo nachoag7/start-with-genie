@@ -23,11 +23,19 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen flex items-center justify-center bg-white px-4 py-8"
+      className="min-h-screen flex items-center justify-center bg-white px-4 py-8 relative"
       style={{
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
+      {/* Absolute Back to Home Button */}
+      <a
+        href="/"
+        className="absolute top-8 left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-base font-medium transition-colors gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        style={{ textDecoration: 'none', fontWeight: 500 }}
+      >
+        <span className="text-lg">←</span> Back to Home
+      </a>
       <div 
         className="w-full max-w-[540px] mx-auto text-center"
         style={{ padding: '40px' }}
@@ -152,25 +160,6 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
           >
             No upsells. No hidden fees. Just everything you need—done right.
           </p>
-        </motion.div>
-
-        {/* Back to Home Button */}
-        <motion.div
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-6 text-left"
-        >
-          <a href="/" tabIndex={-1}>
-            <Button
-              variant="ghost"
-              size="md"
-              className="pl-0 pr-4 py-2 text-gray-600 hover:text-blue-700 hover:bg-gray-100 rounded-lg flex items-center gap-2 transition-all duration-150"
-              style={{ boxShadow: 'none', fontWeight: 500 }}
-            >
-              <span className="text-lg">←</span> Back to Home
-            </Button>
-          </a>
         </motion.div>
 
         {/* CTA Button */}

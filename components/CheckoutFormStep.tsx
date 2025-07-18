@@ -105,19 +105,17 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen flex items-center justify-center bg-white px-4 py-8"
+      className="min-h-screen flex items-center justify-center bg-white px-4 py-8 relative"
     >
+      {/* Absolute Back to Home Button */}
+      <a
+        href="/"
+        className="absolute top-8 left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-base font-medium transition-colors gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        style={{ textDecoration: 'none', fontWeight: 500 }}
+      >
+        <span className="text-lg">←</span> Back to Home
+      </a>
       <div className="max-w-[480px] w-full">
-        {/* Back Link */}
-        <motion.button
-          onClick={onBack}
-          className="flex items-center text-gray-500 hover:text-gray-700 mb-8 transition-colors"
-          whileHover={{ x: -2 }}
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to what's included
-        </motion.button>
-
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -141,22 +139,6 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
           onSubmit={handleSubmit}
           className="space-y-6"
         >
-          {/* Name on Card Field */}
-          <div>
-            <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-2">
-              Name on Card
-            </label>
-            <input
-              type="text"
-              id="cardName"
-              value={cardName}
-              onChange={(e) => setCardName(e.target.value)}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:border-gray-400 focus:outline-none transition-all duration-200 text-base"
-              placeholder="Full name as shown on card"
-              autoComplete="cc-name"
-            />
-          </div>
           {/* Email Field */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -178,7 +160,25 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
             <label className="block text-sm font-medium text-gray-500 mb-3">
               Payment Information
             </label>
-            <div className="space-y-4">
+            <div className="space-y-4 bg-white border border-gray-200 rounded-lg px-4 py-5" style={{ boxShadow: '0 1px 4px rgba(31,107,255,0.04)' }}>
+              {/* Name on Card Field */}
+              <div>
+                <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Name on Card
+                </label>
+                <input
+                  type="text"
+                  id="cardName"
+                  value={cardName}
+                  onChange={(e) => setCardName(e.target.value)}
+                  required
+                  className="w-full px-4 py-3 border border-[#e5e7eb] rounded-lg bg-[#f9fafb] focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 text-base placeholder-gray-400"
+                  placeholder="Full name as shown on card"
+                  autoComplete="cc-name"
+                  style={{ fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif', fontWeight: 500, fontSize: 16 }}
+                />
+              </div>
+              {/* Stripe Payment Element */}
               <PaymentElement
                 options={{
                   layout: "tabs",
