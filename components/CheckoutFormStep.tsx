@@ -40,25 +40,27 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
       });
 
       if (error) {
-        // Handle payment error
-        setError(error.message || "Payment failed. Please try again.");
+        // Show Stripe's specific error message
+        setError(error.message || "Something went wrong. Please try another card.");
         setLoading(false);
         return;
       }
 
       if (paymentIntent && paymentIntent.status === 'succeeded') {
-        // Payment succeeded
         setSuccess(true);
         setTimeout(() => {
           router.push("/onboarding");
         }, 2000);
+      } else if (paymentIntent && paymentIntent.status !== 'succeeded') {
+        // Show Stripe's status error if available
+        setError(`Payment failed or is incomplete. Status: ${paymentIntent.status}`);
+        setLoading(false);
       } else {
-        // Payment failed or incomplete
-        setError("Payment was not completed. Please try again.");
+        setError('Payment failed or is incomplete.');
         setLoading(false);
       }
     } catch (err: any) {
-      setError("Something went wrong. Please try again.");
+      setError(err?.message || "Something went wrong. Please try again.");
       setLoading(false);
     }
   };

@@ -34,7 +34,13 @@ export default function SuccessPage() {
           return;
         }
 
-        const { paymentIntent } = await stripe.retrievePaymentIntent(paymentIntentId);
+        const { paymentIntent, error } = await stripe.retrievePaymentIntent(paymentIntentId);
+
+        if (error) {
+          setPaymentStatus('failed');
+          setError(error.message || 'Failed to verify payment status.');
+          return;
+        }
 
         if (paymentIntent && paymentIntent.status === 'succeeded') {
           setPaymentStatus('success');
@@ -50,7 +56,11 @@ export default function SuccessPage() {
           });
         } else {
           setPaymentStatus('failed');
-          setError("Payment was not completed successfully.");
+          setError(
+            paymentIntent && paymentIntent.status
+              ? `Payment failed or is incomplete. Status: ${paymentIntent.status}`
+              : 'Payment was not completed successfully.'
+          );
         }
       } catch (err) {
         setPaymentStatus('failed');

@@ -128,9 +128,9 @@ export default function GenieChat({ avatarSrc }: GenieChatProps) {
       </div>
 
       {/* Chat Input */}
-      <div className="border-t border-gray-200 bg-white p-4">
+      <div className="border-t border-gray-200 bg-white px-0 py-4 flex justify-center w-full" style={{ boxShadow: 'none' }}>
         <form
-          className="flex gap-3"
+          className="flex gap-3 w-full max-w-2xl items-center justify-center"
           onSubmit={(e) => {
             e.preventDefault();
             handleSendMessage();
@@ -139,18 +139,20 @@ export default function GenieChat({ avatarSrc }: GenieChatProps) {
           <input
             id="genie-input"
             type="text"
-            className="flex-1 px-4 py-3 border border-[#e5e5ea] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+            className="flex-1 px-4 py-3 border border-[#e5e5ea] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm"
             placeholder="Ask Genie anything..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={isLoading}
+            style={{ minWidth: 0 }}
           />
           <Button
             type="submit"
             size="md"
             disabled={!inputValue.trim() || isLoading}
             className="text-white !text-white"
+            style={{ minWidth: 44 }}
           >
             <Send className="w-4 h-4 text-white" />
             <span className="hidden sm:inline text-white">Send</span>

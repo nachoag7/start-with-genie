@@ -1058,60 +1058,73 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.8 }}
-            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6 max-w-4xl"
+            className="flex justify-center w-full"
+            style={{ marginTop: 48, marginBottom: 48 }}
           >
-            <div className="flex items-center gap-3 mb-4">
-              <img src="/genie-preview.png" alt="Genie" className="w-10 h-10 rounded-full" />
-              <div>
-                <h2 className="text-xl font-medium text-gray-900">Your Genie Assistant</h2>
-                <p className="text-sm text-gray-500">Ask anything about your LLC setup — we'll guide you step-by-step.</p>
+            <div
+              className="bg-white rounded-2xl shadow-sm border border-[#f2f2f2] flex flex-col items-center w-full"
+              style={{
+                maxWidth: 720,
+                width: '100%',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+                padding: '40px 32px',
+                margin: '0 auto',
+              }}
+            >
+              <div className="flex items-center gap-3 mb-4 w-full justify-center">
+                <img src="/genie-preview.png" alt="Genie" className="w-10 h-10 rounded-full" />
+                <div>
+                  <h2 className="text-xl font-medium text-gray-900">Your Genie Assistant</h2>
+                  <p className="text-sm text-gray-500">Ask anything about your LLC setup — we'll guide you step-by-step.</p>
+                </div>
               </div>
-            </div>
 
-            {/* Smart Prompt Suggestions */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              <button 
-                onClick={() => {
-                  // Trigger a predefined question
-                  const input = document.getElementById('genie-input') as HTMLInputElement;
-                  if (input) {
-                    input.value = "How do I get my EIN?";
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                  }
-                }}
-                className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
-              >
-                How do I get my EIN?
-              </button>
-              <button 
-                onClick={() => {
-                  const input = document.getElementById('genie-input') as HTMLInputElement;
-                  if (input) {
-                    input.value = "Where do I file my LLC?";
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                  }
-                }}
-                className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
-              >
-                Where do I file my LLC?
-              </button>
-              <button 
-                onClick={() => {
-                  const input = document.getElementById('genie-input') as HTMLInputElement;
-                  if (input) {
-                    input.value = "What's an Operating Agreement?";
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                  }
-                }}
-                className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
-              >
-                What's an Operating Agreement?
-              </button>
-            </div>
+              {/* Smart Prompt Suggestions */}
+              <div className="flex flex-wrap gap-2 mb-4 w-full justify-center">
+                <button 
+                  onClick={() => {
+                    const input = document.getElementById('genie-input') as HTMLInputElement;
+                    if (input) {
+                      input.value = "How do I get my EIN?";
+                      input.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                  }}
+                  className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
+                >
+                  How do I get my EIN?
+                </button>
+                <button 
+                  onClick={() => {
+                    const input = document.getElementById('genie-input') as HTMLInputElement;
+                    if (input) {
+                      input.value = "Where do I file my LLC?";
+                      input.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                  }}
+                  className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
+                >
+                  Where do I file my LLC?
+                </button>
+                <button 
+                  onClick={() => {
+                    const input = document.getElementById('genie-input') as HTMLInputElement;
+                    if (input) {
+                      input.value = "What's an Operating Agreement?";
+                      input.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                  }}
+                  className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
+                >
+                  What's an Operating Agreement?
+                </button>
+              </div>
 
-            {/* Chat Interface */}
-            <div className="min-h-[300px] max-h-[400px] overflow-y-auto">
-              <GenieChat avatarSrc="/genie-preview.png" />
+              {/* Chat Interface */}
+              <div className="min-h-[300px] max-h-[400px] w-full flex items-center justify-center" style={{ marginTop: 8 }}>
+                <div className="w-full" style={{ maxWidth: 600 }}>
+                  <GenieChat avatarSrc="/genie-preview.png" />
+                </div>
+              </div>
             </div>
           </motion.div>
         </motion.div>
