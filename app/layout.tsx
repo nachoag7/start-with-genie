@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   title: 'Start With Genie — Fast, Clear LLC Formation',
   description: 'Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right.',
   icons: {
-    icon: '/genie-preview.png',
-    apple: '/genie-preview.png',
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   openGraph: {
     title: 'Start With Genie — Fast, Clear LLC Formation',
@@ -56,9 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased">
       <head>
-        <link rel="icon" href="/genie-preview.png" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/genie-preview.png" />
-        <link rel="shortcut icon" href="/genie-preview.png" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         {/* Fallback meta tags for universal preview compatibility */}
