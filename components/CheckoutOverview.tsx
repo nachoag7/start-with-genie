@@ -9,13 +9,13 @@ interface CheckoutOverviewProps {
 }
 
 export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) {
-  const features = [
-    "Step-by-step LLC filing instructions",
-    "EIN walkthrough (Tax ID help)",
-    "Customizable operating agreement",
-    "Guided setup checklist",
-    "Your Genie Assistant — ask anything, 24/7",
-    "Instant access after checkout"
+  const includedFeatures = [
+    'Step-by-step LLC filing instructions',
+    'IRS EIN setup walkthrough',
+    'Customizable operating agreement',
+    'Personalized progress dashboard',
+    'Genie Assistant for instant help',
+    'Startup launch checklist'
   ];
 
   return (
@@ -76,12 +76,12 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
         >
           <div className="space-y-4">
             {[
-              '✅ Step-by-step LLC filing instructions',
-              '✅ IRS EIN setup walkthrough',
-              '✅ Customizable operating agreement',
-              '✅ Personalized progress dashboard',
-              '✅ Genie Assistant for instant help',
-              '✅ Startup launch checklist'
+              'Step-by-step LLC filing instructions',
+              'IRS EIN setup walkthrough',
+              'Customizable operating agreement',
+              'Personalized progress dashboard',
+              'Genie Assistant for instant help',
+              'Startup launch checklist'
             ].map((feature, index) => (
               <motion.div
                 key={feature}

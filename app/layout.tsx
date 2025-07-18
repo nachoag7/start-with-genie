@@ -7,15 +7,14 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://startwithgenie.com'),
-  title: 'Start With Genie — Fast, Clear LLC Formation',
-  description: 'Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right.',
+  title: 'Start With Genie – Launch Your LLC for $49',
+  description: 'A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff.',
   icons: {
     icon: '/favicon.ico',
-    apple: '/favicon.ico',
   },
   openGraph: {
-    title: 'Start With Genie — Fast, Clear LLC Formation',
-    description: 'Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right.',
+    title: 'Start With Genie – Launch Your LLC for $49',
+    description: 'A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff.',
     url: 'https://startwithgenie.com',
     siteName: 'Start With Genie',
     images: [
@@ -30,8 +29,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Start With Genie — Fast, Clear LLC Formation',
-    description: 'Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right.',
+    title: 'Start With Genie – Launch Your LLC for $49',
+    description: 'A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff.',
     images: ['https://startwithgenie.com/genie-og.png'],
   },
   other: {
@@ -56,21 +55,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased">
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         {/* Fallback meta tags for universal preview compatibility */}
-        <meta name="description" content="Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right." />
-        <meta property="og:title" content="Start With Genie — Fast, Clear LLC Formation" />
-        <meta property="og:description" content="Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right." />
+        <meta name="description" content="A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff." />
+        <meta property="og:title" content="Start With Genie – Launch Your LLC for $49" />
+        <meta property="og:description" content="A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff." />
         <meta property="og:image" content="https://startwithgenie.com/genie-og.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="628" />
         <meta property="og:url" content="https://startwithgenie.com" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Start With Genie — Fast, Clear LLC Formation" />
-        <meta name="twitter:description" content="Start your business with clarity. Step-by-step guidance, essential documents, and no upsells — just what you need to launch your LLC right." />
+        <meta name="twitter:title" content="Start With Genie – Launch Your LLC for $49" />
+        <meta name="twitter:description" content="A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff." />
         <meta name="twitter:image" content="https://startwithgenie.com/genie-og.png" />
         <script
           type="application/ld+json"

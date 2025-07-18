@@ -28,7 +28,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: "What's included in the $49?",
-    answer: "You get access to your own personalized dashboard, with your state-specific instructions, EIN guide, operating agreement, startup checklist, and support from Genie."
+    answer: "You get access to your own personalized dashboard, with your state-specific instructions, EIN guide, an operating agreement, and support from Genie."
   }
 ]
 
