@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp } from 'lucide-react'
+import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket } from 'lucide-react'
 import Footer from '../components/Footer'
 
 interface FAQItem {
@@ -103,6 +103,15 @@ const compareItems = [
     title: 'Flat-rate, fast access',
     subtitle: 'You pay once. You get everything. And you get it instantly.'
   },
+];
+
+const whyLLCItems = [
+  { icon: Shield, title: 'Personal Protection', text: 'Keep your personal assets (like your car or savings) safe if your business gets sued or falls into debt.' },
+  { icon: BarChart, title: 'Serious Business Signal', text: 'Show clients, banks, and partners you’re not just winging it — you’re official.' },
+  { icon: DollarSign, title: 'Flexible Taxes', text: 'Choose how you’re taxed — as a sole proprietor, partnership, or corporation.' },
+  { icon: Banknote, title: 'Business Bank Accounts', text: 'Most banks require an LLC to open a separate business account and build credit.' },
+  { icon: FileText, title: 'Contracts + Trust', text: 'Look more professional and trustworthy when sending deals or sending invoices.' },
+  { icon: Rocket, title: 'Side Hustle → Real Business', text: 'An LLC is the first big step in turning what you’re doing into something long-term.' },
 ];
 
 const fadeUpStagger = {
@@ -325,8 +334,8 @@ function PreviewSection({
 }: {
   title: string
   subtitle: string
-  image: string
-  imageAlt: string
+  image?: string
+  imageAlt?: string
   bgColor?: string
   reverse?: boolean
   children?: React.ReactNode
@@ -361,47 +370,91 @@ function PreviewSection({
             >
               {subtitle}
             </motion.p>
-            {children}
           </div>
-          
-          {/* Image with error handling and fallback */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
-            className="w-full max-w-3xl mx-auto"
-          >
-            <img
-              src={image}
-              alt={imageAlt}
-              className="rounded-xl border border-gray-200 shadow-sm w-full h-auto object-contain"
-              loading="eager"
-              decoding="sync"
-              onError={(e) => {
-                // Fallback to a clean placeholder if image fails to load
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const fallback = target.nextElementSibling as HTMLElement;
-                if (fallback) fallback.style.display = 'flex';
-              }}
-            />
-            {/* Fallback placeholder */}
-            <div 
-              className="hidden rounded-xl border border-gray-200 shadow-sm w-full h-64 bg-gray-50 flex items-center justify-center"
-              style={{ display: 'none' }}
+          {/* Image */}
+          {image && (
+            <motion.div 
+              className="flex-1"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.3 }}
             >
-              <div className="text-center text-gray-500">
-                <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gray-200 mb-4">
-                  <span className="text-2xl">📄</span>
-                </div>
-                <p className="text-sm font-medium">Preview Image</p>
-              </div>
-            </div>
-          </motion.div>
+              <img src={image} alt={imageAlt} className="rounded-2xl shadow-2xl w-full h-auto object-cover" />
+            </motion.div>
+          )}
         </div>
+        {/* Conditionally render children if no image is provided */}
+        {children && !image && <div className="mt-8">{children}</div>}
       </div>
     </motion.section>
+  )
+}
+
+function AboutLLCSection() {
+  return (
+    <section className="bg-white py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div 
+          className="grid md:grid-cols-2 gap-x-20 gap-y-12 items-start"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUpStagger}
+        >
+          {/* Left Column */}
+          <motion.div 
+            className="space-y-4 max-w-[560px]"
+            variants={fadeUpItem}
+          >
+            <h2 className="text-3xl font-semibold text-gray-900 mb-6">What is an LLC?</h2>
+            <div className="space-y-4 text-gray-700 leading-relaxed text-lg">
+              <p>
+                A Limited Liability Company (LLC) gives your business legal protection and flexible tax options — without the complexity of a corporation. If you’re starting something real, it’s the smartest first step to make it official.
+              </p>
+              <p>
+                Whether you’re freelancing, launching a service, or growing your side hustle, an LLC helps you build with confidence.
+              </p>
+              <p>
+                It also opens the door to important tools — like a business bank account, contracts, and business credit. It’s how you separate your business life from your personal life and take your venture seriously from day one.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right Column */}
+          <motion.div 
+            className="space-y-4 max-w-[560px]"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.4, delay: 0.7, ease: "easeOut" },
+              },
+            }}
+          >
+            <h2 className="text-3xl font-semibold text-gray-900 mb-5">Why People Form LLCs</h2>
+            <ul className="space-y-3">
+              {whyLLCItems.map((item, idx) => (
+                <motion.li 
+                  key={item.title} 
+                  className="flex items-start gap-3"
+                  variants={fadeUpItem}
+                >
+                  <div className="w-4 h-4 flex-shrink-0 mt-[3px] flex items-center justify-center">
+                    <item.icon className="w-full h-full text-green-500" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800 text-base">{item.title}</h4>
+                    <p className="text-gray-500 leading-snug text-sm">{item.text}</p>
+                  </div>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
   )
 }
 
@@ -548,46 +601,9 @@ export default function Home() {
         </motion.section>
         
         {/* What is an LLC Section */}
-        <PreviewSection
-          title="What is an LLC?"
-          subtitle="A simple way to protect your business and stay legally compliant."
-          image="/images/llc-illustration.svg"
-          imageAlt="LLC Illustration"
-        >
-          <div className="grid md:grid-cols-2 gap-12 mt-8">
-            <div className="space-y-4">
-              <p className="text-gray-600 leading-relaxed">
-                A Limited Liability Company (LLC) gives your business legal protection and flexible tax options — without the complexity of a corporation. If you’re starting something real, it’s the smartest first step to make it official.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                Whether you’re freelancing, launching a service, or growing your side hustle, an LLC helps you build with confidence.
-              </p>
-            </div>
-            <div className="space-y-6">
-              <h3 className="text-lg font-semibold text-gray-800">Why People Form LLCs</h3>
-              <p className="text-gray-600">Smart protections and benefits — even if you’re just getting started.</p>
-              <ul className="space-y-4">
-                {[
-                  { icon: '🛡️', title: 'Personal Protection', text: 'Keep your personal assets (like your car or savings) safe if your business gets sued or falls into debt.' },
-                  { icon: '📈', title: 'Serious Business Signal', text: 'Show clients, banks, and partners you’re not just winging it — you’re official.' },
-                  { icon: '💸', title: 'Flexible Taxes', text: 'Choose how you’re taxed — as a sole proprietor, partnership, or corporation.' },
-                  { icon: '🏦', title: 'Business Bank Accounts', text: 'Most banks require an LLC to open a separate business account and build credit.' },
-                  { icon: '📄', title: 'Contracts + Trust', text: 'Look more professional and trustworthy when signing deals or sending invoices.' },
-                  { icon: '🚀', title: 'Side Hustle → Real Business', text: 'An LLC is the first big step in turning what you’re doing into something long-term.' },
-                ].map(item => (
-                  <li key={item.title} className="flex items-start gap-4">
-                    <span className="text-2xl mt-1">{item.icon}</span>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">{item.title}</h4>
-                      <p className="text-gray-600">{item.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </PreviewSection>
+        <AboutLLCSection />
 
+        {/* Other Sections */}
         <WhyGenieSection />
         <CompareSection />
         
