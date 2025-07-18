@@ -63,6 +63,8 @@ export default function DashboardPage() {
   const router = useRouter()
   const pathname = usePathname()
   const [showGenie, setShowGenie] = useState(false)
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
 
   // Add refs for each document section
   const llcRef = useRef<HTMLDivElement>(null)
@@ -523,7 +525,7 @@ export default function DashboardPage() {
   const handleDocumentsToggle = () => setDocumentsOpen((v) => !v)
 
   // Add error state
-  const [pdfError, setPdfError] = useState<string | null>(null);
+  // const [pdfError, setPdfError] = useState<string | null>(null);
 
   // PDF download handlers
   // Remove handleDownloadOA, handleDownloadLLC, handleDownloadEIN (all @react-pdf/renderer usage)
@@ -653,6 +655,75 @@ export default function DashboardPage() {
     }
   }, [showCongrats]);
 
+  // Helper: Check which PDFs are missing
+  const requiredDocs = [
+    'LLC Filing Instructions',
+    'EIN Guide',
+    'Operating Agreement',
+  ];
+
+  const checkMissingDocs = (docs: Document[]) => {
+    const docTypes = docs.map(d => d.doc_type);
+    return requiredDocs.filter(type => !docTypes.includes(type));
+  };
+
+  // On mount, check for missing PDFs and generate if needed
+  useEffect(() => {
+    const generateMissingPDFs = async (missing: string[]) => {
+      if (!user || missing.length === 0) return;
+      setPdfLoading(true);
+      setPdfError(null);
+      try {
+        await Promise.all(missing.map(async (type) => {
+          let url = '';
+          if (type === 'LLC Filing Instructions') {
+            url = await generateLLCFilingInstructions({
+              fullName: user.full_name,
+              businessName: user.business_name,
+              state: user.state,
+              email: user.email,
+            });
+          } else if (type === 'EIN Guide') {
+            url = await generateEINGuide({
+              fullName: user.full_name,
+              businessName: user.business_name,
+              state: user.state,
+              email: user.email,
+            });
+          } else if (type === 'Operating Agreement') {
+            url = await generateOperatingAgreement({
+              fullName: user.full_name,
+              businessName: user.business_name,
+              state: user.state,
+              email: user.email,
+            });
+          }
+          if (url) {
+            await supabase.from('documents').insert({
+              user_id: user.id,
+              doc_type: type,
+              url,
+            });
+          }
+        }));
+        // Refresh documents after generation
+        await fetchUserData();
+      } catch (err: any) {
+        setPdfError('There was a problem preparing your documents. Please refresh or contact support.');
+      } finally {
+        setPdfLoading(false);
+      }
+    };
+
+    if (user && documents) {
+      const missing = checkMissingDocs(documents);
+      if (missing.length > 0) {
+        generateMissingPDFs(missing);
+      }
+    }
+    // eslint-disable-next-line
+  }, [user]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -672,6 +743,44 @@ export default function DashboardPage() {
   // Document HTML content generators (match PDF logic, but HTML)
   const today = new Date().toLocaleDateString();
   // --- HTML content for each doc ---
+
+  if (pdfLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="flex flex-col items-center gap-6 p-10 bg-white/90 rounded-3xl shadow-2xl border border-gray-100 backdrop-blur-md mt-32"
+        >
+          <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-2 animate-spin-slow">
+            <svg className="w-10 h-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="4" className="opacity-25" /><path d="M4 12a8 8 0 018-8" strokeWidth="4" className="opacity-75" /></svg>
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900 text-center">Preparing your documents…</h2>
+          <p className="text-base text-gray-600 text-center max-w-xs">This usually takes less than 10 seconds. Your personalized PDFs will appear here as soon as they’re ready.</p>
+        </motion.div>
+      </div>
+    );
+  }
+  if (pdfError) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="flex flex-col items-center gap-6 p-10 bg-white/90 rounded-3xl shadow-2xl border border-gray-100 backdrop-blur-md mt-32"
+        >
+          <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-2">
+            <X className="w-10 h-10 text-red-500" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900 text-center">There was a problem preparing your documents.</h2>
+          <p className="text-base text-gray-600 text-center max-w-xs">Please refresh the page or contact support if this continues.</p>
+          <Button onClick={() => window.location.reload()} className="mt-2">Try Again</Button>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f9fafb] font-inter flex flex-col">

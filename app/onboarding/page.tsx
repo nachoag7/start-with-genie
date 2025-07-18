@@ -66,11 +66,18 @@ export default function OnboardingPage() {
     let fieldsToValidate: (keyof OnboardingFormData)[] = [];
     if (formStep === 1) {
       fieldsToValidate = ['fullName', 'email', 'password', 'state'];
+      // Check password length before allowing next step
+      const passwordValue = watch('password');
+      if (!passwordValue || passwordValue.length <= 6) {
+        setError('Password must be more than 6 characters.');
+        return;
+      }
     } else if (formStep === 2) {
       fieldsToValidate = ['businessName', 'businessAddress'];
     }
     const valid = await trigger(fieldsToValidate);
     if (valid && formStep < 2) {
+      setError(""); // Clear error if moving forward
       setFormStep(formStep + 1);
     }
   };
@@ -120,45 +127,7 @@ export default function OnboardingPage() {
         setIsLoading(false);
         return;
       }
-      // 3. Generate PDFs and insert into documents table
-      try {
-        const llcUrl = await generateLLCFilingInstructions({
-          fullName: data.fullName,
-          businessName: data.businessName,
-          state: data.state,
-          email: data.email
-        });
-        await supabase.from('documents').insert({
-          user_id: userId,
-          doc_type: 'LLC Filing Instructions',
-          url: llcUrl
-        });
-        const einUrl = await generateEINGuide({
-          fullName: data.fullName,
-          businessName: data.businessName,
-          state: data.state,
-          email: data.email
-        });
-        await supabase.from('documents').insert({
-          user_id: userId,
-          doc_type: 'EIN Guide',
-          url: einUrl
-        });
-        const agreementUrl = await generateOperatingAgreement({
-          fullName: data.fullName,
-          businessName: data.businessName,
-          state: data.state,
-          email: data.email
-        });
-        await supabase.from('documents').insert({
-          user_id: userId,
-          doc_type: 'Operating Agreement',
-          url: agreementUrl
-        });
-      } catch (pdfError) {
-        console.error('PDF generation failed:', pdfError);
-        // Optionally setError('PDF generation failed, but your account was created.');
-      }
+      // 3. Immediately show success and redirect (no PDF generation)
       setView('success');
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");

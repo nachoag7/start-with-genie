@@ -1,7 +1,13 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import * as XLSX from 'xlsx'
-import { StateLLCInfo } from './pdf-generator'
+
+export interface StateLLCInfo {
+  fee?: string | number;
+  time?: string;
+  url?: string;
+  notes?: string;
+}
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
