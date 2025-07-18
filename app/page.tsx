@@ -34,7 +34,7 @@ const faqData: FAQItem[] = [
 
 const featureDetails = [
   {
-    label: 'Step-by-step LLC filing instructions tailored to your state',
+    label: 'Step-by-step LLC filing instructions',
     description: 'Get clear, personalized filing steps based on your state so you can confidently submit your LLC without confusion.'
   },
   {
@@ -46,11 +46,11 @@ const featureDetails = [
     description: 'Personalize and print a simple LLC Operating Agreement — ready to sign.'
   },
   {
-    label: 'Personalized dashboard to track your progress',
+    label: 'Personalized progress dashboard',
     description: 'See your LLC formation status, next steps, and important documents all in one place.'
   },
   {
-    label: 'Genie Assistant included for instant guidance',
+    label: 'Genie Assistant for instant help',
     description: 'Instant answers with our Genie Assistant — no upsells or hidden fees.'
   },
   {
