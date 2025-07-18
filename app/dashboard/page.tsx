@@ -813,6 +813,21 @@ export default function DashboardPage() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="space-y-8"
         >
+          {/* Welcome Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="text-center pt-12 pb-10 border-b border-gray-200"
+          >
+            <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
+              Your Business Dashboard
+            </h1>
+            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+              Track progress and stay organized — all in one place.
+            </p>
+          </motion.div>
+
           {/* Welcome Section */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -1074,8 +1089,12 @@ export default function DashboardPage() {
               <div className="flex items-center gap-3 mb-4 w-full justify-center">
                 <img src="/genie-preview.png" alt="Genie" className="w-10 h-10 rounded-full" />
                 <div>
-                  <h2 className="text-xl font-medium text-gray-900">Your Genie Assistant</h2>
-                  <p className="text-sm text-gray-500">Ask anything about your LLC setup — we'll guide you step-by-step.</p>
+                  <h2 className="text-2xl font-semibold text-gray-900">
+                    Your Genie Assistant
+                  </h2>
+                  <p className="mt-2 text-gray-600 max-w-xl mx-auto">
+                    Ask anything about your LLC setup. From EINs to operating agreements, Genie gives you instant answers to help you move forward.
+                  </p>
                 </div>
               </div>
 

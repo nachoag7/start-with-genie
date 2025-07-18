@@ -51,7 +51,7 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
             className="text-2xl font-semibold text-gray-900 mb-4"
             style={{ fontSize: '24px', fontWeight: 600 }}
           >
-            Start With Genie – LLC Launch Kit
+            What’s Included
           </h1>
           <p 
             className="text-base text-gray-600 max-w-md mx-auto"
@@ -62,7 +62,7 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
               lineHeight: 1.6 
             }}
           >
-            Everything you need to launch with clarity — no upsells, ever.
+            Everything you need to launch — nothing you don’t.
           </p>
         </motion.div>
 
@@ -75,7 +75,14 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
           style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
         >
           <div className="space-y-4">
-            {features.map((feature, index) => (
+            {[
+              '✅ Step-by-step LLC filing instructions',
+              '✅ IRS EIN setup walkthrough',
+              '✅ Customizable operating agreement',
+              '✅ Personalized progress dashboard',
+              '✅ Genie Assistant for instant help',
+              '✅ Startup launch checklist'
+            ].map((feature, index) => (
               <motion.div
                 key={feature}
                 initial={{ opacity: 0, y: 10 }}

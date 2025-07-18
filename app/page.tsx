@@ -63,22 +63,22 @@ const whyGenieItems = [
   {
     icon: <FileText size={22} strokeWidth={2} />,
     title: 'Clear state-specific filing steps',
-    subtitle: 'Actionable LLC filing instructions tailored to your state, with no legal jargon.'
+    subtitle: 'Know exactly where to file, what to submit, and how to move forward — no confusion.'
   },
   {
     icon: <LayoutDashboard size={22} strokeWidth={2} />,
     title: 'Custom dashboard with smart progress tracking',
-    subtitle: 'Know exactly what’s done and what’s next — everything stays organized.'
+    subtitle: 'Stay organized with a simple dashboard that shows exactly what’s done and what’s next.'
   },
   {
     icon: <HeadphonesIcon size={22} strokeWidth={2} />,
     title: 'Built-in AI assistant',
-    subtitle: 'Get step-by-step guidance from our Genie assistant.'
+    subtitle: 'Get answers from Genie as you go — no delays, no confusion.'
   },
   {
     icon: <Sparkles size={22} strokeWidth={2} />,
     title: 'Documents built to launch',
-    subtitle: 'Operating agreement and EIN guide ready for banks, partners, and tax setup.'
+    subtitle: 'Includes your LLC filing instructions, EIN guide, and operating agreement — everything you need to set up your business, ready to go.'
   },
 ];
 
@@ -86,17 +86,17 @@ const compareItems = [
   {
     icon: <ShieldCheck size={22} strokeWidth={2} />,
     title: 'No hidden fees, ever',
-    subtitle: 'Everything you need to form your LLC — no upsells, surprises, or shady fine print.'
+    subtitle: 'One flat price. No upsells. No fine print.'
   },
   {
     icon: <GaugeCircle size={22} strokeWidth={2} />,
     title: 'Built for clarity',
-    subtitle: 'Our dashboard and steps are obsessively designed to be clear and stress-free.'
+    subtitle: 'Our steps are obsessively designed to be clear, simple, and stress-free.'
   },
   {
     icon: <Users size={22} strokeWidth={2} />,
     title: 'Genie-powered help',
-    subtitle: 'Answers 24/7 from your built-in Genie assistant — no delays, no fluff.'
+    subtitle: 'Answers when you need them. Right inside your dashboard.'
   },
   {
     icon: <BadgeDollarSign size={22} strokeWidth={2} />,
@@ -320,7 +320,8 @@ function PreviewSection({
   image, 
   imageAlt, 
   bgColor = "bg-gray-50",
-  reverse = false 
+  reverse = false,
+  children
 }: {
   title: string
   subtitle: string
@@ -328,6 +329,7 @@ function PreviewSection({
   imageAlt: string
   bgColor?: string
   reverse?: boolean
+  children?: React.ReactNode
 }) {
   return (
     <motion.section
@@ -359,6 +361,7 @@ function PreviewSection({
             >
               {subtitle}
             </motion.p>
+            {children}
           </div>
           
           {/* Image with error handling and fallback */}
@@ -551,72 +554,18 @@ export default function Home() {
         </motion.section>
         
         {/* What is an LLC Section */}
-        <motion.section
-          id="what-is-an-llc"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="w-full bg-white py-20"
+        <PreviewSection
+          title="What is an LLC?"
+          subtitle="A simple way to protect your business and stay legally compliant."
+          image="/images/llc-illustration.svg"
+          imageAlt="LLC Illustration"
         >
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-16 items-start">
-              {/* Left Column - Content */}
-              <div className="space-y-8">
-                {/* Title and Subheading */}
-                <div className="space-y-4">
-                  <h2 className="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight tracking-tight">
-                    What is an LLC?
-                  </h2>
-                  <p className="text-xl text-neutral-500 leading-relaxed">
-                    A simple way to protect your business and stay legally compliant.
-                  </p>
-                </div>
-
-                {/* Body Paragraphs */}
-                <p className="text-lg text-neutral-600 leading-relaxed">
-                  A Limited Liability Company (LLC) is a legal business structure that protects your personal assets—like your car, home, or savings—if your business is ever sued or runs into debt. It's one of the easiest and most flexible ways to formalize your business while keeping things simple.
-                </p>
-
-                <p className="text-lg text-neutral-600 leading-relaxed">
-                  With an LLC, you get the legal protections of a corporation without the complexity. You can form one as a solo founder or with business partners, and you can choose how you're taxed—either as a sole proprietorship, partnership, or corporation.
-                </p>
-
-                <p className="text-lg text-neutral-600 leading-relaxed">
-                  Whether you're just starting out or already growing fast, forming an LLC is often the first real step in making your business official.
-                </p>
-              </div>
-
-              {/* Right Column - Bullet List */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8, ease: 'easeInOut', delay: 1.0 }}
-                className="space-y-6 mt-12"
-              >
-                <h3 className="text-xl font-medium text-neutral-900">Why people form LLCs:</h3>
-                <ul className="space-y-4">
-                  {[
-                    "Personal liability protection",
-                    "Flexible tax options",
-                    "Simple maintenance compared to corporations",
-                    "Better trust with clients and partners",
-                    "Easier to open a business bank account"
-                  ].map((text, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center gap-3"
-                    >
-                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                      <span className="text-neutral-700 text-lg">{text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-          </div>
-        </motion.section>
+          <p className="text-gray-600 leading-relaxed max-w-xl">
+            A Limited Liability Company (LLC) gives your business legal protection and flexible tax options — without the complexity of a corporation. If you’re starting something real, it’s the smartest first step to make it official.
+            <br/><br/>
+            Whether you’re freelancing, launching a service, or growing your side hustle, an LLC helps you build with confidence.
+          </p>
+        </PreviewSection>
 
         {/* Comparison Sections */}
         <WhyGenieSection />
