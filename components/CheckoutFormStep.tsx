@@ -13,6 +13,7 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
   const stripe = useStripe();
   const elements = useElements();
   const [email, setEmail] = useState("");
+  const [cardName, setCardName] = useState("");
   const [inputHover, setInputHover] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -35,6 +36,11 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
         elements,
         confirmParams: {
           return_url: `${window.location.origin}/success`,
+          payment_method_data: {
+            billing_details: {
+              name: cardName,
+            },
+          },
         },
         redirect: 'if_required',
       });
@@ -135,6 +141,22 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
           onSubmit={handleSubmit}
           className="space-y-6"
         >
+          {/* Name on Card Field */}
+          <div>
+            <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-2">
+              Name on Card
+            </label>
+            <input
+              type="text"
+              id="cardName"
+              value={cardName}
+              onChange={(e) => setCardName(e.target.value)}
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:border-gray-400 focus:outline-none transition-all duration-200 text-base"
+              placeholder="Full name as shown on card"
+              autoComplete="cc-name"
+            />
+          </div>
           {/* Email Field */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">

@@ -154,6 +154,25 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
           </p>
         </motion.div>
 
+        {/* Back to Home Button */}
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-6 text-left"
+        >
+          <a href="/" tabIndex={-1}>
+            <Button
+              variant="ghost"
+              size="md"
+              className="pl-0 pr-4 py-2 text-gray-600 hover:text-blue-700 hover:bg-gray-100 rounded-lg flex items-center gap-2 transition-all duration-150"
+              style={{ boxShadow: 'none', fontWeight: 500 }}
+            >
+              <span className="text-lg">←</span> Back to Home
+            </Button>
+          </a>
+        </motion.div>
+
         {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -164,7 +183,8 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
           <Button
             onClick={onContinue}
             size="lg"
-            className="w-full max-w-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
+            className="w-full max-w-md bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] hover:from-[#1F6BFF] hover:to-[#3A8DFF] text-white font-semibold py-4 px-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
+            style={{ boxShadow: '0 2px 8px rgba(31,107,255,0.08)' }}
           >
             Continue to Checkout
             <ArrowRight className="w-5 h-5" />
