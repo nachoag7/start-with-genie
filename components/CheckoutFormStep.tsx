@@ -14,6 +14,7 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
   const elements = useElements();
   const [email, setEmail] = useState("");
   const [cardName, setCardName] = useState("");
+  const [phone, setPhone] = useState("");
   const [inputHover, setInputHover] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -40,6 +41,7 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
             billing_details: {
               name: cardName,
               email: email,
+              phone: phone,
             },
           },
         },
@@ -153,6 +155,22 @@ export default function CheckoutFormStep({ onBack }: { onBack: () => void }) {
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:border-gray-400 focus:outline-none transition-all duration-200 text-base"
               placeholder="your@email.com"
+            />
+          </div>
+          {/* Phone Number Field */}
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:border-gray-400 focus:outline-none transition-all duration-200 text-base"
+              placeholder="(555) 555-5555"
+              autoComplete="tel"
             />
           </div>
 
