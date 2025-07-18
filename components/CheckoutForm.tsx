@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
 
@@ -11,36 +12,50 @@ interface CheckoutFormProps {
 export default function CheckoutForm({ onBack }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [billingName, setBillingName] = useState("");
-  const [inputHover, setInputHover] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!stripe || !elements) return;
+    if (!stripe || !elements) {
+      return;
+    }
 
     setLoading(true);
-    const { error } = await stripe.confirmPayment({
+    setError("");
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: `${window.location.origin}/success`,
+        payment_method_data: {
+          billing_details: {
+            name: billingName,
+            email: email,
+          },
+        },
       },
+      redirect: "if_required",
     });
 
     if (error) {
       setError(error.message || "An unexpected error occurred.");
+      setLoading(false);
+    } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      router.push("/onboarding");
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const inputStyle = {
     fontSize: 15,
     padding: '0.75rem 1rem',
     lineHeight: 1.4,
-    border: '1px solid',
-    borderColor: inputHover ? '#888' : '#ccc',
+    border: '1px solid #ccc',
     borderRadius: 8,
     transition: 'border-color 0.2s ease',
     background: 'transparent',
