@@ -50,8 +50,8 @@ const featureDetails = [
     description: 'See your LLC formation status, next steps, and important documents all in one place.'
   },
   {
-    label: 'Friendly support + Genie Assistant included',
-    description: 'Get answers fast with built-in support and an AI assistant, no upsells or hidden fees.'
+    label: 'Genie Assistant included for instant guidance',
+    description: 'Instant answers with our Genie Assistant — no upsells or hidden fees.'
   },
   {
     label: 'Startup launch checklist',
@@ -72,8 +72,8 @@ const whyGenieItems = [
   },
   {
     icon: <HeadphonesIcon size={22} strokeWidth={2} />,
-    title: 'Concierge support + AI assistant',
-    subtitle: 'Friendly help when you need it, from real people and our Genie assistant.'
+    title: 'Built-in AI assistant',
+    subtitle: 'Get step-by-step guidance from our Genie assistant.'
   },
   {
     icon: <Sparkles size={22} strokeWidth={2} />,
@@ -95,8 +95,8 @@ const compareItems = [
   },
   {
     icon: <Users size={22} strokeWidth={2} />,
-    title: 'Real human support',
-    subtitle: 'Message us anytime — we’re real people who actually respond.'
+    title: 'Genie-powered help',
+    subtitle: 'Answers 24/7 from your built-in Genie assistant — no delays, no fluff.'
   },
   {
     icon: <BadgeDollarSign size={22} strokeWidth={2} />,
