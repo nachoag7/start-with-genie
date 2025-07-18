@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
 import { motion, AnimatePresence } from "framer-motion";
 import CheckoutOverview from "../../components/CheckoutOverview";
-import CheckoutFormStep from "../../components/CheckoutFormStep";
+import CheckoutForm from "../../components/CheckoutForm";
 
 export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState<'overview' | 'checkout'>('overview');
@@ -91,7 +91,7 @@ export default function CheckoutPage() {
             transition={{ duration: 0.3 }}
           >
             <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
-              <CheckoutFormStep onBack={handleBackToOverview} />
+              <CheckoutForm />
             </Elements>
           </motion.div>
         )}
