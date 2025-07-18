@@ -560,11 +560,40 @@ export default function Home() {
           image="/images/llc-illustration.svg"
           imageAlt="LLC Illustration"
         >
-          <p className="text-gray-600 leading-relaxed max-w-xl">
-            A Limited Liability Company (LLC) gives your business legal protection and flexible tax options — without the complexity of a corporation. If you’re starting something real, it’s the smartest first step to make it official.
-            <br/><br/>
-            Whether you’re freelancing, launching a service, or growing your side hustle, an LLC helps you build with confidence.
-          </p>
+          <div className="grid md:grid-cols-2 gap-12 mt-8">
+            {/* Left Column */}
+            <div className="space-y-4">
+              <p className="text-gray-600 leading-relaxed">
+                A Limited Liability Company (LLC) gives your business legal protection and flexible tax options — without the complexity of a corporation. If you’re starting something real, it’s the smartest first step to make it official.
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                Whether you’re freelancing, launching a service, or growing your side hustle, an LLC helps you build with confidence.
+              </p>
+            </div>
+            {/* Right Column */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold text-gray-800">Why People Form LLCs</h3>
+              <p className="text-gray-600">Smart protections and benefits — even if you’re just getting started.</p>
+              <ul className="space-y-4">
+                {[
+                  { icon: '🛡️', title: 'Personal Protection', text: 'Keep your personal assets (like your car or savings) safe if your business gets sued or falls into debt.' },
+                  { icon: '📈', title: 'Serious Business Signal', text: 'Show clients, banks, and partners you’re not just winging it — you’re official.' },
+                  { icon: '💸', title: 'Flexible Taxes', text: 'Choose how you’re taxed — as a sole proprietor, partnership, or corporation.' },
+                  { icon: '🏦', title: 'Business Bank Accounts', text: 'Most banks require an LLC to open a separate business account and build credit.' },
+                  { icon: '📄', title: 'Contracts + Trust', text: 'Look more professional and trustworthy when signing deals or sending invoices.' },
+                  { icon: '🚀', title: 'Side Hustle → Real Business', text: 'An LLC is the first big step in turning what you’re doing into something long-term.' },
+                ].map(item => (
+                  <li key={item.title} className="flex items-start gap-4">
+                    <span className="text-2xl mt-1">{item.icon}</span>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">{item.title}</h4>
+                      <p className="text-gray-600">{item.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </PreviewSection>
 
         {/* Comparison Sections */}
