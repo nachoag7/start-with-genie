@@ -658,68 +658,71 @@ export default function DashboardPage() {
     'Operating Agreement',
   ];
 
-  // Remove the automatic PDF generation logic
-  // const checkMissingDocs = (docs: Document[]) => {
-  //   const docTypes = docs.map(d => d.doc_type);
-  //   return requiredDocs.filter(type => !docTypes.includes(type));
-  // };
+  // Check which PDFs are missing and generate them automatically
+  const checkMissingDocs = (docs: Document[]) => {
+    const docTypes = docs.map(d => d.doc_type);
+    return requiredDocs.filter(type => !docTypes.includes(type));
+  };
 
-  // Remove the useEffect that automatically generates missing PDFs
-  // useEffect(() => {
-  //   const generateMissingPDFs = async (missing: string[]) => {
-  //     if (!user || missing.length === 0) return;
-  //     setPdfLoading(true);
-  //     setPdfError(null);
-  //     try {
-  //       await Promise.all(missing.map(async (type) => {
-  //         let url = '';
-  //         if (type === 'LLC Filing Instructions') {
-  //           url = await generateLLCFilingInstructions({
-  //             fullName: user.full_name,
-  //             businessName: user.business_name,
-  //             state: user.state,
-  //             email: user.email,
-  //           });
-  //         } else if (type === 'EIN Guide') {
-  //           url = await generateEINGuide({
-  //             fullName: user.full_name,
-  //             businessName: user.business_name,
-  //             state: user.state,
-  //             email: user.email,
-  //           });
-  //         } else if (type === 'Operating Agreement') {
-  //           url = await generateOperatingAgreement({
-  //             fullName: user.full_name,
-  //             businessName: user.business_name,
-  //             state: user.state,
-  //             email: user.email,
-  //           });
-  //         }
-  //         if (url) {
-  //           await supabase.from('documents').insert({
-  //             user_id: user.id,
-  //             doc_type: type,
-  //             url,
-  //           });
-  //         }
-  //       }));
-  //       // Refresh documents after generation
-  //       await fetchUserData();
-  //     } catch (err: any) {
-  //       setPdfError('There was a problem preparing your documents. Please refresh or contact support.');
-  //     } finally {
-  //       setPdfLoading(false);
-  //     }
-  //   };
+  // Automatically generate missing PDFs when user first visits dashboard
+  useEffect(() => {
+    const generateMissingPDFs = async (missing: string[]) => {
+      if (!user || missing.length === 0) return;
+      
+      console.log('[DEBUG] Generating missing PDFs:', missing);
+      
+      try {
+        await Promise.all(missing.map(async (type) => {
+          let url = '';
+          if (type === 'LLC Filing Instructions') {
+            url = await generateLLCFilingInstructions({
+              fullName: user.full_name,
+              businessName: user.business_name,
+              state: user.state,
+              email: user.email,
+            });
+          } else if (type === 'EIN Guide') {
+            url = await generateEINGuide({
+              fullName: user.full_name,
+              businessName: user.business_name,
+              state: user.state,
+              email: user.email,
+            });
+          } else if (type === 'Operating Agreement') {
+            url = await generateOperatingAgreement({
+              fullName: user.full_name,
+              businessName: user.business_name,
+              state: user.state,
+              email: user.email,
+            });
+          }
+          
+          if (url) {
+            await supabase.from('documents').insert({
+              user_id: user.id,
+              doc_type: type,
+              url,
+            });
+            console.log('[DEBUG] Generated and saved:', type);
+          }
+        }));
+        
+        // Refresh documents after generation
+        await fetchUserData();
+        console.log('[DEBUG] PDF generation complete');
+      } catch (err: any) {
+        console.error('[DEBUG] Error generating PDFs:', err);
+      }
+    };
 
-  //   if (user && documents) {
-  //     const missing = checkMissingDocs(documents);
-  //     if (missing.length > 0) {
-  //       generateMissingPDFs(missing);
-  //     }
-  //   }
-  //   // eslint-disable-next-line
-  // }, [user]);
+    if (user && documents && !isLoading) {
+      const missing = checkMissingDocs(documents);
+      if (missing.length > 0) {
+        console.log('[DEBUG] Missing PDFs detected:', missing);
+        generateMissingPDFs(missing);
+      }
+    }
+  }, [user, documents, isLoading]);
 
   if (isLoading) {
     return (
