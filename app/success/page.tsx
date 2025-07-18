@@ -19,9 +19,9 @@ export default function SuccessPage() {
   useEffect(() => {
     const verifyPayment = async () => {
       try {
-        const paymentIntentId = searchParams.get("payment_intent");
+        const clientSecret = searchParams.get("payment_intent_client_secret");
         
-        if (!paymentIntentId) {
+        if (!clientSecret) {
           setPaymentStatus('failed');
           setError("Payment information not found.");
           return;
@@ -34,7 +34,7 @@ export default function SuccessPage() {
           return;
         }
 
-        const { paymentIntent, error } = await stripe.retrievePaymentIntent(paymentIntentId);
+        const { paymentIntent, error } = await stripe.retrievePaymentIntent(clientSecret);
 
         if (error) {
           setPaymentStatus('failed');
