@@ -195,11 +195,11 @@ export default function SuccessPage() {
           transition={{ duration: 0.7, delay: 0.7, ease: "easeOut" }}
           className="text-gray-600 text-center text-base"
         >
-          Your payment was successful. Your dashboard is ready — let's launch your business!
+          Your payment was successful. Let's get your LLC details to complete your setup.
         </motion.p>
-        <Link href="/dashboard" className="w-full">
+        <Link href="/onboarding" className="w-full">
           <Button size="lg" fullWidth className="mt-2 flex items-center justify-center gap-2 text-base font-semibold rounded-xl shadow-sm bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] hover:brightness-110 hover:shadow-md transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Go to Dashboard <span aria-hidden>→</span>
+            Start Onboarding <span aria-hidden>→</span>
           </Button>
         </Link>
       </motion.div>
