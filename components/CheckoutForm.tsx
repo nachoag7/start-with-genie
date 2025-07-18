@@ -12,6 +12,7 @@ export default function CheckoutForm({ onBack }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [email, setEmail] = useState("");
+  const [billingName, setBillingName] = useState("");
   const [inputHover, setInputHover] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -72,6 +73,20 @@ export default function CheckoutForm({ onBack }: CheckoutFormProps) {
               required
               placeholder="you@email.com"
               autoComplete="email"
+              className="w-full"
+              style={inputStyle}
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="billingName" className="block text-[15px] font-medium text-gray-800 mb-1">Billing Name</label>
+            <input
+              id="billingName"
+              type="text"
+              value={billingName}
+              onChange={e => setBillingName(e.target.value)}
+              required
+              placeholder="Name on card"
+              autoComplete="name"
               className="w-full"
               style={inputStyle}
             />
