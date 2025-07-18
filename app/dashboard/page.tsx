@@ -11,7 +11,6 @@ import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgree
 import GenieChat from '../../components/GenieChat'
 import ContactSupportModal from '../../components/ContactSupportModal'
 import llcStates from '../../data/llc_states.json';
-import HelpWidget from '../../components/HelpWidget';
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti';
 import ReactDOMServer from 'react-dom/server';
@@ -58,13 +57,10 @@ export default function DashboardPage() {
   const [documents, setDocuments] = useState<Document[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isRegenerating, setIsRegenerating] = useState(false)
-  const [isGeneratingPDF, setIsGeneratingPDF] = useState<string | null>(null)
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
   const [showGenie, setShowGenie] = useState(false)
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [pdfError, setPdfError] = useState<string | null>(null);
 
   // Add refs for each document section
   const llcRef = useRef<HTMLDivElement>(null)
@@ -196,11 +192,11 @@ export default function DashboardPage() {
     },
     {
       title: 'Apply for your EIN',
-      description: 'Your Employer Identification Number (EIN) is your business’s tax ID — required to open a bank account, hire employees, or file taxes. It’s free through the IRS.'
+      description: 'Your Employer Identification Number (EIN) is your business\'s tax ID — required to open a bank account, hire employees, or file taxes. It\'s free through the IRS.'
     },
     {
       title: 'Print and Sign Your Operating Agreement',
-      description: 'We’ve prepared one for you. Just download it, print, review, and sign. Most banks require a signed Operating Agreement to open an account, and it helps clearly define how your LLC runs.'
+      description: 'We\'ve prepared one for you. Just download it, print, review, and sign. Most banks require a signed Operating Agreement to open an account, and it helps clearly define how your LLC runs.'
     }
   ]
 
@@ -258,7 +254,7 @@ export default function DashboardPage() {
       })
 
       // Generate Operating Agreement
-      const agreementUrl = await generateOperatingAgreement({
+      const oaUrl = await generateOperatingAgreement({
         fullName: user.full_name,
         businessName: user.business_name,
         state: user.state,
@@ -268,10 +264,10 @@ export default function DashboardPage() {
       await supabase.from('documents').insert({
         user_id: authUser.id,
         doc_type: 'Operating Agreement',
-        url: agreementUrl
+        url: oaUrl
       })
 
-      // Refresh the documents list
+      // Refresh documents
       await fetchUserData()
       
     } catch (error) {
@@ -534,7 +530,7 @@ export default function DashboardPage() {
   const handlePrintOperatingAgreement = () => {
     const oaHtmlString = document.getElementById('printable-operating-agreement-hidden')?.innerHTML;
     if (!oaHtmlString || oaHtmlString.trim() === '') {
-      setPdfError('Operating Agreement content is missing or failed to render.');
+      // setPdfError('Operating Agreement content is missing or failed to render.'); // Removed
       return;
     }
     // Generate the minimalist footer as a string
@@ -581,7 +577,7 @@ export default function DashboardPage() {
   const handlePrintLLCInstructions = () => {
     const llcHtmlString = document.getElementById('printable-llc-instructions-hidden')?.innerHTML;
     if (!llcHtmlString || llcHtmlString.trim() === '') {
-      setPdfError('LLC Filing Instructions content is missing or failed to render.');
+      // setPdfError('LLC Filing Instructions content is missing or failed to render.'); // Removed
       return;
     }
     const printWindow = window.open('', '_blank', 'width=900,height=1200');
@@ -606,7 +602,7 @@ export default function DashboardPage() {
   const handlePrintEINGuide = () => {
     const einHtmlString = document.getElementById('printable-ein-guide-hidden')?.innerHTML;
     if (!einHtmlString || einHtmlString.trim() === '') {
-      setPdfError('EIN Guide content is missing or failed to render.');
+      // setPdfError('EIN Guide content is missing or failed to render.'); // Removed
       return;
     }
     const printWindow = window.open('', '_blank', 'width=900,height=1200');
@@ -662,67 +658,68 @@ export default function DashboardPage() {
     'Operating Agreement',
   ];
 
-  const checkMissingDocs = (docs: Document[]) => {
-    const docTypes = docs.map(d => d.doc_type);
-    return requiredDocs.filter(type => !docTypes.includes(type));
-  };
+  // Remove the automatic PDF generation logic
+  // const checkMissingDocs = (docs: Document[]) => {
+  //   const docTypes = docs.map(d => d.doc_type);
+  //   return requiredDocs.filter(type => !docTypes.includes(type));
+  // };
 
-  // On mount, check for missing PDFs and generate if needed
-  useEffect(() => {
-    const generateMissingPDFs = async (missing: string[]) => {
-      if (!user || missing.length === 0) return;
-      setPdfLoading(true);
-      setPdfError(null);
-      try {
-        await Promise.all(missing.map(async (type) => {
-          let url = '';
-          if (type === 'LLC Filing Instructions') {
-            url = await generateLLCFilingInstructions({
-              fullName: user.full_name,
-              businessName: user.business_name,
-              state: user.state,
-              email: user.email,
-            });
-          } else if (type === 'EIN Guide') {
-            url = await generateEINGuide({
-              fullName: user.full_name,
-              businessName: user.business_name,
-              state: user.state,
-              email: user.email,
-            });
-          } else if (type === 'Operating Agreement') {
-            url = await generateOperatingAgreement({
-              fullName: user.full_name,
-              businessName: user.business_name,
-              state: user.state,
-              email: user.email,
-            });
-          }
-          if (url) {
-            await supabase.from('documents').insert({
-              user_id: user.id,
-              doc_type: type,
-              url,
-            });
-          }
-        }));
-        // Refresh documents after generation
-        await fetchUserData();
-      } catch (err: any) {
-        setPdfError('There was a problem preparing your documents. Please refresh or contact support.');
-      } finally {
-        setPdfLoading(false);
-      }
-    };
+  // Remove the useEffect that automatically generates missing PDFs
+  // useEffect(() => {
+  //   const generateMissingPDFs = async (missing: string[]) => {
+  //     if (!user || missing.length === 0) return;
+  //     setPdfLoading(true);
+  //     setPdfError(null);
+  //     try {
+  //       await Promise.all(missing.map(async (type) => {
+  //         let url = '';
+  //         if (type === 'LLC Filing Instructions') {
+  //           url = await generateLLCFilingInstructions({
+  //             fullName: user.full_name,
+  //             businessName: user.business_name,
+  //             state: user.state,
+  //             email: user.email,
+  //           });
+  //         } else if (type === 'EIN Guide') {
+  //           url = await generateEINGuide({
+  //             fullName: user.full_name,
+  //             businessName: user.business_name,
+  //             state: user.state,
+  //             email: user.email,
+  //           });
+  //         } else if (type === 'Operating Agreement') {
+  //           url = await generateOperatingAgreement({
+  //             fullName: user.full_name,
+  //             businessName: user.business_name,
+  //             state: user.state,
+  //             email: user.email,
+  //           });
+  //         }
+  //         if (url) {
+  //           await supabase.from('documents').insert({
+  //             user_id: user.id,
+  //             doc_type: type,
+  //             url,
+  //           });
+  //         }
+  //       }));
+  //       // Refresh documents after generation
+  //       await fetchUserData();
+  //     } catch (err: any) {
+  //       setPdfError('There was a problem preparing your documents. Please refresh or contact support.');
+  //     } finally {
+  //       setPdfLoading(false);
+  //     }
+  //   };
 
-    if (user && documents) {
-      const missing = checkMissingDocs(documents);
-      if (missing.length > 0) {
-        generateMissingPDFs(missing);
-      }
-    }
-    // eslint-disable-next-line
-  }, [user]);
+  //   if (user && documents) {
+  //     const missing = checkMissingDocs(documents);
+  //     if (missing.length > 0) {
+  //       generateMissingPDFs(missing);
+  //     }
+  //   }
+  //   // eslint-disable-next-line
+  // }, [user]);
 
   if (isLoading) {
     return (
@@ -744,73 +741,69 @@ export default function DashboardPage() {
   const today = new Date().toLocaleDateString();
   // --- HTML content for each doc ---
 
-  if (pdfLoading) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="flex flex-col items-center gap-6 p-10 bg-white/90 rounded-3xl shadow-2xl border border-gray-100 backdrop-blur-md mt-32"
-        >
-          <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-2 animate-spin-slow">
-            <svg className="w-10 h-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="4" className="opacity-25" /><path d="M4 12a8 8 0 018-8" strokeWidth="4" className="opacity-75" /></svg>
-          </div>
-          <h2 className="text-xl font-semibold text-gray-900 text-center">Preparing your documents…</h2>
-          <p className="text-base text-gray-600 text-center max-w-xs">This usually takes less than 10 seconds. Your personalized PDFs will appear here as soon as they’re ready.</p>
-        </motion.div>
-      </div>
-    );
-  }
-  if (pdfError) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="flex flex-col items-center gap-6 p-10 bg-white/90 rounded-3xl shadow-2xl border border-gray-100 backdrop-blur-md mt-32"
-        >
-          <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-2">
-            <X className="w-10 h-10 text-red-500" />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-900 text-center">There was a problem preparing your documents.</h2>
-          <p className="text-base text-gray-600 text-center max-w-xs">Please refresh the page or contact support if this continues.</p>
-          <Button onClick={() => window.location.reload()} className="mt-2">Try Again</Button>
-        </motion.div>
-      </div>
-    );
-  }
+  // Remove the pdfLoading and pdfError cards
+  // if (pdfLoading) {
+  //   return (
+  //     <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
+  //       <motion.div
+  //         initial={{ opacity: 0, scale: 0.96 }}
+  //         animate={{ opacity: 1, scale: 1 }}
+  //         transition={{ duration: 0.5, ease: 'easeOut' }}
+  //         className="flex flex-col items-center gap-6 p-10 bg-white/90 rounded-3xl shadow-2xl border border-gray-100 backdrop-blur-md mt-32"
+  //       >
+  //         <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-2 animate-spin-slow">
+  //           <svg className="w-10 h-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="4" className="opacity-25" /><path d="M4 12a8 8 0 018-8" strokeWidth="4" className="opacity-75" /></svg>
+  //         </div>
+  //         <h2 className="text-xl font-semibold text-gray-900 text-center">Preparing your documents…</h2>
+  //         <p className="text-base text-gray-600 text-center max-w-xs">This usually takes less than 10 seconds. Your personalized PDFs will appear here as soon as they're ready.</p>
+  //       </motion.div>
+  //     </div>
+  //   );
+  // }
+  // if (pdfError) {
+  //   return (
+  //     <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
+  //       <motion.div
+  //         initial={{ opacity: 0, scale: 0.96 }}
+  //         animate={{ opacity: 1, scale: 1 }}
+  //         transition={{ duration: 0.5, ease: 'easeOut' }}
+  //         className="flex flex-col items-center gap-6 p-10 bg-white/90 rounded-3xl shadow-2xl border border-gray-100 backdrop-blur-md mt-32"
+  //       >
+  //         <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-2">
+  //           <X className="w-10 h-10 text-red-500" />
+  //         </div>
+  //         <h2 className="text-xl font-semibold text-gray-900 text-center">There was a problem preparing your documents.</h2>
+  //         <p className="text-base text-gray-600 text-center max-w-xs">Please refresh the page or contact support if this continues.</p>
+  //         <Button onClick={() => window.location.reload()} className="mt-2">Try Again</Button>
+  //       </motion.div>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div className="min-h-screen bg-[#f9fafb] font-inter flex flex-col">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-[#f2f2f2]">
-        <div className="max-w-4xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
-                <img src="/genie-preview.png" alt="Start With Genie" className="w-10 h-10" />
-              </Link>
-              <h1 className="text-lg font-semibold text-[#1d1d1f]">Dashboard</h1>
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <img src="/genie-preview.png" alt="Start With Genie" className="h-8 w-8 rounded-full" />
+              <span className="ml-3 text-xl font-semibold text-gray-900">Start With Genie</span>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="text-sm text-[#8e8e93]">
-                {user?.business_name} • {user?.state}
-              </div>
               <button
                 onClick={handleSignOut}
-                className="flex items-center space-x-2 px-3 py-2 text-sm text-[#88e93] hover:text-[#1d1d1f] hover:bg-[#f2f2f2] rounded-lg transition-all duration-200"
+                className="flex items-center text-gray-500 hover:text-gray-700 transition-colors"
               >
-                <LogOut className="w-4 h-4" />
-                <span>Sign Out</span>
+                <LogOut className="w-4 h-4 mr-2" />
+                Sign Out
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="flex-1 max-w-4xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1176,12 +1169,26 @@ export default function DashboardPage() {
 
       </main>
 
-      {/* Help Widget */}
-      <div className="fixed bottom-6 right-6 z-40">
-        <HelpWidget />
-      </div>
-
-      {/* Footer removed for dashboard page as per new UX */}
+      {/* Footer */}
+      <footer className="mt-16 pt-8 border-t border-gray-100">
+        <div className="text-center">
+          {/* Support Email */}
+          <p className="text-sm text-gray-500 mb-3">
+            Questions? Reach us at{' '}
+            <a 
+              href="mailto:info@startwithgenie.com" 
+              className="text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              info@startwithgenie.com
+            </a>
+          </p>
+          
+          {/* Disclaimer */}
+          <p className="text-xs text-gray-400 leading-relaxed max-w-2xl mx-auto">
+            This product is not a law firm and does not provide legal advice. For complex questions, consult a licensed professional.
+          </p>
+        </div>
+      </footer>
     </div>
   )
 } 
