@@ -91,7 +91,7 @@ export default function CheckoutPage() {
             transition={{ duration: 0.3 }}
           >
             <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
-              <CheckoutForm />
+              <CheckoutForm onBack={handleBackToOverview} />
             </Elements>
           </motion.div>
         )}
