@@ -508,7 +508,6 @@ export default function Home() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="w-full max-w-4xl mx-auto flex flex-col items-center gap-6 py-16 relative"
         >
-          {/* Genie Mascot */}
           <motion.img 
             src="/genie-og.png" 
             alt="Genie Mascot" 
@@ -517,28 +516,22 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
           />
-          
-          {/* Hero Heading */}
           <motion.h1 
             className="text-4xl md:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
           >
-            Start Your LLC Effortlessly
+            Finally making it official?
           </motion.h1>
-          
-          {/* Hero Subheading */}
           <motion.p 
             className="text-lg md:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
           >
-            The clearest, fastest way to form your LLC — with no hidden steps.
+            We’ll walk you through forming your LLC — clearly, quickly, and without the upsells.
           </motion.p>
-          
-          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -548,8 +541,9 @@ export default function Home() {
               className="mt-6 px-8 py-3 text-lg"
               onClick={handleGetStarted}
             >
-              Get Started →
+              Get Started for $49 →
             </Button>
+            <p className="mt-4 text-sm text-gray-500 text-center">Everything you need. One price.</p>
           </motion.div>
         </motion.section>
         
@@ -561,7 +555,6 @@ export default function Home() {
           imageAlt="LLC Illustration"
         >
           <div className="grid md:grid-cols-2 gap-12 mt-8">
-            {/* Left Column */}
             <div className="space-y-4">
               <p className="text-gray-600 leading-relaxed">
                 A Limited Liability Company (LLC) gives your business legal protection and flexible tax options — without the complexity of a corporation. If you’re starting something real, it’s the smartest first step to make it official.
@@ -570,7 +563,6 @@ export default function Home() {
                 Whether you’re freelancing, launching a service, or growing your side hustle, an LLC helps you build with confidence.
               </p>
             </div>
-            {/* Right Column */}
             <div className="space-y-6">
               <h3 className="text-lg font-semibold text-gray-800">Why People Form LLCs</h3>
               <p className="text-gray-600">Smart protections and benefits — even if you’re just getting started.</p>
@@ -596,11 +588,9 @@ export default function Home() {
           </div>
         </PreviewSection>
 
-        {/* Comparison Sections */}
         <WhyGenieSection />
         <CompareSection />
         
-        {/* Dashboard Preview Section */}
         <PreviewSection
           title="Your Business Dashboard"
           subtitle="Track progress and stay organized — all in one place."
@@ -609,7 +599,6 @@ export default function Home() {
           bgColor="bg-gray-50"
         />
         
-        {/* Document Preview Section */}
         <PreviewSection
           title="Launch-Ready Documents"
           subtitle="Everything you need, beautifully packaged and ready to download."
@@ -622,19 +611,16 @@ export default function Home() {
         {/* Genie Assistant Preview Section */}
         <PreviewSection
           title="Your Genie Assistant"
-          subtitle="Ask anything about your LLC setup — real-time support from our silent assistant."
+          subtitle="Ask anything about your LLC setup and get instant support from Genie."
           image="/Help-preview.png"
           imageAlt="Genie assistant chat interface showing helpful responses"
           bgColor="bg-gray-50"
         />
         
-        {/* Divider */}
         <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
         
-        {/* What's Included Section */}
         <WhatsIncludedLinear />
         
-        {/* Bottom CTA Section */}
         <section className="w-full bg-white py-16 flex flex-col items-center justify-center mt-10 border-t border-neutral-100">
           <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-6 text-center">Ready to Launch Your Business?</h2>
           <Button 
@@ -645,7 +631,6 @@ export default function Home() {
           </Button>
         </section>
         
-        {/* FAQ Section */}
         <motion.section
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -653,7 +638,6 @@ export default function Home() {
           className="w-full max-w-2xl mx-auto py-16"
         >
           <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight text-center mb-8">Frequently Asked Questions</h2>
-          
           <div className="space-y-4">
             {faqData.map((item, index) => (
               <motion.div
@@ -674,7 +658,6 @@ export default function Home() {
                     }`}
                   />
                 </button>
-                
                 <AnimatePresence>
                   {openFAQIndex === index && (
                     <motion.div
