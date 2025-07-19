@@ -226,7 +226,12 @@ export async function generateLLCFilingInstructions(data: DocumentData & { manag
 
   // Section 2
   y = addAppleHeading(doc, '2. What You\'ll Need', 40, y)
-  y = addAppleText(doc, `Business name: ${data.businessName}\nOwner name(s): ${data.fullName}\nBusiness address\nRegistered Agent (you or someone else in ${data.state})\nManagement structure: ${managerType}\nFiling website login (some states require creating an account)`, 40, y, { spacing: 8 })
+  y = addAppleText(doc, `Business name: Miguel Enterprises LLC (your official name must include “LLC,” “L.L.C.,” or “Limited Liability Company”)
+Owner name(s): ${data.fullName}
+Business address
+Registered Agent (you or someone else in ${data.state})
+Management structure: ${managerType}
+Filing website login (some states require creating an account)`, 40, y, { spacing: 8 })
   y += 16
 
   // Section 3

@@ -52,6 +52,44 @@ const GenieDisclaimer = (
   </div>
 );
 
+const DocumentCard = ({ 
+  icon: Icon, 
+  title, 
+  subtitle, 
+  onClick
+}: { 
+  icon: any; 
+  title: string; 
+  subtitle: string; 
+  onClick: () => void;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4 }}
+    className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
+    onClick={onClick}
+  >
+    <div className="flex flex-col items-center text-center">
+      <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
+        <Icon className="w-5 h-5 text-blue-600" />
+      </div>
+      <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">{title}</h3>
+      <p className="text-sm text-[#8e8e93]">{subtitle}</p>
+    </div>
+    <div className="flex gap-2 mt-6 justify-center">
+      <Button size="md">
+        <Eye className="w-4 h-4" />
+        View
+      </Button>
+      <Button size="md" variant="secondary" className="!bg-gray-100 !hover:bg-gray-200 !text-gray-700 border-gray-300">
+        <Download className="w-4 h-4 mr-2" /> PDF
+      </Button>
+    </div>
+  </motion.div>
+);
+
+
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null)
   const [documents, setDocuments] = useState<Document[]>([])
@@ -76,6 +114,8 @@ export default function DashboardPage() {
   
   // UI state
   const [openSection, setOpenSection] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', content: <></> });
   const [checklistOpen, setChecklistOpen] = useState(false)
   const [documentsOpen, setDocumentsOpen] = useState(false)
 
@@ -435,7 +475,7 @@ export default function DashboardPage() {
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Filing your Articles of Organization is what officially creates your LLC with the state. Once approved, your business becomes legally recognized and ready to operate.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. What You'll Need</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-          <li style={{ marginBottom: '4px' }}>Business name: {user.business_name}</li>
+          <li style={{ marginBottom: '4px' }}>Business name: Miguel Enterprises LLC (your official name must include “LLC,” “L.L.C.,” or “Limited Liability Company”)</li>
           <li style={{ marginBottom: '4px' }}>Owner name(s): {user.full_name}</li>
           <li style={{ marginBottom: '4px' }}>Business address: {user.business_address}</li>
           <li style={{ marginBottom: '4px' }}>Registered Agent (you or someone else in {user.state})</li>
@@ -963,108 +1003,49 @@ export default function DashboardPage() {
                 <FileText className="w-5 h-5 text-blue-500" /> Your Documents
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* LLC Filing Instructions */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.5 }}
-                className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                    <FileText className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">LLC Filing Instructions</h3>
-                  <p className="text-sm text-[#8e8e93]">Step-by-step guide</p>
-                </div>
-                <div className="flex gap-2 mt-6 justify-center">
-                  <Button 
-                    onClick={() => setModalOpen('llc-instructions')}
-                    size="md"
-                  >
-                    <Eye className="w-4 h-4" />
-                    View
-                  </Button>
-                  {getDocUrl('LLC Filing Instructions') ? (
-                    <a href={getDocUrl('LLC Filing Instructions')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] hover:scale-[1.02] bg-[#f3f4f6] text-[#222] border border-[#d1d5db] shadow-sm hover:bg-[#e5e7eb] focus:ring-gray-400 px-4 py-2 text-sm rounded-lg h-10">
-                      <Download className="w-4 h-4 mr-2" /> PDF
-                    </a>
-                  ) : (
-                    <button type="button" onClick={() => alert('PDF not available yet. Please try again in a moment.')} className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 bg-[#f3f4f6] text-[#444] border border-[#e5e7eb] shadow-sm px-4 py-2 text-sm rounded-lg h-10 cursor-pointer select-none">
-                      <Download className="w-4 h-4 mr-2" /> PDF
-                    </button>
-                  )}
-                </div>
-              </motion.div>
+              <DocumentCard
+                icon={FileText}
+                title="LLC Filing Instructions"
+                subtitle="Step-by-step guide"
+                onClick={() => {
+                  setModalContent({
+                    title: 'LLC Filing Instructions',
+                    content: llcHtml || <div>Content not available</div>
+                  });
+                  setIsModalOpen(true);
+                }}
+              />
 
               {/* EIN Guide */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.6 }}
-                className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4">
-                    <Building2 className="w-5 h-5 text-green-600" />
-                  </div>
-                  <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">EIN Guide</h3>
-                  <p className="text-sm text-[#8e8e93]">Tax ID application</p>
-                </div>
-                <div className="flex gap-2 mt-6 justify-center">
-                  <Button 
-                    onClick={() => setModalOpen('ein-guide')}
-                    size="md"
-                  >
-                    <Eye className="w-4 h-4" />
-                    View
-                  </Button>
-                  {getDocUrl('EIN Guide') ? (
-                    <a href={getDocUrl('EIN Guide')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] hover:scale-[1.02] bg-[#f3f4f6] text-[#222] border border-[#d1d5db] shadow-sm hover:bg-[#e5e7eb] focus:ring-gray-400 px-4 py-2 text-sm rounded-lg h-10">
-                      <Download className="w-4 h-4 mr-2" /> PDF
-                    </a>
-                  ) : (
-                    <button type="button" onClick={() => alert('PDF not available yet. Please try again in a moment.')} className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 bg-[#f3f4f6] text-[#444] border border-[#e5e7eb] shadow-sm px-4 py-2 text-sm rounded-lg h-10 cursor-pointer select-none">
-                      <Download className="w-4 h-4 mr-2" /> PDF
-                    </button>
-                  )}
-                </div>
-              </motion.div>
+              <DocumentCard
+                icon={Building2}
+                title="EIN Guide"
+                subtitle="Tax ID application"
+                onClick={() => {
+                  setModalContent({
+                    title: 'EIN Guide',
+                    content: einHtml || <div>Content not available</div>
+                  });
+                  setIsModalOpen(true);
+                }}
+              />
 
               {/* Operating Agreement */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.7 }}
-                className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4">
-                    <ScrollText className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">Operating Agreement</h3>
-                  <p className="text-sm text-[#8e8e93]">Legal document</p>
-                </div>
-                <div className="flex gap-2 mt-6 justify-center">
-                  <Button 
-                    onClick={() => setModalOpen('operating-agreement')}
-                    size="md"
-                  >
-                    <Eye className="w-4 h-4" />
-                    View
-                  </Button>
-                  {getDocUrl('Operating Agreement') ? (
-                    <a href={getDocUrl('Operating Agreement')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] hover:scale-[1.02] bg-[#f3f4f6] text-[#222] border border-[#d1d5db] shadow-sm hover:bg-[#e5e7eb] focus:ring-gray-400 px-4 py-2 text-sm rounded-lg h-10">
-                      <Download className="w-4 h-4 mr-2" /> PDF
-                    </a>
-                  ) : (
-                    <button type="button" onClick={() => alert('PDF not available yet. Please try again in a moment.')} className="inline-flex items-center justify-center font-medium transition-all ease-in-out duration-200 bg-[#f3f4f6] text-[#444] border border-[#e5e7eb] shadow-sm px-4 py-2 text-sm rounded-lg h-10 cursor-pointer select-none">
-                      <Download className="w-4 h-4 mr-2" /> PDF
-                    </button>
-                  )}
-                </div>
-              </motion.div>
+              <DocumentCard
+                icon={ScrollText}
+                title="Operating Agreement"
+                subtitle="Legal document"
+                onClick={() => {
+                  setModalContent({
+                    title: 'Operating Agreement',
+                    content: oaHtml || <div>Content not available</div>
+                  });
+                  setIsModalOpen(true);
+                }}
+              />
             </div>
           </motion.div>
 
@@ -1150,7 +1131,7 @@ export default function DashboardPage() {
 
       {/* Document Modal */}
       <AnimatePresence>
-        {modalOpen && (
+        {isModalOpen && (
           <motion.div
             key="doc-modal"
             initial={{ opacity: 0 }}
@@ -1159,7 +1140,7 @@ export default function DashboardPage() {
             transition={{ duration: 0.25, ease: 'easeOut' }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
             style={{ backdropFilter: 'blur(2px)' }}
-            onClick={() => setModalOpen(null)}
+            onClick={() => setIsModalOpen(false)}
           >
             <motion.div
               initial={{ scale: 0.96, opacity: 0 }}
@@ -1172,17 +1153,17 @@ export default function DashboardPage() {
             >
               <button
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors text-xl font-bold"
-                onClick={() => setModalOpen(null)}
+                onClick={() => setIsModalOpen(false)}
                 aria-label="Close"
                 style={{ background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 <span aria-hidden="true">×</span>
               </button>
               <h2 className="text-2xl font-bold mb-6 text-gray-900" style={{ fontSize: 24, fontWeight: 700, marginBottom: 24, color: '#1f2937' }}>
-                {docModalTitles[modalOpen]}
+                {modalContent.title}
               </h2>
               <div style={{ maxWidth: 600, margin: '0 auto', lineHeight: 1.6, flex: 1 }}>
-                {docModalContent[modalOpen]}
+                {modalContent.content}
               </div>
               {/* Only append GenieDisclaimer ONCE, outside the OA content, at the very bottom of the modal */}
               <div style={{ marginTop: 40, fontSize: 12, color: '#888', lineHeight: 1.6, textAlign: 'center', fontFamily: '-apple-system, Arial, sans-serif' }}>
