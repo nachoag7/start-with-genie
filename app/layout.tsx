@@ -55,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased">
       <head>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         {/* Fallback meta tags for universal preview compatibility */}
