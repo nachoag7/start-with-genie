@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Start With Genie – Launch Your LLC for $49',
   description: 'A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff.',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.ico?v=2',
   },
   openGraph: {
     title: 'Start With Genie – Launch Your LLC for $49',
@@ -55,37 +55,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased">
       <head>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        {/* Fallback meta tags for universal preview compatibility */}
-        <meta name="description" content="A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff." />
-        <meta property="og:title" content="Start With Genie – Launch Your LLC for $49" />
-        <meta property="og:description" content="A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff." />
-        <meta property="og:image" content="https://startwithgenie.com/genie-og.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="628" />
-        <meta property="og:url" content="https://startwithgenie.com" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Start With Genie – Launch Your LLC for $49" />
-        <meta name="twitter:description" content="A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff." />
-        <meta name="twitter:image" content="https://startwithgenie.com/genie-og.png" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Start With Genie",
-              "url": "https://startwithgenie.com",
-              "logo": "https://startwithgenie.com/genie-og.png",
-              "sameAs": [
-                "https://www.facebook.com/startwithgenie"
-              ]
-            })
-          }}
-        />
       </head>
       <body className={`${inter.className} antialiased`}>
         {/* Removed global header/nav to prevent duplication on dashboard and other signed-in pages */}
