@@ -115,7 +115,7 @@ export default function DashboardPage() {
   // UI state
   const [openSection, setOpenSection] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({ title: '', content: <></> });
+  const [modalContent, setModalContent] = useState<{ title: string; content: React.ReactNode }>({ title: '', content: <></> });
   const [checklistOpen, setChecklistOpen] = useState(false)
   const [documentsOpen, setDocumentsOpen] = useState(false)
 
