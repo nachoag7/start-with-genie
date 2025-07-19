@@ -536,9 +536,9 @@ export default function DashboardPage() {
   }
 
   // For dashboard preview:
-  const oaHtml = renderOAContent(user!, false);
+  const oaHtml: React.ReactNode = renderOAContent(user!, false);
   // For PDF generation:
-  const oaHtmlPDF = renderOAContent(user!, true);
+  const oaHtmlPDF: React.ReactNode = renderOAContent(user!, true);
 
   // Modal content map (must be after llcHtml, einHtml, oaHtml)
   const docModalContent = {
