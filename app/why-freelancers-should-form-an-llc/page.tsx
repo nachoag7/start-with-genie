@@ -144,9 +144,12 @@ export default function WhyFreelancersShouldFormLLCPage() {
             >
               Start With Genie helps you launch your LLC the right way—without the overwhelm.<br />Clean documents, simple steps, and real clarity.
             </motion.p>
-            <Link href="/checkout">
-              <Button size="lg" className="bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] text-white shadow-md hover:brightness-110 px-8 py-4 text-lg font-semibold inline-flex items-center gap-2">
-                Get Started for $49
+            <Link href="/" className="flex justify-center">
+              <Button
+                size="lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-full shadow-lg transition-all duration-200"
+              >
+                Learn More
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
