@@ -130,7 +130,3 @@ export default function WhatIsEINPage() {
     </SeoPageLayout>
   );
 }
-} 
-    </SeoPageLayout>
-  );
-}
