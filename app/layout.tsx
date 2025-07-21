@@ -57,6 +57,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />
+        {/* If you want to add more <link> or <meta> tags, add them here inside <head> */}
       </head>
       <body className={`${inter.className} antialiased`}>
         {/* Removed global header/nav to prevent duplication on dashboard and other signed-in pages */}
