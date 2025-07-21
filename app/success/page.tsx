@@ -52,3 +52,35 @@ export default function SuccessPage() {
 } 
  
 
+
+    verifyAndRedirect();
+  }, [searchParams, router]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fbff] to-[#f3f6fa]">
+      <div className="flex flex-col items-center gap-4 text-gray-600">
+        <RefreshCw className="w-10 h-10 animate-spin text-blue-500" />
+        <p className="font-semibold text-lg">Verifying your payment...</p>
+        <p className="text-sm">Please wait, you will be redirected shortly.</p>
+      </div>
+    </div>
+  );
+} 
+ 
+
+
+    verifyAndRedirect();
+  }, [searchParams, router]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fbff] to-[#f3f6fa]">
+      <div className="flex flex-col items-center gap-4 text-gray-600">
+        <RefreshCw className="w-10 h-10 animate-spin text-blue-500" />
+        <p className="font-semibold text-lg">Verifying your payment...</p>
+        <p className="text-sm">Please wait, you will be redirected shortly.</p>
+      </div>
+    </div>
+  );
+} 
+ 
+

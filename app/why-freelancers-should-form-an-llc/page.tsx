@@ -111,12 +111,12 @@ export default function WhyFreelancersShouldFormLLCPage() {
             >
               <h2 className="text-3xl font-semibold text-neutral-900 mb-6">Start With Genie gives freelancers a better way to launch their LLC</h2>
               <p className="text-lg text-neutral-600 leading-relaxed mb-4">For just $49, Genie gives you a silent assistant to walk you through setup—without filing anything for you.</p>
-              <ul className="list-none space-y-2 text-lg text-neutral-600 leading-relaxed mb-6">
-                <li className="flex items-center gap-2"><CheckCircle className="w-6 h-6 text-green-600" />State-specific LLC instructions</li>
-                <li className="flex items-center gap-2"><CheckCircle className="w-6 h-6 text-green-600" />Help applying for your EIN (Tax ID)</li>
-                <li className="flex items-center gap-2"><CheckCircle className="w-6 h-6 text-green-600" />A clean Operating Agreement</li>
-                <li className="flex items-center gap-2"><CheckCircle className="w-6 h-6 text-green-600" />A startup checklist</li>
-                <li className="flex items-center gap-2"><CheckCircle className="w-6 h-6 text-green-600" />Instant answers via your Genie Assistant</li>
+              <ul className="list-none space-y-4 text-lg text-neutral-700 mb-8">
+                <li className="flex items-start gap-3"><CheckCircle className="w-6 h-6 text-green-600 mt-1" /><span>State-specific LLC instructions</span></li>
+                <li className="flex items-start gap-3"><CheckCircle className="w-6 h-6 text-green-600 mt-1" /><span>Help applying for your EIN (Tax ID)</span></li>
+                <li className="flex items-start gap-3"><CheckCircle className="w-6 h-6 text-green-600 mt-1" /><span>A clean Operating Agreement</span></li>
+                <li className="flex items-start gap-3"><CheckCircle className="w-6 h-6 text-green-600 mt-1" /><span>A startup checklist</span></li>
+                <li className="flex items-start gap-3"><CheckCircle className="w-6 h-6 text-green-600 mt-1" /><span>Instant answers via your Genie Assistant</span></li>
               </ul>
               <p className="text-neutral-700 italic mb-2">No legal fees. No upsells. No stress.</p>
             </motion.div>
@@ -147,7 +147,7 @@ export default function WhyFreelancersShouldFormLLCPage() {
             <Link href="/checkout">
               <Button size="lg" className="bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] text-white shadow-md hover:brightness-110 px-8 py-4 text-lg font-semibold inline-flex items-center gap-2">
                 Get Started for $49
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
           </div>
