@@ -6,6 +6,7 @@ import { Check, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SeoPageLayout from "../../components/SeoPageLayout";
 import { Button } from "../../components/ui/Button";
+import Footer from "../../components/Footer";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -233,10 +234,9 @@ export default function LegalZoomAndStartWithGeniePage() {
               <p className="mt-4 text-sm text-gray-500 text-center">Everything you need. One price.</p>
             </motion.div>
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Built for founders who want clarity—not upsells.
-          </p>
         </motion.section>
+        {/* Footer */}
+        <Footer />
       </div>
     </SeoPageLayout>
   );
