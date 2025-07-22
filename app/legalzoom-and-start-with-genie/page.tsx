@@ -25,26 +25,28 @@ export default function LegalZoomAndStartWithGeniePage() {
     <SeoPageLayout>
       <div id="legalzoom-and-start-with-genie">
         {/* Hero Section */}
-        <section className="py-20 px-4">
-          <div className="max-w-3xl mx-auto text-left">
-            <motion.h1
-              className="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight tracking-tight mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              Thought About Using LegalZoom?
-            </motion.h1>
-            <motion.p
-              className="text-xl text-neutral-600 leading-relaxed max-w-2xl mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            >
-              You’re not alone — we were there too. Until we realized there was a simpler way to start our LLC.
-            </motion.p>
+        <motion.section
+          className="hero-section text-center px-4 py-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
+            You don’t need a lawyer to figure this out
+          </h1>
+          <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
+            Everything you need to start your business for $49. Step-by-step. Instant access.
+          </p>
+          <div className="mt-2">
+            <Button variant="primary">
+              Start for $49 &rarr;
+            </Button>
           </div>
-        </section>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Built for founders who want clarity—not upsells.
+          </p>
+        </motion.section>
 
         {/* Familiar LegalZoom Hesitations */}
         <section className="py-12 px-4 bg-gray-50">
