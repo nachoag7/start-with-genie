@@ -24,29 +24,15 @@ export default function LegalZoomAndStartWithGeniePage() {
   return (
     <SeoPageLayout>
       <div id="legalzoom-and-start-with-genie">
-        {/* Hero Section */}
-        <motion.section
-          className="hero-section text-center px-4 py-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
+        {/* Hero Section (restored) */}
+        <section className="hero-section text-center px-4 py-16">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
-            You don’t need a lawyer to figure this out
+            Thought About Using LegalZoom?
           </h1>
           <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
-            Everything you need to start your business for $49. Step-by-step. Instant access.
+            You’re not alone — we were there too. Until we realized there was a simpler way to start our LLC.
           </p>
-          <div className="mt-2">
-            <Button variant="primary">
-              Start for $49 &rarr;
-            </Button>
-          </div>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Built for founders who want clarity—not upsells.
-          </p>
-        </motion.section>
+        </section>
 
         {/* Familiar LegalZoom Hesitations */}
         <section className="py-12 px-4 bg-gray-50">
@@ -219,73 +205,29 @@ export default function LegalZoomAndStartWithGeniePage() {
           </div>
         </section>
 
-        {/* No Lawyer Needed Section */}
-        <section className="py-12 px-4 bg-gray-50">
-          <div className="max-w-3xl mx-auto">
-            <motion.h2
-              className="text-2xl md:text-3xl font-semibold text-neutral-900 mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              You don’t need a lawyer to start your LLC
-            </motion.h2>
-            <motion.p
-              className="text-lg text-neutral-600 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            >
-              Start With Genie gives you step-by-step instructions in plain English — so you know exactly what to do and where to file.
-            </motion.p>
+        {/* No Lawyer Needed Section (replaced with new fade-in section) */}
+        <motion.section
+          className="hero-section text-center px-4 py-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
+            You don’t need a lawyer to figure this out
+          </h1>
+          <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
+            Everything you need to start your business for $49. Step-by-step. Instant access.
+          </p>
+          <div className="mt-2">
+            <Button variant="primary">
+              Start for $49 &rarr;
+            </Button>
           </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20 px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <Link href="/checkout" className="flex justify-center">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] text-white shadow-md hover:brightness-110 px-8 py-4 text-lg font-semibold inline-flex items-center gap-2"
-                >
-                  Start Your LLC for $49
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </motion.div>
-            {/* One-liner below CTA */}
-            <div className="relative mt-8">
-              <span
-                className="block text-base md:text-lg text-center font-normal"
-                style={{
-                  color: "rgba(0,0,0,0.6)",
-                  opacity: 0,
-                  transform: "translateY(10px)",
-                  animation: "fadeInUp 0.6s ease-out 1.2s forwards"
-                }}
-              >
-                The easiest way to start your LLC
-              </span>
-              <style>{`
-                @keyframes fadeInUp {
-                  to {
-                    opacity: 1;
-                    transform: translateY(0);
-                  }
-                }
-              `}</style>
-            </div>
-          </div>
-        </section>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Built for founders who want clarity—not upsells.
+          </p>
+        </motion.section>
       </div>
     </SeoPageLayout>
   );
