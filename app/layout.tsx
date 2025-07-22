@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -58,6 +59,19 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffffff" />
         {/* If you want to add more <link> or <meta> tags, add them here inside <head> */}
+        {process.env.NODE_ENV === 'production' && (
+          <Head>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17379467104"></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'AW-17379467104');`
+              }}
+            />
+          </Head>
+        )}
       </head>
       <body className={`${inter.className} antialiased`}>
         {/* Removed global header/nav to prevent duplication on dashboard and other signed-in pages */}
