@@ -220,9 +220,11 @@ export default function LegalZoomAndStartWithGeniePage() {
             Everything you need to start your business for $49. Step-by-step. Instant access.
           </p>
           <div className="mt-2">
-            <Button variant="primary">
-              Start for $49 &rarr;
-            </Button>
+            <Link href="/checkout">
+              <Button variant="primary" size="lg">
+                Start for $49 &rarr;
+              </Button>
+            </Link>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
             Built for founders who want clarity—not upsells.
