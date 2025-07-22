@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket } from 'lucide-react'
+import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase } from 'lucide-react'
 import Footer from '../components/Footer'
 
 interface FAQItem {
@@ -600,9 +600,36 @@ export default function Home() {
           </motion.div>
         </motion.section>
         
-        {/* What is an LLC Section */}
-        <AboutLLCSection />
-
+        {/* What You Don’t Get Section */}
+        <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-10 md:py-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
+            What You Don’t Get
+          </h2>
+          <p className="text-base md:text-lg text-neutral-600 text-center mb-7">
+            We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
+          </p>
+          <ul className="w-full max-w-md mx-auto flex flex-col gap-4">
+            <li className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <span className="text-neutral-800 text-base md:text-lg">Confusing packages</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <span className="text-neutral-800 text-base md:text-lg">Surprise fees</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <span className="text-neutral-800 text-base md:text-lg">Endless upsells</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+              <span className="text-neutral-800 text-base md:text-lg font-medium">
+                Just what you need — for $49 flat
+              </span>
+            </li>
+          </ul>
+        </section>
+        
         {/* Other Sections */}
         <WhyGenieSection />
         <CompareSection />
