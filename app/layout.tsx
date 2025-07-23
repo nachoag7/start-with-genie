@@ -71,11 +71,12 @@ export default function RootLayout({
             }}
           />
         )}
+        {/* Pinterest Base Tag removed as it is now loaded via GTM */}
       </head>
       <body className={`${inter.className} antialiased`}>
         {process.env.NODE_ENV === 'production' && (
           <div dangerouslySetInnerHTML={{
-            __html: `<!-- Google Tag Manager (noscript) -->\n<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-M8FB535K\" height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>\n<!-- End Google Tag Manager (noscript) -->`
+            __html: `<!-- Google Tag Manager (noscript) -->\n<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8FB535K" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n<!-- End Google Tag Manager (noscript) -->`
           }} />
         )}
         {/* Removed global header/nav to prevent duplication on dashboard and other signed-in pages */}
