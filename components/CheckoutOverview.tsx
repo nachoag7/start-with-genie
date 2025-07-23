@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "./ui/Button";
 
@@ -9,6 +10,7 @@ interface CheckoutOverviewProps {
 }
 
 export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) {
+  const router = useRouter();
   const includedFeatures = [
     'Step-by-step LLC filing instructions',
     'IRS EIN setup walkthrough',
@@ -28,14 +30,21 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
-      {/* Absolute Back to Home Button */}
-      <a
-        href="/"
+      {/* Absolute Back Button */}
+      <button
+        type="button"
+        onClick={() => {
+          if (window.history.length > 1) {
+            router.back();
+          } else {
+            router.push("/");
+          }
+        }}
         className="absolute top-8 left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-base font-medium transition-colors gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         style={{ textDecoration: 'none', fontWeight: 500 }}
       >
-        <span className="text-lg">←</span> Back to Home
-      </a>
+        <span className="text-lg">←</span> Back
+      </button>
       <div 
         className="w-full max-w-[540px] mx-auto text-center"
         style={{ padding: '40px' }}
