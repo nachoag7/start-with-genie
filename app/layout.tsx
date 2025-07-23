@@ -71,6 +71,22 @@ export default function RootLayout({
             }}
           />
         )}
+        {/* Google Ads Global Site Tag (gtag.js) */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17379321231"></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'AW-17379321231');
+                `
+              }}
+            />
+          </>
+        )}
         {/* Pinterest Base Tag removed as it is now loaded via GTM */}
       </head>
       <body className={`${inter.className} antialiased`}>
