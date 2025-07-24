@@ -10,6 +10,7 @@ import { Input } from '../../components/ui/Input'
 import { supabase } from '../../lib/supabase'
 import { motion } from 'framer-motion'
 import Footer from '../../components/Footer'
+import Head from 'next/head'
 
 interface LoginFormData {
   email: string
@@ -86,79 +87,86 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 flex flex-col">
-      <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="w-full max-w-md bg-white rounded-xl shadow-md p-8 flex flex-col gap-6"
-        >
-          <h1 className="font-semibold text-3xl text-neutral-900 text-center">Sign In to Genie</h1>
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              label="Email Address"
-              type="email"
-              {...register('email', { 
-                required: 'Email is required',
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Invalid email address'
-                }
-              })}
-              error={errors.email?.message}
-            />
+    <>
+      <Head>
+        <title>Sign In – Start With Genie</title>
+        <meta name="description" content="Sign in to your Start With Genie dashboard to access your LLC setup, documents, and personalized guidance." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="min-h-screen bg-neutral-50 flex flex-col">
+        <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+          <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="w-full max-w-md bg-white rounded-xl shadow-md p-8 flex flex-col gap-6"
+          >
+            <h1 className="font-semibold text-3xl text-neutral-900 text-center">Sign In to Genie</h1>
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                label="Email Address"
+                type="email"
+                {...register('email', { 
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'Invalid email address'
+                  }
+                })}
+                error={errors.email?.message}
+              />
 
-            <Input
-              label="Password"
-              type="password"
-              {...register('password', { required: 'Password is required' })}
-              error={errors.password?.message}
-            />
+              <Input
+                label="Password"
+                type="password"
+                {...register('password', { required: 'Password is required' })}
+                error={errors.password?.message}
+              />
 
-            <div className="flex justify-end">
-              <Link href="/reset-password" className="text-sm text-blue-600 hover:underline font-medium">Forgot your password?</Link>
-            </div>
-
-            {error && (
-              <div className="text-red-600 text-sm">{error}</div>
-            )}
-
-            <div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Signing in...' : 'Sign in'}
-              </Button>
-            </div>
-          </form>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+              <div className="flex justify-end">
+                <Link href="/reset-password" className="text-sm text-blue-600 hover:underline font-medium">Forgot your password?</Link>
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Don't have an account?
-                </span>
+
+              {error && (
+                <div className="text-red-600 text-sm">{error}</div>
+              )}
+
+              <div>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Signing in...' : 'Sign in'}
+                </Button>
               </div>
-            </div>
+            </form>
 
             <div className="mt-6">
-              <Link href="/checkout">
-                <Button className="w-full">
-                  Get started
-                </Button>
-              </Link>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">
+                    Don't have an account?
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <Link href="/checkout">
+                  <Button className="w-full">
+                    Get started
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
-        </motion.section>
-      </main>
-      <Footer />
-    </div>
+          </motion.section>
+        </main>
+        <Footer />
+      </div>
+    </>
   )
 } 
  

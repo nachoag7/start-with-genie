@@ -7,6 +7,7 @@ import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase } from 'lucide-react'
 import Footer from '../components/Footer'
+import Head from 'next/head'
 
 interface FAQItem {
   question: string
@@ -536,193 +537,200 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 flex flex-col">
-      <main className="flex-1 flex flex-col items-center justify-center px-4">
-        {/* Header */}
-        <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
-              <img src="/genie-preview.png" alt="Genie Logo" className="h-10 w-10 rounded-full opacity-90" />
+    <>
+      <Head>
+        <title>Start With Genie – Launch Your LLC for $49</title>
+        <meta name="description" content="Start your LLC for just $49 with Start With Genie – a clean, modern assistant that gives you everything you need to form your business legally. No upsells. No confusion." />
+        <link rel="canonical" href="https://www.startwithgenie.com/" />
+      </Head>
+      <div className="min-h-screen bg-neutral-50 flex flex-col">
+        <main className="flex-1 flex flex-col items-center justify-center px-4">
+          {/* Header */}
+          <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
+            <div className="flex items-center gap-3">
+              <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+                <img src="/genie-preview.png" alt="Genie Logo" className="h-10 w-10 rounded-full opacity-90" />
+              </Link>
+              <span className="text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
+            </div>
+            <Link 
+              href="/login" 
+              className="text-neutral-500 hover:text-neutral-900 hover:underline transition-all duration-200 font-medium"
+            >
+              Sign In
             </Link>
-            <span className="text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
-          </div>
-          <Link 
-            href="/login" 
-            className="text-neutral-500 hover:text-neutral-900 hover:underline transition-all duration-200 font-medium"
+          </nav>
+          
+          {/* Hero Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-6 py-16 relative"
           >
-            Sign In
-          </Link>
-        </nav>
-        
-        {/* Hero Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="w-full max-w-4xl mx-auto flex flex-col items-center gap-6 py-16 relative"
-        >
-          <motion.img 
-            src="/genie-og.png" 
-            alt="Genie Mascot" 
-            className="w-24 h-24 md:w-28 md:h-28 object-contain drop-shadow-lg mb-2 opacity-90" 
-            initial={{ opacity: 0, scale: 0.8 }} 
-            animate={{ opacity: 1, scale: 1 }} 
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+            <motion.img 
+              src="/genie-og.png" 
+              alt="Genie Mascot" 
+              className="w-24 h-24 md:w-28 md:h-28 object-contain drop-shadow-lg mb-2 opacity-90" 
+              initial={{ opacity: 0, scale: 0.8 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+            />
+            <motion.h1 
+              className="text-4xl md:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
+            >
+              Finally making it official?
+            </motion.h1>
+            <motion.p 
+              className="text-lg md:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
+            >
+              We’ll walk you through forming your LLC — clearly, quickly, and without the upsells.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
+            >
+              <Button 
+                className="mt-6 px-8 py-3 text-lg"
+                onClick={handleGetStarted}
+              >
+                Get Started for $49 →
+              </Button>
+              <p className="mt-4 text-sm text-gray-500 text-center">Everything you need. One price.</p>
+            </motion.div>
+          </motion.section>
+          
+          {/* What You Don’t Get Section */}
+          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-10 md:py-14">
+            <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
+              What You Don’t Get
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 text-center mb-7">
+              We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
+            </p>
+            <ul className="w-full max-w-md mx-auto flex flex-col gap-4">
+              <li className="flex items-center gap-3">
+                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg">Confusing packages</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg">Surprise fees</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg">Endless upsells</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg font-medium">
+                  Just what you need — for $49 flat
+                </span>
+              </li>
+            </ul>
+          </section>
+          
+          {/* Other Sections */}
+          <WhyGenieSection />
+          <CompareSection />
+          
+          <PreviewSection
+            title="Your Business Dashboard"
+            subtitle="Track progress and stay organized — all in one place."
+            image="/Dashboard1.png"
+            imageAlt="Dashboard preview showing progress tracking and document management"
+            bgColor="bg-gray-50"
           />
-          <motion.h1 
-            className="text-4xl md:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-          >
-            Finally making it official?
-          </motion.h1>
-          <motion.p 
-            className="text-lg md:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
-          >
-            We’ll walk you through forming your LLC — clearly, quickly, and without the upsells.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
-          >
+          
+          <PreviewSection
+            title="Launch-Ready Documents"
+            subtitle="Everything you need, beautifully packaged and ready to download."
+            image="/Document-Preview.png"
+            imageAlt="Document preview showing LLC filing instructions and operating agreement"
+            bgColor="bg-white"
+            reverse={true}
+          />
+          
+          {/* Genie Assistant Preview Section */}
+          <PreviewSection
+            title="Your Genie Assistant"
+            subtitle="Ask anything about your LLC setup and get instant support from Genie."
+            image="/Help-preview.png"
+            imageAlt="Genie assistant chat interface showing helpful responses"
+            bgColor="bg-gray-50"
+          />
+          
+          <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
+          
+          <WhatsIncludedLinear />
+          
+          <section className="w-full bg-white py-16 flex flex-col items-center justify-center mt-10 border-t border-neutral-100">
+            <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-6 text-center">Ready to Launch Your Business?</h2>
             <Button 
-              className="mt-6 px-8 py-3 text-lg"
+              className="px-10 py-4 text-lg w-full max-w-xs"
               onClick={handleGetStarted}
             >
-              Get Started for $49 →
+              Get Started →
             </Button>
-            <p className="mt-4 text-sm text-gray-500 text-center">Everything you need. One price.</p>
-          </motion.div>
-        </motion.section>
-        
-        {/* What You Don’t Get Section */}
-        <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-10 md:py-14">
-          <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
-            What You Don’t Get
-          </h2>
-          <p className="text-base md:text-lg text-neutral-600 text-center mb-7">
-            We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
-          </p>
-          <ul className="w-full max-w-md mx-auto flex flex-col gap-4">
-            <li className="flex items-center gap-3">
-              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
-              <span className="text-neutral-800 text-base md:text-lg">Confusing packages</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
-              <span className="text-neutral-800 text-base md:text-lg">Surprise fees</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
-              <span className="text-neutral-800 text-base md:text-lg">Endless upsells</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
-              <span className="text-neutral-800 text-base md:text-lg font-medium">
-                Just what you need — for $49 flat
-              </span>
-            </li>
-          </ul>
-        </section>
-        
-        {/* Other Sections */}
-        <WhyGenieSection />
-        <CompareSection />
-        
-        <PreviewSection
-          title="Your Business Dashboard"
-          subtitle="Track progress and stay organized — all in one place."
-          image="/Dashboard1.png"
-          imageAlt="Dashboard preview showing progress tracking and document management"
-          bgColor="bg-gray-50"
-        />
-        
-        <PreviewSection
-          title="Launch-Ready Documents"
-          subtitle="Everything you need, beautifully packaged and ready to download."
-          image="/Document-Preview.png"
-          imageAlt="Document preview showing LLC filing instructions and operating agreement"
-          bgColor="bg-white"
-          reverse={true}
-        />
-        
-        {/* Genie Assistant Preview Section */}
-        <PreviewSection
-          title="Your Genie Assistant"
-          subtitle="Ask anything about your LLC setup and get instant support from Genie."
-          image="/Help-preview.png"
-          imageAlt="Genie assistant chat interface showing helpful responses"
-          bgColor="bg-gray-50"
-        />
-        
-        <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
-        
-        <WhatsIncludedLinear />
-        
-        <section className="w-full bg-white py-16 flex flex-col items-center justify-center mt-10 border-t border-neutral-100">
-          <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-6 text-center">Ready to Launch Your Business?</h2>
-          <Button 
-            className="px-10 py-4 text-lg w-full max-w-xs"
-            onClick={handleGetStarted}
+          </section>
+          
+          <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.7, ease: 'easeOut' }}
+            className="w-full max-w-2xl mx-auto py-16"
           >
-            Get Started →
-          </Button>
-        </section>
-        
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7, ease: 'easeOut' }}
-          className="w-full max-w-2xl mx-auto py-16"
-        >
-          <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight text-center mb-8">Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            {faqData.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
-                className="bg-white border border-neutral-200 rounded-lg overflow-hidden shadow-sm"
-              >
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-neutral-50 transition-colors"
+            <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight text-center mb-8">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              {faqData.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 + index * 0.1 }}
+                  className="bg-white border border-neutral-200 rounded-lg overflow-hidden shadow-sm"
                 >
-                  <span className="font-medium text-neutral-900">{item.question}</span>
-                  <ChevronDown 
-                    className={`w-5 h-5 text-neutral-500 transition-transform duration-200 ${
-                      openFAQIndex === index ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                <AnimatePresence>
-                  {openFAQIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-4 text-neutral-600 leading-relaxed">
-                        {item.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-      </main>
-      <Footer />
-    </div>
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-neutral-50 transition-colors"
+                  >
+                    <span className="font-medium text-neutral-900">{item.question}</span>
+                    <ChevronDown 
+                      className={`w-5 h-5 text-neutral-500 transition-transform duration-200 ${
+                        openFAQIndex === index ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {openFAQIndex === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-4 text-neutral-600 leading-relaxed">
+                          {item.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+        </main>
+        <Footer />
+      </div>
+    </>
   )
 } 
  
