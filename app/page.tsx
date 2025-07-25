@@ -774,7 +774,7 @@ function DashboardPreviewVideo() {
       <div className="relative w-full flex justify-center">
         <motion.video
           ref={videoRef}
-          src="/dashboard-preview.mp4"
+          src="/Dashboard-preview.mp4"
           autoPlay
           muted
           loop
