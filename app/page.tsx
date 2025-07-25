@@ -639,6 +639,10 @@ export default function Home() {
           
           {/* Other Sections */}
           <WhyGenieSection />
+
+          {/* Dashboard Preview Section (Framer Motion video, custom controls) */}
+          <DashboardPreviewVideo />
+
           <CompareSection />
           
           <PreviewSection
@@ -732,6 +736,68 @@ export default function Home() {
       </div>
     </>
   )
+} 
+
+function DashboardPreviewVideo() {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Set playback speed to 1.25x on mount
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 1.25;
+    }
+  }, []);
+
+  // Play video when it comes into view (Framer Motion)
+  // User can pause/resume after that
+  const handlePlayPause = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  // Sync play/pause state if user uses native controls
+  const handleVideoPlay = () => setIsPlaying(true);
+  const handleVideoPause = () => setIsPlaying(false);
+
+  return (
+    <section className="w-full flex flex-col items-center justify-center py-12">
+      <h2 className="text-center text-2xl font-semibold mb-4">
+        See your complete LLC launch experience
+      </h2>
+      <div className="relative w-full flex justify-center">
+        <motion.video
+          ref={videoRef}
+          src="/dashboard-preview.mp4"
+          autoPlay
+          muted
+          loop
+          controls
+          controlsList="nodownload noremoteplayback"
+          disablePictureInPicture
+          playsInline
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="rounded-2xl shadow-2xl w-full max-w-[720px] aspect-video bg-black object-cover"
+          style={{ outline: 'none', border: 'none', padding: 0 }}
+          onPlay={handleVideoPlay}
+          onPause={handleVideoPause}
+        />
+        {/* Only download, PiP, and remote playback are removed; all other native controls remain */}
+      </div>
+      <p className="text-gray-500 text-sm mt-3 text-center max-w-md">
+        Watch how Genie guides you through every step of launching your LLC — from personalized filing instructions to document downloads and instant help from your AI assistant.
+      </p>
+    </section>
+  );
 } 
  
  
