@@ -5,7 +5,7 @@ import React from 'react';
 import SeoPageLayout from '../../components/SeoPageLayout';
 import { Button } from '../../components/ui/Button';
 import Link from 'next/link';
-import { CheckCircle, XCircle, FileText, ListChecks, UserCheck, ShieldCheck, BadgeCheck, MessageCircle, Lock, Undo2 } from 'lucide-react';
+import { CheckCircle, XCircle, DollarSign, FileText, ScrollText, ListChecks, UserCheck, Bot, ClipboardCheck, BadgeCheck, LayoutDashboard } from 'lucide-react';
 import Footer from '../../components/Footer';
 import Head from 'next/head';
 
@@ -108,49 +108,49 @@ export default function ComparePage() {
           <div className="block md:hidden space-y-6">
             {/* Price */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">💰</span> Price</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><DollarSign className="w-5 h-5 text-gray-400" /> Price</div>
               <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> $49 flat</div>
               <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> $0–$200+ in upsells</div>
             </div>
             {/* EIN help */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">📄</span> EIN help</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><BadgeCheck className="w-5 h-5 text-gray-400" /> EIN help</div>
               <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Included</div>
               <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Usually a paid add-on</div>
             </div>
             {/* Operating agreement */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">📝</span> Operating agreement</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><ScrollText className="w-5 h-5 text-gray-400" /> Operating agreement</div>
               <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Included</div>
               <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Usually a paid add-on</div>
             </div>
             {/* Filing instructions */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">📋</span> Filing instructions</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><ClipboardCheck className="w-5 h-5 text-gray-400" /> Filing instructions</div>
               <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Personalized for your state</div>
               <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Generic or minimal</div>
             </div>
             {/* Upsells */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">💸</span> Upsells</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><ListChecks className="w-5 h-5 text-gray-400" /> Upsells</div>
               <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> None</div>
               <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Frequent add-ons and packages</div>
             </div>
             {/* Filing service */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">🧑‍💼</span> Filing service</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><UserCheck className="w-5 h-5 text-gray-400" /> Filing service</div>
               <div className="flex items-center gap-2 mb-1"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Start With Genie:</span> Self-guided</div>
               <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Typical Services:</span> Filing handled for you</div>
             </div>
             {/* Support */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">🤖</span> Support</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><Bot className="w-5 h-5 text-gray-400" /> Support</div>
               <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> AI assistant included</div>
               <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Varies — usually email/phone</div>
             </div>
             {/* Delivery speed */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">⚡</span> Delivery speed</div>
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><LayoutDashboard className="w-5 h-5 text-gray-400" /> Delivery speed</div>
               <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Instant access</div>
               <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Often delayed or behind upsell steps</div>
             </div>
