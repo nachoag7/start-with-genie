@@ -21,7 +21,7 @@ export default function ComparePage() {
         <p className="text-lg text-neutral-700 mb-6">Start With Genie gives you everything you need to launch your LLC for just $49 — no upsells, no law firm, no confusion.</p>
         <Link href="/checkout" className="w-full">
           <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition mb-2">Start My LLC for $49</button>
-        </Link>
+          </Link>
         <div className="text-sm text-gray-500 mt-1">Instant delivery — no waiting, no lawyers needed.</div>
         {/* TRUST SIGNAL */}
         <div className="flex items-center justify-center gap-2 text-green-700 text-sm font-medium mt-4">
@@ -45,7 +45,7 @@ export default function ComparePage() {
             </li>
           ))}
         </ul>
-      </section>
+        </section>
 
       {/* COMPARISON SECTION */}
       <section className="w-full max-w-2xl mx-auto px-2 py-10">
@@ -138,7 +138,7 @@ export default function ComparePage() {
           />
         </div>
         <div className="text-xs text-gray-400 mt-2">Preview: Genie dashboard experience</div>
-      </section>
+        </section>
 
       {/* WHAT’S INCLUDED SECTION */}
       <section className="w-full max-w-xl mx-auto px-4 py-10">
@@ -187,8 +187,8 @@ export default function ComparePage() {
               <div className="text-sm text-gray-500">Everything in one place — access your documents, progress, and the Genie assistant.</div>
             </div>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
 
       {/* TESTIMONIALS SECTION */}
       <section className="w-full max-w-4xl mx-auto px-4 py-10">
@@ -224,8 +224,8 @@ export default function ComparePage() {
             <div className="text-neutral-700 mb-2">“Genie made everything so simple. I wasted hours on other sites before this.”</div>
             <div className="text-xs text-gray-400 mt-auto">— Priya R., California</div>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
 
       {/* FINAL CTA SECTION */}
       <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
@@ -233,11 +233,11 @@ export default function ComparePage() {
         <p className="text-base text-neutral-700 mb-4">No upsells. No law firm fees. Just clean guidance for $49.</p>
         <Link href="/checkout" className="w-full">
           <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start My LLC Now</button>
-        </Link>
-      </section>
+          </Link>
+        </section>
 
       {/* FOOTER */}
-      <Footer />
+        <Footer />
     </main>
   );
 } 

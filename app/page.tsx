@@ -511,12 +511,14 @@ export default function Home() {
               </Link>
               <span className="text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
             </div>
-            <Link 
-              href="/login" 
-              className="text-neutral-500 hover:text-neutral-900 hover:underline transition-all duration-200 font-medium"
-            >
-              Sign In
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/compare">
+                <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
+              </Link>
+              <Link href="/login">
+                <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
+              </Link>
+            </div>
           </nav>
           
           {/* Hero Section */}
