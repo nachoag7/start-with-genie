@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks } from 'lucide-react'
+import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote } from 'lucide-react'
 import Footer from '../components/Footer'
 import Head from 'next/head'
 
@@ -376,10 +376,10 @@ function PreviewSection({
           {image && (
             <motion.div 
               className="flex-1"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.3 }}
+              transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
             >
               <img src={image} alt={imageAlt} className="rounded-2xl shadow-2xl w-full h-auto object-cover" />
             </motion.div>
@@ -501,6 +501,8 @@ export default function Home() {
         <meta name="description" content="Start your LLC for just $49 with Start With Genie – a clean, modern assistant that gives you everything you need to form your business legally. No upsells. No confusion." />
         <link rel="canonical" href="https://www.startwithgenie.com/" />
       </Head>
+      {/* StickyTimeBar - must be above nav */}
+      {/* Remove StickyTimeBar */}
       <div className="min-h-screen bg-neutral-50 flex flex-col">
         <main className="flex-1 flex flex-col items-center justify-center px-4">
           {/* Header */}
@@ -526,7 +528,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-6 py-16 relative"
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-1 py-3 pb-0 relative"
           >
             <motion.img 
               src="/genie-og.png" 
@@ -566,6 +568,34 @@ export default function Home() {
               <p className="mt-4 text-sm text-gray-500 text-center">Everything you need. One price.</p>
             </motion.div>
           </motion.section>
+
+          {/* Dashboard Preview Video here */}
+          <DashboardPreviewVideo />
+
+          {/* Move What founders are saying section here */}
+          <section className="mt-20 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-10">
+            <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">What founders are saying</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Victoria */}
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
+                <Quote className="w-6 h-6 text-blue-400 mb-2" />
+                <div className="font-bold text-neutral-900">Victoria Aguilar, Poshmark Seller</div>
+                <div className="text-neutral-700 italic">“Genie guided me through getting my LLC set up in 15 minutes. I didn’t feel overwhelmed for a second.”</div>
+              </div>
+              {/* Justin */}
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
+                <Quote className="w-6 h-6 text-blue-400 mb-2" />
+                <div className="font-bold text-neutral-900">Justin G, Founder of DM Dad</div>
+                <div className="text-neutral-700 italic">“I’ve launched multiple brands and this is by far the easiest way I’ve ever set up an LLC. Clean, fast, and actually helpful.”</div>
+              </div>
+              {/* Lauren */}
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
+                <Quote className="w-6 h-6 text-blue-400 mb-2" />
+                <div className="font-bold text-neutral-900">Lauren M, Freelance Designer</div>
+                <div className="text-neutral-700 italic">“Legal stuff usually stresses me out, but Genie broke everything down so clearly. I got it done between client calls.”</div>
+              </div>
+            </div>
+          </section>
           
           {/* What You Don’t Get Section */}
           <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-10 md:py-14">
@@ -600,10 +630,18 @@ export default function Home() {
           {/* Other Sections */}
           <WhyGenieSection />
 
-          {/* Dashboard Preview Section (Framer Motion video, custom controls) */}
-          <DashboardPreviewVideo />
-
+          {/* Testimonial Section Before Final CTA */}
+          {/* This section is now moved */}
+          
           <CompareSection />
+
+          {/* Second CTA under How We Compare */}
+          <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
+            <h2 className="text-xl font-semibold text-neutral-900 mb-4">Ready to launch your LLC in minutes?</h2>
+            <Button className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">
+              Start My LLC for $49
+            </Button>
+          </section>
           
           <PreviewSection
             title="Your Business Dashboard"
@@ -743,52 +781,35 @@ export default function Home() {
             </Button>
           </section>
           
-          <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.7, ease: 'easeOut' }}
-            className="w-full max-w-2xl mx-auto py-16"
-          >
-            <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight text-center mb-8">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              {faqData.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 + index * 0.1 }}
-                  className="bg-white border border-neutral-200 rounded-lg overflow-hidden shadow-sm"
-                >
-                  <button
-                    onClick={() => toggleFAQ(index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-neutral-50 transition-colors"
-                  >
-                    <span className="font-medium text-neutral-900">{item.question}</span>
-                    <ChevronDown 
-                      className={`w-5 h-5 text-neutral-500 transition-transform duration-200 ${
-                        openFAQIndex === index ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {openFAQIndex === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-6 pb-4 text-neutral-600 leading-relaxed">
-                          {item.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
+          {/* FAQ Section - use landing page style and content */}
+          <section className="w-full max-w-2xl mx-auto px-4 py-10">
+            <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">FAQs</h2>
+            <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
+              <summary className="font-medium text-gray-900 cursor-pointer">Do you file the LLC for me?</summary>
+              <div className="mt-2 text-gray-700 text-sm">
+                We don’t — and that’s intentional. Start With Genie gives you everything you need to file your LLC yourself in under 15 minutes. It’s faster, clearer, and puts you in full control.
+              </div>
+            </details>
+            <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
+              <summary className="font-medium text-gray-900 cursor-pointer">What do I actually get for $49?</summary>
+              <div className="mt-2 text-gray-700 text-sm">
+                You get everything you need to launch your LLC the right way:<br />
+                <ul className="list-disc pl-5 mt-2 space-y-1">
+                  <li>Personalized state filing instructions</li>
+                  <li>A guide to getting your EIN (free from the IRS)</li>
+                  <li>A customizable operating agreement</li>
+                  <li>A launch checklist</li>
+                  <li>Access to the Genie assistant if you get stuck</li>
+                </ul>
+              </div>
+            </details>
+            <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
+              <summary className="font-medium text-gray-900 cursor-pointer">Is this legit? Can I really do it myself?</summary>
+              <div className="mt-2 text-gray-700 text-sm">
+                Yes — you don’t need a lawyer or a $300+ service to start an LLC. Genie is built for people who want to move fast, skip the upsells, and keep full control. Everything is DIY-friendly, and we guide you through every step.
+              </div>
+            </details>
+          </section>
         </main>
         <Footer />
       </div>
