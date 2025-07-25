@@ -87,6 +87,22 @@ export default function RootLayout({
             />
           </>
         )}
+        {/* Google Analytics Global Site Tag (gtag.js) for G-RVE4MFWE3J */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVE4MFWE3J"></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-RVE4MFWE3J');
+                `
+              }}
+            />
+          </>
+        )}
         {/* Pinterest Base Tag removed as it is now loaded via GTM */}
       </head>
       <body className={`${inter.className} antialiased`}>
