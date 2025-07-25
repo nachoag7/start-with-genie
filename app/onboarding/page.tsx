@@ -14,7 +14,7 @@ import { CheckCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import bcrypt from 'bcryptjs';
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator';
-
+import Script from 'next/script';
 // Move libraries array outside component to fix performance warning
 const GOOGLE_MAPS_LIBRARIES: ("places")[] = ["places"];
 
@@ -31,6 +31,13 @@ interface OnboardingFormData {
 // Capitalize first letter of each word
 function capitalizeWords(str: string) {
   return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+// Add this before the component definition
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
 }
 
 export default function OnboardingPage() {
@@ -603,8 +610,34 @@ export default function OnboardingPage() {
     );
   }
 
-  return content;
-} 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-795342123/fw8RCKgq1fcaEI_Ljd9A',
+        transaction_id: ''
+      });
+    }
+  }, []);
+
+  return (
+    <>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=AW-795342123`}
+        strategy="afterInteractive"
+      />
+      <Script id="gtag-init" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = window.gtag || gtag;
+          gtag('js', new Date());
+          gtag('config', 'AW-795342123');
+        `}
+      </Script>
+      {content}
+    </>
+  );
+}
  
 
 

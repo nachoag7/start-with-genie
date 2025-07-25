@@ -94,9 +94,9 @@ export default function GenieChat({ avatarSrc }: GenieChatProps) {
   // }, [messages]);
 
   return (
-    <div className="w-full flex flex-col h-full">
+    <div className="w-full flex flex-col h-full" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto px-2 py-4 space-y-3">
+      <div className="flex-1 overflow-y-auto px-2 py-4 space-y-3" style={{ minHeight: 0 }}>
         {messages.map((msg) => (
           <div key={msg.id} className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[75%] px-4 py-2 rounded-2xl shadow-sm ${msg.isUser ? 'bg-blue-600 text-white' : 'bg-gray-50 text-gray-900 border border-gray-200'}`}>

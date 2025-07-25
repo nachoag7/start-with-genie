@@ -475,7 +475,7 @@ export default function DashboardPage() {
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Filing your Articles of Organization is what officially creates your LLC with the state. Once approved, your business becomes legally recognized and ready to operate.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. What You'll Need</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-          <li style={{ marginBottom: '4px' }}>Business name: Miguel Enterprises LLC (your official name must include “LLC,” “L.L.C.,” or “Limited Liability Company”)</li>
+          <li style={{ marginBottom: '4px' }}>Business name: {user.business_name} (your official name must include “LLC,” “L.L.C.,” or “Limited Liability Company”)</li>
           <li style={{ marginBottom: '4px' }}>Owner name(s): {user.full_name}</li>
           <li style={{ marginBottom: '4px' }}>Business address: {user.business_address}</li>
           <li style={{ marginBottom: '4px' }}>Registered Agent (you or someone else in {user.state})</li>
@@ -1120,10 +1120,11 @@ export default function DashboardPage() {
               </div>
 
               {/* Chat Interface */}
-              <div className="min-h-[300px] max-h-[400px] w-full flex items-center justify-center" style={{ marginTop: 8 }}>
-                <div className="w-full" style={{ maxWidth: 600 }}>
-                  <GenieChat avatarSrc="/genie-preview.png" />
-                </div>
+              <div
+                className="w-full max-w-xl mx-auto bg-white rounded-xl shadow border border-gray-200"
+                style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', marginTop: 8 }}
+              >
+                <GenieChat avatarSrc="/genie-preview.png" />
               </div>
             </div>
           </motion.div>
