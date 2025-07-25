@@ -1,260 +1,242 @@
-// app/compare/page.tsx
-'use client';
-
-import React from 'react';
-import SeoPageLayout from '../../components/SeoPageLayout';
-import { Button } from '../../components/ui/Button';
-import Link from 'next/link';
-import { CheckCircle, XCircle, DollarSign, FileText, ScrollText, ListChecks, UserCheck, Bot, ClipboardCheck, BadgeCheck, LayoutDashboard } from 'lucide-react';
-import Footer from '../../components/Footer';
-import Head from 'next/head';
+"use client";
+import React from "react";
+import { DollarSign, AlertCircle, CheckCircle, XCircle, FileText, BookOpen, ScrollText, ListChecks, UserCheck, Bot, Timer, LayoutDashboard, Send, Quote } from "lucide-react";
+import Link from "next/link";
+import Footer from "../../components/Footer";
+import Image from "next/image";
 
 export default function ComparePage() {
   return (
-    <>
-      <Head>
-        <title>Start With Genie – Launch Your LLC for $49</title>
-        <meta
-          name="description"
-          content="Start your LLC for just $49 with Start With Genie – a clean, modern assistant that gives you everything you need to form your business legally. No upsells. No confusion."
-        />
-        <meta property="og:title" content="Start With Genie – Launch Your LLC for $49" />
-        <meta property="og:description" content="A $49 assistant to help you launch your LLC step-by-step. No lawyers, no upsells." />
-        <meta property="og:image" content="/genie-preview.jpg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <SeoPageLayout>
-        {/* 1. Hero Section */}
-        <section className="w-full max-w-2xl mx-auto text-center py-24 px-4 flex flex-col items-center justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-6 tracking-tight leading-tight" style={{letterSpacing: '-0.01em'}}>You don’t need to spend $199 to start your LLC.</h1>
-          <p className="text-lg md:text-2xl text-neutral-600 mb-10 max-w-xl mx-auto font-normal" style={{lineHeight: '1.5'}}>Most founders get tricked by confusing packages and hidden fees. Start With Genie gives you everything you need to launch — for just $49.</p>
-          <Link href="/checkout">
-            <Button size="xl" className="text-xl font-semibold px-10 py-5 rounded-full bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] shadow-lg hover:brightness-110 focus:ring-4 focus:ring-blue-400 mb-5">
-              Start My LLC for $49
-            </Button>
-          </Link>
-          <div className="text-base text-neutral-500 mt-2 max-w-md mx-auto">Built for founders who almost used LegalZoom, ZenBusiness, or Incfile — and wanted a faster, cleaner option.</div>
-        </section>
+    <main className="bg-gray-50 min-h-screen w-full flex flex-col">
+      {/* LOGO TOP-LEFT */}
+      <div className="w-full flex items-center justify-start px-4 pt-4 pb-2">
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/genie-preview.png" alt="Start With Genie Logo" width={40} height={40} className="rounded-full" />
+          <span className="sr-only">Start With Genie Home</span>
+        </Link>
+      </div>
+      {/* HERO SECTION */}
+      <section className="w-full max-w-xl mx-auto px-4 py-10 flex flex-col items-center text-center">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 mb-4 leading-tight">Almost paid LegalZoom $299? Here’s the smarter way.</h1>
+        <p className="text-lg text-neutral-700 mb-6">Start With Genie gives you everything you need to launch your LLC for just $49 — no upsells, no law firm, no confusion.</p>
+        <Link href="/checkout" className="w-full">
+          <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition mb-2">Start My LLC for $49</button>
+        </Link>
+        <div className="text-sm text-gray-500 mt-1">Instant delivery — no waiting, no lawyers needed.</div>
+        {/* TRUST SIGNAL */}
+        <div className="flex items-center justify-center gap-2 text-green-700 text-sm font-medium mt-4">
+          <Timer className="w-4 h-4 text-green-600" /> Most users finish in under 15 minutes
+        </div>
+      </section>
 
-        {/* 2. Comparison Table */}
-        <section className="w-full max-w-5xl mx-auto py-16 px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2 text-center">How Start With Genie Compares to Other LLC Services</h2>
-          <p className="text-lg text-neutral-600 mb-8 text-center">A fair look at what you get — and what you don’t — with typical online filing services.</p>
+      {/* WHY PEOPLE LEAVE LEGALZOOM */}
+      <section className="w-full max-w-xl mx-auto px-4 py-8">
+        <h2 className="text-xl font-semibold text-neutral-900 mb-4 text-center">Why people switch from LegalZoom to Genie</h2>
+        <ul className="space-y-3">
+          {[
+            "Didn’t realize it would be $300+",
+            "Got upsold at every step",
+            "Confusing packages",
+            "Wanted to launch today"
+          ].map((reason, i) => (
+            <li key={i} className="flex items-start gap-3 text-base text-neutral-800">
+              <AlertCircle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+              <span>{reason}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-          {/* Desktop Table */}
-          <div className="overflow-x-auto rounded-2xl shadow-sm border border-gray-100 bg-white hidden md:block">
-            <table className="min-w-full text-base">
-              <thead>
-                <tr className="bg-gray-50">
-                  <th className="px-6 py-4 text-left font-semibold text-gray-700 text-lg w-1/3">Feature</th>
-                  <th className="px-6 py-4 text-center font-semibold text-gray-700 text-lg w-1/3">Start With Genie</th>
-                  <th className="px-6 py-4 text-center font-semibold text-gray-700 text-lg w-1/3">Typical Services</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {/* Price */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">Price</td>
-                  <td className="px-6 py-5 text-center font-medium"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> $49 flat</span></td>
-                  <td className="px-6 py-5 text-center font-medium"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> $0 → $200+ in upsells</span></td>
-                </tr>
-                {/* EIN help */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">EIN help</td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Included</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Usually a paid add-on</span></td>
-                </tr>
-                {/* Operating agreement */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">Operating agreement</td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Included</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Usually a paid add-on</span></td>
-                </tr>
-                {/* Filing instructions */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">Filing instructions</td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Personalized for your state</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Generic or minimal</span></td>
-                </tr>
-                {/* Upsells */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">Upsells</td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> None</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Frequent add-ons and packages</span></td>
-                </tr>
-                {/* Filing service */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">Filing service</td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Self-guided</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Filing handled for you</span></td>
-                </tr>
-                {/* Support */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">Support</td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> AI assistant included</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Varies — usually email/phone</span></td>
-                </tr>
-                {/* Delivery speed */}
-                <tr className="hover:bg-gray-50 transition">
-                  <td className="px-6 py-5 font-medium text-neutral-900">Delivery speed</td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Instant access</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Often delayed or behind upsell steps</span></td>
-                </tr>
-              </tbody>
-            </table>
+      {/* COMPARISON SECTION */}
+      <section className="w-full max-w-2xl mx-auto px-2 py-10">
+        <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">How Start With Genie Compares to Other LLC Services</h2>
+        {/* Mobile: Stacked scrollable cards */}
+        <div className="flex flex-col gap-6 md:hidden">
+          {/* Start With Genie Card */}
+          <div className="bg-white rounded-2xl shadow p-5 border border-gray-100">
+            <h3 className="font-bold text-neutral-900 text-lg mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Start With Genie</h3>
+            <ul className="space-y-3 text-base">
+              <li className="flex items-center gap-2"><DollarSign className="w-5 h-5 text-gray-400" /> $49 flat</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> EIN Help: Included</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> Operating Agreement: Included</li>
+              <li className="flex items-center gap-2"><BookOpen className="w-5 h-5 text-gray-400" /> Filing Instructions: Personalized</li>
+              <li className="flex items-center gap-2"><XCircle className="w-5 h-5 text-green-600" /> Upsells: None</li>
+              <li className="flex items-center gap-2"><Send className="w-5 h-5 text-gray-400" /> Filing: Self-guided</li>
+              <li className="flex items-center gap-2"><Bot className="w-5 h-5 text-gray-400" /> Support: AI assistant</li>
+              <li className="flex items-center gap-2"><Timer className="w-5 h-5 text-gray-400" /> Delivery: Instant</li>
+            </ul>
           </div>
-
-          {/* Mobile Card Layout */}
-          <div className="block md:hidden space-y-6">
-            {/* Price */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><DollarSign className="w-5 h-5 text-gray-400" /> Price</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> $49 flat</li>
-                <li><span className="font-medium">Typical Services:</span> $0–$200+ in upsells</li>
-              </ul>
-            </div>
-            {/* EIN help */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><BadgeCheck className="w-5 h-5 text-gray-400" /> EIN help</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> Included</li>
-                <li><span className="font-medium">Typical Services:</span> Usually a paid add-on</li>
-              </ul>
-            </div>
-            {/* Operating agreement */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><ScrollText className="w-5 h-5 text-gray-400" /> Operating agreement</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> Included</li>
-                <li><span className="font-medium">Typical Services:</span> Usually a paid add-on</li>
-              </ul>
-            </div>
-            {/* Filing instructions */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><ClipboardCheck className="w-5 h-5 text-gray-400" /> Filing instructions</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> Personalized for your state</li>
-                <li><span className="font-medium">Typical Services:</span> Generic or minimal</li>
-              </ul>
-            </div>
-            {/* Upsells */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><ListChecks className="w-5 h-5 text-gray-400" /> Upsells</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> None</li>
-                <li><span className="font-medium">Typical Services:</span> Frequent add-ons and packages</li>
-              </ul>
-            </div>
-            {/* Filing service */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><UserCheck className="w-5 h-5 text-gray-400" /> Filing service</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> Self-guided</li>
-                <li><span className="font-medium">Typical Services:</span> Filing handled for you</li>
-              </ul>
-            </div>
-            {/* Support */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><Bot className="w-5 h-5 text-gray-400" /> Support</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> AI assistant included</li>
-                <li><span className="font-medium">Typical Services:</span> Varies — usually email/phone</li>
-              </ul>
-            </div>
-            {/* Delivery speed */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><LayoutDashboard className="w-5 h-5 text-gray-400" /> Delivery speed</div>
-              <ul className="pl-5 list-disc space-y-1">
-                <li><span className="font-medium">Start With Genie:</span> Instant access</li>
-                <li><span className="font-medium">Typical Services:</span> Often delayed or behind upsell steps</li>
-              </ul>
-            </div>
+          {/* Typical Services Card */}
+          <div className="bg-white rounded-2xl shadow p-5 border border-gray-100">
+            <h3 className="font-bold text-neutral-700 text-lg mb-3 flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Typical Services</h3>
+            <ul className="space-y-3 text-base">
+              <li className="flex items-center gap-2"><DollarSign className="w-5 h-5 text-gray-400" /> $0–$200+ in upsells</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> EIN Help: Usually extra</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> Operating Agreement: Usually extra</li>
+              <li className="flex items-center gap-2"><BookOpen className="w-5 h-5 text-gray-400" /> Filing Instructions: Generic</li>
+              <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-red-500" /> Upsells: Frequent add-ons</li>
+              <li className="flex items-center gap-2"><Send className="w-5 h-5 text-gray-400" /> Filing: Done-for-you</li>
+              <li className="flex items-center gap-2"><Bot className="w-5 h-5 text-gray-400" /> Support: Email/phone</li>
+              <li className="flex items-center gap-2"><Timer className="w-5 h-5 text-gray-400" /> Delivery: Often delayed</li>
+            </ul>
           </div>
-        </section>
+        </div>
+        {/* Desktop: Side-by-side cards */}
+        <div className="hidden md:grid grid-cols-2 gap-6 mt-6">
+          {/* Start With Genie Card */}
+          <div className="bg-white rounded-2xl shadow p-6 border border-gray-100">
+            <h3 className="font-bold text-neutral-900 text-lg mb-3 flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Start With Genie</h3>
+            <ul className="space-y-3 text-base">
+              <li className="flex items-center gap-2"><DollarSign className="w-5 h-5 text-gray-400" /> $49 flat</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> EIN Help: Included</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> Operating Agreement: Included</li>
+              <li className="flex items-center gap-2"><BookOpen className="w-5 h-5 text-gray-400" /> Filing Instructions: Personalized</li>
+              <li className="flex items-center gap-2"><XCircle className="w-5 h-5 text-green-600" /> Upsells: None</li>
+              <li className="flex items-center gap-2"><Send className="w-5 h-5 text-gray-400" /> Filing: Self-guided</li>
+              <li className="flex items-center gap-2"><Bot className="w-5 h-5 text-gray-400" /> Support: AI assistant</li>
+              <li className="flex items-center gap-2"><Timer className="w-5 h-5 text-gray-400" /> Delivery: Instant</li>
+            </ul>
+          </div>
+          {/* Typical Services Card */}
+          <div className="bg-white rounded-2xl shadow p-6 border border-gray-100">
+            <h3 className="font-bold text-neutral-700 text-lg mb-3 flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Typical Services</h3>
+            <ul className="space-y-3 text-base">
+              <li className="flex items-center gap-2"><DollarSign className="w-5 h-5 text-gray-400" /> $0–$200+ in upsells</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> EIN Help: Usually extra</li>
+              <li className="flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400" /> Operating Agreement: Usually extra</li>
+              <li className="flex items-center gap-2"><BookOpen className="w-5 h-5 text-gray-400" /> Filing Instructions: Generic</li>
+              <li className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-red-500" /> Upsells: Frequent add-ons</li>
+              <li className="flex items-center gap-2"><Send className="w-5 h-5 text-gray-400" /> Filing: Done-for-you</li>
+              <li className="flex items-center gap-2"><Bot className="w-5 h-5 text-gray-400" /> Support: Email/phone</li>
+              <li className="flex items-center gap-2"><Timer className="w-5 h-5 text-gray-400" /> Delivery: Often delayed</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-        {/* 3. What You Actually Get */}
-        <section className="w-full max-w-4xl mx-auto py-16 px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">Everything included in your $49 setup</h2>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10">
-            <div className="flex flex-col items-center text-center">
-              <CheckCircle className="w-7 h-7 text-green-600 mb-2" />
+      {/* MID-FUNNEL CTA SECTION */}
+      <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
+        <h2 className="text-xl font-semibold text-neutral-900 mb-4">Launch in under 15 minutes — no upsells, just results.</h2>
+        <Link href="/checkout" className="w-full">
+          <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start for $49 Now</button>
+        </Link>
+      </section>
+
+      {/* DASHBOARD PREVIEW SECTION */}
+      <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
+        <h2 className="text-xl font-semibold text-neutral-900 mb-4">See what Genie actually looks like</h2>
+        <div className="bg-white rounded-2xl shadow p-2 flex justify-center items-center">
+          <video
+            src="/Dashboard-preview.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="rounded-xl w-full max-w-full h-auto object-cover"
+            style={{ maxHeight: 340 }}
+          />
+        </div>
+        <div className="text-xs text-gray-400 mt-2">Preview: Genie dashboard experience</div>
+      </section>
+
+      {/* WHAT’S INCLUDED SECTION */}
+      <section className="w-full max-w-xl mx-auto px-4 py-10">
+        <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">Everything included in your $49 setup</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+            <FileText className="w-6 h-6 text-blue-600 mt-1" />
+            <div>
               <div className="font-medium text-neutral-900">Personalized LLC Filing Instructions</div>
-              <div className="text-sm text-neutral-600">Step-by-step based on your state</div>
+              <div className="text-sm text-gray-500">Step-by-step, based on your state</div>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <CheckCircle className="w-7 h-7 text-green-600 mb-2" />
+          </div>
+          <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+            <ScrollText className="w-6 h-6 text-blue-600 mt-1" />
+            <div>
               <div className="font-medium text-neutral-900">EIN Guide</div>
-              <div className="text-sm text-neutral-600">How to get your federal tax ID fast</div>
+              <div className="text-sm text-gray-500">How to get your federal tax ID fast</div>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <FileText className="w-7 h-7 text-green-600 mb-2" />
+          </div>
+          <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+            <BookOpen className="w-6 h-6 text-blue-600 mt-1" />
+            <div>
               <div className="font-medium text-neutral-900">Operating Agreement</div>
-              <div className="text-sm text-neutral-600">Ready-to-sign legal document</div>
+              <div className="text-sm text-gray-500">Ready-to-sign legal document</div>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <ListChecks className="w-7 h-7 text-green-600 mb-2" />
+          </div>
+          <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+            <ListChecks className="w-6 h-6 text-blue-600 mt-1" />
+            <div>
               <div className="font-medium text-neutral-900">Startup Checklist</div>
-              <div className="text-sm text-neutral-600">Know what to do after filing</div>
+              <div className="text-sm text-gray-500">Know what to do after filing</div>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <UserCheck className="w-7 h-7 text-green-600 mb-2" />
+          </div>
+          <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+            <Bot className="w-6 h-6 text-blue-600 mt-1" />
+            <div>
               <div className="font-medium text-neutral-900">Genie Assistant</div>
-              <div className="text-sm text-neutral-600">Ask questions, get instant answers</div>
+              <div className="text-sm text-gray-500">Ask questions, get instant answers</div>
             </div>
           </div>
-          <div className="flex justify-center">
-            <Link href="/checkout">
-              <Button size="lg" className="text-lg px-8 py-3">Start for $49</Button>
-            </Link>
+          {/* 6th card: Personalized Dashboard */}
+          <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+            <LayoutDashboard className="w-6 h-6 text-blue-600 mt-1" />
+            <div>
+              <div className="font-medium text-neutral-900">Your Personalized Dashboard</div>
+              <div className="text-sm text-gray-500">Everything in one place — access your documents, progress, and the Genie assistant.</div>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* 4. Social Proof */}
-        <section className="w-full max-w-2xl mx-auto py-16 px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">Real People, Real Relief</h2>
-          <div className="space-y-6">
-            <blockquote className="bg-white rounded-xl shadow-sm p-6 text-left border-l-4 border-blue-500">
-              “I was 3 clicks away from paying $300 on another site. Genie showed me I only needed $49.”<br />
-              <span className="block mt-2 text-sm text-neutral-500">– Olivia M., Ohio</span>
-            </blockquote>
-            <blockquote className="bg-white rounded-xl shadow-sm p-6 text-left border-l-4 border-blue-500">
-              “I finished my LLC setup in under 15 minutes.”<br />
-              <span className="block mt-2 text-sm text-neutral-500">– Daniel S., Texas</span>
-            </blockquote>
-            <blockquote className="bg-white rounded-xl shadow-sm p-6 text-left border-l-4 border-blue-500">
-              “Genie made it so easy. I wish I’d found it before wasting time on other sites.”<br />
-              <span className="block mt-2 text-sm text-neutral-500">– Priya R., California</span>
-            </blockquote>
+      {/* TESTIMONIALS SECTION */}
+      <section className="w-full max-w-4xl mx-auto px-4 py-10">
+        <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">Real People, Real Relief</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Olivia M. */}
+          <div className="flex flex-col bg-white rounded-xl shadow p-6 border-l-4 border-blue-600 hover:bg-blue-50 transition">
+            <div className="flex items-center gap-2 mb-3">
+              <Quote className="w-5 h-5 text-blue-400" />
+              <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">OM</span>
+            </div>
+            <div className="font-bold text-neutral-900 mb-2 text-lg">“Saved me $250 instantly”</div>
+            <div className="text-neutral-700 mb-2">“I almost paid LegalZoom $299. Genie gave me everything for $49. Super clear and fast.”</div>
+            <div className="text-xs text-gray-400 mt-auto">— Olivia M., Ohio</div>
           </div>
-        </section>
+          {/* Daniel S. */}
+          <div className="flex flex-col bg-white rounded-xl shadow p-6 border-l-4 border-blue-600 hover:bg-blue-50 transition">
+            <div className="flex items-center gap-2 mb-3">
+              <Quote className="w-5 h-5 text-blue-400" />
+              <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">DS</span>
+            </div>
+            <div className="font-bold text-neutral-900 mb-2 text-lg">“LLC done in 15 minutes”</div>
+            <div className="text-neutral-700 mb-2">“I finished my LLC setup in one sitting. No upsells, no confusion. Highly recommend.”</div>
+            <div className="text-xs text-gray-400 mt-auto">— Daniel S., Texas</div>
+          </div>
+          {/* Priya R. */}
+          <div className="flex flex-col bg-white rounded-xl shadow p-6 border-l-4 border-blue-600 hover:bg-blue-50 transition">
+            <div className="flex items-center gap-2 mb-3">
+              <Quote className="w-5 h-5 text-blue-400" />
+              <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">PR</span>
+            </div>
+            <div className="font-bold text-neutral-900 mb-2 text-lg">“Wish I found Genie sooner”</div>
+            <div className="text-neutral-700 mb-2">“Genie made everything so simple. I wasted hours on other sites before this.”</div>
+            <div className="text-xs text-gray-400 mt-auto">— Priya R., California</div>
+          </div>
+        </div>
+      </section>
 
-        {/* 5. Why It Works */}
-        <section className="w-full max-w-2xl mx-auto py-16 px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">Why founders are choosing Genie instead</h2>
-          <ul className="space-y-4 text-lg">
-            <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-green-600 mt-1" />Built to save you time — no upsells or fluff</li>
-            <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-green-600 mt-1" />Transparent pricing ($49 flat)</li>
-            <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-green-600 mt-1" />Instant delivery + always-on assistant</li>
-            <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-green-600 mt-1" />Doesn’t file for you — empowers you to do it yourself</li>
-          </ul>
-        </section>
+      {/* FINAL CTA SECTION */}
+      <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
+        <h2 className="text-xl font-semibold text-neutral-900 mb-2">Ready to launch your LLC in 15 minutes?</h2>
+        <p className="text-base text-neutral-700 mb-4">No upsells. No law firm fees. Just clean guidance for $49.</p>
+        <Link href="/checkout" className="w-full">
+          <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start My LLC Now</button>
+        </Link>
+      </section>
 
-        {/* 6. Final CTA */}
-        <section className="w-full max-w-2xl mx-auto text-center py-16 px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-4">Ready to launch your LLC?</h2>
-          <p className="text-lg text-neutral-600 mb-8">No upsells. No law firm fees. Just clean guidance for $49.</p>
-          <Link href="/checkout">
-            <Button size="lg" className="text-lg px-8 py-3">Start My LLC Setup</Button>
-          </Link>
-        </section>
-
-        {/* 7. Footer Trust Elements */}
-        <section className="w-full max-w-2xl mx-auto py-10 px-4">
-          <div className="text-xs text-neutral-400 text-center mt-2">Start With Genie is not a law firm and does not provide legal advice.</div>
-        </section>
-        <Footer />
-      </SeoPageLayout>
-    </>
+      {/* FOOTER */}
+      <Footer />
+    </main>
   );
 } 
