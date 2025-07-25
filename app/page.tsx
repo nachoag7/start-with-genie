@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase } from 'lucide-react'
+import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks } from 'lucide-react'
 import Footer from '../components/Footer'
 import Head from 'next/head'
 
@@ -459,48 +459,6 @@ function AboutLLCSection() {
   )
 }
 
-function WhatsIncludedLinear() {
-  return (
-    <section className="bg-gray-50 py-24">
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl font-semibold text-gray-900">What's Included</h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto mt-4">Everything you need to get your business off the ground — nothing you don't.</p>
-        </motion.div>
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-          {featureDetails.map((item, idx) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              viewport={{ once: true }}
-            >
-              <div className="group relative overflow-hidden rounded-xl border border-neutral-200 bg-white/80 backdrop-blur-sm p-6 min-h-[220px] h-full w-full flex flex-col justify-center items-center transition-all duration-300 hover:shadow-xl hover:backdrop-blur-md hover:bg-white/90">
-                <div className="transition-all duration-300 ease-out group-hover:opacity-0 group-hover:-translate-y-2 w-full">
-                  <h3 className="text-lg font-medium text-gray-900 text-center">
-                    {item.label}
-                  </h3>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center px-6 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out w-full">
-                  <p className="text-sm text-gray-500 text-center">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   const router = useRouter()
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(null)
@@ -671,9 +629,107 @@ export default function Home() {
             bgColor="bg-gray-50"
           />
           
-          <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
+          {/* Add the new What's Included section below the Genie Assistant section */}
+          <section className="w-full bg-white py-16 flex flex-col items-center justify-center border-t border-neutral-100">
+            <div className="max-w-4xl w-full px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-8 text-center">What’s Included</h2>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: 32,
+                  }}
+                >
+                  <motion.div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, minHeight: 80 }}>
+                    <span className="flex items-center justify-center" style={{ minWidth: 32, color: '#888', marginTop: 2 }}>
+                      <FileText size={22} strokeWidth={2} />
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 600, color: '#18181b', lineHeight: 1.35, marginBottom: 2 }}>
+                        Step-by-step state filing instructions
+                      </div>
+                      <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
+                        Personalized for your state so you know exactly what to file, where, and when.
+                      </div>
+                    </div>
+                  </motion.div>
+                  <motion.div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, minHeight: 80 }}>
+                    <span className="flex items-center justify-center" style={{ minWidth: 32, color: '#888', marginTop: 2 }}>
+                      <BadgeCheck size={22} strokeWidth={2} />
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 600, color: '#18181b', lineHeight: 1.35, marginBottom: 2 }}>
+                        EIN application walkthrough
+                      </div>
+                      <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
+                        We’ll guide you through getting your federal tax ID—fast and simple.
+                      </div>
+                    </div>
+                  </motion.div>
+                  <motion.div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, minHeight: 80 }}>
+                    <span className="flex items-center justify-center" style={{ minWidth: 32, color: '#888', marginTop: 2 }}>
+                      <ScrollText size={22} strokeWidth={2} />
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 600, color: '#18181b', lineHeight: 1.35, marginBottom: 2 }}>
+                        Customizable Operating Agreement
+                      </div>
+                      <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
+                        Pre-filled and lawyer-inspired, ready to personalize in minutes.
+                      </div>
+                    </div>
+                  </motion.div>
+                  <motion.div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, minHeight: 80 }}>
+                    <span className="flex items-center justify-center" style={{ minWidth: 32, color: '#888', marginTop: 2 }}>
+                      <ListChecks size={22} strokeWidth={2} />
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 600, color: '#18181b', lineHeight: 1.35, marginBottom: 2 }}>
+                        LLC launch checklist
+                      </div>
+                      <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
+                        Track each step from setup to full launch so nothing slips through the cracks.
+                      </div>
+                    </div>
+                  </motion.div>
+                  <motion.div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, minHeight: 80 }}>
+                    <span className="flex items-center justify-center" style={{ minWidth: 32, color: '#888', marginTop: 2 }}>
+                      <LayoutDashboard size={22} strokeWidth={2} />
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 600, color: '#18181b', lineHeight: 1.35, marginBottom: 2 }}>
+                        Dashboard access
+                      </div>
+                      <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
+                        All your documents, guides, and next steps in one simple workspace.
+                      </div>
+                    </div>
+                  </motion.div>
+                  <motion.div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, minHeight: 80 }}>
+                    <span className="flex items-center justify-center" style={{ minWidth: 32, color: '#888', marginTop: 2 }}>
+                      <Sparkles size={22} strokeWidth={2} />
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '1.05rem', fontWeight: 600, color: '#18181b', lineHeight: 1.35, marginBottom: 2 }}>
+                        The Genie assistant
+                      </div>
+                      <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
+                        Smart AI help whenever you’re stuck or need quick answers—available 24/7.
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
+          </section>
           
-          <WhatsIncludedLinear />
+          <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
           
           <section className="w-full bg-white py-16 flex flex-col items-center justify-center mt-10 border-t border-neutral-100">
             <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-6 text-center">Ready to Launch Your Business?</h2>
