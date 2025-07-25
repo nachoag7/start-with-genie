@@ -38,9 +38,11 @@ export default function ComparePage() {
 
         {/* 2. Comparison Table */}
         <section className="w-full max-w-5xl mx-auto py-16 px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2 text-center">How Start With Genie compares to other LLC services</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2 text-center">How Start With Genie Compares to Other LLC Services</h2>
           <p className="text-lg text-neutral-600 mb-8 text-center">A fair look at what you get — and what you don’t — with typical online filing services.</p>
-          <div className="overflow-x-auto rounded-2xl shadow-sm border border-gray-100 bg-white">
+
+          {/* Desktop Table */}
+          <div className="overflow-x-auto rounded-2xl shadow-sm border border-gray-100 bg-white hidden md:block">
             <table className="min-w-full text-base">
               <thead>
                 <tr className="bg-gray-50">
@@ -60,13 +62,13 @@ export default function ComparePage() {
                 <tr className="hover:bg-gray-50 transition">
                   <td className="px-6 py-5 font-medium text-neutral-900">EIN help</td>
                   <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Included</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Available (usually a paid add-on)</span></td>
+                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Usually a paid add-on</span></td>
                 </tr>
                 {/* Operating agreement */}
                 <tr className="hover:bg-gray-50 transition">
                   <td className="px-6 py-5 font-medium text-neutral-900">Operating agreement</td>
                   <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Included</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Available (usually a paid add-on)</span></td>
+                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Usually a paid add-on</span></td>
                 </tr>
                 {/* Filing instructions */}
                 <tr className="hover:bg-gray-50 transition">
@@ -90,7 +92,7 @@ export default function ComparePage() {
                 <tr className="hover:bg-gray-50 transition">
                   <td className="px-6 py-5 font-medium text-neutral-900">Support</td>
                   <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> AI assistant included</span></td>
-                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> Varies — usually email/phone</span></td>
+                  <td className="px-6 py-5 text-center"><span className="inline-flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> Varies — usually email/phone</span></td>
                 </tr>
                 {/* Delivery speed */}
                 <tr className="hover:bg-gray-50 transition">
@@ -100,6 +102,58 @@ export default function ComparePage() {
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card Layout */}
+          <div className="block md:hidden space-y-6">
+            {/* Price */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">💰</span> Price</div>
+              <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> $49 flat</div>
+              <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> $0–$200+ in upsells</div>
+            </div>
+            {/* EIN help */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">📄</span> EIN help</div>
+              <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Included</div>
+              <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Usually a paid add-on</div>
+            </div>
+            {/* Operating agreement */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">📝</span> Operating agreement</div>
+              <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Included</div>
+              <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Usually a paid add-on</div>
+            </div>
+            {/* Filing instructions */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">📋</span> Filing instructions</div>
+              <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Personalized for your state</div>
+              <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Generic or minimal</div>
+            </div>
+            {/* Upsells */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">💸</span> Upsells</div>
+              <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> None</div>
+              <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Frequent add-ons and packages</div>
+            </div>
+            {/* Filing service */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">🧑‍💼</span> Filing service</div>
+              <div className="flex items-center gap-2 mb-1"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Start With Genie:</span> Self-guided</div>
+              <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Typical Services:</span> Filing handled for you</div>
+            </div>
+            {/* Support */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">🤖</span> Support</div>
+              <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> AI assistant included</div>
+              <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Varies — usually email/phone</div>
+            </div>
+            {/* Delivery speed */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="font-semibold text-neutral-900 mb-2 flex items-center gap-2"><span className="text-lg">⚡</span> Delivery speed</div>
+              <div className="flex items-center gap-2 mb-1"><CheckCircle className="w-5 h-5 text-green-600" /> <span className="font-medium">Start With Genie:</span> Instant access</div>
+              <div className="flex items-center gap-2"><XCircle className="w-5 h-5 text-red-500" /> <span className="font-medium">Typical Services:</span> Often delayed or behind upsell steps</div>
+            </div>
           </div>
         </section>
 
