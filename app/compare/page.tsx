@@ -127,7 +127,7 @@ export default function ComparePage() {
         <h2 className="text-xl font-semibold text-neutral-900 mb-4">See what Genie actually looks like</h2>
         <div className="bg-white rounded-2xl shadow p-4 flex justify-center items-center">
           <video
-            src="/dashboard-preview.mp4"
+            src="/Dashboard-preview.mp4"
             autoPlay
             muted
             loop
