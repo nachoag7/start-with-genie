@@ -125,15 +125,16 @@ export default function ComparePage() {
       {/* DASHBOARD PREVIEW SECTION */}
       <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
         <h2 className="text-xl font-semibold text-neutral-900 mb-4">See what Genie actually looks like</h2>
-        <div className="bg-white rounded-2xl shadow p-2 flex justify-center items-center">
+        <div className="bg-white rounded-2xl shadow p-4 flex justify-center items-center">
           <video
-            src="/Dashboard-preview.mp4"
+            src="/dashboard-preview.mp4"
             autoPlay
             muted
             loop
             playsInline
+            controls
             className="rounded-xl w-full max-w-full h-auto object-cover"
-            style={{ maxHeight: 340 }}
+            style={{ maxWidth: '100%', height: 'auto' }}
           />
         </div>
         <div className="text-xs text-gray-400 mt-2">Preview: Genie dashboard experience</div>
