@@ -35,7 +35,7 @@ export default function Timer({ className = '' }: TimerProps) {
         <Clock className="w-4 h-4" />
         <span>You've spent {formatTime(timeSpent)} here</span>
       </div>
-      <span className="text-xs md:text-sm">— most Genie users finish in under 15 minutes.</span>
+      <span className="text-xs md:text-sm">Most Genie users finish in under 15 minutes.</span>
     </div>
   )
 } 
