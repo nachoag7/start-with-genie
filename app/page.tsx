@@ -570,37 +570,6 @@ export default function Home() {
               >
                 Start My LLC for $49
               </Button>
-              
-              {/* Timer below CTA button */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: 'easeOut', delay: 1.0 }}
-                className="mt-6 mb-8"
-              >
-                <Timer className="text-gray-500 text-center" />
-              </motion.div>
-              
-              {/* Value props with Lucide icons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: 'easeOut', delay: 1.2 }}
-                className="flex flex-col items-center space-y-3 mt-4 px-4"
-              >
-                <div className="flex items-center gap-3 text-gray-600">
-                  <FileText className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-xs md:text-sm text-center">EIN included</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-600">
-                  <ShieldCheck className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-xs md:text-sm text-center">Operating agreement ready to use</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-600">
-                  <TimerIcon className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-xs md:text-sm text-center">The fastest way to start your LLC</span>
-                </div>
-              </motion.div>
             </motion.div>
           </motion.section>
 
