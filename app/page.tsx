@@ -551,8 +551,7 @@ export default function Home() {
               Finally making it official?
             </motion.h1>
             <motion.p 
-              className="subtext" 
-              style={{ fontSize: '15px', lineHeight: 1.6, maxWidth: 480, margin: '0 auto', color: '#4A4A4A', textAlign: 'center' }}
+              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mt-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
