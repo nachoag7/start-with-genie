@@ -5,9 +5,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote } from 'lucide-react'
+import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer as TimerIcon, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote } from 'lucide-react'
 import Footer from '../components/Footer'
 import Head from 'next/head'
+import EINGuidePopup from '../components/EINGuidePopup'
+import { useEINPopup } from '../hooks/useEINPopup'
+import Timer from '../components/Timer'
 
 interface FAQItem {
   question: string
@@ -465,6 +468,7 @@ export default function Home() {
   const [openCard, setOpenCard] = useState<number | null>(null)
   const [flashIndex, setFlashIndex] = useState<number | null>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const { showPopup, closePopup } = useEINPopup()
 
   // Dismiss description on outside click
   useEffect(() => {
@@ -504,14 +508,14 @@ export default function Home() {
       {/* StickyTimeBar - must be above nav */}
       {/* Remove StickyTimeBar */}
       <div className="min-h-screen bg-neutral-50 flex flex-col">
-        <main className="flex-1 flex flex-col items-center justify-center px-4">
+        <main className="flex-1 flex flex-col items-center justify-start md:justify-center px-4">
           {/* Header */}
           <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
             <div className="flex items-center gap-3">
               <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
-                <img src="/genie-preview.png" alt="Genie Logo" className="h-10 w-10 rounded-full opacity-90" />
+                <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
               </Link>
-              <span className="text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
+              <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/compare">
@@ -528,18 +532,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-1 py-3 pb-0 relative"
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-1 py-3 pb-0 relative min-h-screen md:min-h-0 flex justify-center"
           >
             <motion.img 
               src="/genie-og.png" 
               alt="Genie Mascot" 
-              className="w-24 h-24 md:w-28 md:h-28 object-contain drop-shadow-lg mb-2 opacity-90" 
+              className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain drop-shadow-lg mb-2 opacity-90" 
               initial={{ opacity: 0, scale: 0.8 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
             />
             <motion.h1 
-              className="text-4xl md:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold"
+              className="text-3xl md:text-4xl lg:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
@@ -547,7 +551,7 @@ export default function Home() {
               Finally making it official?
             </motion.h1>
             <motion.p 
-              className="text-lg md:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed"
+              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
@@ -558,14 +562,45 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
+              className="flex flex-col items-center"
             >
               <Button 
                 className="mt-6 px-8 py-3 text-lg"
                 onClick={handleGetStarted}
               >
-                Get Started for $49 →
+                Start My LLC for $49
               </Button>
-              <p className="mt-4 text-sm text-gray-500 text-center">Everything you need. One price.</p>
+              
+              {/* Timer below CTA button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 1.0 }}
+                className="mt-6 mb-8"
+              >
+                <Timer className="text-gray-500 text-center" />
+              </motion.div>
+              
+              {/* Value props with Lucide icons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 1.2 }}
+                className="flex flex-col items-center space-y-3 mt-4 px-4"
+              >
+                <div className="flex items-center gap-3 text-gray-600">
+                  <FileText className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-xs md:text-sm text-center">EIN included</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-600">
+                  <ShieldCheck className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-xs md:text-sm text-center">Operating agreement ready to use</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-600">
+                  <TimerIcon className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-xs md:text-sm text-center">The fastest way to start your LLC</span>
+                </div>
+              </motion.div>
             </motion.div>
           </motion.section>
 
@@ -813,6 +848,13 @@ export default function Home() {
         </main>
         <Footer />
       </div>
+      
+      {/* EIN Guide Popup */}
+      <EINGuidePopup 
+        isOpen={showPopup} 
+        onClose={closePopup} 
+        sourcePage="home" 
+      />
     </>
   )
 } 

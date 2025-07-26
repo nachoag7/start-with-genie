@@ -4,8 +4,12 @@ import { DollarSign, AlertCircle, CheckCircle, XCircle, FileText, BookOpen, Scro
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import Image from "next/image";
+import EINGuidePopup from "../../components/EINGuidePopup";
+import { useEINPopup } from "../../hooks/useEINPopup";
 
 export default function ComparePage() {
+  const { showPopup, closePopup } = useEINPopup();
+  
   return (
     <main className="bg-gray-50 min-h-screen w-full flex flex-col">
       {/* LOGO TOP-LEFT */}
@@ -238,6 +242,13 @@ export default function ComparePage() {
 
       {/* FOOTER */}
         <Footer />
+      
+      {/* EIN Guide Popup */}
+      <EINGuidePopup 
+        isOpen={showPopup}
+        onClose={closePopup}
+        sourcePage="/compare"
+      />
     </main>
   );
 } 

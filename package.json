@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-ein-pdf": "node scripts/generate-ein-guide-pdf.js"
   },
   "dependencies": {
     "@nativedocuments/docx-wasm": "^2.2.13-1561490777",
@@ -27,6 +28,7 @@
     "lucide-react": "^0.294.0",
     "next": "14.0.4",
     "pizzip": "^3.2.0",
+    "puppeteer": "^24.15.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",

@@ -16,9 +16,12 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/Footer";
+import EINGuidePopup from "../../components/EINGuidePopup";
+import { useEINPopup } from "../../hooks/useEINPopup";
 
 export default function StartLLCFastPage() {
   const [timeSpent, setTimeSpent] = useState("0:00");
+  const { showPopup, closePopup } = useEINPopup();
 
   useEffect(() => {
     const startTime = Date.now();
@@ -263,6 +266,13 @@ export default function StartLLCFastPage() {
 
         {/* FOOTER */}
         <Footer />
+      
+      {/* EIN Guide Popup */}
+      <EINGuidePopup 
+        isOpen={showPopup}
+        onClose={closePopup}
+        sourcePage="/start-llc-fast"
+      />
       </main>
     </>
   );
