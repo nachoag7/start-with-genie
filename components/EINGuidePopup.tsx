@@ -110,7 +110,7 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSu
                   {/* Subtext */}
                   <div className="text-sm text-gray-600 flex items-start gap-2 mb-6 text-center justify-center">
                     <FileText className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    <span>We'll send you a step-by-step guide to getting your EIN — totally free.</span>
+                    <span>We'll send you a simple step-by-step guide to help you get your EIN — fast, clear, and easy.</span>
                   </div>
 
                   {/* Form */}

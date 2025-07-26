@@ -63,25 +63,22 @@ export default function StartLLCFastPage() {
 
       <main className="bg-gray-50 min-h-screen">
         {/* HERO SECTION */}
-        <section className="w-full max-w-4xl mx-auto px-4 pt-6 pb-16 text-center flex flex-col items-center justify-start">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 leading-tight mt-0">
+        <section className="w-full max-w-4xl mx-auto px-4 pt-4 pb-8 text-center flex flex-col items-center justify-start">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 leading-tight mt-0">
             Start Your LLC Fast — The Clear, No-Upsell Way
           </h1>
-          <p className="text-lg sm:text-xl text-neutral-700 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-neutral-700 mb-6 max-w-3xl mx-auto">
             Launch your business quickly. Whether you're signing a contract, opening a bank account, or just ready to go — Start With Genie gives you everything you need to start your LLC fast.
           </p>
-          <div className="flex flex-col items-center w-full">
+          <div className="flex flex-col items-center w-full space-y-4">
             <Link href="/checkout" className="inline-block">
               <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
                 Start My LLC for $49
               </button>
             </Link>
-            {/* Timer below CTA button */}
-            <div className="mt-6 mb-4 w-full">
-              <Timer className="text-gray-500 text-center" />
-            </div>
+            
             {/* Trust badges with Lucide icons */}
-            <div className="flex flex-col items-center space-y-2 mt-6 px-4 w-full">
+            <div className="flex flex-col items-center space-y-2 px-4 w-full">
               <div className="flex items-center gap-3 text-gray-600">
                 <FileText className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm font-medium">EIN included</span>
@@ -94,6 +91,11 @@ export default function StartLLCFastPage() {
                 <TimerIcon className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm font-medium">The fastest way to start your LLC</span>
               </div>
+            </div>
+            
+            {/* Timer below trust bullets - smaller font */}
+            <div className="w-full">
+              <Timer className="text-gray-500 text-center text-xs" />
             </div>
           </div>
         </section>
