@@ -11,16 +11,22 @@ import {
   DollarSign,
   CheckCircle,
   Quote,
-  ArrowRight
+  ArrowRight,
+  Menu,
+  X,
+  ShieldCheck,
+  Timer as TimerIcon
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/Footer";
 import EINGuidePopup from "../../components/EINGuidePopup";
 import { useEINPopup } from "../../hooks/useEINPopup";
+import Timer from "../../components/Timer";
 
 export default function StartLLCFastPage() {
   const [timeSpent, setTimeSpent] = useState("0:00");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { showPopup, closePopup } = useEINPopup();
 
   useEffect(() => {
@@ -41,15 +47,13 @@ export default function StartLLCFastPage() {
       <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
         <div className="flex items-center gap-3">
           <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
-            <img src="/genie-preview.png" alt="Genie Logo" className="h-10 w-10 rounded-full opacity-90" />
+            <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
           </Link>
-          <span className="text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
+          <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-neutral-600">
-          <Clock className="w-4 h-4" />
-          <span>You've spent {timeSpent} here — most Genie users finish in under 15 minutes</span>
-        </div>
-        <div className="flex items-center gap-4">
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-4">
           <Link href="/compare">
             <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
           </Link>
@@ -57,6 +61,52 @@ export default function StartLLCFastPage() {
             <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
           </Link>
         </div>
+
+        {/* Mobile Hamburger Menu */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6 text-neutral-900" />
+            ) : (
+              <Menu className="w-6 h-6 text-neutral-900" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
+            <div className="absolute top-0 right-0 h-full w-64 bg-white shadow-lg">
+              <div className="flex justify-end p-4">
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg hover:bg-gray-100"
+                >
+                  <X className="w-6 h-6 text-neutral-900" />
+                </button>
+              </div>
+              <div className="px-4 py-6 space-y-4">
+                <Link 
+                  href="/compare" 
+                  className="block text-lg font-medium text-neutral-900 hover:text-blue-600 transition"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Compare
+                </Link>
+                <Link 
+                  href="/login" 
+                  className="block text-lg font-medium text-neutral-900 hover:text-blue-600 transition"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       <main className="bg-gray-50 min-h-screen">
@@ -68,11 +118,34 @@ export default function StartLLCFastPage() {
           <p className="text-lg sm:text-xl text-neutral-700 mb-8 max-w-3xl mx-auto">
             Launch your business quickly. Whether you're signing a contract, opening a bank account, or just ready to go — Start With Genie gives you everything you need to start your LLC fast.
           </p>
-          <Link href="/checkout" className="inline-block">
-            <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition">
-              Start My LLC for $49
-            </button>
-          </Link>
+          <div className="flex flex-col items-center">
+            <Link href="/checkout" className="inline-block">
+              <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
+                Start My LLC for $49
+              </button>
+            </Link>
+            
+            {/* Timer below CTA button */}
+            <div className="mt-6 mb-8">
+              <Timer className="text-gray-500 text-center" />
+            </div>
+            
+            {/* Trust badges with Lucide icons */}
+            <div className="flex flex-col items-center space-y-3 mt-4 px-4">
+              <div className="flex items-center gap-3 text-gray-600">
+                <FileText className="w-4 h-4 flex-shrink-0" />
+                <span className="text-xs md:text-sm text-center">EIN included</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-600">
+                <ShieldCheck className="w-4 h-4 flex-shrink-0" />
+                <span className="text-xs md:text-sm text-center">Operating agreement ready to use</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-600">
+                <TimerIcon className="w-4 h-4 flex-shrink-0" />
+                <span className="text-xs md:text-sm text-center">The fastest way to start your LLC</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* WHY TIME-SENSITIVE FOUNDERS USE GENIE */}
