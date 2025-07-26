@@ -161,15 +161,19 @@ export default function StartLLCFastPage() {
               Your Genie dashboard is unlocked instantly. Filing steps, EIN guide, operating agreement, and the Genie assistant — all in one place.
             </p>
           </div>
-          <div className="bg-white rounded-2xl shadow-lg p-6 max-w-3xl mx-auto">
+          <div className="flex justify-center">
             <video
               src="/Dashboard-preview.mp4"
               autoPlay
               muted
               loop
+              controls
+              controlsList="nodownload noremoteplayback"
+              disablePictureInPicture
               playsInline
-              className="w-full rounded-xl"
-              style={{ maxWidth: '100%', height: 'auto' }}
+              preload="metadata"
+              className="rounded-2xl shadow-2xl w-full max-w-[720px] aspect-video bg-black object-cover"
+              style={{ outline: 'none', border: 'none', padding: 0 }}
             />
           </div>
         </section>

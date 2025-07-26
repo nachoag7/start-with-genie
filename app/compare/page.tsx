@@ -12,13 +12,23 @@ export default function ComparePage() {
   
   return (
     <main className="bg-gray-50 min-h-screen w-full flex flex-col">
-      {/* LOGO TOP-LEFT */}
-      <div className="w-full flex items-center justify-start px-4 pt-4 pb-2">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/genie-preview.png" alt="Start With Genie Logo" width={40} height={40} className="rounded-full" />
-          <span className="sr-only">Start With Genie Home</span>
-        </Link>
-      </div>
+      {/* NAVBAR (copied from homepage) */}
+      <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
+        <div className="flex items-center gap-3">
+          <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+            <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
+          </Link>
+          <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Link href="/compare">
+            <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
+          </Link>
+          <Link href="/login">
+            <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
+          </Link>
+        </div>
+      </nav>
       {/* HERO SECTION */}
       <section className="w-full max-w-xl mx-auto px-4 py-10 flex flex-col items-center text-center">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 mb-4 leading-tight">Almost paid LegalZoom $299? Here's the smarter way.</h1>
