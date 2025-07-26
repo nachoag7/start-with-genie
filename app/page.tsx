@@ -574,7 +574,7 @@ export default function Home() {
           </motion.section>
 
           {/* Dashboard Preview Video here */}
-          <div className="-mt-6 w-full">
+          <div className="-mt-16 w-full">
             <DashboardPreviewVideo />
           </div>
 
