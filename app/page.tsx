@@ -532,7 +532,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-2 pb-0 relative min-h-[35vh] md:min-h-0 flex justify-center"
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-2 pb-0 relative min-h-[25vh] md:min-h-0 flex justify-center"
           >
             <motion.img 
               src="/genie-og.png" 
@@ -862,7 +862,7 @@ function DashboardPreviewVideo() {
   const handleVideoPause = () => setIsPlaying(false);
 
   return (
-    <section className="w-full flex flex-col items-center justify-center py-12">
+    <section className="w-full flex flex-col items-center justify-center py-4">
       <h2 className="text-center text-2xl font-semibold mb-4">
         See your complete LLC launch experience
       </h2>
