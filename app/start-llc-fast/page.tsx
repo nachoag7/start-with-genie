@@ -68,7 +68,7 @@ export default function StartLLCFastPage() {
             Start Your LLC Fast — The Clear, No-Upsell Way
           </h1>
           <p className="text-lg sm:text-xl text-neutral-700 mb-6 max-w-3xl mx-auto">
-            Launch your business quickly. Whether you're signing a contract, opening a bank account, or just ready to go — Start With Genie gives you everything you need to start your LLC fast.
+            Get everything you need to launch your LLC — fast, affordable, and frustration-free.
           </p>
           <div className="flex flex-col items-center w-full space-y-4">
             <Link href="/checkout" className="inline-block">
@@ -89,13 +89,13 @@ export default function StartLLCFastPage() {
               </div>
               <div className="flex items-center gap-3 text-gray-600">
                 <TimerIcon className="w-4 h-4 flex-shrink-0" />
-                <span className="text-sm font-medium">The fastest way to start your LLC</span>
+                <span className="text-sm font-medium">Most users finish in under 15 minutes</span>
               </div>
             </div>
             
-            {/* Timer below trust bullets - smaller font */}
-            <div className="w-full">
-              <Timer className="text-gray-500 text-center text-xs" />
+            {/* Timer below trust bullets - reduced hierarchy */}
+            <div className="w-full mt-2">
+              <Timer className="text-gray-400 text-center text-xs font-light" />
             </div>
           </div>
         </section>
