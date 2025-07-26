@@ -231,7 +231,7 @@ export default function EINGuidePremiumPage() {
                     href="https://www.startwithgenie.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-block bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow"
                   >
                     Start My LLC
                   </a>
