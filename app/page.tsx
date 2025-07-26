@@ -864,7 +864,8 @@ function DashboardPreviewVideo() {
   return (
     <section className="w-full flex flex-col items-center justify-center py-4">
       <h2 className="text-center text-2xl font-semibold mb-4">
-        See your complete LLC launch experience
+        <span className="block md:hidden">See your complete LLC launch</span>
+        <span className="hidden md:block">See your complete LLC launch experience</span>
       </h2>
       <div className="relative w-full flex justify-center">
         <motion.video
