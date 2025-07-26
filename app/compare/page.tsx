@@ -8,7 +8,7 @@ import EINGuidePopup from "../../components/EINGuidePopup";
 import { useEINPopup } from "../../hooks/useEINPopup";
 
 export default function ComparePage() {
-  const { showPopup, closePopup } = useEINPopup();
+  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
   
   return (
     <main className="bg-gray-50 min-h-screen w-full flex flex-col">
@@ -248,6 +248,7 @@ export default function ComparePage() {
         isOpen={showPopup}
         onClose={closePopup}
         sourcePage="/compare"
+        markEmailSubmitted={markEmailSubmitted}
       />
     </main>
   );

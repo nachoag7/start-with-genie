@@ -8,9 +8,10 @@ interface EINGuidePopupProps {
   isOpen: boolean;
   onClose: () => void;
   sourcePage: string;
+  markEmailSubmitted?: () => void;
 }
 
-export default function EINGuidePopup({ isOpen, onClose, sourcePage }: EINGuidePopupProps) {
+export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSubmitted }: EINGuidePopupProps) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,6 +40,7 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage }: EINGuideP
 
       if (response.ok) {
         setIsSuccess(true);
+        if (markEmailSubmitted) markEmailSubmitted();
         setTimeout(() => {
           onClose();
           setIsSuccess(false);

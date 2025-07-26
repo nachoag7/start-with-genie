@@ -468,7 +468,7 @@ export default function Home() {
   const [openCard, setOpenCard] = useState<number | null>(null)
   const [flashIndex, setFlashIndex] = useState<number | null>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
-  const { showPopup, closePopup } = useEINPopup()
+  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
   // Dismiss description on outside click
   useEffect(() => {
@@ -823,6 +823,7 @@ export default function Home() {
         isOpen={showPopup} 
         onClose={closePopup} 
         sourcePage="home" 
+        markEmailSubmitted={markEmailSubmitted}
       />
     </>
   )

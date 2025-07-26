@@ -27,7 +27,7 @@ import Timer from "../../components/Timer";
 export default function StartLLCFastPage() {
   const [timeSpent, setTimeSpent] = useState("0:00");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { showPopup, closePopup } = useEINPopup();
+  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
   useEffect(() => {
     const startTime = Date.now();
@@ -81,18 +81,18 @@ export default function StartLLCFastPage() {
               <Timer className="text-gray-500 text-center" />
             </div>
             {/* Trust badges with Lucide icons */}
-            <div className="flex flex-col items-center space-y-3 mt-2 px-4 w-full">
-              <div className="flex items-center gap-3 text-gray-600 justify-center">
+            <div className="flex flex-col items-center space-y-2 mt-6 px-4 w-full">
+              <div className="flex items-center gap-3 text-gray-600">
                 <FileText className="w-4 h-4 flex-shrink-0" />
-                <span className="text-xs md:text-sm text-center">EIN included</span>
+                <span className="text-sm font-medium">EIN included</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-600 justify-center">
+              <div className="flex items-center gap-3 text-gray-600">
                 <ShieldCheck className="w-4 h-4 flex-shrink-0" />
-                <span className="text-xs md:text-sm text-center">Operating agreement ready to use</span>
+                <span className="text-sm font-medium">Operating agreement ready to use</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-600 justify-center">
+              <div className="flex items-center gap-3 text-gray-600">
                 <TimerIcon className="w-4 h-4 flex-shrink-0" />
-                <span className="text-xs md:text-sm text-center">The fastest way to start your LLC</span>
+                <span className="text-sm font-medium">The fastest way to start your LLC</span>
               </div>
             </div>
           </div>
@@ -295,6 +295,7 @@ export default function StartLLCFastPage() {
         isOpen={showPopup}
         onClose={closePopup}
         sourcePage="/start-llc-fast"
+        markEmailSubmitted={markEmailSubmitted}
       />
       </main>
     </>
