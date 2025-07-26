@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { FileText, Send, X, CheckCircle } from 'lucide-react';
+import { FileText, Send, X, CheckCircle, Mail, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
@@ -45,7 +45,7 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSu
           onClose();
           setIsSuccess(false);
           setEmail('');
-        }, 3000);
+        }, 5000); // Increased timeout for better UX
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to save lead');
@@ -156,15 +156,51 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSu
                   </form>
                 </div>
               ) : (
-                /* Success message */
+                /* Enhanced Success message */
                 <div className="px-6 py-8 md:px-8 text-center">
-                  <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Guide sent!
+                  {/* Success Icon */}
+                  <div className="flex justify-center mb-4">
+                    <div className="relative">
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-8 h-8 text-green-600" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Success Header */}
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    Guide sent successfully!
                   </h3>
-                  <p className="text-gray-600 text-sm">
-                    Check your inbox for the EIN guide.
-                  </p>
+
+                  {/* Success Message */}
+                  <div className="text-gray-600 mb-6">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Mail className="w-4 h-4 text-gray-500" />
+                      <span className="text-sm">Check your inbox</span>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      We've sent your free EIN guide to <strong>{email}</strong>
+                    </p>
+                  </div>
+
+                  {/* Next Steps */}
+                  <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                    <h4 className="text-sm font-medium text-gray-900 mb-2">What's next?</h4>
+                    <ul className="text-xs text-gray-600 space-y-1 text-left">
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                        <span>Open the email and click "View My EIN Guide"</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                        <span>Follow the step-by-step instructions</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                        <span>Get your EIN in minutes!</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               )}
             </div>
