@@ -1,9 +1,16 @@
 import React from 'react';
+import { Metadata } from 'next';
 
-export default function EINGuidePage() {
+export const metadata: Metadata = {
+  title: 'Free Premium EIN Guide - Start With Genie',
+  description: 'Get your free premium EIN guide with step-by-step instructions, checklists, and expert tips for obtaining your federal tax ID.',
+  robots: 'noindex',
+};
+
+export default function EINGuidePremiumPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="max-w-3xl mx-auto font-inter">
             <h1 className="text-4xl font-semibold mb-4 text-gray-900">
@@ -18,7 +25,7 @@ export default function EINGuidePage() {
               {/* What's an EIN? */}
               <section>
                 <h2 className="flex items-center gap-2 text-xl font-semibold mb-4 text-gray-900">
-                  <svg width="20" height="20" stroke="#6B7280" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="18" height="18" stroke="#6B7280" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                   </svg>
                   What's an EIN?
@@ -54,7 +61,7 @@ export default function EINGuidePage() {
               {/* How to Get Your EIN */}
               <section>
                 <h2 className="flex items-center gap-2 text-xl font-semibold mb-4 text-gray-900">
-                  <svg width="20" height="20" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg width="18" height="18" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.542-.942 3.31.826 2.368 2.368a1.724 1.724 0 0 0 1.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.942 1.542-.826 3.31-2.368 2.368a1.724 1.724 0 0 0-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.542.942-3.31-.826-2.368-2.368a1.724 1.724 0 0 0-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.942-1.542.826-3.31 2.368-2.368a1.724 1.724 0 0 0 2.573-1.066Z"/>
                     <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                   </svg>
@@ -76,7 +83,7 @@ export default function EINGuidePage() {
               {/* Checklist Before You Start */}
               <section>
                 <h2 className="flex items-center gap-2 text-xl font-semibold mb-4 text-gray-900">
-                  <svg width="20" height="20" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg width="18" height="18" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M9 11v3.586l1.293 1.293a1 1 0 0 0 1.414 0L13 14.586V11a1 1 0 0 0-1-1H9z" />
                     <rect width="18" height="18" x="3" y="3" rx="2" />
                     <path d="M16 3v4" />
@@ -122,7 +129,7 @@ export default function EINGuidePage() {
               {/* Common Mistakes to Avoid */}
               <section>
                 <h2 className="flex items-center gap-2 text-xl font-semibold mb-4 text-gray-900">
-                  <svg width="20" height="20" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg width="18" height="18" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M12 9v2m0 4h.01"/>
                     <circle cx="12" cy="12" r="10"/>
                   </svg>
@@ -153,7 +160,7 @@ export default function EINGuidePage() {
               {/* After You Get Your EIN */}
               <section>
                 <h2 className="flex items-center gap-2 text-xl font-semibold mb-4 text-gray-900">
-                  <svg width="20" height="20" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg width="18" height="18" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M4 4v6h6"/>
                     <path d="M20 20v-6h-6"/>
                     <path d="M4 20 10 14"/>
@@ -189,7 +196,7 @@ export default function EINGuidePage() {
               {/* Want Help With the Rest? */}
               <section>
                 <h2 className="flex items-center gap-2 text-xl font-semibold mb-4 text-gray-900">
-                  <svg width="20" height="20" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg width="18" height="18" stroke="#6B7280" fill="none" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M5 8h14"/>
                     <path d="M5 16h14"/>
                     <path d="M12 3v18"/>

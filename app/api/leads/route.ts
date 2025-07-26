@@ -130,9 +130,9 @@ export async function POST(request: NextRequest) {
                         </div>
                         
                         <div style="text-align: center; margin-bottom: 30px;">
-                          <a href="https://www.startwithgenie.com/ein-guide" 
+                          <a href="https://www.startwithgenie.com/ein-guide-premium" 
                              style="display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 16px;">
-                            Get Your Free EIN Guide
+                            View My EIN Guide
                           </a>
                         </div>
                         
@@ -170,7 +170,7 @@ What's in your premium guide:
 • What to do after getting your EIN
 • IRS hours and official resources
 
-Get Your Free EIN Guide: https://www.startwithgenie.com/ein-guide
+View My EIN Guide: https://www.startwithgenie.com/ein-guide-premium
 
 Ready to form your LLC? Start With Genie makes it simple and fast for just $49.
 
