@@ -508,7 +508,7 @@ export default function Home() {
       {/* StickyTimeBar - must be above nav */}
       {/* Remove StickyTimeBar */}
       <div className="min-h-screen bg-neutral-50 flex flex-col">
-        <main className="flex-1 flex flex-col items-center justify-start md:justify-center px-4">
+        <main className="flex-1 flex flex-col items-center justify-center px-4">
           {/* Header */}
           <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
             <div className="flex items-center gap-3">
@@ -532,18 +532,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-1 py-3 pb-0 relative min-h-screen md:min-h-0 flex justify-center"
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-2 pb-0 relative min-h-[70vh] md:min-h-0 flex justify-center"
           >
             <motion.img 
               src="/genie-og.png" 
               alt="Genie Mascot" 
-              className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain drop-shadow-lg mb-2 opacity-90" 
+              className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-lg mb-1 opacity-90" 
               initial={{ opacity: 0, scale: 0.8 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
             />
             <motion.h1 
-              className="text-3xl md:text-4xl lg:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold px-4"
+              className="text-3xl md:text-4xl lg:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold px-4 mt-1 mb-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
@@ -551,7 +551,7 @@ export default function Home() {
               Finally making it official?
             </motion.h1>
             <motion.p 
-              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4"
+              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mb-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
@@ -565,7 +565,7 @@ export default function Home() {
               className="flex flex-col items-center"
             >
               <Button 
-                className="mt-6 px-8 py-3 text-lg"
+                className="mt-2 px-7 py-2 text-lg"
                 onClick={handleGetStarted}
               >
                 Start My LLC for $49
@@ -574,10 +574,12 @@ export default function Home() {
           </motion.section>
 
           {/* Dashboard Preview Video here */}
-          <DashboardPreviewVideo />
+          <div className="mt-4 mb-2 w-full">
+            <DashboardPreviewVideo />
+          </div>
 
           {/* Move What founders are saying section here */}
-          <section className="mt-20 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-10">
+          <section className="mt-10 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-7">
             <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">What founders are saying</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Victoria */}
@@ -602,7 +604,7 @@ export default function Home() {
           </section>
           
           {/* What You Don’t Get Section */}
-          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-10 md:py-14">
+          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-7 md:py-10">
             <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
               What You Don’t Get
             </h2>
@@ -632,7 +634,9 @@ export default function Home() {
           </section>
           
           {/* Other Sections */}
-          <WhyGenieSection />
+          <div className="mt-6 mb-2 w-full">
+            <WhyGenieSection />
+          </div>
 
           {/* Testimonial Section Before Final CTA */}
           {/* This section is now moved */}
@@ -640,7 +644,7 @@ export default function Home() {
           <CompareSection />
 
           {/* Second CTA under How We Compare */}
-          <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
+          <section className="w-full max-w-xl mx-auto px-4 py-7 text-center">
             <h2 className="text-xl font-semibold text-neutral-900 mb-4">Ready to launch your LLC in minutes?</h2>
             <Button className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">
               Start My LLC for $49
@@ -674,7 +678,7 @@ export default function Home() {
           />
           
           {/* Add the new What's Included section below the Genie Assistant section */}
-          <section className="w-full bg-white py-16 flex flex-col items-center justify-center border-t border-neutral-100">
+          <section className="w-full bg-white py-10 flex flex-col items-center justify-center border-t border-neutral-100">
             <div className="max-w-4xl w-full px-4">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -775,7 +779,7 @@ export default function Home() {
           
           <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
           
-          <section className="w-full bg-white py-16 flex flex-col items-center justify-center mt-10 border-t border-neutral-100">
+          <section className="w-full bg-white py-10 flex flex-col items-center justify-center mt-7 border-t border-neutral-100">
             <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-6 text-center">Ready to Launch Your Business?</h2>
             <Button 
               className="px-10 py-4 text-lg w-full max-w-xs"
@@ -786,7 +790,7 @@ export default function Home() {
           </section>
           
           {/* FAQ Section - use landing page style and content */}
-          <section className="w-full max-w-2xl mx-auto px-4 py-10">
+          <section className="w-full max-w-2xl mx-auto px-4 py-7">
             <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">FAQs</h2>
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
               <summary className="font-medium text-gray-900 cursor-pointer">Do you file the LLC for me?</summary>
