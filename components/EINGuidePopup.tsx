@@ -47,11 +47,24 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSu
           setEmail('');
         }, 3000);
       } else {
-        throw new Error('Failed to save lead');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save lead');
       }
     } catch (error) {
       console.error('Error submitting email:', error);
-      alert('Something went wrong. Please try again.');
+      
+      // Handle specific error cases
+      if (error instanceof Error) {
+        if (error.message.includes('already submitted')) {
+          alert('This email has already been submitted. Please check your inbox.');
+        } else if (error.message.includes('Invalid email')) {
+          alert('Please enter a valid email address.');
+        } else {
+          alert('Something went wrong. Please try again.');
+        }
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }

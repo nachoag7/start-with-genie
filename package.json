@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-ein-pdf": "node scripts/generate-ein-guide-pdf.js"
+    "generate-ein-pdf": "node scripts/generate-ein-guide-pdf.js",
+    "setup-leads-table": "node scripts/setup-leads-table.js"
   },
   "dependencies": {
     "@nativedocuments/docx-wasm": "^2.2.13-1561490777",
