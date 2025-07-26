@@ -532,18 +532,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-2 pb-0 relative min-h-[70vh] md:min-h-0 flex justify-center"
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-1 pb-0 relative min-h-[55vh] md:min-h-0 flex justify-center"
           >
             <motion.img 
               src="/genie-og.png" 
               alt="Genie Mascot" 
-              className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-lg mb-1 opacity-90" 
+              className="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain drop-shadow-lg mb-1 opacity-90" 
               initial={{ opacity: 0, scale: 0.8 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
             />
             <motion.h1 
-              className="text-3xl md:text-4xl lg:text-5xl text-center text-neutral-900 leading-tight tracking-tight font-semibold px-4 mt-1 mb-2"
+              className="text-2xl md:text-3xl lg:text-4xl text-center text-neutral-900 leading-tight tracking-tight font-semibold px-4 mt-1 mb-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
@@ -551,7 +551,7 @@ export default function Home() {
               Finally making it official?
             </motion.h1>
             <motion.p 
-              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mb-3"
+              className="text-sm md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mb-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
@@ -565,7 +565,7 @@ export default function Home() {
               className="flex flex-col items-center"
             >
               <Button 
-                className="mt-2 px-7 py-2 text-lg"
+                className="mt-1 px-6 py-2 text-base"
                 onClick={handleGetStarted}
               >
                 Start My LLC for $49
