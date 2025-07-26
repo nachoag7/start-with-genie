@@ -154,6 +154,13 @@ export default function StartLLCFastPage() {
               style={{ outline: 'none', border: 'none', padding: 0 }}
             />
           </div>
+          <div className="text-center mt-8">
+            <Link href="/checkout" className="inline-block">
+              <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
+                Start My LLC for $49
+              </button>
+            </Link>
+          </div>
         </section>
 
         {/* WHY TIME-SENSITIVE FOUNDERS USE GENIE */}
