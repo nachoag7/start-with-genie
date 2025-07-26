@@ -532,7 +532,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-2 pb-0 relative min-h-screen md:min-h-0 flex justify-center"
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-2 pb-0 relative min-h-[65vh] md:min-h-0 flex justify-center"
           >
             <motion.img 
               src="/genie-og.png" 
@@ -574,7 +574,7 @@ export default function Home() {
           </motion.section>
 
           {/* Dashboard Preview Video here */}
-          <div className="-mt-2 mb-2 w-full">
+          <div className="mb-2 w-full">
             <DashboardPreviewVideo />
           </div>
 
