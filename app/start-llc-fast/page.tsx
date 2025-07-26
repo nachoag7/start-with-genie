@@ -100,6 +100,62 @@ export default function StartLLCFastPage() {
           </div>
         </section>
 
+        {/* TESTIMONIALS */}
+        <section className="w-full max-w-4xl mx-auto px-4 py-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-8 text-center">
+            What Founders Are Saying
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-600">
+              <div className="flex items-center gap-2 mb-4">
+                <Quote className="w-5 h-5 text-blue-400" />
+                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">AR</span>
+              </div>
+              <p className="text-neutral-700 mb-3 italic">
+                "I was quoted $350 to start my LLC. Genie gave me the same exact outcome for $49 — and I had everything ready the same day."
+              </p>
+              <p className="text-sm text-gray-600 font-medium">— Alex R., Digital Marketing Consultant</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-600">
+              <div className="flex items-center gap-2 mb-4">
+                <Quote className="w-5 h-5 text-blue-400" />
+                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">JT</span>
+              </div>
+              <p className="text-neutral-700 mb-3 italic">
+                "LegalZoom wanted $299 and said it would take days. Genie got me going the same night — EIN, agreement, all of it."
+              </p>
+              <p className="text-sm text-gray-600 font-medium">— Jordan T., Shopify Store Owner</p>
+            </div>
+          </div>
+        </section>
+
+        {/* DASHBOARD PREVIEW */}
+        <section className="w-full max-w-4xl mx-auto px-4 py-16">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-4">
+              See Exactly What You'll Get
+            </h2>
+            <p className="text-lg text-neutral-700 max-w-2xl mx-auto">
+              Your Genie dashboard is unlocked instantly. Filing steps, EIN guide, operating agreement, and the Genie assistant — all in one place.
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <video
+              src="/Dashboard-preview.mp4"
+              autoPlay
+              muted
+              loop
+              controls
+              controlsList="nodownload noremoteplayback"
+              disablePictureInPicture
+              playsInline
+              preload="metadata"
+              className="rounded-2xl shadow-2xl w-full max-w-[720px] aspect-video bg-black object-cover"
+              style={{ outline: 'none', border: 'none', padding: 0 }}
+            />
+          </div>
+        </section>
+
         {/* WHY TIME-SENSITIVE FOUNDERS USE GENIE */}
         <section className="w-full max-w-4xl mx-auto px-4 py-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-8 text-center">
@@ -147,62 +203,6 @@ export default function StartLLCFastPage() {
                 <h3 className="font-semibold text-neutral-900 mb-2">Personalized dashboard</h3>
                 <p className="text-sm text-gray-600">Track progress and access all documents in one place</p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* DASHBOARD PREVIEW */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-4">
-              See Exactly What You'll Get
-            </h2>
-            <p className="text-lg text-neutral-700 max-w-2xl mx-auto">
-              Your Genie dashboard is unlocked instantly. Filing steps, EIN guide, operating agreement, and the Genie assistant — all in one place.
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <video
-              src="/Dashboard-preview.mp4"
-              autoPlay
-              muted
-              loop
-              controls
-              controlsList="nodownload noremoteplayback"
-              disablePictureInPicture
-              playsInline
-              preload="metadata"
-              className="rounded-2xl shadow-2xl w-full max-w-[720px] aspect-video bg-black object-cover"
-              style={{ outline: 'none', border: 'none', padding: 0 }}
-            />
-          </div>
-        </section>
-
-        {/* TESTIMONIALS */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-8 text-center">
-            What Founders Are Saying
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-600">
-              <div className="flex items-center gap-2 mb-4">
-                <Quote className="w-5 h-5 text-blue-400" />
-                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">AR</span>
-              </div>
-              <p className="text-neutral-700 mb-3 italic">
-                "I was quoted $350 to start my LLC. Genie gave me the same exact outcome for $49 — and I had everything ready the same day."
-              </p>
-              <p className="text-sm text-gray-600 font-medium">— Alex R., Digital Marketing Consultant</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-600">
-              <div className="flex items-center gap-2 mb-4">
-                <Quote className="w-5 h-5 text-blue-400" />
-                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">JT</span>
-              </div>
-              <p className="text-neutral-700 mb-3 italic">
-                "LegalZoom wanted $299 and said it would take days. Genie got me going the same night — EIN, agreement, all of it."
-              </p>
-              <p className="text-sm text-gray-600 font-medium">— Jordan T., Shopify Store Owner</p>
             </div>
           </div>
         </section>
