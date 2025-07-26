@@ -586,20 +586,28 @@ export default function Home() {
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
                 <Quote className="w-6 h-6 text-blue-400 mb-2" />
                 <div className="font-bold text-neutral-900">Victoria Aguilar, Poshmark Seller</div>
-                <div className="text-neutral-700 italic">“Genie guided me through getting my LLC set up in 15 minutes. I didn’t feel overwhelmed for a second.”</div>
+                <div className="text-neutral-700 italic">"Genie guided me through getting my LLC set up in 15 minutes. I didn't feel overwhelmed for a second."</div>
               </div>
               {/* Justin */}
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
                 <Quote className="w-6 h-6 text-blue-400 mb-2" />
                 <div className="font-bold text-neutral-900">Justin G, Founder of DM Dad</div>
-                <div className="text-neutral-700 italic">“I’ve launched multiple brands and this is by far the easiest way I’ve ever set up an LLC. Clean, fast, and actually helpful.”</div>
+                <div className="text-neutral-700 italic">"I've launched multiple brands and this is by far the easiest way I've ever set up an LLC. Clean, fast, and actually helpful."</div>
               </div>
               {/* Lauren */}
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
                 <Quote className="w-6 h-6 text-blue-400 mb-2" />
                 <div className="font-bold text-neutral-900">Lauren M, Freelance Designer</div>
-                <div className="text-neutral-700 italic">“Legal stuff usually stresses me out, but Genie broke everything down so clearly. I got it done between client calls.”</div>
+                <div className="text-neutral-700 italic">"Legal stuff usually stresses me out, but Genie broke everything down so clearly. I got it done between client calls."</div>
               </div>
+            </div>
+            <div className="text-center mt-8">
+              <Button 
+                className="bg-blue-600 text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-blue-700 transition"
+                onClick={handleGetStarted}
+              >
+                Start My LLC for $49
+              </Button>
             </div>
           </section>
           
