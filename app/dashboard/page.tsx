@@ -56,19 +56,20 @@ const DocumentCard = ({
   icon: Icon, 
   title, 
   subtitle, 
-  onClick
+  onViewClick,
+  onPdfClick
 }: { 
   icon: any; 
   title: string; 
   subtitle: string; 
-  onClick: () => void;
+  onViewClick: () => void;
+  onPdfClick: () => void;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4 }}
     className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
-    onClick={onClick}
   >
     <div className="flex flex-col items-center text-center">
       <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
@@ -78,11 +79,11 @@ const DocumentCard = ({
       <p className="text-sm text-[#8e8e93]">{subtitle}</p>
     </div>
     <div className="flex gap-2 mt-6 justify-center">
-      <Button size="md">
+      <Button size="md" onClick={onViewClick}>
         <Eye className="w-4 h-4" />
         View
       </Button>
-      <Button size="md" variant="secondary" className="!bg-gray-100 !hover:bg-gray-200 !text-gray-700 border-gray-300">
+      <Button size="md" variant="secondary" className="!bg-gray-100 !hover:bg-gray-200 !text-gray-700 border-gray-300" onClick={onPdfClick}>
         <Download className="w-4 h-4 mr-2" /> PDF
       </Button>
     </div>
@@ -469,16 +470,18 @@ export default function DashboardPage() {
       <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
         <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>LLC Filing Instructions for {user.business_name}</h2>
         <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Forming in {user.state}</div>
-        <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your silent assistant for setup</div>
+        <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your personal LLC assistant</div>
         <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString()}</div>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. Why This Step Matters</h3>
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Filing your Articles of Organization is what officially creates your LLC with the state. Once approved, your business becomes legally recognized and ready to operate.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. What You'll Need</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
-          <li style={{ marginBottom: '4px' }}>Business name: {user.business_name} (your official name must include “LLC,” “L.L.C.,” or “Limited Liability Company”)</li>
+          <li style={{ marginBottom: '4px' }}>Business name: {user.business_name} (your official name must include "LLC," "L.L.C.," or "Limited Liability Company")</li>
           <li style={{ marginBottom: '4px' }}>Owner name(s): {user.full_name}</li>
-          <li style={{ marginBottom: '4px' }}>Business address: {user.business_address}</li>
+          <li style={{ marginBottom: '4px' }}>Business address</li>
+          <li style={{ marginBottom: '4px' }}><strong>Address Tip:</strong> You can usually use your home address, but it must be a physical location — no PO Boxes. If you want privacy, a virtual office address may be an option.</li>
           <li style={{ marginBottom: '4px' }}>Registered Agent (you or someone else in {user.state})</li>
+          <li style={{ marginBottom: '4px' }}><strong>What's a Registered Agent?</strong> This is the person or business responsible for receiving legal documents on behalf of your LLC. You can be your own agent if you're a {user.state} resident with a physical address.</li>
           <li style={{ marginBottom: '4px' }}>Management structure: Member-managed</li>
           <li style={{ marginBottom: '4px' }}>Filing website login (some states require creating an account)</li>
         </ul>
@@ -493,8 +496,15 @@ export default function DashboardPage() {
         <ol className="list-decimal ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '28px', lineHeight: 1.7, textAlign: 'left', maxWidth: '100%', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
           <li style={{ marginBottom: '10px' }}>Go to the link above and create an account (if required)</li>
           <li style={{ marginBottom: '10px' }}>Select "Form a New LLC" or "Articles of Organization"</li>
-          <li style={{ marginBottom: '10px' }}>Enter your business and owner information</li>
-          <li style={{ marginBottom: '10px' }}>Add your Registered Agent</li>
+          <li style={{ marginBottom: '10px' }}>Enter your business and owner information:
+            <ul className="list-disc ml-6 mt-2" style={{ paddingLeft: '20px' }}>
+              <li>For <strong>Business Name</strong>, enter "{user.business_name}"</li>
+              <li>Under <strong>Principal Office Address</strong>, use your business address</li>
+              <li>For <strong>Organizers</strong>, list your name and title (e.g., "{user.full_name}, Member")</li>
+              <li>For <strong>Management Type</strong>, choose "Member-managed"</li>
+            </ul>
+          </li>
+          <li style={{ marginBottom: '10px' }}>Add your Registered Agent information</li>
           <li style={{ marginBottom: '10px' }}>Pay the filing fee online</li>
           <li style={{ marginBottom: '10px' }}>Submit the application and wait for approval</li>
         </ol>
@@ -506,7 +516,7 @@ export default function DashboardPage() {
       <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
         <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>EIN Instructions for {user.business_name}</h2>
         <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Formed in {user.state}</div>
-        <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your silent assistant for setup</div>
+        <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your personal LLC assistant</div>
         <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString()}</div>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. What Is an EIN?</h3>
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>An EIN (Employer Identification Number) is a unique ID issued by the IRS. Think of it as your business's Social Security Number — it's required to:<br/>- Open a business bank account<br/>- File taxes<br/>- Hire employees<br/>- Apply for business credit<br/>Even if you're the only owner, most banks and services will ask for your EIN.</p>
@@ -1010,12 +1020,20 @@ export default function DashboardPage() {
                 icon={FileText}
                 title="LLC Filing Instructions"
                 subtitle="Step-by-step guide"
-                onClick={() => {
+                onViewClick={() => {
                   setModalContent({
                     title: 'LLC Filing Instructions',
                     content: llcHtml || <div>Content not available</div>
                   });
                   setIsModalOpen(true);
+                }}
+                onPdfClick={() => {
+                  const llcUrl = getDocUrl('LLC Filing Instructions');
+                  if (llcUrl) {
+                    window.open(llcUrl, '_blank');
+                  } else {
+                    alert('PDF not available. Please regenerate your documents.');
+                  }
                 }}
               />
 
@@ -1024,12 +1042,20 @@ export default function DashboardPage() {
                 icon={Building2}
                 title="EIN Guide"
                 subtitle="Tax ID application"
-                onClick={() => {
+                onViewClick={() => {
                   setModalContent({
                     title: 'EIN Guide',
                     content: einHtml || <div>Content not available</div>
                   });
                   setIsModalOpen(true);
+                }}
+                onPdfClick={() => {
+                  const einUrl = getDocUrl('EIN Guide');
+                  if (einUrl) {
+                    window.open(einUrl, '_blank');
+                  } else {
+                    alert('PDF not available. Please regenerate your documents.');
+                  }
                 }}
               />
 
@@ -1038,12 +1064,20 @@ export default function DashboardPage() {
                 icon={ScrollText}
                 title="Operating Agreement"
                 subtitle="Legal document"
-                onClick={() => {
+                onViewClick={() => {
                   setModalContent({
                     title: 'Operating Agreement',
                     content: oaHtml || <div>Content not available</div>
                   });
                   setIsModalOpen(true);
+                }}
+                onPdfClick={() => {
+                  const oaUrl = getDocUrl('Operating Agreement');
+                  if (oaUrl) {
+                    window.open(oaUrl, '_blank');
+                  } else {
+                    alert('PDF not available. Please regenerate your documents.');
+                  }
                 }}
               />
             </div>
