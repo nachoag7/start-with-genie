@@ -73,6 +73,26 @@ export default function CheckoutForm({ onBack }: CheckoutFormProps) {
           ← Back
         </Button>
       </div>
+
+      {/* Headline + Subline */}
+      <div className="mb-0 text-center px-4 sm:px-0">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+          You're 15 minutes away from launching your business.
+        </h2>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">
+          Get instant access to your personal LLC assistant.
+        </p>
+      </div>
+
+      {/* Mini Testimonial */}
+      <div className="mb-5 mt-0 text-center px-4 sm:px-0 text-sm text-gray-600 italic flex flex-col items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="lucide lucide-quote w-4 h-4 mb-1 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M5 12h4v4H5zM15 12h4v4h-4z"/>
+        </svg>
+        ”I had my LLC and EIN ready to go in under 10 minutes, totally worth it."
+        <span className="mt-1 not-italic font-medium text-gray-800">— Jack White, Shopify Seller</span>
+      </div>
+
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8"
@@ -121,7 +141,30 @@ export default function CheckoutForm({ onBack }: CheckoutFormProps) {
         <Button type="submit" fullWidth disabled={loading || !stripe}>
           {loading ? "Processing..." : "Pay Now"}
         </Button>
+        {/* Secure Checkout Text */}
+        <p className="text-xs text-center text-gray-500 mt-2 px-4 sm:px-0">
+          Secure checkout powered by Stripe
+        </p>
       </form>
+
+      {/* FAQ Block */}
+      <div className="mt-10 border-t border-gray-200 pt-6 px-4 sm:px-0 w-full max-w-2xl mx-auto">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 text-center mb-4">Common questions</h3>
+        <div className="space-y-4 max-w-xl mx-auto text-sm sm:text-base text-gray-700">
+          <div>
+            <h4 className="font-medium text-gray-800">What do I get after payment?</h4>
+            <p className="mt-1 text-gray-600">Instant access to your Genie dashboard with personalized state filing instructions, a guided EIN setup, a pre-filled operating agreement, and a checklist to launch your LLC.</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-800">Is this a filing service?</h4>
+            <p className="mt-1 text-gray-600">Nope — Genie is your personal assistant, not a filing service. You get everything you need to file it yourself in minutes, without upsells or legal fees.</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-800">How fast is it?</h4>
+            <p className="mt-1 text-gray-600">Most users complete their setup in under 15 minutes. You’ll get instant access as soon as you check out.</p>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 } 
