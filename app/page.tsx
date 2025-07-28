@@ -484,15 +484,7 @@ export default function Home() {
         entries.forEach((entry) => {
           // When the hero section is not intersecting (scrolled past), show the sticky CTA
           // When it is intersecting (visible), hide the sticky CTA
-          // Use a small delay to prevent flickering on fast scrolls
-          const shouldShow = !entry.isIntersecting;
-          
-          // Debounce the state change to prevent rapid toggling
-          const timeoutId = setTimeout(() => {
-            setShowTimerNav(shouldShow);
-          }, 50); // 50ms delay to smooth out rapid scroll events
-
-          return () => clearTimeout(timeoutId);
+          setShowTimerNav(!entry.isIntersecting);
         });
       },
       {
@@ -594,22 +586,15 @@ export default function Home() {
                 opacity: { duration: 0.3 },
                 y: { duration: 0.4 }
               }}
-              className="w-full sticky top-0 z-[9999] backdrop-blur-sm bg-white/95 border-b border-neutral-200 shadow-sm"
+              className="w-full sticky top-0 z-[9999] backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100"
             >
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-3 px-6">
-                <div className="flex-1 mb-3 md:mb-0">
-                  <span className="text-base font-medium text-neutral-700 leading-relaxed">
-                    Most Genie users launch in under 15 minutes — ready to start?
-                  </span>
-                </div>
-                <div className="flex-shrink-0">
-                  <Button 
-                    onClick={scrollToCTA}
-                    className="text-sm px-6 py-2.5 font-medium"
-                  >
-                    Start Now
-                  </Button>
-                </div>
+              <div className="w-full max-w-6xl mx-auto flex items-center justify-center py-4 px-2 md:px-0">
+                <Button 
+                  onClick={scrollToCTA}
+                  className="text-sm px-8 py-3 font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                >
+                  Start Now
+                </Button>
               </div>
             </motion.nav>
           )}
