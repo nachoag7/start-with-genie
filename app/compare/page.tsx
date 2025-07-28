@@ -21,6 +21,7 @@ import Footer from "../../components/Footer";
 import { motion } from "framer-motion";
 import EINGuidePopup from "../../components/EINGuidePopup";
 import { useEINPopup } from "../../hooks/useEINPopup";
+import { Button } from "../../components/ui/Button";
 
 export default function ComparePage() {
   const [openFAQ, setOpenFAQ] = React.useState<number | null>(null);
@@ -63,7 +64,15 @@ export default function ComparePage() {
           </Link>
           <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
+          <Link href="/checkout" className="inline-block">
+            <Button 
+              className="text-sm font-semibold py-2 px-4 md:py-2.5 md:px-5"
+              size="sm"
+            >
+              Start Now
+            </Button>
+          </Link>
           <Link href="/login">
             <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
           </Link>
@@ -84,9 +93,12 @@ export default function ComparePage() {
             Start With Genie gives you everything you need to launch your LLC — for just $49. No upsells. No lawyers. No confusion.
           </p>
           <Link href="/checkout" className="w-full">
-            <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition mb-2">
+            <Button 
+              className="w-full text-lg font-semibold py-4 mb-2"
+              size="lg"
+            >
               Start My LLC for $49
-            </button>
+            </Button>
           </Link>
           <div className="text-sm text-gray-500 mt-1">Most users launch in under 15 minutes.</div>
         </motion.div>
@@ -271,9 +283,12 @@ export default function ComparePage() {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-500 mb-4">Total value: $286 — Yours for $49 flat.</p>
             <Link href="/checkout" className="w-full">
-              <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">
+              <Button 
+                className="w-full text-lg font-semibold py-4"
+                size="lg"
+              >
                 Start My LLC Now
-              </button>
+              </Button>
             </Link>
           </div>
         </motion.div>
@@ -378,10 +393,13 @@ export default function ComparePage() {
             Genie gives you EIN help, your documents, and your dashboard — all in one place.
           </p>
           <Link href="/checkout" className="w-full">
-            <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition flex items-center justify-center gap-2">
+            <Button 
+              className="w-full text-lg font-semibold py-4 flex items-center justify-center gap-2"
+              size="lg"
+            >
               Get Started Now
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </Button>
           </Link>
         </motion.div>
       </section>

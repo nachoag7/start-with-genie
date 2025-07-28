@@ -21,7 +21,7 @@ export function Button({
   const variantClasses = {
     primary: 'bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] text-white shadow-sm hover:shadow-md hover:brightness-110 focus:ring-blue-500',
     secondary: 'bg-white text-neutral-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 focus:ring-blue-500',
-    outline: 'bg-transparent text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-500',
+    outline: 'bg-transparent text-[#1E40AF] border border-[#1E40AF] hover:bg-[#1E40AF] hover:text-white focus:ring-[#1E40AF]',
     ghost: 'bg-transparent text-neutral-700 hover:bg-gray-100 focus:ring-blue-500'
   };
   

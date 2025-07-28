@@ -35,7 +35,7 @@ export default function LLCMythsDebunked() {
         <h1 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-2">LLC Myths Debunked: What You Really Need to Know</h1>
         <p className="text-lg text-neutral-700 mb-6">Most people overcomplicate it. Here’s what actually matters when starting an LLC in 2025.</p>
         <Link href="/checkout" className="w-full max-w-xs">
-          <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start Your LLC for $49</button>
+          <button className="w-full bg-[#1E40AF] text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-[#1E3A8A] transition">Start Your LLC for $49</button>
         </Link>
         <div className="text-sm text-gray-500 mt-2">Instant delivery — no upsells, no delays.</div>
       </section>
@@ -113,7 +113,7 @@ export default function LLCMythsDebunked() {
         </div>
         <div className="flex flex-col items-center">
           <Link href="/checkout" className="w-full max-w-xs">
-            <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start My LLC Now for $49</button>
+            <button className="w-full bg-[#1E40AF] text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-[#1E3A8A] transition">Start My LLC Now for $49</button>
           </Link>
           <div className="text-sm text-gray-500 mt-1">You’ll be done in 15 minutes — no upsells, no waiting.</div>
         </div>
@@ -188,7 +188,7 @@ export default function LLCMythsDebunked() {
         </div>
         <div className="flex flex-col items-center mt-8">
           <Link href="/checkout" className="w-full max-w-xs">
-            <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start My LLC for $49</button>
+            <button className="w-full bg-[#1E40AF] text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-[#1E3A8A] transition">Start My LLC for $49</button>
           </Link>
         </div>
       </section>

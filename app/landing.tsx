@@ -11,7 +11,7 @@ export default function Landing() {
         <h1 className="text-3xl md:text-4xl font-bold text-neutral-900">Finally making it official?</h1>
         <p className="text-lg text-neutral-700">Everything you need to launch your LLC — without upsells, delays, or confusion.</p>
         <Link href="/checkout" className="w-full">
-          <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start My LLC for $49</button>
+          <button className="w-full bg-[#1E40AF] text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-[#1E3A8A] transition">Start My LLC for $49</button>
         </Link>
         <div className="text-sm text-gray-500">We don’t file for you, but you’ll have everything you need to do it in under 15 minutes.</div>
       </section>
@@ -249,7 +249,7 @@ export default function Landing() {
       <section className="w-full max-w-xl mx-auto px-4 py-10 text-center">
         <h2 className="text-xl font-semibold text-neutral-900 mb-4">Let’s form your LLC — no delays, no fluff</h2>
         <Link href="/checkout" className="w-full">
-          <button className="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">Start My LLC for $49</button>
+          <button className="w-full bg-[#1E40AF] text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-[#1E3A8A] transition">Start My LLC for $49</button>
         </Link>
         <div className="text-sm text-gray-500 mt-2">No upsells. No middlemen. Just everything you need to launch in minutes.</div>
       </section>

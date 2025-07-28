@@ -142,7 +142,7 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSu
                     <button
                       type="submit"
                       disabled={isSubmitting || !email}
-                      className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm font-medium"
+                      className="w-full bg-[#1E40AF] text-white py-3 px-6 rounded-lg hover:bg-[#1E3A8A] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm font-medium"
                     >
                       {isSubmitting ? (
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

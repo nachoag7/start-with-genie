@@ -518,25 +518,28 @@ export default function Home() {
       
       <div className="min-h-screen bg-neutral-50 flex flex-col">
         
-        {/* Main Navbar - Non-sticky (scrolls away naturally) */}
-        <motion.nav 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease: 'easeIn' }}
-          className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100"
-        >
+        {/* STICKY NAVBAR */}
+        <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
           <div className="flex items-center gap-3">
             <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
               <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
             </Link>
             <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
+            <Link href="/checkout" className="inline-block">
+              <Button 
+                className="text-sm font-semibold py-2 px-4 md:py-2.5 md:px-5"
+                size="sm"
+              >
+                Start Now
+              </Button>
+            </Link>
             <Link href="/login">
               <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
             </Link>
           </div>
-        </motion.nav>
+        </nav>
         
         <main className="flex-1 flex flex-col items-center justify-center px-4">
           
@@ -651,7 +654,7 @@ export default function Home() {
             </div>
             <div className="text-center mt-6" data-cta-section>
               <Button 
-                className="bg-blue-600 text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-blue-700 transition w-full max-w-xs"
+                className="bg-[#1E40AF] text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-[#1E3A8A] transition w-full max-w-xs"
                 onClick={handleGetStarted}
               >
                 Start My LLC for $49
@@ -776,7 +779,7 @@ export default function Home() {
           <section className="w-full max-w-xl mx-auto px-4 py-5 text-center" data-cta-section>
             <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
             <Button 
-              className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition"
+              className="w-full max-w-xs mx-auto"
               onClick={handleGetStarted}
             >
               Start My LLC for $49

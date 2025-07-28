@@ -23,6 +23,7 @@ import Footer from "../../components/Footer";
 import EINGuidePopup from "../../components/EINGuidePopup";
 import { useEINPopup } from "../../hooks/useEINPopup";
 import Timer from "../../components/Timer";
+import { Button } from "../../components/ui/Button";
 
 export default function StartLLCFastPage() {
   const [timeSpent, setTimeSpent] = useState("0:00");
@@ -51,9 +52,14 @@ export default function StartLLCFastPage() {
           </Link>
           <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
         </div>
-        <div className="flex items-center gap-4">
-          <Link href="/compare">
-            <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
+        <div className="flex items-center gap-3 md:gap-4">
+          <Link href="/checkout" className="inline-block">
+            <Button 
+              className="text-sm font-semibold py-2 px-4 md:py-2.5 md:px-5"
+              size="sm"
+            >
+              Start Now
+            </Button>
           </Link>
           <Link href="/login">
             <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
@@ -72,9 +78,12 @@ export default function StartLLCFastPage() {
           </p>
           <div className="flex flex-col items-center w-full space-y-3">
             <Link href="/checkout" className="inline-block">
-              <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
+              <Button 
+                className="text-xl font-semibold py-4 px-8"
+                size="xl"
+              >
                 Start My LLC for $49
-              </button>
+              </Button>
             </Link>
             
             {/* Trust badges with Lucide icons */}
@@ -257,10 +266,13 @@ export default function StartLLCFastPage() {
             Start With Genie gives you everything you need to launch your business in the next 30 minutes — all for $49.
           </p>
           <Link href="/checkout" className="inline-flex items-center gap-2">
-            <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition">
+            <Button 
+              className="text-xl font-semibold py-4 px-8"
+              size="xl"
+            >
               Start My LLC Now
-            </button>
-            <ArrowRight className="w-5 h-5 text-blue-600" />
+            </Button>
+            <ArrowRight className="w-5 h-5 text-[#3A8DFF]" />
           </Link>
         </section>
 

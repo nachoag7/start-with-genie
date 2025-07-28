@@ -89,8 +89,8 @@ export default function CheckoutForm({ onBack }: CheckoutFormProps) {
         <svg xmlns="http://www.w3.org/2000/svg" className="lucide lucide-quote w-4 h-4 mb-1 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path d="M5 12h4v4H5zM15 12h4v4h-4z"/>
         </svg>
-        ”I had my LLC and EIN ready to go in under 10 minutes, totally worth it."
-        <span className="mt-1 not-italic font-medium text-gray-800">— Jack White, Shopify Seller</span>
+        "I thought it'd take hours, but I had my LLC and EIN sorted in one sitting. The dashboard made it way easier than I expected."
+        <span className="mt-1 not-italic font-medium text-gray-800">— Jack White, Shopify seller</span>
       </div>
 
       <form

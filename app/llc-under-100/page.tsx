@@ -59,7 +59,7 @@ export default function LLCUnder100Page() {
           </p>
           <div className="flex flex-col items-center w-full space-y-3">
             <Link href="/checkout" className="inline-block">
-              <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
+              <button className="bg-[#1E40AF] text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-[#1E3A8A] transition-all duration-200 hover:shadow-xl active:scale-95">
                 Start for $49 →
               </button>
             </Link>
@@ -358,7 +358,7 @@ export default function LLCUnder100Page() {
                 Genie gives you everything you need—without the fluff.
               </p>
               <Link href="/checkout" className="inline-block">
-                <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
+                <button className="bg-[#1E40AF] text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-[#1E3A8A] transition-all duration-200 hover:shadow-xl active:scale-95">
                   Launch for $49 →
                 </button>
               </Link>

@@ -94,6 +94,21 @@ export default function LoginPage() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="min-h-screen bg-neutral-50 flex flex-col">
+        {/* Back Home Button */}
+        <button
+          type="button"
+          onClick={() => {
+            if (window.history.length > 1) {
+              router.back();
+            } else {
+              router.push("/");
+            }
+          }}
+          className="absolute top-8 left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-base font-medium transition-colors gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          style={{ textDecoration: 'none', fontWeight: 500 }}
+        >
+          <span className="text-lg">←</span> Back
+        </button>
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
           <motion.section
             initial={{ opacity: 0, y: 40 }}
@@ -135,6 +150,7 @@ export default function LoginPage() {
                 <Button
                   type="submit"
                   className="w-full"
+                  variant="secondary"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Signing in...' : 'Sign in'}
