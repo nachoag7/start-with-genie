@@ -474,7 +474,7 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
-  // Improved scroll-based navbar visibility logic using IntersectionObserver
+  // Robust scroll-based navbar visibility logic using IntersectionObserver
   useEffect(() => {
     if (!heroRef.current) return;
 
@@ -484,12 +484,21 @@ export default function Home() {
         entries.forEach((entry) => {
           // When the hero section is not intersecting (scrolled past), show the sticky CTA
           // When it is intersecting (visible), hide the sticky CTA
-          setShowTimerNav(!entry.isIntersecting);
+          // Use a small delay to prevent flickering on fast scrolls
+          const shouldShow = !entry.isIntersecting;
+          
+          // Debounce the state change to prevent rapid toggling
+          const timeoutId = setTimeout(() => {
+            setShowTimerNav(shouldShow);
+          }, 50); // 50ms delay to smooth out rapid scroll events
+
+          return () => clearTimeout(timeoutId);
         });
       },
       {
-        // Root margin of -1px ensures the sticky bar appears as soon as the hero starts to leave viewport
-        rootMargin: '-1px 0px 0px 0px',
+        // Root margin ensures the sticky bar appears as soon as the hero starts to leave viewport
+        // Using a slightly larger margin for more reliable detection
+        rootMargin: '-10px 0px 0px 0px',
         // Threshold of 0 means the callback fires as soon as even 1px of the element leaves the viewport
         threshold: 0
       }
@@ -549,34 +558,42 @@ export default function Home() {
       
       <div className="min-h-screen bg-neutral-50 flex flex-col">
         
-        {/* Sticky Nav A - Main Navbar (shown at top) */}
+        {/* Main Navbar - Non-sticky (scrolls away naturally) */}
         <motion.nav 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeIn' }}
-          className={`w-full flex items-center justify-between py-3 px-5 sticky top-0 z-[9999] backdrop-blur-sm bg-white/95 border-b border-neutral-200 shadow-sm transition-all duration-300 ${showTimerNav ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100"
         >
           <div className="flex items-center gap-3">
-            <Link href="/" className="p-2 rounded-lg hover:bg-neutral-100 transition-all duration-200 active:scale-95">
+            <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
               <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
             </Link>
-            <span className="text-base font-medium text-neutral-900 tracking-tight">Start With Genie</span>
+            <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
+            <Link href="/compare">
+              <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
+            </Link>
             <Link href="/login">
-              <span className="text-base font-medium text-neutral-600 hover:text-neutral-900 transition-colors duration-200">Sign In</span>
+              <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
             </Link>
           </div>
         </motion.nav>
 
         {/* Sticky Nav B - Timer CTA Bar (shown after scroll) */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {showTimerNav && (
             <motion.nav
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ 
+                duration: 0.4, 
+                ease: [0.4, 0.0, 0.2, 1], // Custom easing for smoother animation
+                opacity: { duration: 0.3 },
+                y: { duration: 0.4 }
+              }}
               className="w-full sticky top-0 z-[9999] backdrop-blur-sm bg-white/95 border-b border-neutral-200 shadow-sm"
             >
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-3 px-6">
