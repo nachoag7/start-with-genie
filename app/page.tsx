@@ -378,13 +378,13 @@ function PreviewSection({
           {/* Image */}
           {image && (
             <motion.div 
-              className="flex-1"
+              className="flex-1 flex justify-center"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
             >
-              <img src={image} alt={imageAlt} className="rounded-2xl shadow-2xl w-full h-auto object-cover" />
+              <img src={image} alt={imageAlt} className="rounded-2xl shadow-2xl w-1/3 h-auto object-cover" />
             </motion.div>
           )}
         </div>
@@ -674,20 +674,20 @@ export default function Home() {
               {/* Victoria */}
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
                 <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Victoria Aguilar, Poshmark Seller</div>
-                <div className="text-neutral-700 italic">"Genie guided me through getting my LLC set up in 15 minutes. I didn't feel overwhelmed for a second."</div>
+                <div className="font-bold text-neutral-900">Victoria Aguilar, Poshmark seller</div>
+                <div className="text-neutral-700 italic">"I wasn't sure if I even needed an LLC, but Genie helped me understand what was required. I still had to look up a few things for my state, but the checklist made it way easier."</div>
               </div>
               {/* Justin */}
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
                 <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Justin G, Founder of DM Dad</div>
-                <div className="text-neutral-700 italic">"I've launched multiple brands and this is by far the easiest way I've ever set up an LLC. Clean, fast, and actually helpful."</div>
+                <div className="font-bold text-neutral-900">Justin G, stay at home dad</div>
+                <div className="text-neutral-700 italic">"Honestly, I wasn't expecting much from a $49 product but it worked. It didn't do everything for me, but I liked that I could move at my own pace."</div>
               </div>
-              {/* Lauren */}
+              {/* Cameron */}
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
                 <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Lauren M, Freelance Designer</div>
-                <div className="text-neutral-700 italic">"Legal stuff usually stresses me out, but Genie broke everything down so clearly. I got it done between client calls."</div>
+                <div className="font-bold text-neutral-900">Cameron T, small business owner</div>
+                <div className="text-neutral-700 italic">"I've put off forming an LLC for months because it always felt complicated. Genie didn't magically do it all for me, but it gave me the clarity to finally get it done."</div>
               </div>
             </div>
             <div className="text-center mt-6" data-cta-section>
