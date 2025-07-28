@@ -475,37 +475,32 @@ export default function Home() {
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
   const isStickyVisible = useRef(false);
 
-  // Robust scroll-based navbar visibility logic using IntersectionObserver
+  // Simple and reliable scroll-based navbar visibility logic
   useEffect(() => {
-    if (!heroRef.current) return;
-
-    // Create an IntersectionObserver to detect when hero section is scrolled past
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const shouldShow = !entry.isIntersecting;
-          
-          // Only update state if it's actually changing to prevent unnecessary re-renders
-          if (shouldShow !== isStickyVisible.current) {
-            isStickyVisible.current = shouldShow;
-            setShowTimerNav(shouldShow);
-          }
-        });
-      },
-      {
-        // Root margin ensures the sticky bar appears as soon as the hero starts to leave viewport
-        rootMargin: '-30px 0px 0px 0px',
-        // Single threshold for reliable detection
-        threshold: 0
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroBottom = heroRef.current.offsetTop + heroRef.current.offsetHeight;
+        const scrollPosition = window.scrollY;
+        
+        // Show sticky nav when scrolled past hero section
+        const shouldShow = scrollPosition > heroBottom - 100; // 100px buffer for smooth transition
+        
+        // Only update state if it's actually changing
+        if (shouldShow !== isStickyVisible.current) {
+          isStickyVisible.current = shouldShow;
+          setShowTimerNav(shouldShow);
+        }
       }
-    );
+    };
 
-    // Start observing the hero section
-    observer.observe(heroRef.current);
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial check
+    handleScroll();
 
-    // Cleanup observer on unmount
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
