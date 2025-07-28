@@ -469,27 +469,9 @@ export default function Home() {
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(null)
   const [openCard, setOpenCard] = useState<number | null>(null)
   const [flashIndex, setFlashIndex] = useState<number | null>(null)
-  const [showTimerNav, setShowTimerNav] = useState(false)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const heroRef = useRef<HTMLDivElement>(null)
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
-
-  // Simple and reliable scroll detection
-  useEffect(() => {
-    const checkScroll = () => {
-      if (!heroRef.current) return;
-      
-      const rect = heroRef.current.getBoundingClientRect();
-      const shouldShow = rect.bottom < 0;
-      
-      setShowTimerNav(shouldShow);
-    };
-
-    window.addEventListener('scroll', checkScroll, { passive: true });
-    checkScroll(); // Initial check
-
-    return () => window.removeEventListener('scroll', checkScroll);
-  }, []);
 
   // Dismiss description on outside click
   useEffect(() => {
@@ -555,36 +537,6 @@ export default function Home() {
             </Link>
           </div>
         </motion.nav>
-
-        {/* Sticky Nav B - Timer CTA Bar (shown after scroll) */}
-        <AnimatePresence mode="wait">
-          {showTimerNav && (
-            <motion.nav
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ 
-                duration: 0.4, 
-                ease: [0.4, 0.0, 0.2, 1], // Custom easing for smoother animation
-                opacity: { duration: 0.3 },
-                y: { duration: 0.4 }
-              }}
-              className="w-full sticky top-0 z-[9999] backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100"
-            >
-              <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center py-4 px-2 md:px-0">
-                <span className="text-sm text-neutral-600 mb-2 text-center">
-                  Most Genie users launch in under 15 minutes
-                </span>
-                <Button 
-                  onClick={scrollToCTA}
-                  className="text-sm px-8 py-3 font-medium shadow-sm hover:shadow-md transition-all duration-200"
-                >
-                  Start Now
-                </Button>
-              </div>
-            </motion.nav>
-          )}
-        </AnimatePresence>
         
         <main className="flex-1 flex flex-col items-center justify-center px-4">
           
