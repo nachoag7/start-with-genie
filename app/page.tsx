@@ -562,18 +562,22 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="w-full flex items-center justify-between py-4 px-4 md:px-8 sticky top-0 z-[9999] backdrop-blur-sm bg-white/95 border-b border-neutral-100 shadow-sm"
+              className="w-full sticky top-0 z-[9999] backdrop-blur-sm bg-white/95 border-b border-neutral-200 shadow-sm"
             >
-              <div className="flex items-center">
-                <span className="text-sm text-neutral-600">Most Genie users launch in under 15 minutes</span>
-              </div>
-              <div className="flex items-center">
-                <Button 
-                  onClick={scrollToCTA}
-                  className="text-sm px-4 py-2"
-                >
-                  Start Now
-                </Button>
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-3 px-6">
+                <div className="flex-1 mb-3 md:mb-0">
+                  <span className="text-base font-medium text-neutral-700 leading-relaxed">
+                    Most Genie users launch in under 15 minutes — ready to start?
+                  </span>
+                </div>
+                <div className="flex-shrink-0">
+                  <Button 
+                    onClick={scrollToCTA}
+                    className="text-sm px-6 py-2.5 font-medium"
+                  >
+                    Start Now
+                  </Button>
+                </div>
               </div>
             </motion.nav>
           )}
