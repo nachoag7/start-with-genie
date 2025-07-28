@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 import CheckoutOverview from "../../components/CheckoutOverview";
 import CheckoutForm from "../../components/CheckoutForm";
 
 export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState<'overview' | 'checkout'>('overview');
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
+  const router = useRouter();
 
   // Fetch clientSecret from API on mount
   useEffect(() => {
@@ -68,7 +70,23 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Back Button */}
+      <button
+        type="button"
+        onClick={() => {
+          if (window.history.length > 1) {
+            router.back();
+          } else {
+            router.push("/");
+          }
+        }}
+        className="absolute top-8 left-4 sm:top-10 sm:left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-sm sm:text-base font-medium transition-colors gap-1 sm:gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        style={{ textDecoration: 'none', fontWeight: 500 }}
+      >
+        <span className="text-base sm:text-lg">←</span> Back
+      </button>
+
       <AnimatePresence mode="wait">
         {currentStep === 'overview' && (
           <motion.div
@@ -77,6 +95,7 @@ export default function CheckoutPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
+            className="pt-16 sm:pt-20"
           >
             <CheckoutOverview onContinue={handleContinueToCheckout} />
           </motion.div>
@@ -89,6 +108,7 @@ export default function CheckoutPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
+            className="pt-16 sm:pt-20"
           >
             <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
               <CheckoutForm onBack={handleBackToOverview} />

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Footer from "../../components/Footer";
 import EINGuidePopup from "../../components/EINGuidePopup";
 import { useEINPopup } from "../../hooks/useEINPopup";
@@ -29,6 +30,7 @@ export default function StartLLCFastPage() {
   const [timeSpent, setTimeSpent] = useState("0:00");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
+  const router = useRouter();
 
   useEffect(() => {
     const startTime = Date.now();
@@ -44,6 +46,22 @@ export default function StartLLCFastPage() {
 
   return (
     <>
+      {/* Back Button */}
+      <button
+        type="button"
+        onClick={() => {
+          if (window.history.length > 1) {
+            router.back();
+          } else {
+            router.push("/");
+          }
+        }}
+        className="absolute top-8 left-4 sm:top-10 sm:left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-sm sm:text-base font-medium transition-colors gap-1 sm:gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        style={{ textDecoration: 'none', fontWeight: 500 }}
+      >
+        <span className="text-base sm:text-lg">←</span> Back
+      </button>
+
       {/* STICKY NAVBAR */}
       <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
         <div className="flex items-center gap-3">
@@ -67,7 +85,7 @@ export default function StartLLCFastPage() {
         </div>
       </nav>
 
-      <main className="bg-gray-50 min-h-screen">
+      <main className="bg-gray-50 min-h-screen pt-16 sm:pt-20">
         {/* HERO SECTION */}
         <section className="w-full max-w-4xl mx-auto px-4 pt-4 pb-6 text-center flex flex-col items-center justify-start">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-3 leading-tight mt-0">

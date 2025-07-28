@@ -33,7 +33,7 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
 
       <div 
         className="w-full max-w-[540px] mx-auto text-center"
-        style={{ padding: '40px' }}
+        style={{ padding: '40px 40px 40px 40px' }}
       >
         {/* Header */}
         <motion.div
@@ -46,7 +46,7 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
             className="text-2xl font-semibold text-gray-900 mb-4"
             style={{ fontSize: '24px', fontWeight: 600 }}
           >
-            What’s Included
+            What's Included
           </h1>
           <p 
             className="text-base text-gray-600 max-w-md mx-auto"
@@ -57,7 +57,7 @@ export default function CheckoutOverview({ onContinue }: CheckoutOverviewProps) 
               lineHeight: 1.6 
             }}
           >
-            Everything you need to launch — nothing you don’t.
+            Everything you need to launch — nothing you don't.
           </p>
         </motion.div>
 

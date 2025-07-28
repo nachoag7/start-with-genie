@@ -69,9 +69,8 @@ export default function CheckoutForm({ onBack }: CheckoutFormProps) {
       className="min-h-screen w-full flex flex-col items-center justify-center bg-neutral-50 px-2 py-10"
     >
 
-
       {/* Headline + Subline */}
-      <div className="mb-0 text-center px-4 sm:px-0">
+      <div className="mb-0 text-center px-4 sm:px-0 mt-8">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
           You're 15 minutes away from launching your business.
         </h2>
