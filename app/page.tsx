@@ -184,7 +184,7 @@ function SectionDivider() {
     <div style={{
       width: '100%',
       maxWidth: 800,
-      margin: '48px auto 32px',
+      margin: '32px auto 24px',
       height: 1,
       background: 'linear-gradient(90deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.04) 100%)',
     }} />
@@ -201,12 +201,12 @@ function WhyGenieSection() {
       style={{ maxWidth: 800, margin: '0 auto', width: '100%' }}
     >
       <SectionDivider />
-      <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-8 text-center">Why Start With Genie?</h2>
+      <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6 text-center">Why Start With Genie?</h2>
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 32,
+          gap: 24,
         }}
       >
         {whyGenieItems.map((item, idx) => (
@@ -269,12 +269,12 @@ function CompareSection() {
       style={{ maxWidth: 800, margin: '0 auto', width: '100%' }}
     >
       <SectionDivider />
-      <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-8 text-center">How We Compare</h2>
+      <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6 text-center">How We Compare</h2>
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 32,
+          gap: 24,
         }}
       >
         {compareItems.map((item, idx) => (
@@ -350,12 +350,12 @@ function PreviewSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`w-full ${bgColor} py-24`}
+      className={`w-full ${bgColor} py-12 md:py-16`}
     >
       <div className="max-w-6xl mx-auto px-6">
-        <div className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-16`}>
+        <div className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-8 lg:gap-12`}>
           {/* Text Content */}
-          <div className="flex-1 space-y-6">
+          <div className="flex-1 space-y-4">
             <motion.h2 
               className="text-3xl md:text-4xl font-semibold text-neutral-900 leading-tight tracking-tight"
               initial={{ opacity: 0, y: 20 }}
@@ -588,12 +588,12 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-2 pb-0 relative min-h-0 md:min-h-0 flex justify-center"
+            className="w-full max-w-4xl mx-auto flex flex-col items-center gap-0 pt-1 pb-0 relative min-h-0 md:min-h-0 flex justify-center"
           >
             <motion.img 
               src="/genie-og.png" 
               alt="Genie Mascot" 
-              className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain drop-shadow-lg mb-2 opacity-90" 
+              className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain drop-shadow-lg mb-1 opacity-90" 
               initial={{ opacity: 0, scale: 0.8 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
@@ -607,7 +607,7 @@ export default function Home() {
               Start Your LLC in Under 15 Minutes Just $49
             </motion.h1>
             <motion.p 
-              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mt-3"
+              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mt-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
@@ -622,23 +622,23 @@ export default function Home() {
               className="flex flex-col items-center"
             >
               <Button 
-                className="mt-6 px-8 py-3 text-lg"
+                className="mt-4 px-8 py-3 text-lg"
                 onClick={handleGetStarted}
               >
                 Start My LLC for $49
               </Button>
-              <p className="text-sm text-gray-500 mt-2 text-center">
+              <p className="text-sm text-gray-500 mt-2 mb-4 text-center">
                 Flat rate. No surprise fees. Just what you need.
               </p>
             </motion.div>
           </motion.section>
 
           {/* What You Don't Get Section - moved here */}
-          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-6 md:py-8 px-4">
+          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-5 md:py-6 px-4">
             <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
               What You Don't Get
             </h2>
-            <p className="text-base md:text-lg text-neutral-600 text-center mb-7">
+            <p className="text-base md:text-lg text-neutral-600 text-center mb-5">
               We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
             </p>
             <ul className="w-full max-w-md mx-auto flex flex-col gap-4">
@@ -664,13 +664,13 @@ export default function Home() {
           </section>
 
           {/* Dashboard Preview Video */}
-          <div className="w-full px-4">
+          <div className="w-full px-4 mt-4">
             <DashboardPreviewVideo />
           </div>
 
           {/* Testimonial Section */}
-          <section className="mt-4 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-6">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-4 text-center">What Founders Are Saying</h2>
+          <section className="mt-3 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-5">
+            <h2 className="text-xl font-semibold text-neutral-900 mb-3 text-center">What Founders Are Saying</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Victoria */}
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
@@ -691,7 +691,7 @@ export default function Home() {
                 <div className="text-neutral-700 italic">"Legal stuff usually stresses me out, but Genie broke everything down so clearly. I got it done between client calls."</div>
               </div>
             </div>
-            <div className="text-center mt-8" data-cta-section>
+            <div className="text-center mt-6" data-cta-section>
               <Button 
                 className="bg-blue-600 text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-blue-700 transition w-full max-w-xs"
                 onClick={handleGetStarted}
@@ -702,15 +702,15 @@ export default function Home() {
           </section>
           
           {/* Other Sections */}
-          <div className="mt-4 mb-2 w-full">
+          <div className="mt-3 mb-1 w-full">
             <WhyGenieSection />
           </div>
 
           <CompareSection />
 
           {/* Second CTA under How We Compare */}
-          <section className="w-full max-w-xl mx-auto px-4 py-6 text-center">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-4">Ready to launch your LLC in minutes?</h2>
+          <section className="w-full max-w-xl mx-auto px-4 py-5 text-center">
+            <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
             <Button 
               className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition"
               onClick={handleGetStarted}
@@ -746,7 +746,7 @@ export default function Home() {
           />
           
           {/* Add the new What's Included section below the Genie Assistant section */}
-          <section className="w-full bg-white py-10 flex flex-col items-center justify-center border-t border-neutral-100">
+          <section className="w-full bg-white py-8 flex flex-col items-center justify-center border-t border-neutral-100">
             <div className="max-w-4xl w-full px-4">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -754,7 +754,7 @@ export default function Home() {
                 transition={{ duration: 0.7, ease: 'easeOut' }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-8 text-center">What's Included</h2>
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6 text-center">What's Included</h2>
                 <div
                   style={{
                     display: 'grid',
@@ -845,10 +845,10 @@ export default function Home() {
             </div>
           </section>
           
-          <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-16 mb-12"></div>
+          <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-12 mb-8"></div>
           
-          <section className="w-full bg-white py-10 flex flex-col items-center justify-center mt-7 border-t border-neutral-100">
-            <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-6 text-center">Ready to Launch Your Business?</h2>
+          <section className="w-full bg-white py-8 flex flex-col items-center justify-center mt-5 border-t border-neutral-100">
+            <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-4 text-center">Ready to Launch Your Business?</h2>
             <Button 
               className="px-10 py-4 text-lg w-full max-w-xs"
               onClick={handleGetStarted}
@@ -858,8 +858,8 @@ export default function Home() {
           </section>
           
           {/* FAQ Section - use landing page style and content */}
-          <section className="w-full max-w-2xl mx-auto px-4 py-7">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">FAQs</h2>
+          <section className="w-full max-w-2xl mx-auto px-4 py-6">
+            <h2 className="text-xl font-semibold text-neutral-900 mb-4 text-center">FAQs</h2>
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
               <summary className="font-medium text-gray-900 cursor-pointer">Do you file the LLC for me?</summary>
               <div className="mt-2 text-gray-700 text-sm">
@@ -930,8 +930,8 @@ function DashboardPreviewVideo() {
   const handleVideoPause = () => setIsPlaying(false);
 
   return (
-    <section className="w-full flex flex-col items-center justify-center py-4">
-      <h2 className="text-center text-2xl font-semibold mb-4">
+    <section className="w-full flex flex-col items-center justify-center py-3">
+      <h2 className="text-center text-2xl font-semibold mb-2">
         See How Genie Works in 60 Seconds
       </h2>
       <div className="relative w-full flex justify-center">
@@ -957,7 +957,7 @@ function DashboardPreviewVideo() {
         />
         {/* Only download, PiP, and remote playback are removed; all other native controls remain */}
       </div>
-      <p className="text-gray-500 text-sm mt-3 text-center max-w-md">
+      <p className="text-gray-500 text-sm mt-2 text-center max-w-md">
         Get personalized instructions, EIN help, and downloads in one clean dashboard.
       </p>
     </section>
