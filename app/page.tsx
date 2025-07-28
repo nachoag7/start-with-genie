@@ -629,9 +629,9 @@ export default function Home() {
             <DashboardPreviewVideo />
           </div>
 
-          {/* Testimonial Section */}
+          {/* Testimonial Section - moved up */}
           <section className="mt-3 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-5">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-3 text-center">What Founders Are Saying</h2>
+            <h2 className="text-xl font-semibold text-neutral-900 mb-3 text-center">What Our Founders Are Saying</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Victoria */}
               <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
@@ -669,11 +669,7 @@ export default function Home() {
 
           <CompareSection />
 
-
-          
-
-          
-          {/* Add the new What's Included section below the Genie Assistant section */}
+          {/* Updated What's Included section with new benefit-focused descriptions */}
           <section className="w-full bg-white py-8 flex flex-col items-center justify-center border-t border-neutral-100">
             <div className="max-w-4xl w-full px-4">
               <motion.div
@@ -699,7 +695,7 @@ export default function Home() {
                         Step-by-step state filing instructions
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Personalized for your state so you know exactly what to file, where, and when.
+                        Personalized for your state so you know exactly what to file, where, and when — no guesswork.
                       </div>
                     </div>
                   </motion.div>
@@ -712,7 +708,7 @@ export default function Home() {
                         EIN application walkthrough
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        We'll guide you through getting your federal tax ID—fast and simple.
+                        We'll guide you through getting your federal tax ID fast — skip the confusion and do it in minutes.
                       </div>
                     </div>
                   </motion.div>
@@ -725,7 +721,7 @@ export default function Home() {
                         Customizable Operating Agreement
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Pre-filled and lawyer-inspired, ready to personalize in minutes.
+                        Pre-filled and lawyer-inspired, ready to personalize in minutes to protect your business and structure.
                       </div>
                     </div>
                   </motion.div>
@@ -738,7 +734,7 @@ export default function Home() {
                         LLC launch checklist
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Track each step from setup to full launch so nothing slips through the cracks.
+                        Track every step from setup to launch so nothing slips through the cracks.
                       </div>
                     </div>
                   </motion.div>
@@ -751,7 +747,7 @@ export default function Home() {
                         Dashboard access
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        All your documents, guides, and next steps in one simple workspace.
+                        All your documents, guides, and next steps in one clean, easy-to-use workspace.
                       </div>
                     </div>
                   </motion.div>
@@ -764,7 +760,7 @@ export default function Home() {
                         The Genie assistant
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Smart AI help whenever you're stuck or need quick answers—available 24/7.
+                        Smart AI help whenever you're stuck — answers in seconds, available 24/7.
                       </div>
                     </div>
                   </motion.div>
