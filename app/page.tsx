@@ -540,19 +540,24 @@ export default function Home() {
       <div className="min-h-screen bg-neutral-50 flex flex-col">
         
         {/* Sticky Nav A - Main Navbar (shown at top) */}
-        <nav className={`w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-[9999] backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100 transition-all duration-300 ${showTimerNav ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <motion.nav 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: 'easeIn' }}
+          className={`w-full flex items-center justify-between py-3 px-5 sticky top-0 z-[9999] backdrop-blur-sm bg-white/95 border-b border-neutral-200 shadow-sm transition-all duration-300 ${showTimerNav ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        >
           <div className="flex items-center gap-3">
-            <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+            <Link href="/" className="p-2 rounded-lg hover:bg-neutral-100 transition-all duration-200 active:scale-95">
               <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
             </Link>
-            <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
+            <span className="text-base font-medium text-neutral-900 tracking-tight">Start With Genie</span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center">
             <Link href="/login">
-              <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
+              <span className="text-base font-medium text-neutral-600 hover:text-neutral-900 transition-colors duration-200">Sign In</span>
             </Link>
           </div>
-        </nav>
+        </motion.nav>
 
         {/* Sticky Nav B - Timer CTA Bar (shown after scroll) */}
         <AnimatePresence>
