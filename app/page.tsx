@@ -489,10 +489,10 @@ export default function Home() {
       },
       {
         // Root margin ensures the sticky bar appears as soon as the hero starts to leave viewport
-        // Using a slightly larger margin for more reliable detection
-        rootMargin: '-10px 0px 0px 0px',
-        // Threshold of 0 means the callback fires as soon as even 1px of the element leaves the viewport
-        threshold: 0
+        // Using a larger margin for more reliable detection with slow scrolling
+        rootMargin: '-20px 0px 0px 0px',
+        // Multiple thresholds for smoother detection
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
       }
     );
 
