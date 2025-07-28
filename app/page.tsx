@@ -572,7 +572,7 @@ export default function Home() {
                   onClick={scrollToCTA}
                   className="text-sm px-4 py-2"
                 >
-                  Start Now →
+                  Start Now
                 </Button>
               </div>
             </motion.nav>
