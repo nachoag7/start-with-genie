@@ -462,12 +462,66 @@ function AboutLLCSection() {
   )
 }
 
+function StickyCTABar({ heroRef }: { heroRef: React.RefObject<HTMLDivElement> }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroBottom = heroRef.current.offsetTop + heroRef.current.offsetHeight;
+        setIsVisible(window.scrollY > heroBottom);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [heroRef]);
+
+  const scrollToCTA = () => {
+    const firstCTA = document.querySelector('[data-cta-section]');
+    if (firstCTA) {
+      firstCTA.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-gray-100"
+          style={{ paddingTop: 'env(safe-area-inset-top)' }}
+        >
+          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src="/genie-preview.png" alt="Genie Logo" className="h-6 w-6 rounded-full opacity-90" />
+              <span className="text-sm font-medium text-neutral-900">Start With Genie</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-gray-600 hidden sm:block">Most Genie users launch in under 15 minutes</span>
+              <Button 
+                onClick={scrollToCTA}
+                className="text-sm px-4 py-2"
+              >
+                Start Now →
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export default function Home() {
   const router = useRouter()
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(null)
   const [openCard, setOpenCard] = useState<number | null>(null)
   const [flashIndex, setFlashIndex] = useState<number | null>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const heroRef = useRef<HTMLDivElement>(null)
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
   // Dismiss description on outside click
@@ -505,9 +559,10 @@ export default function Home() {
         <meta name="description" content="Start your LLC for just $49 with Start With Genie – a clean, modern assistant that gives you everything you need to form your business legally. No upsells. No confusion." />
         <link rel="canonical" href="https://www.startwithgenie.com/" />
       </Head>
-      {/* StickyTimeBar - must be above nav */}
-      {/* Remove StickyTimeBar */}
+      
       <div className="min-h-screen bg-neutral-50 flex flex-col">
+        <StickyCTABar heroRef={heroRef} />
+        
         <main className="flex-1 flex flex-col items-center justify-center px-4">
           {/* Header */}
           <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
@@ -529,6 +584,7 @@ export default function Home() {
           
           {/* Hero Section */}
           <motion.section
+            ref={heroRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -548,7 +604,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
             >
-              Finally making it official?
+              Start Your LLC in Under 15 Minutes Just $49
             </motion.h1>
             <motion.p 
               className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mt-3"
@@ -556,7 +612,8 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
             >
-              We’ll walk you through forming your LLC — clearly, quickly, and with zero upsells.
+              Includes step-by-step instructions, EIN help, and your operating agreement.  
+              No upsells. No law firm. Just everything you need to launch.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -570,51 +627,16 @@ export default function Home() {
               >
                 Start My LLC for $49
               </Button>
+              <p className="text-sm text-gray-500 mt-2 text-center">
+                Flat rate. No surprise fees. Just what you need.
+              </p>
             </motion.div>
           </motion.section>
 
-          {/* Dashboard Preview Video here */}
-          <div className="-mt-16 w-full">
-            <DashboardPreviewVideo />
-          </div>
-
-          {/* Move What founders are saying section here */}
-          <section className="mt-10 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-7">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">What founders are saying</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Victoria */}
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
-                <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Victoria Aguilar, Poshmark Seller</div>
-                <div className="text-neutral-700 italic">"Genie guided me through getting my LLC set up in 15 minutes. I didn't feel overwhelmed for a second."</div>
-              </div>
-              {/* Justin */}
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
-                <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Justin G, Founder of DM Dad</div>
-                <div className="text-neutral-700 italic">"I've launched multiple brands and this is by far the easiest way I've ever set up an LLC. Clean, fast, and actually helpful."</div>
-              </div>
-              {/* Lauren */}
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
-                <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Lauren M, Freelance Designer</div>
-                <div className="text-neutral-700 italic">"Legal stuff usually stresses me out, but Genie broke everything down so clearly. I got it done between client calls."</div>
-              </div>
-            </div>
-            <div className="text-center mt-8">
-              <Button 
-                className="bg-blue-600 text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-blue-700 transition"
-                onClick={handleGetStarted}
-              >
-                Start My LLC for $49
-              </Button>
-            </div>
-          </section>
-          
-          {/* What You Don’t Get Section */}
-          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-7 md:py-10">
+          {/* What You Don't Get Section - moved here */}
+          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-6 md:py-8 px-4">
             <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
-              What You Don’t Get
+              What You Don't Get
             </h2>
             <p className="text-base md:text-lg text-neutral-600 text-center mb-7">
               We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
@@ -640,21 +662,59 @@ export default function Home() {
               </li>
             </ul>
           </section>
+
+          {/* Dashboard Preview Video */}
+          <div className="w-full px-4">
+            <DashboardPreviewVideo />
+          </div>
+
+          {/* Testimonial Section */}
+          <section className="mt-4 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-6">
+            <h2 className="text-xl font-semibold text-neutral-900 mb-4 text-center">What Founders Are Saying</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Victoria */}
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
+                <Quote className="w-6 h-6 text-blue-400 mb-2" />
+                <div className="font-bold text-neutral-900">Victoria Aguilar, Poshmark Seller</div>
+                <div className="text-neutral-700 italic">"Genie guided me through getting my LLC set up in 15 minutes. I didn't feel overwhelmed for a second."</div>
+              </div>
+              {/* Justin */}
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
+                <Quote className="w-6 h-6 text-blue-400 mb-2" />
+                <div className="font-bold text-neutral-900">Justin G, Founder of DM Dad</div>
+                <div className="text-neutral-700 italic">"I've launched multiple brands and this is by far the easiest way I've ever set up an LLC. Clean, fast, and actually helpful."</div>
+              </div>
+              {/* Lauren */}
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
+                <Quote className="w-6 h-6 text-blue-400 mb-2" />
+                <div className="font-bold text-neutral-900">Lauren M, Freelance Designer</div>
+                <div className="text-neutral-700 italic">"Legal stuff usually stresses me out, but Genie broke everything down so clearly. I got it done between client calls."</div>
+              </div>
+            </div>
+            <div className="text-center mt-8" data-cta-section>
+              <Button 
+                className="bg-blue-600 text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-blue-700 transition w-full max-w-xs"
+                onClick={handleGetStarted}
+              >
+                Start My LLC for $49
+              </Button>
+            </div>
+          </section>
           
           {/* Other Sections */}
-          <div className="mt-6 mb-2 w-full">
+          <div className="mt-4 mb-2 w-full">
             <WhyGenieSection />
           </div>
 
-          {/* Testimonial Section Before Final CTA */}
-          {/* This section is now moved */}
-          
           <CompareSection />
 
           {/* Second CTA under How We Compare */}
-          <section className="w-full max-w-xl mx-auto px-4 py-7 text-center">
+          <section className="w-full max-w-xl mx-auto px-4 py-6 text-center">
             <h2 className="text-xl font-semibold text-neutral-900 mb-4">Ready to launch your LLC in minutes?</h2>
-            <Button className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition">
+            <Button 
+              className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition"
+              onClick={handleGetStarted}
+            >
               Start My LLC for $49
             </Button>
           </section>
@@ -694,7 +754,7 @@ export default function Home() {
                 transition={{ duration: 0.7, ease: 'easeOut' }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-8 text-center">What’s Included</h2>
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-8 text-center">What's Included</h2>
                 <div
                   style={{
                     display: 'grid',
@@ -724,7 +784,7 @@ export default function Home() {
                         EIN application walkthrough
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        We’ll guide you through getting your federal tax ID—fast and simple.
+                        We'll guide you through getting your federal tax ID—fast and simple.
                       </div>
                     </div>
                   </motion.div>
@@ -776,7 +836,7 @@ export default function Home() {
                         The Genie assistant
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Smart AI help whenever you’re stuck or need quick answers—available 24/7.
+                        Smart AI help whenever you're stuck or need quick answers—available 24/7.
                       </div>
                     </div>
                   </motion.div>
@@ -803,7 +863,7 @@ export default function Home() {
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
               <summary className="font-medium text-gray-900 cursor-pointer">Do you file the LLC for me?</summary>
               <div className="mt-2 text-gray-700 text-sm">
-                We don’t — and that’s intentional. Start With Genie gives you everything you need to file your LLC yourself in under 15 minutes. It’s faster, clearer, and puts you in full control.
+                We don't — and that's intentional. Start With Genie gives you everything you need to file your LLC yourself in under 15 minutes. It's faster, clearer, and puts you in full control.
               </div>
             </details>
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
@@ -822,7 +882,7 @@ export default function Home() {
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
               <summary className="font-medium text-gray-900 cursor-pointer">Is this legit? Can I really do it myself?</summary>
               <div className="mt-2 text-gray-700 text-sm">
-                Yes — you don’t need a lawyer or a $300+ service to start an LLC. Genie is built for people who want to move fast, skip the upsells, and keep full control. Everything is DIY-friendly, and we guide you through every step.
+                Yes — you don't need a lawyer or a $300+ service to start an LLC. Genie is built for people who want to move fast, skip the upsells, and keep full control. Everything is DIY-friendly, and we guide you through every step.
               </div>
             </details>
           </section>
@@ -872,8 +932,7 @@ function DashboardPreviewVideo() {
   return (
     <section className="w-full flex flex-col items-center justify-center py-4">
       <h2 className="text-center text-2xl font-semibold mb-4">
-        <span className="block md:hidden">See your complete LLC launch</span>
-        <span className="hidden md:block">See your complete LLC launch experience</span>
+        See How Genie Works in 60 Seconds
       </h2>
       <div className="relative w-full flex justify-center">
         <motion.video
@@ -899,7 +958,7 @@ function DashboardPreviewVideo() {
         {/* Only download, PiP, and remote playback are removed; all other native controls remain */}
       </div>
       <p className="text-gray-500 text-sm mt-3 text-center max-w-md">
-        Watch how Genie guides you through every step of launching your LLC — from personalized filing instructions to document downloads and instant help from your AI assistant.
+        Get personalized instructions, EIN help, and downloads in one clean dashboard.
       </p>
     </section>
   );
