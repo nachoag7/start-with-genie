@@ -462,67 +462,37 @@ function AboutLLCSection() {
   )
 }
 
-function StickyCTABar({ heroRef }: { heroRef: React.RefObject<HTMLDivElement> }) {
-  const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current) {
-        const heroBottom = heroRef.current.offsetTop + heroRef.current.offsetHeight;
-        setIsVisible(window.scrollY > heroBottom);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [heroRef]);
-
-  const scrollToCTA = () => {
-    const firstCTA = document.querySelector('[data-cta-section]');
-    if (firstCTA) {
-      firstCTA.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-gray-100"
-          style={{ paddingTop: 'env(safe-area-inset-top)' }}
-        >
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src="/genie-preview.png" alt="Genie Logo" className="h-6 w-6 rounded-full opacity-90" />
-              <span className="text-sm font-medium text-neutral-900">Start With Genie</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-gray-600 hidden sm:block">Most Genie users launch in under 15 minutes</span>
-              <Button 
-                onClick={scrollToCTA}
-                className="text-sm px-4 py-2"
-              >
-                Start Now →
-              </Button>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
 
 export default function Home() {
   const router = useRouter()
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(null)
   const [openCard, setOpenCard] = useState<number | null>(null)
   const [flashIndex, setFlashIndex] = useState<number | null>(null)
+  const [showTimerNav, setShowTimerNav] = useState(false)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const heroRef = useRef<HTMLDivElement>(null)
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
+
+  // Scroll-based navbar visibility logic
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroBottom = heroRef.current.offsetTop + heroRef.current.offsetHeight;
+        const scrollPosition = window.scrollY;
+        
+        // Show timer nav when scrolled past hero section
+        if (scrollPosition > heroBottom) {
+          setShowTimerNav(true);
+        } else {
+          setShowTimerNav(false);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Dismiss description on outside click
   useEffect(() => {
@@ -552,6 +522,13 @@ export default function Home() {
     setOpenFAQIndex(openFAQIndex === index ? null : index)
   }
 
+  const scrollToCTA = () => {
+    const firstCTA = document.querySelector('[data-cta-section]');
+    if (firstCTA) {
+      firstCTA.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <Head>
@@ -561,26 +538,51 @@ export default function Home() {
       </Head>
       
       <div className="min-h-screen bg-neutral-50 flex flex-col">
-        <StickyCTABar heroRef={heroRef} />
+        
+        {/* Sticky Nav A - Main Navbar (shown at top) */}
+        <nav className={`w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-[9999] backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100 transition-all duration-300 ${showTimerNav ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className="flex items-center gap-3">
+            <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
+              <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
+            </Link>
+            <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <Link href="/compare">
+              <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
+            </Link>
+            <Link href="/login">
+              <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
+            </Link>
+          </div>
+        </nav>
+
+        {/* Sticky Nav B - Timer CTA Bar (shown after scroll) */}
+        <AnimatePresence>
+          {showTimerNav && (
+            <motion.nav
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="w-full flex items-center justify-between py-4 px-4 md:px-8 sticky top-0 z-[9999] backdrop-blur-sm bg-white/95 border-b border-neutral-100 shadow-sm"
+            >
+              <div className="flex items-center">
+                <span className="text-sm text-neutral-600">Most Genie users launch in under 15 minutes</span>
+              </div>
+              <div className="flex items-center">
+                <Button 
+                  onClick={scrollToCTA}
+                  className="text-sm px-4 py-2"
+                >
+                  Start Now →
+                </Button>
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
         
         <main className="flex-1 flex flex-col items-center justify-center px-4">
-          {/* Header */}
-          <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
-            <div className="flex items-center gap-3">
-              <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
-                <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
-              </Link>
-              <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/compare">
-                <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
-              </Link>
-              <Link href="/login">
-                <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
-              </Link>
-            </div>
-          </nav>
           
           {/* Hero Section */}
           <motion.section
@@ -709,7 +711,7 @@ export default function Home() {
           <CompareSection />
 
           {/* Second CTA under How We Compare */}
-          <section className="w-full max-w-xl mx-auto px-4 py-5 text-center">
+          <section className="w-full max-w-xl mx-auto px-4 py-5 text-center" data-cta-section>
             <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
             <Button 
               className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition"
