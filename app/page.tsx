@@ -707,42 +707,9 @@ export default function Home() {
 
           <CompareSection />
 
-          {/* Second CTA under How We Compare */}
-          <section className="w-full max-w-xl mx-auto px-4 py-5 text-center" data-cta-section>
-            <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
-            <Button 
-              className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition"
-              onClick={handleGetStarted}
-            >
-              Start My LLC for $49
-            </Button>
-          </section>
+
           
-          <PreviewSection
-            title="Your Business Dashboard"
-            subtitle="Track progress and stay organized — all in one place."
-            image="/Dashboard1.png"
-            imageAlt="Dashboard preview showing progress tracking and document management"
-            bgColor="bg-gray-50"
-          />
-          
-          <PreviewSection
-            title="Launch-Ready Documents"
-            subtitle="Everything you need, beautifully packaged and ready to download."
-            image="/Document-Preview.png"
-            imageAlt="Document preview showing LLC filing instructions and operating agreement"
-            bgColor="bg-white"
-            reverse={true}
-          />
-          
-          {/* Genie Assistant Preview Section */}
-          <PreviewSection
-            title="Your Genie Assistant"
-            subtitle="Ask anything about your LLC setup and get instant support from Genie."
-            image="/Help-preview.png"
-            imageAlt="Genie assistant chat interface showing helpful responses"
-            bgColor="bg-gray-50"
-          />
+
           
           {/* Add the new What's Included section below the Genie Assistant section */}
           <section className="w-full bg-white py-8 flex flex-col items-center justify-center border-t border-neutral-100">
@@ -846,13 +813,14 @@ export default function Home() {
           
           <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-12 mb-8"></div>
           
-          <section className="w-full bg-white py-8 flex flex-col items-center justify-center mt-5 border-t border-neutral-100">
-            <h2 className="text-3xl text-neutral-900 font-semibold leading-tight tracking-tight mb-4 text-center">Ready to Launch Your Business?</h2>
+          {/* Second CTA under How We Compare */}
+          <section className="w-full max-w-xl mx-auto px-4 py-5 text-center" data-cta-section>
+            <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
             <Button 
-              className="px-10 py-4 text-lg w-full max-w-xs"
+              className="w-full max-w-xs mx-auto bg-blue-600 text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-blue-700 transition"
               onClick={handleGetStarted}
             >
-              Get Started →
+              Start My LLC for $49
             </Button>
           </section>
           
