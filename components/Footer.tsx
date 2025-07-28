@@ -44,6 +44,7 @@ export default function Footer() {
                   Compare
                 </Link>
               </li>
+
             </ul>
           </div>
 
