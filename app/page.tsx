@@ -484,15 +484,21 @@ export default function Home() {
         entries.forEach((entry) => {
           // When the hero section is not intersecting (scrolled past), show the sticky CTA
           // When it is intersecting (visible), hide the sticky CTA
-          setShowTimerNav(!entry.isIntersecting);
+          const shouldShow = !entry.isIntersecting;
+          
+          // Use a small delay to ensure smooth transitions
+          const timeoutId = setTimeout(() => {
+            setShowTimerNav(shouldShow);
+          }, 100); // 100ms delay for smooth appearance
+
+          return () => clearTimeout(timeoutId);
         });
       },
       {
         // Root margin ensures the sticky bar appears as soon as the hero starts to leave viewport
-        // Using a larger margin for more reliable detection with slow scrolling
-        rootMargin: '-20px 0px 0px 0px',
-        // Multiple thresholds for smoother detection
-        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        rootMargin: '-50px 0px 0px 0px',
+        // Single threshold for reliable detection
+        threshold: 0
       }
     );
 
