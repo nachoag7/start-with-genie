@@ -564,9 +564,6 @@ export default function Home() {
             <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/compare">
-              <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
-            </Link>
             <Link href="/login">
               <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
             </Link>
