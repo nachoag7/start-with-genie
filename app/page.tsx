@@ -473,6 +473,7 @@ export default function Home() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const heroRef = useRef<HTMLDivElement>(null)
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
+  const isStickyVisible = useRef(false);
 
   // Robust scroll-based navbar visibility logic using IntersectionObserver
   useEffect(() => {
@@ -482,21 +483,18 @@ export default function Home() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // When the hero section is not intersecting (scrolled past), show the sticky CTA
-          // When it is intersecting (visible), hide the sticky CTA
           const shouldShow = !entry.isIntersecting;
           
-          // Use a small delay to ensure smooth transitions
-          const timeoutId = setTimeout(() => {
+          // Only update state if it's actually changing to prevent unnecessary re-renders
+          if (shouldShow !== isStickyVisible.current) {
+            isStickyVisible.current = shouldShow;
             setShowTimerNav(shouldShow);
-          }, 100); // 100ms delay for smooth appearance
-
-          return () => clearTimeout(timeoutId);
+          }
         });
       },
       {
         // Root margin ensures the sticky bar appears as soon as the hero starts to leave viewport
-        rootMargin: '-50px 0px 0px 0px',
+        rootMargin: '-30px 0px 0px 0px',
         // Single threshold for reliable detection
         threshold: 0
       }
