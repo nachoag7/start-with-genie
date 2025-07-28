@@ -588,7 +588,10 @@ export default function Home() {
               }}
               className="w-full sticky top-0 z-[9999] backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100"
             >
-              <div className="w-full max-w-6xl mx-auto flex items-center justify-center py-4 px-2 md:px-0">
+              <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center py-4 px-2 md:px-0">
+                <span className="text-sm text-neutral-600 mb-2 text-center">
+                  Most Genie users launch in under 15 minutes
+                </span>
                 <Button 
                   onClick={scrollToCTA}
                   className="text-sm px-8 py-3 font-medium shadow-sm hover:shadow-md transition-all duration-200"
