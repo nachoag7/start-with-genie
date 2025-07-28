@@ -6,7 +6,27 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// Simple admin authentication check
+function isAdmin(request: NextRequest): boolean {
+  const authHeader = request.headers.get('authorization');
+  const adminToken = process.env.ADMIN_API_TOKEN;
+  
+  if (!adminToken) {
+    console.error('ADMIN_API_TOKEN not configured');
+    return false;
+  }
+  
+  return authHeader === `Bearer ${adminToken}`;
+}
+
 export async function GET(request: NextRequest) {
+  // Check admin authentication
+  if (!isAdmin(request)) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    );
+  }
   try {
     // Get recent leads (last 50)
     const { data, error } = await supabase

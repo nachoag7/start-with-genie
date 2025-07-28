@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import ClarityAnalytics from '../components/ClarityAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -115,6 +116,7 @@ export default function RootLayout({
         <div className="min-h-screen bg-gray-50">
           {children}
         </div>
+        <ClarityAnalytics />
       </body>
     </html>
   );

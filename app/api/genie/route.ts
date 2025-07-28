@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { withRateLimit } from '../../../lib/rate-limit';
 
-export async function POST(req: NextRequest) {
+async function handleGenieRequest(req: NextRequest) {
   console.log('[Genie API] Request received');
   try {
     const { messages } = await req.json();
@@ -86,7 +87,9 @@ export async function POST(req: NextRequest) {
     console.error('[Genie API] General error:', error);
     return NextResponse.json({ message: 'Hmm, I couldn\'t respond right now. Try again in a moment.' }, { status: 500 });
   }
-} 
+}
+
+export const POST = withRateLimit(handleGenieRequest); 
  
  
  

@@ -19,9 +19,12 @@ import {
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import { motion } from "framer-motion";
+import EINGuidePopup from "../../components/EINGuidePopup";
+import { useEINPopup } from "../../hooks/useEINPopup";
 
 export default function ComparePage() {
   const [openFAQ, setOpenFAQ] = React.useState<number | null>(null);
+  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
   const toggleFAQ = (index: number) => {
     setOpenFAQ(openFAQ === index ? null : index);
@@ -426,6 +429,14 @@ export default function ComparePage() {
 
       {/* FOOTER */}
       <Footer />
+      
+      {/* EIN Guide Popup */}
+      <EINGuidePopup 
+        isOpen={showPopup}
+        onClose={closePopup}
+        sourcePage="/compare"
+        markEmailSubmitted={markEmailSubmitted}
+      />
     </main>
   );
 } 

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import { withRateLimit, leadLimiter } from '../../../lib/rate-limit';
+import { validateAndSanitize, leadSchema } from '../../../lib/validation';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -9,28 +11,22 @@ const supabase = createClient(
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request: NextRequest) {
+async function handleLeadSubmission(request: NextRequest) {
   try {
-    const { email, sourcePage, type } = await request.json();
+    const body = await request.json();
+    
+    // Validate input
+    const validation = validateAndSanitize(leadSchema, body);
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: 'Invalid input data' },
+        { status: 400 }
+      );
+    }
+    
+    const { email, sourcePage, type } = validation.data;
     
     console.log(`Lead submission received: ${email} from ${sourcePage} (type: ${type})`);
-
-    // Validate required fields
-    if (!email || !sourcePage) {
-      return NextResponse.json(
-        { error: 'Email and sourcePage are required' },
-        { status: 400 }
-      );
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
 
     // Check if email already exists (rate limiting)
     const { data: existingLead } = await supabase
@@ -200,4 +196,6 @@ The Start With Genie Team`,
       { status: 500 }
     );
   }
-} 
+}
+
+export const POST = withRateLimit(handleLeadSubmission, leadLimiter); 

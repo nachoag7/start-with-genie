@@ -1,26 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '../../../lib/supabase';
+import { withRateLimit } from '../../../lib/rate-limit';
+import { validateAndSanitize, contactSchema, sanitizeHtml } from '../../../lib/validation';
 
-export async function POST(req: NextRequest) {
+async function handleContactSupport(req: NextRequest) {
   try {
-    const { name, email, subject, message } = await req.json();
+    const body = await req.json();
 
-    // Validate required fields
-    if (!name || !email || !subject || !message) {
+    // Validate input
+    const validation = validateAndSanitize(contactSchema, body);
+    if (!validation.success) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Invalid input data' },
         { status: 400 }
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Please enter a valid email address' },
-        { status: 400 }
-      );
-    }
+    const { name, email, subject, message } = validation.data;
+    
+    // Sanitize message content
+    const sanitizedMessage = sanitizeHtml(message);
 
     // Store in Supabase
     const { data: supabaseData, error: supabaseError } = await supabase
@@ -29,7 +28,7 @@ export async function POST(req: NextRequest) {
         {
           full_name: name,
           email,
-          message: `Subject: ${subject}\n\n${message}`,
+          message: `Subject: ${subject}\n\n${sanitizedMessage}`,
           status: 'new',
         },
       ])
@@ -74,7 +73,7 @@ export async function POST(req: NextRequest) {
               <p><strong>Subject:</strong> ${subject}</p>
               <p><strong>Message:</strong></p>
               <div style="background-color: white; padding: 15px; border-radius: 4px; border-left: 4px solid #3b82f6;">
-                ${message.replace(/\n/g, '<br>')}
+                ${sanitizedMessage.replace(/\n/g, '<br>')}
               </div>
             </div>
             
@@ -116,7 +115,9 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-} 
+}
+
+export const POST = withRateLimit(handleContactSupport); 
  
  
  
