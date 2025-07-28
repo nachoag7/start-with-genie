@@ -68,11 +68,7 @@ export default function CheckoutForm({ onBack }: CheckoutFormProps) {
       transition={{ duration: 0.7, ease: 'easeOut' }}
       className="min-h-screen w-full flex flex-col items-center justify-center bg-neutral-50 px-2 py-10"
     >
-      <div className="absolute top-8 left-6">
-        <Button onClick={onBack} variant="ghost" className="text-gray-600 hover:text-gray-900">
-          ← Back
-        </Button>
-      </div>
+
 
       {/* Headline + Subline */}
       <div className="mb-0 text-center px-4 sm:px-0">
