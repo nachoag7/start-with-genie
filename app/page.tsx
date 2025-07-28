@@ -473,60 +473,22 @@ export default function Home() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const heroRef = useRef<HTMLDivElement>(null)
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
-  const isStickyVisible = useRef(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Bulletproof scroll-based navbar visibility logic with throttling
+  // Simple and reliable scroll detection
   useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current) {
-        const heroBottom = heroRef.current.offsetTop + heroRef.current.offsetHeight;
-        const scrollPosition = window.scrollY;
-        
-        // Show sticky nav when scrolled past hero section with buffer
-        const shouldShow = scrollPosition > heroBottom - 150;
-        
-        // Only update state if it's actually changing
-        if (shouldShow !== isStickyVisible.current) {
-          isStickyVisible.current = shouldShow;
-          
-          // Clear any existing timeout
-          if (scrollTimeoutRef.current) {
-            clearTimeout(scrollTimeoutRef.current);
-          }
-          
-          // Small delay to ensure smooth transition
-          scrollTimeoutRef.current = setTimeout(() => {
-            setShowTimerNav(shouldShow);
-          }, 50);
-        }
-      }
+    const checkScroll = () => {
+      if (!heroRef.current) return;
+      
+      const rect = heroRef.current.getBoundingClientRect();
+      const shouldShow = rect.bottom < 0;
+      
+      setShowTimerNav(shouldShow);
     };
 
-    // Throttled scroll handler
-    let ticking = false;
-    const throttledScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll(); // Initial check
 
-    // Add scroll listener with throttling
-    window.addEventListener('scroll', throttledScroll, { passive: true });
-    
-    // Initial check
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', throttledScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
+    return () => window.removeEventListener('scroll', checkScroll);
   }, []);
 
   // Dismiss description on outside click
