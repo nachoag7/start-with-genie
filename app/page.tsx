@@ -474,24 +474,34 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
-  // Scroll-based navbar visibility logic
+  // Improved scroll-based navbar visibility logic using IntersectionObserver
   useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current) {
-        const heroBottom = heroRef.current.offsetTop + heroRef.current.offsetHeight;
-        const scrollPosition = window.scrollY;
-        
-        // Show timer nav when scrolled past hero section
-        if (scrollPosition > heroBottom) {
-          setShowTimerNav(true);
-        } else {
-          setShowTimerNav(false);
-        }
-      }
-    };
+    if (!heroRef.current) return;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Create an IntersectionObserver to detect when hero section is scrolled past
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // When the hero section is not intersecting (scrolled past), show the sticky CTA
+          // When it is intersecting (visible), hide the sticky CTA
+          setShowTimerNav(!entry.isIntersecting);
+        });
+      },
+      {
+        // Root margin of -1px ensures the sticky bar appears as soon as the hero starts to leave viewport
+        rootMargin: '-1px 0px 0px 0px',
+        // Threshold of 0 means the callback fires as soon as even 1px of the element leaves the viewport
+        threshold: 0
+      }
+    );
+
+    // Start observing the hero section
+    observer.observe(heroRef.current);
+
+    // Cleanup observer on unmount
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   // Dismiss description on outside click
