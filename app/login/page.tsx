@@ -104,12 +104,12 @@ export default function LoginPage() {
               router.push("/");
             }
           }}
-          className="absolute top-8 left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-base font-medium transition-colors gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="absolute top-4 left-4 sm:top-8 sm:left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-sm sm:text-base font-medium transition-colors gap-1 sm:gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           style={{ textDecoration: 'none', fontWeight: 500 }}
         >
-          <span className="text-lg">←</span> Back
+          <span className="text-base sm:text-lg">←</span> Back
         </button>
-        <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+        <main className="flex-1 flex flex-col items-center justify-center px-4 pt-20 pb-12">
           <motion.section
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
