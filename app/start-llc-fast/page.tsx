@@ -63,14 +63,14 @@ export default function StartLLCFastPage() {
 
       <main className="bg-gray-50 min-h-screen">
         {/* HERO SECTION */}
-        <section className="w-full max-w-4xl mx-auto px-4 pt-4 pb-8 text-center flex flex-col items-center justify-start">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 leading-tight mt-0">
+        <section className="w-full max-w-4xl mx-auto px-4 pt-4 pb-6 text-center flex flex-col items-center justify-start">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-3 leading-tight mt-0">
             Start Your LLC Fast — The Clear, No-Upsell Way
           </h1>
-          <p className="text-lg sm:text-xl text-neutral-700 mb-6 max-w-3xl mx-auto">
-            Get everything you need to launch your LLC — fast, affordable, and frustration-free.
+          <p className="text-lg sm:text-xl text-neutral-700 mb-4 max-w-3xl mx-auto">
+            Get everything you need to launch your LLC — <strong className="font-semibold text-neutral-800">fast, affordable, and frustration-free</strong>.
           </p>
-          <div className="flex flex-col items-center w-full space-y-4">
+          <div className="flex flex-col items-center w-full space-y-3">
             <Link href="/checkout" className="inline-block">
               <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
                 Start My LLC for $49
@@ -101,38 +101,40 @@ export default function StartLLCFastPage() {
         </section>
 
         {/* TESTIMONIALS */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-8 text-center">
+        <section className="w-full max-w-4xl mx-auto px-4 py-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6 text-center">
             What Founders Are Saying
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-600">
-              <div className="flex items-center gap-2 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl p-5 shadow-sm border-l-4 border-blue-600">
+              <div className="flex items-center gap-2 mb-3">
                 <Quote className="w-5 h-5 text-blue-400" />
                 <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">AR</span>
               </div>
-              <p className="text-neutral-700 mb-3 italic">
+              <p className="text-neutral-700 mb-2 italic">
                 "I was quoted $350 to start my LLC. Genie gave me the same exact outcome for $49 — and I had everything ready the same day."
               </p>
               <p className="text-sm text-gray-600 font-medium">— Alex R., Digital Marketing Consultant</p>
+              <p className="text-xs text-gray-500 mt-1">Verified User</p>
             </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-600">
-              <div className="flex items-center gap-2 mb-4">
+            <div className="bg-white rounded-xl p-5 shadow-sm border-l-4 border-blue-600">
+              <div className="flex items-center gap-2 mb-3">
                 <Quote className="w-5 h-5 text-blue-400" />
                 <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">JT</span>
               </div>
-              <p className="text-neutral-700 mb-3 italic">
+              <p className="text-neutral-700 mb-2 italic">
                 "LegalZoom wanted $299 and said it would take days. Genie got me going the same night — EIN, agreement, all of it."
               </p>
               <p className="text-sm text-gray-600 font-medium">— Jordan T., Shopify Store Owner</p>
+              <p className="text-xs text-gray-500 mt-1">Verified User</p>
             </div>
           </div>
         </section>
 
         {/* DASHBOARD PREVIEW */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-4">
+        <section className="w-full max-w-4xl mx-auto px-4 py-8">
+          <div className="text-center mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-3">
               See Exactly What You'll Get
             </h2>
             <p className="text-lg text-neutral-700 max-w-2xl mx-auto">
@@ -140,74 +142,69 @@ export default function StartLLCFastPage() {
             </p>
           </div>
           <div className="flex justify-center">
-            <video
-              src="/Dashboard-preview.mp4"
-              autoPlay
-              muted
-              loop
-              controls
-              controlsList="nodownload noremoteplayback"
-              disablePictureInPicture
-              playsInline
-              preload="metadata"
-              className="rounded-2xl shadow-2xl w-full max-w-[720px] aspect-video bg-black object-cover"
-              style={{ outline: 'none', border: 'none', padding: 0 }}
-            />
-          </div>
-          <div className="text-center mt-8">
-            <Link href="/checkout" className="inline-block">
-              <button className="bg-blue-600 text-white text-xl font-semibold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-xl active:scale-95">
-                Start My LLC for $49
-              </button>
-            </Link>
+            <div className="w-full max-w-[720px] rounded-[10px] shadow-lg overflow-hidden">
+              <video
+                src="/Dashboard-preview.mp4"
+                autoPlay
+                muted
+                loop
+                controls
+                controlsList="nodownload noremoteplayback"
+                disablePictureInPicture
+                playsInline
+                preload="metadata"
+                className="w-full aspect-video bg-black object-cover"
+                style={{ outline: 'none', border: 'none', padding: 0 }}
+              />
+            </div>
           </div>
         </section>
 
         {/* WHY TIME-SENSITIVE FOUNDERS USE GENIE */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-8 text-center">
+        <section className="w-full max-w-4xl mx-auto px-4 py-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6 text-center">
             Why Time-Sensitive Founders Use Genie
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="flex items-start gap-4">
-              <Zap className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="flex items-start gap-3">
+              <Zap className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">Instant access, no waiting</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Instant access, no waiting</h3>
                 <p className="text-sm text-gray-600">Get everything you need immediately after purchase</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <FileText className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <FileText className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">State-specific instructions included</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">State-specific instructions included</h3>
                 <p className="text-sm text-gray-600">Personalized steps for your exact state requirements</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <BadgeCheck className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <BadgeCheck className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">EIN guide, get it free from the IRS</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">EIN guide, get it free from the IRS</h3>
                 <p className="text-sm text-gray-600">Step-by-step guide to get your federal tax ID</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <ScrollText className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <ScrollText className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">Operating agreement included</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Operating agreement included</h3>
                 <p className="text-sm text-gray-600">Ready-to-sign legal document for your LLC</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <Clock className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">Ready in under 30 minutes</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Ready in under 30 minutes</h3>
                 <p className="text-sm text-gray-600">Most users complete everything in one sitting</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <Monitor className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <Monitor className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">Personalized dashboard</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Personalized dashboard</h3>
                 <p className="text-sm text-gray-600">Track progress and access all documents in one place</p>
               </div>
             </div>
@@ -215,36 +212,36 @@ export default function StartLLCFastPage() {
         </section>
 
         {/* TIMELINE */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-8 text-center">
+        <section className="w-full max-w-4xl mx-auto px-4 py-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6 text-center">
             How Fast Can You Launch?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex items-start gap-4">
-              <CheckCircle className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">File your LLC online — usually same-day</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">File your LLC online — usually same-day</h3>
                 <p className="text-sm text-gray-600">Most states process online filings immediately</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <CheckCircle className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">Get your EIN instantly (IRS hours)</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Get your EIN instantly (IRS hours)</h3>
                 <p className="text-sm text-gray-600">Apply online and receive your tax ID immediately</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <CheckCircle className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">Open a bank account with your docs</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Open a bank account with your docs</h3>
                 <p className="text-sm text-gray-600">Use your LLC documents to set up business banking</p>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <CheckCircle className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-neutral-900 mb-2">Start doing business legally in 24–48 hrs</h3>
+                <h3 className="font-semibold text-neutral-900 mb-1">Start doing business legally in 24–48 hrs</h3>
                 <p className="text-sm text-gray-600">You can begin operations as soon as you're filed</p>
               </div>
             </div>
@@ -252,11 +249,11 @@ export default function StartLLCFastPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-4">
+        <section className="w-full max-w-4xl mx-auto px-4 py-8 text-center bg-gray-100 rounded-xl mx-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-3">
             Need Your LLC Fast? Don't Wait for a Lawyer.
           </h2>
-          <p className="text-lg text-neutral-700 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-neutral-700 mb-6 max-w-2xl mx-auto">
             Start With Genie gives you everything you need to launch your business in the next 30 minutes — all for $49.
           </p>
           <Link href="/checkout" className="inline-flex items-center gap-2">
@@ -268,32 +265,32 @@ export default function StartLLCFastPage() {
         </section>
 
         {/* FAQ */}
-        <section className="w-full max-w-3xl mx-auto px-4 py-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-8 text-center">
+        <section className="w-full max-w-3xl mx-auto px-4 py-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6 text-center">
             Frequently Asked Questions
           </h2>
-          <div className="space-y-6">
+          <div className="space-y-4">
             <details className="bg-white rounded-xl shadow-sm">
-              <summary className="p-6 cursor-pointer font-semibold text-neutral-900 hover:bg-gray-50 transition">
+              <summary className="p-5 cursor-pointer font-semibold text-neutral-900 hover:bg-gray-50 transition">
                 Can I start my LLC today?
               </summary>
-              <div className="px-6 pb-6 text-neutral-700">
+              <div className="px-5 pb-5 text-neutral-700">
                 Yes — most states let you file online instantly. Genie gives you the exact steps and links.
               </div>
             </details>
             <details className="bg-white rounded-xl shadow-sm">
-              <summary className="p-6 cursor-pointer font-semibold text-neutral-900 hover:bg-gray-50 transition">
+              <summary className="p-5 cursor-pointer font-semibold text-neutral-900 hover:bg-gray-50 transition">
                 How fast can I get an EIN?
               </summary>
-              <div className="px-6 pb-6 text-neutral-700">
+              <div className="px-5 pb-5 text-neutral-700">
                 In minutes if you apply online during IRS hours.
               </div>
             </details>
             <details className="bg-white rounded-xl shadow-sm">
-              <summary className="p-6 cursor-pointer font-semibold text-neutral-900 hover:bg-gray-50 transition">
+              <summary className="p-5 cursor-pointer font-semibold text-neutral-900 hover:bg-gray-50 transition">
                 Is this faster than LegalZoom?
               </summary>
-              <div className="px-6 pb-6 text-neutral-700">
+              <div className="px-5 pb-5 text-neutral-700">
                 Yes — they often delay filings unless you pay extra. Genie gives you control and speed.
               </div>
             </details>
