@@ -14,7 +14,14 @@ import {
   ClipboardCheck,
   ArrowRight,
   HelpCircle,
-  ChevronDown
+  ChevronDown,
+  Shield,
+  CreditCard,
+  Users,
+  Sparkles,
+  LayoutDashboard,
+  ListChecks,
+  BadgeCheck
 } from "lucide-react";
 import Link from "next/link";
 import Footer from "../../components/Footer";
@@ -41,16 +48,16 @@ export default function ComparePage() {
       answer: "Most services charge $299+ through upsells. Genie keeps it simple: one flat price with everything included."
     },
     {
-      question: "What exactly do I get for $49?",
-      answer: "Personalized LLC filing instructions, EIN guide, editable operating agreement, and your own dashboard."
-    },
-    {
       question: "Do I still need to file the LLC myself?",
       answer: "Yes — Genie is your assistant, not a law firm. We guide you step-by-step so you file directly and confidently."
     },
     {
-      question: "What if I need help during the process?",
-      answer: "You'll have 24/7 access to our AI assistant, plus email support if you need a human."
+      question: "Can I really do it myself with Genie's help?",
+      answer: "Absolutely. Genie is built for people who want to move fast, skip the upsells, and keep full control. Everything is DIY-friendly, and we guide you through every step."
+    },
+    {
+      question: "Is Start With Genie legit?",
+      answer: "Yes — you don't need a lawyer or a $300+ service to start an LLC. Genie is built for people who want to move fast, skip the upsells, and keep full control. Everything is DIY-friendly, and we guide you through every step."
     }
   ];
 
@@ -87,7 +94,7 @@ export default function ComparePage() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 mb-4 leading-tight">
-            Why Founders Are Ditching LegalZoom
+            Stop Overpaying for LLC Services
           </h1>
           <p className="text-lg text-neutral-700 mb-6">
             Start With Genie gives you everything you need to launch your LLC — for just $49. No upsells. No lawyers. No confusion.
@@ -100,16 +107,114 @@ export default function ComparePage() {
               Start My LLC for $49
             </Button>
           </Link>
-          <div className="text-sm text-gray-500 mt-1">Most users launch in under 15 minutes.</div>
+          <div className="text-base font-medium text-gray-600 mt-1">Most users launch in under 15 minutes</div>
+          <div className="flex items-center justify-center gap-2 mt-4 text-sm text-gray-500">
+            <Shield className="w-4 h-4" />
+            <span>Secure Checkout Powered by Stripe</span>
+          </div>
         </motion.div>
       </section>
 
-      {/* 2. COMPARISON CARDS SECTION */}
-      <section className="w-full max-w-2xl mx-auto px-4 py-5">
+      {/* 2. WHAT YOU DON'T GET SECTION */}
+      <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-5 md:py-6 px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
+          className="w-full"
+        >
+          <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
+            What You Don't Get With Genie (And That's a Good Thing)
+          </h2>
+          <p className="text-base md:text-lg text-neutral-600 text-center mb-6">
+            We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            <div className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <div>
+                <span className="text-neutral-800 text-base font-medium">No confusing packages</span>
+                <p className="text-sm text-neutral-600">You get everything for one flat price</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <div>
+                <span className="text-neutral-800 text-base font-medium">No surprise fees</span>
+                <p className="text-sm text-neutral-600">What you see is what you pay</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <div>
+                <span className="text-neutral-800 text-base font-medium">No endless upsells</span>
+                <p className="text-sm text-neutral-600">We don't push upgrades or add-ons</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <div>
+                <span className="text-neutral-800 text-base font-medium">No filing on your behalf</span>
+                <p className="text-sm text-neutral-600">You stay in control</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 md:col-span-2">
+              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+              <div>
+                <span className="text-neutral-800 text-base font-medium">No legal advice</span>
+                <p className="text-sm text-neutral-600">We're not a law firm (and don't pretend to be)</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* 3. WHY FOUNDERS SWITCH SECTION - moved up */}
+      <section className="w-full max-w-xl mx-auto px-4 py-5">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">
+            Why Founders Switch to Genie
+          </h2>
+          
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+              <span className="text-base text-neutral-700">They don't want to pay $300+ for the same documents</span>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+              <span className="text-base text-neutral-700">They're tired of confusing packages and legal jargon</span>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+              <span className="text-base text-neutral-700">They just want to get it done — fast and clearly</span>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+              <span className="text-base text-neutral-700">They want to feel confident, not upsold</span>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+              <span className="text-base text-neutral-700">They need EIN help, too — not just filing</span>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* 4. COMPARISON TABLE - Mobile Optimized */}
+      <section className="w-full max-w-2xl mx-auto px-4 py-5">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
           <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">
             How Start With Genie Compares to Other LLC Services
@@ -240,15 +345,19 @@ export default function ComparePage() {
               </ul>
             </div>
           </div>
+          
+          <p className="text-sm text-gray-500 text-center mt-4">
+            *Typical services range from $199 to $349+ (LegalZoom, ZenBusiness, Incfile)*
+          </p>
         </motion.div>
       </section>
 
-      {/* 3. VALUE STACK SECTION */}
+      {/* 5. WHAT YOU'RE GETTING FOR $49 SECTION - improved layout + benefits */}
       <section className="w-full max-w-xl mx-auto px-4 py-5">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
           <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">
             What You're Getting for $49
@@ -258,30 +367,54 @@ export default function ComparePage() {
             <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
               <FileText className="w-6 h-6 text-gray-400 mt-1" />
               <div>
-                <div className="font-medium text-neutral-900">Filing Instructions</div>
-                <div className="text-sm text-gray-500">Step-by-step guidance</div>
+                <div className="font-medium text-neutral-900">State Filing Instructions</div>
+                <div className="text-sm text-gray-500">Step-by-step guidance tailored to your state</div>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+              <BadgeCheck className="w-6 h-6 text-gray-400 mt-1" />
+              <div>
+                <div className="font-medium text-neutral-900">Free EIN Guide</div>
+                <div className="text-sm text-gray-500">Quickly get your federal tax ID with confidence</div>
               </div>
             </div>
             
             <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
               <ScrollText className="w-6 h-6 text-gray-400 mt-1" />
               <div>
-                <div className="font-medium text-neutral-900">EIN Guide</div>
-                <div className="text-sm text-gray-500">Help with your tax ID</div>
+                <div className="font-medium text-neutral-900">Custom Operating Agreement</div>
+                <div className="text-sm text-gray-500">Structure your business the right way</div>
               </div>
             </div>
             
             <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
-              <BookOpen className="w-6 h-6 text-gray-400 mt-1" />
+              <ListChecks className="w-6 h-6 text-gray-400 mt-1" />
               <div>
-                <div className="font-medium text-neutral-900">Operating Agreement</div>
-                <div className="text-sm text-gray-500">Ready-to-edit legal doc</div>
+                <div className="font-medium text-neutral-900">Startup Checklist</div>
+                <div className="text-sm text-gray-500">Launch with clarity and stay organized</div>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+              <LayoutDashboard className="w-6 h-6 text-gray-400 mt-1" />
+              <div>
+                <div className="font-medium text-neutral-900">Modern Dashboard</div>
+                <div className="text-sm text-gray-500">Access everything from one clean, protected space</div>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 bg-white rounded-xl p-4 shadow">
+              <Sparkles className="w-6 h-6 text-gray-400 mt-1" />
+              <div>
+                <div className="font-medium text-neutral-900">Optional AI Assistant</div>
+                <div className="text-sm text-gray-500">Get help along the way, anytime</div>
               </div>
             </div>
           </div>
           
           <div className="text-center mt-6">
-            <p className="text-sm text-gray-500 mb-4">Total value: $286 — Yours for $49 flat.</p>
+            <p className="text-sm text-gray-500 mb-4">Total value: $280 — Yours for $49 flat.</p>
             <Link href="/checkout" className="w-full">
               <Button 
                 className="w-full text-lg font-semibold py-4"
@@ -294,12 +427,12 @@ export default function ComparePage() {
         </motion.div>
       </section>
 
-      {/* 4. TESTIMONIAL SECTION */}
+      {/* 6. TESTIMONIAL SECTION - updated with spacing and new quote */}
       <section className="w-full max-w-5xl mx-auto px-4 py-5">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
         >
           <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">
             What Founders Are Saying
@@ -316,14 +449,14 @@ export default function ComparePage() {
               <div className="text-xs text-gray-400 mt-auto">— Victoria A., Shopify Seller</div>
             </div>
             
-            {/* Justin G. */}
+            {/* Justin G. - updated quote */}
             <div className="flex flex-col bg-white rounded-xl shadow p-6 border-l-4 border-blue-600 hover:bg-blue-50 transition">
               <div className="flex items-center gap-2 mb-3">
                 <Quote className="w-5 h-5 text-blue-400" />
                 <span className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">JG</span>
               </div>
-              <div className="font-bold text-neutral-900 mb-2 text-lg">"Cleanest experience I've had setting up a business."</div>
-              <div className="text-xs text-gray-400 mt-auto">— Justin G., DM Dad</div>
+              <div className="font-bold text-neutral-900 mb-2 text-lg">"I almost paid $300 for a bloated service. Genie gave me everything I needed for $49."</div>
+              <div className="text-xs text-gray-400 mt-auto">— Justin G., Founder</div>
             </div>
             
             {/* Lauren M. */}
@@ -339,52 +472,12 @@ export default function ComparePage() {
         </motion.div>
       </section>
 
-      {/* 5. WHY FOUNDERS SWITCH SECTION */}
-      <section className="w-full max-w-xl mx-auto px-4 py-5">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">
-            Why Founders Switch to Genie
-          </h2>
-          
-          <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-              <span className="text-base text-neutral-700">They don't want to pay $300+ for the same documents</span>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-              <span className="text-base text-neutral-700">They're tired of confusing packages and legal jargon</span>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-              <span className="text-base text-neutral-700">They just want to get it done — fast and clearly</span>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-              <span className="text-base text-neutral-700">They want to feel confident, not upsold</span>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-              <span className="text-base text-neutral-700">They need EIN help, too — not just filing</span>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* 6. FINAL CALLOUT SECTION */}
+      {/* 7. FINAL CALLOUT SECTION */}
       <section className="w-full max-w-xl mx-auto px-4 py-5 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
         >
           <h2 className="text-2xl font-bold text-neutral-900 mb-4">
             Want to launch today?
@@ -401,15 +494,19 @@ export default function ComparePage() {
               <ArrowRight className="w-5 h-5" />
             </Button>
           </Link>
+          <div className="flex items-center justify-center gap-2 mt-4 text-sm text-gray-500">
+            <Users className="w-4 h-4" />
+            <span>Trusted by hundreds of new founders</span>
+          </div>
         </motion.div>
       </section>
 
-      {/* 7. FAQ SECTION */}
+      {/* 8. FAQ SECTION - updated with new questions */}
       <section className="w-full max-w-xl mx-auto px-4 py-5">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
         >
           <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">
             Frequently Asked Questions
