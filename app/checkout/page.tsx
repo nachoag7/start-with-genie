@@ -10,14 +10,29 @@ import CheckoutForm from "../../components/CheckoutForm";
 export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState<'overview' | 'checkout'>('overview');
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   // Fetch clientSecret from API on mount
   useEffect(() => {
     fetch("/api/create-payment-intent", { method: "POST" })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => {
+            throw new Error(data.error || 'Failed to create payment intent');
+          });
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.clientSecret) setClientSecret(data.clientSecret);
+        if (data.clientSecret) {
+          setClientSecret(data.clientSecret);
+          setError(null);
+        }
+      })
+      .catch(err => {
+        console.error('Payment intent error:', err);
+        setError(err.message);
       });
   }, []);
 
@@ -113,6 +128,32 @@ export default function CheckoutPage() {
             <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
               <CheckoutForm onBack={handleBackToOverview} />
             </Elements>
+          </motion.div>
+        )}
+        
+        {currentStep === 'checkout' && error && (
+          <motion.div
+            key="error"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="pt-16 sm:pt-20 flex items-center justify-center"
+          >
+            <div className="max-w-md mx-auto text-center p-6 bg-red-50 border border-red-200 rounded-lg">
+              <h3 className="text-lg font-semibold text-red-800 mb-2">Payment Setup Error</h3>
+              <p className="text-red-600 mb-4">{error}</p>
+              <p className="text-sm text-red-500 mb-4">
+                This is likely because Stripe is not configured for local development. 
+                The checkout will work properly when deployed.
+              </p>
+              <button
+                onClick={handleBackToOverview}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Go Back
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

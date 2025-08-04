@@ -565,7 +565,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
             >
-              Start Your LLC in Under 15 Minutes Just $49
+              The Easiest Way To Start an LLC with No Hidden Fees
             </motion.h1>
             <motion.p 
               className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mt-2"
@@ -574,7 +574,7 @@ export default function Home() {
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
             >
               Includes step-by-step instructions, EIN help, and your operating agreement.  
-              No upsells. No law firm. Just everything you need to launch.
+              No upsells. No law firm. Get everything you need to launch.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
