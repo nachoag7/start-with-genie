@@ -3,7 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText, CreditCard, BookOpen, TrendingUp, Calendar, Receipt, Clock, FileDigit, Send, Zap, Smartphone, Heart, Users, Home, UserPlus, Monitor, Download, GraduationCap, Book, UserCheck, Users2, FileText as FileTextIcon, MapPin, Globe, Lock, Unlock, HelpCircle, AlertCircle, CheckCircle, XCircle, ArrowRight, Key, Globe as GlobeIcon, Clock as ClockIcon } from 'lucide-react'
+import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText, CreditCard, BookOpen, TrendingUp, Calendar, Receipt, Clock, FileDigit, Send, Zap, Smartphone, Heart, Users, Home, UserPlus, Monitor, Download, GraduationCap, Book, UserCheck, Users2, FileText as FileTextIcon, MapPin, Globe, Lock, Unlock, HelpCircle, AlertCircle, CheckCircle, XCircle, ArrowRight, Key, Globe as GlobeIcon, Clock as ClockIcon, Phone } from 'lucide-react'
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
