@@ -50,7 +50,7 @@ export default function LLCForOnlyFansCreatorsPage() {
           >
             <Link href="/checkout">
               <Button className="text-lg px-8 py-3">
-                Start your LLC for $49 flat →
+                Start Your LLC for $49 →
               </Button>
             </Link>
           </motion.div>

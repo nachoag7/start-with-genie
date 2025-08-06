@@ -565,15 +565,15 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
             >
-              The Easiest Way To Start an LLC with No Hidden Fees
+              Finally, a Simple Way to Start Your LLC Without the Confusion or Surprise Fees
             </motion.h1>
             <motion.p 
-              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-2xl leading-relaxed px-4 mt-2"
+              className="text-base md:text-lg lg:text-xl text-neutral-500 text-center max-w-3xl leading-relaxed px-4 mt-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
             >
-              We give you a crystal-clear, step-by-step roadmap to form your LLC yourself. Get personalized state instructions, your operating agreement, and an EIN guide—everything you need, for one flat $49 fee.
+              You stay in control. We give you the exact steps, documents, and tools to form your LLC with confidence. That includes personalized state instructions, an EIN walkthrough, a customizable operating agreement, and a 24/7 assistant.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -756,7 +756,7 @@ export default function Home() {
                         Step-by-step state filing instructions
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Personalized for your state so you know exactly what to file, where, and when — no guesswork.
+                        Tailored to your state so you know exactly what to file, where, and when with zero guesswork.
                       </div>
                     </div>
                   </motion.div>
@@ -769,7 +769,7 @@ export default function Home() {
                         EIN application walkthrough
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        We'll guide you through getting your federal tax ID fast — skip the confusion and do it in minutes.
+                        We'll guide you through getting your federal tax ID fast. Skip the confusion and complete it in minutes.
                       </div>
                     </div>
                   </motion.div>
@@ -782,7 +782,7 @@ export default function Home() {
                         Customizable Operating Agreement
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Pre-filled and lawyer-inspired, ready to personalize in minutes to protect your business and structure.
+                        Lawyer-inspired and pre-filled. Personalize it in minutes to protect your business and structure.
                       </div>
                     </div>
                   </motion.div>
@@ -808,7 +808,7 @@ export default function Home() {
                         Dashboard access
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        All your documents, guides, and next steps in one clean, easy-to-use workspace.
+                        Your documents, guides, and next steps in one clean, easy-to-use workspace.
                       </div>
                     </div>
                   </motion.div>
@@ -821,7 +821,7 @@ export default function Home() {
                         The Genie assistant
                       </div>
                       <div style={{ fontSize: '0.95rem', color: '#555', fontWeight: 400, lineHeight: 1.6 }}>
-                        Smart AI help whenever you're stuck — answers in seconds, available 24/7.
+                        Smart AI help whenever you're stuck. Answers in seconds, available 24/7.
                       </div>
                     </div>
                   </motion.div>
@@ -953,7 +953,7 @@ export default function Home() {
             </div>
           </section>
           
-          {/* Genie vs. Old Way Comparison Chart */}
+                    {/* Genie vs. Old Way Comparison Chart */}
           <section className="w-full bg-white py-20 flex flex-col items-center justify-center">
             <div className="max-w-6xl w-full px-4">
               <motion.h2 
@@ -966,102 +966,75 @@ export default function Home() {
                 Genie vs. The Old Way
               </motion.h2>
               
-              {/* Desktop View - 3 Column Grid */}
-              <div className="hidden md:grid md:grid-cols-3 md:gap-8">
-                {/* Column Headers */}
-                <div className="text-center pb-4">
-                  <h3 className="text-lg font-semibold text-neutral-700">Feature</h3>
-                </div>
-                <div className="text-center pb-4">
-                  <h3 className="text-lg font-semibold text-neutral-700">Start With Genie</h3>
-                </div>
-                <div className="text-center pb-4">
-                  <h3 className="text-lg font-semibold text-neutral-700">Traditional Filing Services</h3>
-                </div>
-                
-                {/* Control Row */}
-                <div className="py-4 border-b border-neutral-200">
-                  <h4 className="font-semibold text-neutral-900">Control</h4>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">You file directly and stay in full control.</p>
-                  </div>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">A third party files for you, often with delays.</p>
-                  </div>
-                </div>
-                
-                {/* Clarity Row */}
-                <div className="py-4 border-b border-neutral-200">
-                  <h4 className="font-semibold text-neutral-900">Clarity</h4>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">A clear roadmap so you understand every step.</p>
-                  </div>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">A confusing process with little to no insight.</p>
-                  </div>
-                </div>
-                
-                {/* Price Row */}
-                <div className="py-4 border-b border-neutral-200">
-                  <h4 className="font-semibold text-neutral-900">Price</h4>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">$49 flat fee. That's it. No upsells.</p>
-                  </div>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">$0 to $500+ with a maze of surprise fees & upsells.</p>
-                  </div>
-                </div>
-                
-                {/* Operating Agreement Row */}
-                <div className="py-4 border-b border-neutral-200">
-                  <h4 className="font-semibold text-neutral-900">Operating Agreement</h4>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">Included in your kit, fully customizable.</p>
-                  </div>
-                </div>
-                <div className="py-4 border-b border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">Almost always a separate, expensive add-on.</p>
-                  </div>
-                </div>
-                
-                {/* Speed Row */}
-                <div className="py-4">
-                  <h4 className="font-semibold text-neutral-900">Speed</h4>
-                </div>
-                <div className="py-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">Instant access to your documents and map.</p>
-                  </div>
-                </div>
-                <div className="py-4">
-                  <div className="flex items-start gap-3">
-                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-neutral-700">Days or weeks of processing and waiting.</p>
-                  </div>
+              {/* Desktop View - Table */}
+              <div className="hidden md:block">
+                <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden">
+                  <table className="w-full">
+                    <thead className="bg-neutral-50">
+                      <tr>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-neutral-700 border-b border-neutral-200">Feature</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-neutral-700 border-b border-neutral-200">Start With Genie</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-neutral-700 border-b border-neutral-200">Traditional Filing Services</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="px-6 py-4 border-b border-neutral-200">
+                          <strong className="text-neutral-900">Control</strong>
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          You file directly and stay in full control.
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          A third party files for you, often with delays.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 border-b border-neutral-200">
+                          <strong className="text-neutral-900">Clarity</strong>
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          A clear system so you understand every step.
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          A confusing process with little to no insight.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 border-b border-neutral-200">
+                          <strong className="text-neutral-900">Price</strong>
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          $49 flat fee. No upsells.
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          $0 to $500+ with hidden fees and surprise charges.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 border-b border-neutral-200">
+                          <strong className="text-neutral-900">Operating Agreement</strong>
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          Included in your kit, fully customizable.
+                        </td>
+                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
+                          Almost always a separate, expensive add-on.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4">
+                          <strong className="text-neutral-900">Speed</strong>
+                        </td>
+                        <td className="px-6 py-4 text-neutral-700">
+                          Instant access to your documents and tools.
+                        </td>
+                        <td className="px-6 py-4 text-neutral-700">
+                          Days or weeks of processing and waiting.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
               
@@ -1088,12 +1061,12 @@ export default function Home() {
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">A clear roadmap so you understand every step.</p>
+                      <p className="text-neutral-700">A clear system so you understand every step.</p>
                     </div>
-                                         <div className="flex items-start gap-3">
-                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                       <p className="text-neutral-700">A confusing process with little to no insight.</p>
-                     </div>
+                    <div className="flex items-start gap-3">
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">A confusing process with little to no insight.</p>
+                    </div>
                   </div>
                 </div>
                 
@@ -1103,11 +1076,11 @@ export default function Home() {
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">$49 flat fee. That's it. No upsells.</p>
+                      <p className="text-neutral-700">$49 flat fee. No upsells.</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">$0 to $500+ with a maze of surprise fees & upsells.</p>
+                      <p className="text-neutral-700">$0 to $500+ with hidden fees and surprise charges.</p>
                     </div>
                   </div>
                 </div>
@@ -1133,7 +1106,7 @@ export default function Home() {
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">Instant access to your documents and map.</p>
+                      <p className="text-neutral-700">Instant access to your documents and tools.</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
@@ -1194,18 +1167,21 @@ export default function Home() {
           <section className="w-full max-w-2xl mx-auto px-4 py-6">
             <h2 className="text-xl font-semibold text-neutral-900 mb-4 text-center">FAQs</h2>
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
-              <summary className="font-medium text-gray-900 cursor-pointer">Do you file the LLC for me?</summary>
+              <summary className="font-medium text-gray-900 cursor-pointer">
+                <strong>Do you file the LLC for me?</strong>
+              </summary>
               <div className="mt-2 text-gray-700 text-sm">
-                We don't — and that's intentional. Start With Genie gives you everything you need to file your LLC yourself in under 15 minutes. It's faster, clearer, and puts you in full control.
+                We don't and that's the point. Start With Genie gives you everything you need to file your LLC yourself in under 15 minutes. It's faster, clearer, and keeps you in full control.
               </div>
             </details>
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
-              <summary className="font-medium text-gray-900 cursor-pointer">What do I actually get for $49?</summary>
+              <summary className="font-medium text-gray-900 cursor-pointer">
+                <strong>What do I actually get for $49?</strong>
+              </summary>
               <div className="mt-2 text-gray-700 text-sm">
-                You get everything you need to launch your LLC the right way:<br />
-                <ul className="list-disc pl-5 mt-2 space-y-1">
-                  <li>Personalized state filing instructions</li>
-                  <li>A guide to getting your EIN (free from the IRS)</li>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Step-by-step filing instructions for your state</li>
+                  <li>A guide to get your EIN directly from the IRS</li>
                   <li>A customizable operating agreement</li>
                   <li>A launch checklist</li>
                   <li>Access to the Genie assistant if you get stuck</li>
@@ -1213,9 +1189,11 @@ export default function Home() {
               </div>
             </details>
             <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
-              <summary className="font-medium text-gray-900 cursor-pointer">Is this legit? Can I really do it myself?</summary>
+              <summary className="font-medium text-gray-900 cursor-pointer">
+                <strong>Is this legit? Can I legally do it myself?</strong>
+              </summary>
               <div className="mt-2 text-gray-700 text-sm">
-                Yes — you don't need a lawyer or a $300+ service to start an LLC. Genie is built for people who want to move fast, skip the upsells, and keep full control. Everything is DIY-friendly, and we guide you through every step.
+                Yes. Every state lets you file an LLC on your own. Genie is made for founders who want to move fast, avoid upsells, and stay in full control. Everything is DIY-friendly with clear instructions every step of the way.
               </div>
             </details>
           </section>

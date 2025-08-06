@@ -50,7 +50,7 @@ export default function CanAMinorFormAnLLCPage() {
           >
             <Link href="/checkout">
               <Button className="text-lg px-8 py-3">
-                Need help navigating this? Start With Genie can help →
+                Get Started With Genie →
               </Button>
             </Link>
           </motion.div>
