@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, CheckCircle2, ShieldCheck, Sparkles, Timer as TimerIcon, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote } from 'lucide-react'
+import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, CheckCircle2, ShieldCheck, Sparkles, Timer as TimerIcon, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote, Star } from 'lucide-react'
 import Footer from '../components/Footer'
 import Head from 'next/head'
 import EINGuidePopup from '../components/EINGuidePopup'
@@ -593,65 +593,134 @@ export default function Home() {
             </motion.div>
           </motion.section>
 
-          {/* What You Don't Get Section - moved here */}
-          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-5 md:py-6 px-4">
-            <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
-              What You Don't Get
-            </h2>
-            <p className="text-base md:text-lg text-neutral-600 text-center mb-5">
-              We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
-            </p>
-            <ul className="w-full max-w-md mx-auto flex flex-col gap-4">
-              <li className="flex items-center gap-3">
-                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
-                <span className="text-neutral-800 text-base md:text-lg">Confusing packages</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
-                <span className="text-neutral-800 text-base md:text-lg">Surprise fees</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
-                <span className="text-neutral-800 text-base md:text-lg">Endless upsells</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
-                <span className="text-neutral-800 text-base md:text-lg font-medium">
-                  Just what you need — for $49 flat
-                </span>
-              </li>
-            </ul>
-          </section>
-
-          {/* Dashboard Preview Video */}
-          <div className="w-full px-4 mt-4">
-            <DashboardPreviewVideo />
-          </div>
-
-          {/* Testimonial Section - moved up */}
-          <section className="mt-3 px-4 sm:px-6 lg:px-8 w-full max-w-5xl mx-auto py-5">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-3 text-center">What Our Founders Are Saying</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Victoria */}
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
-                <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Victoria Aguilar, Poshmark seller</div>
-                <div className="text-neutral-700 italic">"I wasn't sure if I even needed an LLC, but Genie helped me understand what was required. I still had to look up a few things for my state, but the checklist made it way easier."</div>
+          {/* Testimonial Section - High Trust Design */}
+          <section className="mt-3 px-4 sm:px-6 lg:px-8 w-full max-w-6xl mx-auto py-8">
+            <h2 className="text-2xl md:text-3xl font-semibold text-neutral-900 mb-8 text-center">From Overwhelmed to Officially Launched</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Melissa */}
+              <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+                {/* Star Rating */}
+                <div className="flex gap-1 mb-4">
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                </div>
+                
+                {/* Content Area - Flex grow to push footer to bottom */}
+                <div className="flex-1 flex flex-col">
+                  {/* Headline */}
+                  <h3 className="font-bold text-lg text-neutral-900 mb-4">
+                    "Didn't know where to start until I found this."
+                  </h3>
+                  
+                  {/* Body Text */}
+                  <p className="text-neutral-700 leading-relaxed flex-1">
+                    "I googled for a while and got nowhere. Gave this a shot and got it done for cheap so I recommend."
+                  </p>
+                </div>
+                
+                {/* Footer - Always at bottom */}
+                <div className="mt-6">
+                  <hr className="border-gray-200 mb-4" />
+                  <div className="flex items-center">
+                    <img 
+                      src="https://ui-avatars.com/api/?name=Melissa+R&background=6366f1&color=fff&size=40" 
+                      alt="Melissa R" 
+                      className="w-10 h-10 rounded-full"
+                    />
+                                          <div className="ml-3">
+                        <div className="font-semibold text-neutral-900">Melissa R.</div>
+                        <div className="text-sm text-neutral-600">Opening her first Etsy shop</div>
+                      </div>
+                  </div>
+                </div>
               </div>
-              {/* Justin */}
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
-                <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Justin G, stay at home dad</div>
-                <div className="text-neutral-700 italic">"Honestly, I wasn't expecting much from a $49 product but it worked. It didn't do everything for me, but I liked that I could move at my own pace."</div>
+              
+              {/* David */}
+              <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+                {/* Star Rating */}
+                <div className="flex gap-1 mb-4">
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                </div>
+                
+                {/* Content Area - Flex grow to push footer to bottom */}
+                <div className="flex-1 flex flex-col">
+                  {/* Headline */}
+                  <h3 className="font-bold text-lg text-neutral-900 mb-4">
+                    "Honestly? Just made things simpler."
+                  </h3>
+                  
+                  {/* Body Text */}
+                  <p className="text-neutral-700 leading-relaxed flex-1">
+                    "I didn't know what I was doing at all but the process was pretty clear so it wasn't that hard"
+                  </p>
+                </div>
+                
+                {/* Footer - Always at bottom */}
+                <div className="mt-6">
+                  <hr className="border-gray-200 mb-4" />
+                  <div className="flex items-center">
+                    <img 
+                      src="https://ui-avatars.com/api/?name=David+M&background=10b981&color=fff&size=40" 
+                      alt="David M" 
+                      className="w-10 h-10 rounded-full"
+                    />
+                                          <div className="ml-3">
+                        <div className="font-semibold text-neutral-900">David M.</div>
+                        <div className="text-sm text-neutral-600">Opening an online business</div>
+                      </div>
+                  </div>
+                </div>
               </div>
-              {/* Cameron */}
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center gap-2">
-                <Quote className="w-6 h-6 text-blue-400 mb-2" />
-                <div className="font-bold text-neutral-900">Cameron T, small business owner</div>
-                <div className="text-neutral-700 italic">"I've put off forming an LLC for months because it always felt complicated. Genie didn't magically do it all for me, but it gave me the clarity to finally get it done."</div>
+              
+              {/* Eric */}
+              <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+                {/* Star Rating */}
+                <div className="flex gap-1 mb-4">
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                </div>
+                
+                {/* Content Area - Flex grow to push footer to bottom */}
+                <div className="flex-1 flex flex-col">
+                  {/* Headline */}
+                  <h3 className="font-bold text-lg text-neutral-900 mb-4">
+                    "Helped me stop overthinking."
+                  </h3>
+                  
+                  {/* Body Text */}
+                  <p className="text-neutral-700 leading-relaxed flex-1">
+                    "Saw this and figured I'd give it a try instead of paying other brands much more, i was pretty satisfied and saved a lot."
+                  </p>
+                </div>
+                
+                {/* Footer - Always at bottom */}
+                <div className="mt-6">
+                  <hr className="border-gray-200 mb-4" />
+                  <div className="flex items-center">
+                    <img 
+                      src="https://ui-avatars.com/api/?name=Eric+J&background=f59e0b&color=fff&size=40" 
+                      alt="Eric J" 
+                      className="w-10 h-10 rounded-full"
+                    />
+                                          <div className="ml-3">
+                        <div className="font-semibold text-neutral-900">Eric J.</div>
+                        <div className="text-sm text-neutral-600">First-time business owner</div>
+                      </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="text-center mt-6" data-cta-section>
+            <div className="text-center mt-8" data-cta-section>
               <Button 
                 className="bg-[#1E40AF] text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-[#1E3A8A] transition w-full max-w-xs"
                 onClick={handleGetStarted}
@@ -660,11 +729,6 @@ export default function Home() {
               </Button>
             </div>
           </section>
-          
-          {/* Other Sections */}
-          <div className="mt-3 mb-1 w-full">
-            <WhyGenieSection />
-          </div>
 
           {/* Updated What's Included section with new benefit-focused descriptions */}
           <section className="w-full bg-white py-8 flex flex-col items-center justify-center border-t border-neutral-100">
@@ -766,6 +830,11 @@ export default function Home() {
             </div>
           </section>
           
+          {/* Dashboard Preview Video - "See How Genie Works in 60 Seconds" */}
+          <div className="w-full px-4 mt-4">
+            <DashboardPreviewVideo />
+          </div>
+          
           {/* Founder's Message Section */}
           <section className="w-full bg-[#F7F7F7] py-20 flex flex-col items-center justify-center">
             <div className="max-w-[700px] w-full px-4 text-center">
@@ -789,8 +858,8 @@ export default function Home() {
                 <p>Starting a business should feel empowering.</p>
                 <p>For me, it was just overwhelming.</p>
                 <p>I was tired of the confusing packages and hidden fees.</p>
-                <p>I realized we just need a clear map to do it ourselves.</p>
-                <p>So I created the antidote: a single $49 map that puts you in complete control.</p>
+                <p>I realized we just need a clear system to do it ourselves.</p>
+                <p>So I created the antidote: a single $49 system that puts you in complete control.</p>
                 <p>It's everything you need to launch with confidence.</p>
                 <p>Nothing more, nothing less.</p>
               </motion.div>
@@ -805,6 +874,82 @@ export default function Home() {
                 <p className="text-lg font-semibold text-neutral-900 mb-1">Ignacio Aguilar</p>
                 <p className="text-base text-neutral-600">Founder, Start With Genie</p>
               </motion.div>
+            </div>
+          </section>
+          
+          {/* AI Assistant Section with Video Demo */}
+          <section className="w-full bg-white py-20 flex flex-col items-center justify-center">
+            <div className="max-w-6xl w-full px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                {/* Column 1: Text Content */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  viewport={{ once: true }}
+                  className="space-y-6"
+                >
+                  <h2 className="text-2xl md:text-3xl font-semibold text-neutral-900">
+                    Stuck? Get answers in seconds.
+                  </h2>
+                  
+                  <p className="text-lg text-neutral-600 leading-relaxed">
+                    No more searching through confusing forums or waiting for email replies. Our AI assistant is trained on the LLC formation process to give you instant clarity whenever you need it, 24/7.
+                  </p>
+                  
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-neutral-700">24/7 Availability</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-neutral-700">Instant answers, no delays</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-neutral-700">Trained on state-specific rules</span>
+                    </li>
+                  </ul>
+                </motion.div>
+                
+                {/* Column 2: Video Demo */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="flex justify-center"
+                >
+                  <div className="relative w-full max-w-lg">
+                    <motion.video
+                      src="/genie-assistant.mov"
+                      autoPlay
+                      muted
+                      loop
+                      controls
+                      controlsList="nodownload noremoteplayback"
+                      disablePictureInPicture
+                      playsInline
+                      preload="metadata"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, ease: 'easeOut' }}
+                      viewport={{ once: true }}
+                      className="rounded-2xl shadow-2xl w-full aspect-video bg-black object-cover"
+                      style={{ outline: 'none', border: 'none', padding: 0 }}
+                      onLoadedMetadata={(e) => {
+                        if (e.currentTarget) {
+                          e.currentTarget.playbackRate = 2.0;
+                        }
+                      }}
+                      title="A screen recording of the Start With Genie AI assistant answering a question."
+                    >
+                      Your browser does not support the video tag.
+                    </motion.video>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </section>
           
@@ -827,8 +972,8 @@ export default function Home() {
                 <div className="text-center pb-4">
                   <h3 className="text-lg font-semibold text-neutral-700">Feature</h3>
                 </div>
-                <div className="text-center pb-4 bg-blue-50 rounded-lg p-4">
-                  <h3 className="text-lg font-semibold text-blue-900">Start With Genie</h3>
+                <div className="text-center pb-4">
+                  <h3 className="text-lg font-semibold text-neutral-700">Start With Genie</h3>
                 </div>
                 <div className="text-center pb-4">
                   <h3 className="text-lg font-semibold text-neutral-700">Traditional Filing Services</h3>
@@ -838,7 +983,7 @@ export default function Home() {
                 <div className="py-4 border-b border-neutral-200">
                   <h4 className="font-semibold text-neutral-900">Control</h4>
                 </div>
-                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                <div className="py-4 border-b border-neutral-200">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     <p className="text-neutral-700">You file directly and stay in full control.</p>
@@ -855,7 +1000,7 @@ export default function Home() {
                 <div className="py-4 border-b border-neutral-200">
                   <h4 className="font-semibold text-neutral-900">Clarity</h4>
                 </div>
-                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                <div className="py-4 border-b border-neutral-200">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     <p className="text-neutral-700">A clear roadmap so you understand every step.</p>
@@ -872,7 +1017,7 @@ export default function Home() {
                 <div className="py-4 border-b border-neutral-200">
                   <h4 className="font-semibold text-neutral-900">Price</h4>
                 </div>
-                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                <div className="py-4 border-b border-neutral-200">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     <p className="text-neutral-700">$49 flat fee. That's it. No upsells.</p>
@@ -889,7 +1034,7 @@ export default function Home() {
                 <div className="py-4 border-b border-neutral-200">
                   <h4 className="font-semibold text-neutral-900">Operating Agreement</h4>
                 </div>
-                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                <div className="py-4 border-b border-neutral-200">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     <p className="text-neutral-700">Included in your kit, fully customizable.</p>
@@ -906,7 +1051,7 @@ export default function Home() {
                 <div className="py-4">
                   <h4 className="font-semibold text-neutral-900">Speed</h4>
                 </div>
-                <div className="py-4 bg-blue-50 rounded-lg p-4">
+                <div className="py-4">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     <p className="text-neutral-700">Instant access to your documents and map.</p>
@@ -1002,9 +1147,39 @@ export default function Home() {
           
           <CompareSection />
           
+          {/* What You Don't Get Section */}
+          <section className="w-full max-w-3xl mx-auto flex flex-col items-center py-5 md:py-6 px-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-center text-neutral-900 mb-2">
+              What You Don't Get
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 text-center mb-5">
+              We cut out the stuff that makes other LLC setups slow, confusing, and overpriced.
+            </p>
+            <ul className="w-full max-w-md mx-auto flex flex-col gap-4">
+              <li className="flex items-center gap-3">
+                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg">Confusing packages</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg">Surprise fees</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg">Endless upsells</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+                <span className="text-neutral-800 text-base md:text-lg font-medium">
+                  Just what you need — for $49 flat
+                </span>
+              </li>
+            </ul>
+          </section>
+          
           <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-12 mb-8"></div>
           
-          {/* Second CTA under How We Compare */}
+          {/* Final CTA */}
           <section className="w-full max-w-xl mx-auto px-4 py-5 text-center" data-cta-section>
             <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
             <Button 
