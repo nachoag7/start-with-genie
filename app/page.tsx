@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '../components/ui/Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, ShieldCheck, Sparkles, Timer as TimerIcon, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote } from 'lucide-react'
+import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, CheckCircle2, ShieldCheck, Sparkles, Timer as TimerIcon, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote } from 'lucide-react'
 import Footer from '../components/Footer'
 import Head from 'next/head'
 import EINGuidePopup from '../components/EINGuidePopup'
@@ -573,8 +573,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
             >
-              Includes step-by-step instructions, EIN help, and your operating agreement.  
-              No upsells. No law firm. Get everything you need to launch.
+              We give you a crystal-clear, step-by-step roadmap to form your LLC yourself. Get personalized state instructions, your operating agreement, and an EIN guide—everything you need, for one flat $49 fee.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -666,8 +665,6 @@ export default function Home() {
           <div className="mt-3 mb-1 w-full">
             <WhyGenieSection />
           </div>
-
-          <CompareSection />
 
           {/* Updated What's Included section with new benefit-focused descriptions */}
           <section className="w-full bg-white py-8 flex flex-col items-center justify-center border-t border-neutral-100">
@@ -768,6 +765,242 @@ export default function Home() {
               </motion.div>
             </div>
           </section>
+          
+          {/* Founder's Message Section */}
+          <section className="w-full bg-[#F7F7F7] py-20 flex flex-col items-center justify-center">
+            <div className="max-w-[700px] w-full px-4 text-center">
+              <motion.h2 
+                className="text-2xl md:text-3xl font-semibold text-neutral-900 mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                viewport={{ once: true }}
+              >
+                For Founders, By a Founder
+              </motion.h2>
+              
+              <motion.div
+                className="space-y-6 text-lg md:text-xl text-neutral-700 leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <p>Starting a business should feel empowering.</p>
+                <p>For me, it was just overwhelming.</p>
+                <p>I was tired of the confusing packages and hidden fees.</p>
+                <p>I realized we just need a clear map to do it ourselves.</p>
+                <p>So I created the antidote: a single $49 map that puts you in complete control.</p>
+                <p>It's everything you need to launch with confidence.</p>
+                <p>Nothing more, nothing less.</p>
+              </motion.div>
+              
+              <motion.div
+                className="mt-12 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <p className="text-lg font-semibold text-neutral-900 mb-1">Ignacio Aguilar</p>
+                <p className="text-base text-neutral-600">Founder, Start With Genie</p>
+              </motion.div>
+            </div>
+          </section>
+          
+          {/* Genie vs. Old Way Comparison Chart */}
+          <section className="w-full bg-white py-20 flex flex-col items-center justify-center">
+            <div className="max-w-6xl w-full px-4">
+              <motion.h2 
+                className="text-2xl md:text-3xl font-semibold text-neutral-900 mb-12 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                viewport={{ once: true }}
+              >
+                Genie vs. The Old Way
+              </motion.h2>
+              
+              {/* Desktop View - 3 Column Grid */}
+              <div className="hidden md:grid md:grid-cols-3 md:gap-8">
+                {/* Column Headers */}
+                <div className="text-center pb-4">
+                  <h3 className="text-lg font-semibold text-neutral-700">Feature</h3>
+                </div>
+                <div className="text-center pb-4 bg-blue-50 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-blue-900">Start With Genie</h3>
+                </div>
+                <div className="text-center pb-4">
+                  <h3 className="text-lg font-semibold text-neutral-700">Traditional Filing Services</h3>
+                </div>
+                
+                {/* Control Row */}
+                <div className="py-4 border-b border-neutral-200">
+                  <h4 className="font-semibold text-neutral-900">Control</h4>
+                </div>
+                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">You file directly and stay in full control.</p>
+                  </div>
+                </div>
+                <div className="py-4 border-b border-neutral-200">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">A third party files for you, often with delays.</p>
+                  </div>
+                </div>
+                
+                {/* Clarity Row */}
+                <div className="py-4 border-b border-neutral-200">
+                  <h4 className="font-semibold text-neutral-900">Clarity</h4>
+                </div>
+                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">A clear roadmap so you understand every step.</p>
+                  </div>
+                </div>
+                <div className="py-4 border-b border-neutral-200">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">A confusing process with little to no insight.</p>
+                  </div>
+                </div>
+                
+                {/* Price Row */}
+                <div className="py-4 border-b border-neutral-200">
+                  <h4 className="font-semibold text-neutral-900">Price</h4>
+                </div>
+                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">$49 flat fee. That's it. No upsells.</p>
+                  </div>
+                </div>
+                <div className="py-4 border-b border-neutral-200">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">$0 to $500+ with a maze of surprise fees & upsells.</p>
+                  </div>
+                </div>
+                
+                {/* Operating Agreement Row */}
+                <div className="py-4 border-b border-neutral-200">
+                  <h4 className="font-semibold text-neutral-900">Operating Agreement</h4>
+                </div>
+                <div className="py-4 border-b border-neutral-200 bg-blue-50 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">Included in your kit, fully customizable.</p>
+                  </div>
+                </div>
+                <div className="py-4 border-b border-neutral-200">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">Almost always a separate, expensive add-on.</p>
+                  </div>
+                </div>
+                
+                {/* Speed Row */}
+                <div className="py-4">
+                  <h4 className="font-semibold text-neutral-900">Speed</h4>
+                </div>
+                <div className="py-4 bg-blue-50 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">Instant access to your documents and map.</p>
+                  </div>
+                </div>
+                <div className="py-4">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-neutral-700">Days or weeks of processing and waiting.</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Mobile View - Stacked Layout */}
+              <div className="md:hidden space-y-8">
+                {/* Control Block */}
+                <div className="bg-white rounded-lg border border-neutral-200 p-6">
+                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Control</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">You file directly and stay in full control.</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">A third party files for you, often with delays.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Clarity Block */}
+                <div className="bg-white rounded-lg border border-neutral-200 p-6">
+                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Clarity</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">A clear roadmap so you understand every step.</p>
+                    </div>
+                                         <div className="flex items-start gap-3">
+                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                       <p className="text-neutral-700">A confusing process with little to no insight.</p>
+                     </div>
+                  </div>
+                </div>
+                
+                {/* Price Block */}
+                <div className="bg-white rounded-lg border border-neutral-200 p-6">
+                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Price</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">$49 flat fee. That's it. No upsells.</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">$0 to $500+ with a maze of surprise fees & upsells.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Operating Agreement Block */}
+                <div className="bg-white rounded-lg border border-neutral-200 p-6">
+                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Operating Agreement</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">Included in your kit, fully customizable.</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">Almost always a separate, expensive add-on.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Speed Block */}
+                <div className="bg-white rounded-lg border border-neutral-200 p-6">
+                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Speed</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">Instant access to your documents and map.</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-neutral-700">Days or weeks of processing and waiting.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <CompareSection />
           
           <div className="w-full max-w-4xl mx-auto border-t border-neutral-200 mt-12 mb-8"></div>
           
