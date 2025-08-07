@@ -1,25 +1,24 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { CheckCircle, XCircle, ArrowRight, Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText, CreditCard, BookOpen, TrendingUp, Calendar, Receipt, Clock, FileDigit, Send, Zap, Smartphone, Heart, Users, Home, UserPlus, Monitor, Download, GraduationCap, Book, UserCheck, Users2, FileText as FileTextIcon, MapPin, Globe, Lock, Unlock, HelpCircle, AlertCircle, Users2 as Users2Icon, Settings, Shield as ShieldIcon, FileCheck, CreditCard as CreditCardIcon, AlertTriangle as AlertTriangleIcon, UserCheck as UserCheckIcon, FileText as FileTextIcon2, Calendar as CalendarIcon, Users as UsersIcon, Shield as ShieldIcon2, AlertTriangle as AlertTriangleIcon2, Lightbulb, Monitor as MonitorIcon, Smartphone as SmartphoneIcon, Car, GraduationCap as GraduationCapIcon, PawPrint, Leaf, Wrench, ShoppingBag, TrendingUp as TrendingUpIcon, Target, Rocket, Star, Building as BuildingIcon, FileText as FileTextIcon3, MapPin as MapPinIcon, Search, AlertCircle as AlertCircleIcon, Key, Car as CarIcon, UserCheck as UserCheckIcon2, Store, AlertTriangle as AlertTriangleIcon3, Package, AlertTriangle as AlertTriangleIcon4, DollarSign as DollarSignIcon, Truck, FileText as FileTextIcon4, Phone, MapPin as MapPinIcon2, Building as BuildingIcon2, Package as PackageIcon, DollarSign as DollarSignIcon2, Calendar as CalendarIcon2, AlertTriangle as AlertTriangleIcon5, ShoppingBag as ShoppingBagIcon, DollarSign as DollarSignIcon3, Shield as ShieldIcon3, CreditCard as CreditCardIcon2, TrendingUp as TrendingUpIcon2, AlertTriangle as AlertTriangleIcon6 } from "lucide-react";
 import SeoPageLayout from "../../components/SeoPageLayout";
 import { Button } from "../../components/ui/Button";
 import Footer from "../../components/Footer";
+import { Metadata } from "next";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
+export const metadata: Metadata = {
+  title: 'Do Etsy Sellers Need an LLC? Tax & Liability Guide 2025',
+  description: 'Do you need an LLC for Etsy? Get expert advice on when Etsy sellers should form an LLC, tax requirements, liability protection, and business setup. Start your LLC for $49.',
+  openGraph: {
+    title: 'Do Etsy Sellers Need an LLC? Tax & Liability Guide 2025',
+    description: 'Do you need an LLC for Etsy? Get expert advice on when Etsy sellers should form an LLC, tax requirements, liability protection, and business setup.',
   },
-};
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Do Etsy Sellers Need an LLC? Tax & Liability Guide 2025',
+    description: 'Do you need an LLC for Etsy? Get expert advice on when Etsy sellers should form an LLC, tax requirements, liability protection, and business setup.',
+  },
+}
 
 export default function DoINeedAnLLCForEtsyPage() {
   return (
@@ -27,42 +26,28 @@ export default function DoINeedAnLLCForEtsyPage() {
       <div id="do-i-need-an-llc-for-etsy">
         {/* Hero Section */}
         <section className="hero-section text-center px-4 py-16">
-          <motion.h1 
+          <h1 
             className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             I Made Money on Etsy — Do I Need an LLC?
-          </motion.h1>
-          <motion.p 
+          </h1>
+          <p 
             className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
           >
             Got your first Etsy sale and wondering if you need an LLC? Here's exactly when you do, when you don't, and how to set it up the smart way.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-          >
+          </p>
+          <div>
             <Link href="/checkout">
               <Button className="text-lg px-8 py-3">
                 Want to set things up the smart way? Start With Genie shows you step-by-step →
               </Button>
             </Link>
-          </motion.div>
+          </div>
         </section>
 
         {/* What Happens When You Make Your First Sale */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-blue-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -96,15 +81,11 @@ export default function DoINeedAnLLCForEtsyPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Do You Need an LLC */}
-        <motion.section 
+        <section 
           className="py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -156,15 +137,11 @@ export default function DoINeedAnLLCForEtsyPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* When You Can Hold Off */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-green-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -212,15 +189,11 @@ export default function DoINeedAnLLCForEtsyPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* How to Set It Up */}
-        <motion.section 
+        <section 
           className="py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -254,15 +227,11 @@ export default function DoINeedAnLLCForEtsyPage() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Can You Lose Your Etsy Shop Without an LLC */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-red-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -305,15 +274,11 @@ export default function DoINeedAnLLCForEtsyPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Final Word */}
-        <motion.section 
+        <section 
           className="py-16 px-4 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
@@ -329,15 +294,11 @@ export default function DoINeedAnLLCForEtsyPage() {
               </Button>
             </Link>
           </div>
-        </motion.section>
+        </section>
 
         {/* CTA Section */}
-        <motion.section 
+        <section 
           className="py-16 px-4 text-center bg-gray-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
@@ -359,7 +320,7 @@ export default function DoINeedAnLLCForEtsyPage() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Footer */}
         <Footer />

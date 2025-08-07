@@ -5,8 +5,17 @@ import Footer from "../../components/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LLC vs DBA: What's Actually Right for You?",
-  description: "Confused about whether to form an LLC or just get a DBA? This no-fluff guide breaks down the difference and helps you decide what's right in 2025.",
+  title: "LLC vs DBA: Business Structure & Liability Protection Guide 2025",
+  description: "Should you form an LLC or get a DBA? Compare liability protection, business structure, tax benefits, and legal requirements. Get expert advice for your business. Start your LLC for $49.",
+  openGraph: {
+    title: "LLC vs DBA: Business Structure & Liability Protection Guide 2025",
+    description: "Should you form an LLC or get a DBA? Compare liability protection, business structure, tax benefits, and legal requirements.",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "LLC vs DBA: Business Structure & Liability Protection Guide 2025",
+    description: "Should you form an LLC or get a DBA? Compare liability protection, business structure, tax benefits, and legal requirements.",
+  },
 };
 
 export default function LLCvsDBAPage() {

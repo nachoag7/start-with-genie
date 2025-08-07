@@ -1,19 +1,27 @@
-'use client'
-
 import React from 'react'
 import Link from 'next/link'
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Master CA Biz Search: Complete California Business Guide',
+  description: 'Learn how to use CA Biz Search to find business information, verify LLC status, and research competitors in California. Step-by-step guide with tips.',
+  openGraph: {
+    title: 'Master CA Biz Search: Complete California Business Guide',
+    description: 'Learn how to use CA Biz Search to find business information, verify LLC status, and research competitors in California. Step-by-step guide with tips.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Master CA Biz Search: Complete California Business Guide',
+    description: 'Learn how to use CA Biz Search to find business information, verify LLC status, and research competitors in California. Step-by-step guide with tips.',
+  },
+}
 
 export default function HowToMasterCABizSearchPage() {
   return (
     <>
-      <Head>
-        <title>Master CA Biz Search: Complete California Business Guide</title>
-        <meta name="description" content="Learn how to use CA Biz Search to find business information, verify LLC status, and research competitors in California. Step-by-step guide with tips." />
-      </Head>
       <SeoPageLayout>
         <div className="max-w-4xl mx-auto px-4 py-12">
           {/* Hero Section */}

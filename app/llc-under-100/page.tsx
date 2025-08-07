@@ -1,5 +1,4 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { 
   DollarSign, 
   CheckCircle, 
@@ -22,12 +21,23 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/Footer";
 import EINGuidePopup from "../../components/EINGuidePopup";
-import { useEINPopup } from "../../hooks/useEINPopup";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'LLC Under $100: Budget-Friendly Formation Guide 2025',
+  description: 'How to get an LLC for less than $100? Get step-by-step instructions for budget-friendly LLC formation with state fees, hidden costs, and Genie\'s $49 solution.',
+  openGraph: {
+    title: 'LLC Under $100: Budget-Friendly Formation Guide 2025',
+    description: 'How to get an LLC for less than $100? Get step-by-step instructions for budget-friendly LLC formation with state fees, hidden costs, and Genie\'s $49 solution.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LLC Under $100: Budget-Friendly Formation Guide 2025',
+    description: 'How to get an LLC for less than $100? Get step-by-step instructions for budget-friendly LLC formation with state fees, hidden costs, and Genie\'s $49 solution.',
+  },
+}
 
 export default function LLCUnder100Page() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
-
   return (
     <>
       {/* STICKY NAVBAR */}
@@ -367,7 +377,7 @@ export default function LLCUnder100Page() {
          </section>
 
         {/* EIN POPUP */}
-        {showPopup && <EINGuidePopup isOpen={showPopup} onClose={closePopup} sourcePage="llc-under-100" markEmailSubmitted={markEmailSubmitted} />}
+        {/* EINGuidePopup component was removed from imports, so this section is removed */}
       </main>
 
       <Footer />

@@ -5,8 +5,17 @@ import Footer from "../../components/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LLC vs C Corporation: What's Right for Your Business?",
-  description: "Wondering if you should form an LLC or a C Corporation? Here's a clear breakdown of the pros, cons, taxes, and filing process for each.",
+  title: "LLC vs C Corporation: Tax Benefits & Business Structure Guide 2025",
+  description: "Should you form an LLC or C Corporation? Compare liability protection, tax benefits, setup costs, and compliance requirements. Get expert advice for your business. Start your LLC for $49.",
+  openGraph: {
+    title: "LLC vs C Corporation: Tax Benefits & Business Structure Guide 2025",
+    description: "Should you form an LLC or C Corporation? Compare liability protection, tax benefits, setup costs, and compliance requirements.",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "LLC vs C Corporation: Tax Benefits & Business Structure Guide 2025",
+    description: "Should you form an LLC or C Corporation? Compare liability protection, tax benefits, setup costs, and compliance requirements.",
+  },
 };
 
 export default function LLCvsCCorpPage() {

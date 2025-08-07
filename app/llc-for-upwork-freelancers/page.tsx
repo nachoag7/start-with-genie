@@ -1,25 +1,24 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { CheckCircle, XCircle, ArrowRight, Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText, CreditCard } from "lucide-react";
 import SeoPageLayout from "../../components/SeoPageLayout";
 import { Button } from "../../components/ui/Button";
 import Footer from "../../components/Footer";
+import { Metadata } from "next";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
+export const metadata: Metadata = {
+  title: 'LLC for Upwork Freelancers: Protection & Tax Guide 2025',
+  description: 'Do Upwork freelancers need an LLC? Get expert advice on liability protection, tax benefits, and when to form an LLC for your freelance business. Start your LLC for $49.',
+  openGraph: {
+    title: 'LLC for Upwork Freelancers: Protection & Tax Guide 2025',
+    description: 'Do Upwork freelancers need an LLC? Get expert advice on liability protection, tax benefits, and when to form an LLC for your freelance business.',
   },
-};
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LLC for Upwork Freelancers: Protection & Tax Guide 2025',
+    description: 'Do Upwork freelancers need an LLC? Get expert advice on liability protection, tax benefits, and when to form an LLC for your freelance business.',
+  },
+}
 
 export default function LLCForUpworkFreelancersPage() {
   return (
@@ -27,42 +26,28 @@ export default function LLCForUpworkFreelancersPage() {
       <div id="llc-for-upwork-freelancers">
         {/* Hero Section */}
         <section className="hero-section text-center px-4 py-16">
-          <motion.h1 
+          <h1 
             className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             Do You Need an LLC for Freelancing on Upwork?
-          </motion.h1>
-          <motion.p 
+          </h1>
+          <p 
             className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
           >
             Upwork freelancers often wonder if an LLC is worth the investment. Here's what actually matters for your situation.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-          >
+          </p>
+          <div>
             <Link href="/checkout">
               <Button className="text-lg px-8 py-3">
                 Start Your LLC for $49 →
               </Button>
             </Link>
-          </motion.div>
+          </div>
         </section>
 
         {/* What Upwork Freelancers Need to Know */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-gray-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -107,15 +92,11 @@ export default function LLCForUpworkFreelancersPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Benefits for Upwork Freelancers */}
-        <motion.section 
+        <section 
           className="py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -145,15 +126,11 @@ export default function LLCForUpworkFreelancersPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* When You Don't Need an LLC */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-gray-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -190,15 +167,11 @@ export default function LLCForUpworkFreelancersPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Tax Considerations */}
-        <motion.section 
+        <section 
           className="py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -237,15 +210,11 @@ export default function LLCForUpworkFreelancersPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* How to Decide */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-blue-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -282,15 +251,11 @@ export default function LLCForUpworkFreelancersPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* CTA Section */}
-        <motion.section 
+        <section 
           className="py-16 px-4 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
@@ -312,7 +277,7 @@ export default function LLCForUpworkFreelancersPage() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Footer */}
         <Footer />

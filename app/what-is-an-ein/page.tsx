@@ -1,39 +1,25 @@
-"use client";
-
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import SeoPageLayout from "../../components/SeoPageLayout";
-import { HelpCircle, Banknote, Users, FileText, BadgeCheck, CreditCard, ArrowRight } from "lucide-react";
+import { HelpCircle, Banknote, Users, FileText, BadgeCheck, CreditCard, ArrowRight, Shield, AlertTriangle, CheckCircle, Clock, DollarSign, Building, User, Lock, Unlock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../../components/ui/Button";
+import { Metadata } from "next";
 
-// FadeIn on scroll utility
-function useFadeInOnScroll(ref: React.RefObject<HTMLElement>, delay = 0) {
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const handle = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          node.style.animation = `fadeIn 0.6s ${delay}s both`;
-        }
-      });
-    };
-    const observer = new window.IntersectionObserver(handle, { threshold: 0.15 });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [ref, delay]);
+export const metadata: Metadata = {
+  title: 'What is an EIN? Employer Identification Number Guide 2025',
+  description: 'What is an EIN? Get expert guidance on Employer Identification Numbers, why your LLC needs one, and how to apply for free. Start your LLC for $49.',
+  openGraph: {
+    title: 'What is an EIN? Employer Identification Number Guide 2025',
+    description: 'What is an EIN? Get expert guidance on Employer Identification Numbers, why your LLC needs one, and how to apply for free.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'What is an EIN? Employer Identification Number Guide 2025',
+    description: 'What is an EIN? Get expert guidance on Employer Identification Numbers, why your LLC needs one, and how to apply for free.',
+  },
 }
 
 export default function WhatIsEINPage() {
-  const section1Ref = useRef<HTMLDivElement>(null);
-  const section2Ref = useRef<HTMLDivElement>(null);
-  const section3Ref = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  useFadeInOnScroll(section1Ref);
-  useFadeInOnScroll(section2Ref, 0.08);
-  useFadeInOnScroll(section3Ref, 0.16);
-  useFadeInOnScroll(ctaRef, 0.24);
-
   return (
     <SeoPageLayout>
       <main
@@ -47,7 +33,6 @@ export default function WhatIsEINPage() {
         <section className="section" style={{ padding: "4.5rem 0 2.5rem 0" }}>
           <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 1.5rem" }}>
             <h1
-              className="fadeUp"
               style={{
                 fontSize: 32,
                 fontWeight: 600,
@@ -58,7 +43,6 @@ export default function WhatIsEINPage() {
               What Is an EIN and Why Does Your LLC Need One?
             </h1>
             <p
-              className="fadeUp fadeUp-delay-1"
               style={{
                 textAlign: "center",
                 color: "#666",
@@ -76,16 +60,26 @@ export default function WhatIsEINPage() {
         </section>
 
         {/* Section: What Is an EIN? */}
-        <section className="section fadeUp fadeUp-delay-1" style={{ maxWidth: 720, margin: '0 auto' }}>
+        <section className="section" style={{ maxWidth: 720, margin: '0 auto' }}>
           <h2>What Is an EIN?</h2>
           <p>
-            An EIN (Employer Identification Number) is a 9-digit number issued by the IRS to identify your business for tax purposes—like a Social Security Number for your company.
+            An EIN (Employer Identification Number) is a 9-digit number issued by the IRS to identify your business for tax purposes—like a Social Security Number for your company. Think of it as your business's unique fingerprint in the eyes of the government.
+          </p>
+          <p>
+            Every business entity, including LLCs, corporations, partnerships, and sole proprietorships, can obtain an EIN. It's completely free to apply for and serves as your business's primary identifier for all tax-related activities.
+          </p>
+          <p>
+            The EIN format is XX-XXXXXXX, where X represents numbers. For example: 12-3456789. This number stays with your business for its entire lifetime and is used for everything from opening bank accounts to filing tax returns.
           </p>
         </section>
         <div className="section-gap" />
+
         {/* Section: Do You Need an EIN for Your LLC? */}
-        <section className="section fadeUp fadeUp-delay-2" style={{ maxWidth: 720, margin: '0 auto' }}>
+        <section className="section" style={{ maxWidth: 720, margin: '0 auto' }}>
           <h2>Do You Need an EIN for Your LLC?</h2>
+          <p>
+            While not every LLC is legally required to have an EIN, there are several situations where you'll definitely need one. Here are the most common scenarios:
+          </p>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
               <Banknote size={18} style={{ color: '#999' }} /> Open a business bank account
@@ -103,18 +97,102 @@ export default function WhatIsEINPage() {
               <CreditCard size={18} style={{ color: '#999' }} /> Build business credit
             </li>
           </ul>
-        </section>
-        <div className="section-gap" />
-        {/* Section: How to Get an EIN */}
-        <section className="section fadeUp fadeUp-delay-3" style={{ maxWidth: 720, margin: '0 auto' }}>
-          <h2>How to Get an EIN</h2>
           <p>
-            You can apply for an EIN for free on the IRS website—but if you’ve never done it before, it can be confusing. That’s why many first-time founders use a guided assistant.
+            Even if you're a single-member LLC with no employees, getting an EIN is still highly recommended. It helps separate your business identity from your personal identity, which is crucial for maintaining the liability protection that makes LLCs so valuable.
           </p>
         </section>
+        <div className="section-gap" />
+
+        {/* Section: Benefits of Having an EIN */}
+        <section className="section" style={{ maxWidth: 720, margin: '0 auto' }}>
+          <h2>Benefits of Having an EIN</h2>
+          <p>
+            Beyond the legal requirements, having an EIN offers several important advantages for your business:
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <Shield size={18} style={{ color: '#999' }} />
+            <span><strong>Privacy Protection:</strong> Using an EIN instead of your SSN keeps your personal information private</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <Building size={18} style={{ color: '#999' }} />
+            <span><strong>Professional Credibility:</strong> Banks, vendors, and customers view businesses with EINs as more established</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <CreditCard size={18} style={{ color: '#999' }} />
+            <span><strong>Business Credit Building:</strong> Essential for establishing business credit separate from personal credit</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <User size={18} style={{ color: '#999' }} />
+            <span><strong>Employee Hiring:</strong> Required for payroll taxes and employment verification</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <DollarSign size={18} style={{ color: '#999' }} />
+            <span><strong>Tax Advantages:</strong> Simplifies tax filing and can provide additional deduction opportunities</span>
+          </div>
+        </section>
+        <div className="section-gap" />
+
+        {/* Section: How to Get an EIN */}
+        <section className="section" style={{ maxWidth: 720, margin: '0 auto' }}>
+          <h2>How to Get an EIN</h2>
+          <p>
+            You can apply for an EIN for free on the IRS website—but if you've never done it before, it can be confusing. That's why many first-time founders use a guided assistant.
+          </p>
+          <h3>Step-by-Step Process:</h3>
+          <ol style={{ paddingLeft: '1.5rem' }}>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <strong>Prepare Your Information:</strong> You'll need your business name, address, and responsible party information
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <strong>Choose Your Application Method:</strong> Online (fastest), fax, or mail
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <strong>Complete the Application:</strong> Form SS-4 with all required details
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <strong>Submit and Receive:</strong> Online applications get immediate approval
+            </li>
+            <li>
+              <strong>Save Your EIN:</strong> Store it securely - you'll use it for all business activities
+            </li>
+          </ol>
+          <p>
+            The online application typically takes 5-10 minutes and provides immediate results. Fax applications take 4-5 business days, while mail applications can take 4-6 weeks.
+          </p>
+        </section>
+        <div className="section-gap" />
+
+        {/* Section: Common Mistakes to Avoid */}
+        <section className="section" style={{ maxWidth: 720, margin: '0 auto' }}>
+          <h2>Common Mistakes to Avoid</h2>
+          <p>
+            When applying for an EIN, avoid these common pitfalls that can delay or complicate your application:
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <AlertTriangle size={18} style={{ color: '#ff6b6b' }} />
+            <span><strong>Incorrect Business Information:</strong> Ensure your business name and address match your LLC filing exactly</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <AlertTriangle size={18} style={{ color: '#ff6b6b' }} />
+            <span><strong>Wrong Responsible Party:</strong> The responsible party must be a real person, not another business entity</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <AlertTriangle size={18} style={{ color: '#ff6b6b' }} />
+            <span><strong>Multiple Applications:</strong> Don't apply multiple times - one EIN per business entity</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <AlertTriangle size={18} style={{ color: '#ff6b6b' }} />
+            <span><strong>Not Saving the EIN:</strong> Print or save your EIN immediately - the IRS won't resend it</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <AlertTriangle size={18} style={{ color: '#ff6b6b' }} />
+            <span><strong>Using Personal SSN:</strong> Always use your EIN for business activities, never your personal SSN</span>
+          </div>
+        </section>
+        <div className="section-gap" />
 
         {/* CTA Section */}
-        <div className="cta-section fadeUp fadeUp-delay-5">
+        <div className="cta-section">
           <h2 className="fadeUp" style={{ fontSize: 20, fontWeight: 500, marginBottom: "1rem" }}>Want to launch your LLC the easy way?</h2>
           <p className="fadeUp fadeUp-delay-1">
             Start With Genie gives you clear LLC instructions, an EIN walkthrough, operating agreement, and a launch checklist—no fluff.

@@ -1,11 +1,23 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import { DollarSign, Info, FileText, CheckCircle, Wrench, MapPin, Banknote, AlertTriangle, Target, ArrowRight, UserCheck, BookOpen, Folder, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import SeoPageLayout from "../../components/SeoPageLayout";
 import { Button } from "../../components/ui/Button";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'LLC Cost Breakdown: State Fees & Hidden Costs 2025',
+  description: 'How much does it cost to start an LLC? Get a complete breakdown of state filing fees, hidden costs, and how to launch your LLC for under $200. Start your LLC for $49.',
+  openGraph: {
+    title: 'LLC Cost Breakdown: State Fees & Hidden Costs 2025',
+    description: 'How much does it cost to start an LLC? Get a complete breakdown of state filing fees, hidden costs, and how to launch your LLC for under $200.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LLC Cost Breakdown: State Fees & Hidden Costs 2025',
+    description: 'How much does it cost to start an LLC? Get a complete breakdown of state filing fees, hidden costs, and how to launch your LLC for under $200.',
+  },
+}
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -27,54 +39,38 @@ export default function HowMuchDoesItCostToStartLLCPage() {
         {/* Hero Section */}
         <section className="py-20 px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <motion.h1
+            <h1
               className="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight tracking-tight mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               How Much Does It Cost to Start an LLC?
-            </motion.h1>
-            <motion.p
+            </h1>
+            <p
               className="text-xl text-neutral-600 leading-relaxed max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             >
               A clear breakdown of state fees, hidden costs, and how to launch smart—without overspending.
-            </motion.p>
+            </p>
           </div>
         </section>
 
         {/* The real cost of starting an LLC */}
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <h2 className="text-3xl font-semibold text-neutral-900 mb-6">The real cost of starting an LLC</h2>
               <p className="text-lg text-neutral-600 leading-relaxed mb-4">
                 Filing an LLC can cost anywhere from $40 to $500+, depending on your state and how you go about it.
               </p>
               <p className="text-lg text-neutral-600 leading-relaxed mb-4">
-                This guide breaks it all down—so you know exactly what you’ll pay, what to avoid, and how to keep it lean without cutting corners.
+                This guide breaks it all down—so you know exactly what you'll pay, what to avoid, and how to keep it lean without cutting corners.
               </p>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* 1. State filing fee */}
         <section className="py-16 px-4">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <DollarSign className="w-5 h-5 text-green-600 flex-shrink-0" />
                 <span className="text-2xl font-semibold text-neutral-900">1. State filing fee</span>
@@ -118,19 +114,14 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                 <Info className="w-5 h-5 text-blue-500 flex-shrink-0" />
                 <span className="text-neutral-700 text-lg font-medium">Each state sets its own price. Genie shows you the exact fee during setup based on your state.</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* 2. Registered Agent (optional) */}
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <FileText className="w-5 h-5 text-blue-600 flex-shrink-0" />
                 <span className="text-2xl font-semibold text-neutral-900">2. Registered Agent (optional)</span>
@@ -149,19 +140,14 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                 <Wrench className="w-5 h-5 text-gray-700 flex-shrink-0" />
                 <span className="text-neutral-700 text-lg font-medium">Genie explains when you can list yourself and when a service makes sense—no upsells.</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* 3. EIN (Employer Identification Number) */}
         <section className="py-16 px-4">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <UserCheck className="w-5 h-5 text-green-600 flex-shrink-0" />
                 <span className="text-2xl font-semibold text-neutral-900">3. EIN (Employer Identification Number)</span>
@@ -185,19 +171,14 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                 <BookOpen className="w-5 h-5 text-blue-600 flex-shrink-0" />
                 <span className="text-neutral-700 text-lg font-medium">Genie includes a free, step-by-step EIN guide with direct IRS links. No fluff.</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* 4. Operating Agreement */}
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <FileText className="w-5 h-5 text-blue-600 flex-shrink-0" />
                 <span className="text-2xl font-semibold text-neutral-900">4. Operating Agreement</span>
@@ -212,19 +193,14 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                   <li>$0 with Genie (single-member template included)</li>
                 </ul>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* 5. Business licenses or permits */}
         <section className="py-16 px-4">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <Folder className="w-5 h-5 text-gray-700 flex-shrink-0" />
                 <span className="text-2xl font-semibold text-neutral-900">5. Business licenses or permits (depends on your work)</span>
@@ -244,19 +220,14 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                 <Info className="w-5 h-5 text-blue-500 flex-shrink-0" />
                 <span className="text-neutral-700 text-lg font-medium">Genie includes links to check this based on your state—but you’ll apply separately.</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* 6. Business bank account */}
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <Banknote className="w-5 h-5 text-green-700 flex-shrink-0" />
                 <span className="text-2xl font-semibold text-neutral-900">6. Business bank account</span>
@@ -279,19 +250,14 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                   <li>Operating Agreement</li>
                 </ul>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Where most people overspend */}
         <section className="py-16 px-4">
           <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div>
               <div className="flex items-center gap-3 mb-4">
                 <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0" />
                 <span className="text-2xl font-semibold text-neutral-900">Where most people overspend</span>
@@ -331,37 +297,25 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                 <Info className="w-5 h-5 text-blue-500 flex-shrink-0" />
                 <span className="text-neutral-700 text-lg font-medium">Most of this can be done free or included when you know where to look. That’s the Genie difference.</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="py-20 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <motion.h2
+            <h2
               className="text-3xl md:text-4xl font-semibold text-neutral-900 mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               Want a smarter way to launch?
-            </motion.h2>
-            <motion.p
+            </h2>
+            <p
               className="text-xl text-neutral-600 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             >
               Start With Genie gives you everything you need to start your LLC—without overspending.
-            </motion.p>
+            </p>
             <div className="mb-8">
-              <motion.div
-                variants={staggerContainer}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true, amount: 0.3 }}
+              <div
                 className="space-y-2"
               >
                 {[
@@ -372,16 +326,15 @@ export default function HowMuchDoesItCostToStartLLCPage() {
                   "Genie Assistant to answer questions as you go",
                   "Just $49, flat",
                 ].map((item, idx) => (
-                  <motion.div
+                  <div
                     key={idx}
-                    variants={fadeInUp}
                     className="flex items-start gap-3"
                   >
                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-1" />
                     <span className="text-neutral-700 text-lg">{item}</span>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
             <Link href="/">
               <Button size="lg" className="bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] text-white shadow-md hover:brightness-110 px-8 py-4 text-lg font-semibold inline-flex items-center gap-2">

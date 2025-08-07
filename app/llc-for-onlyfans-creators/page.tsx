@@ -1,13 +1,24 @@
-'use client'
-
 import React from 'react'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText, CreditCard, BookOpen, TrendingUp, Calendar, Receipt, Clock, FileDigit, Send, Zap, Smartphone, Heart, Users, Home, UserPlus, Monitor, Download, GraduationCap, Book, UserCheck, Users2, FileText as FileTextIcon, MapPin, Globe, Lock, Unlock, HelpCircle, AlertCircle, CheckCircle, XCircle, ArrowRight } from 'lucide-react'
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'LLC for OnlyFans Creators: Tax Protection & Privacy Guide 2025',
+  description: 'Should OnlyFans creators form an LLC? Get expert advice on tax benefits, privacy protection, liability coverage, and EIN requirements for adult content creators. Start your LLC for $49.',
+  openGraph: {
+    title: 'LLC for OnlyFans Creators: Tax Protection & Privacy Guide 2025',
+    description: 'Should OnlyFans creators form an LLC? Get expert advice on tax benefits, privacy protection, liability coverage, and EIN requirements for adult content creators.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LLC for OnlyFans Creators: Tax Protection & Privacy Guide 2025',
+    description: 'Should OnlyFans creators form an LLC? Get expert advice on tax benefits, privacy protection, liability coverage, and EIN requirements for adult content creators.',
+  },
+}
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -25,51 +36,33 @@ const staggerContainer = {
 export default function LLCForOnlyFansCreatorsPage() {
   return (
     <>
-      <Head>
-        <title>LLC for OnlyFans Creators – Should You File One?</title>
-        <meta name="description" content="Learn if starting an LLC makes sense for your OnlyFans business. Clear, honest answers about taxes, privacy, and protection for creators." />
-      </Head>
       
       <SeoPageLayout>
         <div id="llc-for-onlyfans-creators">
           {/* Hero Section */}
           <section className="hero-section text-center px-4 py-16">
-            <motion.h1 
+            <h1 
               className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
             >
               Should You Start an LLC for OnlyFans? Here's the Honest Breakdown
-            </motion.h1>
-            <motion.p 
+            </h1>
+            <p 
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
             >
               Wondering if an LLC makes sense for your OnlyFans business? Here's the straight talk about protection, privacy, taxes, and when it's worth the investment.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-            >
+            </p>
+            <div>
               <Link href="https://www.startwithgenie.com">
                 <Button className="text-lg px-8 py-3">
                   Get Started With Genie →
                 </Button>
               </Link>
-            </motion.div>
+            </div>
           </section>
 
           {/* What an LLC Actually Does */}
-          <motion.section 
+          <section 
             className="py-12 px-4 bg-gray-50"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -119,15 +112,11 @@ export default function LLCForOnlyFansCreatorsPage() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </section>
 
           {/* Why Creators Use LLCs */}
-          <motion.section 
+          <section 
             className="py-12 px-4"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -187,15 +176,11 @@ export default function LLCForOnlyFansCreatorsPage() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </section>
 
           {/* What Changes When You Form One */}
-          <motion.section 
+          <section 
             className="py-12 px-4 bg-gray-50"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -252,15 +237,11 @@ export default function LLCForOnlyFansCreatorsPage() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </section>
 
           {/* When to Wait, When to File */}
-          <motion.section 
+          <section 
             className="py-12 px-4"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -297,15 +278,11 @@ export default function LLCForOnlyFansCreatorsPage() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </section>
 
           {/* Common Myths */}
-          <motion.section 
+          <section 
             className="py-12 px-4 bg-gray-50"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -350,15 +327,11 @@ export default function LLCForOnlyFansCreatorsPage() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </section>
 
           {/* Genie CTA */}
-          <motion.section 
+          <section 
             className="py-12 px-4 bg-blue-50"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
           >
             <div className="max-w-4xl mx-auto">
               <div className="bg-white p-8 rounded-lg shadow-sm border">
@@ -391,40 +364,56 @@ export default function LLCForOnlyFansCreatorsPage() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </section>
 
           {/* Internal Links */}
-          <motion.section 
+          <section 
             className="py-12 px-4"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            viewport={{ once: true }}
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
-                Related Guides
+                Related Guides for OnlyFans Creators
               </h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                <Link href="/how-to-protect-your-identity-on-onlyfans" className="bg-white p-4 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                  <h3 className="font-semibold text-gray-700 mb-2">How to Protect Your Identity</h3>
-                  <p className="text-gray-600 text-sm">Stay private as an OnlyFans creator</p>
-                </Link>
-                <Link href="/how-to-get-an-ein-for-onlyfans" className="bg-white p-4 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                  <h3 className="font-semibold text-gray-700 mb-2">Get Your EIN</h3>
-                  <p className="text-gray-600 text-sm">Step-by-step EIN guide for creators</p>
-                </Link>
-                <Link href="/llc-vs-sole-prop-for-onlyfans-creators" className="bg-white p-4 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                  <h3 className="font-semibold text-gray-700 mb-2">LLC vs Sole Proprietorship</h3>
-                  <p className="text-gray-600 text-sm">Which structure is safer?</p>
-                </Link>
-                <Link href="/onlyfans-llc-launch-checklist" className="bg-white p-4 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                  <h3 className="font-semibold text-gray-700 mb-2">Launch Checklist</h3>
-                  <p className="text-gray-600 text-sm">Everything you need to launch legally</p>
-                </Link>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-lg shadow-sm border">
+                  <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                    <FileDigit className="w-5 h-5 text-blue-600" />
+                    <Link href="/how-to-get-an-ein-for-onlyfans" className="text-blue-600 hover:underline">EIN Guide for OnlyFans</Link>
+                  </h3>
+                  <p className="text-gray-700">
+                    Step-by-step instructions for getting your federal tax ID as an OnlyFans creator.
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm border">
+                  <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                    <Lock className="w-5 h-5 text-green-600" />
+                    <Link href="/how-to-protect-your-identity-on-onlyfans" className="text-blue-600 hover:underline">Privacy Protection Guide</Link>
+                  </h3>
+                  <p className="text-gray-700">
+                    How to keep your real identity private while staying compliant with the law.
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm border">
+                  <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-purple-600" />
+                    <Link href="/onlyfans-llc-launch-checklist" className="text-blue-600 hover:underline">Launch Checklist</Link>
+                  </h3>
+                  <p className="text-gray-700">
+                    Everything you need to do before and after forming your OnlyFans LLC.
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm border">
+                  <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                    <Calculator className="w-5 h-5 text-orange-600" />
+                    <Link href="/llc-vs-sole-prop-for-onlyfans-creators" className="text-blue-600 hover:underline">LLC vs Sole Proprietor</Link>
+                  </h3>
+                  <p className="text-gray-700">
+                    Detailed comparison of business structures for OnlyFans creators.
+                  </p>
+                </div>
               </div>
             </div>
-          </motion.section>
+          </section>
 
           {/* Footer */}
           <Footer />

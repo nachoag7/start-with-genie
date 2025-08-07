@@ -1,25 +1,24 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { CheckCircle, XCircle, ArrowRight, Shield, DollarSign, ShoppingCart, Building, AlertTriangle, Calculator, FileText, CreditCard, TrendingUp } from "lucide-react";
 import SeoPageLayout from "../../components/SeoPageLayout";
 import { Button } from "../../components/ui/Button";
 import Footer from "../../components/Footer";
+import { Metadata } from "next";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
+export const metadata: Metadata = {
+  title: 'LLC for Shopify Stores: E-commerce Protection Guide 2025',
+  description: 'Do Shopify stores need an LLC? Get expert advice on e-commerce liability protection, tax benefits, and when to form an LLC for your online store. Start your LLC for $49.',
+  openGraph: {
+    title: 'LLC for Shopify Stores: E-commerce Protection Guide 2025',
+    description: 'Do Shopify stores need an LLC? Get expert advice on e-commerce liability protection, tax benefits, and when to form an LLC for your online store.',
   },
-};
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LLC for Shopify Stores: E-commerce Protection Guide 2025',
+    description: 'Do Shopify stores need an LLC? Get expert advice on e-commerce liability protection, tax benefits, and when to form an LLC for your online store.',
+  },
+}
 
 export default function LLCForShopifyStoresPage() {
   return (
@@ -27,42 +26,28 @@ export default function LLCForShopifyStoresPage() {
       <div id="llc-for-shopify-stores">
         {/* Hero Section */}
         <section className="hero-section text-center px-4 py-16">
-          <motion.h1 
+          <h1 
             className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             Do You Need an LLC to Run a Shopify Store?
-          </motion.h1>
-          <motion.p 
+          </h1>
+          <p 
             className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
           >
             Shopify store owners face unique legal considerations. Here's when an LLC makes sense for your e-commerce business.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-          >
+          </p>
+          <div>
             <Link href="/checkout">
               <Button className="text-lg px-8 py-3">
                 Start Your LLC for $49 →
               </Button>
             </Link>
-          </motion.div>
+          </div>
         </section>
 
         {/* Shopify Store Considerations */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-gray-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -107,15 +92,11 @@ export default function LLCForShopifyStoresPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Benefits for Shopify Stores */}
-        <motion.section 
+        <section 
           className="py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -145,15 +126,11 @@ export default function LLCForShopifyStoresPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* When You Can Wait */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-gray-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -192,15 +169,11 @@ export default function LLCForShopifyStoresPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Tax Considerations */}
-        <motion.section 
+        <section 
           className="py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -239,15 +212,11 @@ export default function LLCForShopifyStoresPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Inventory and Business Credit */}
-        <motion.section 
+        <section 
           className="py-12 px-4 bg-blue-50"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -285,15 +254,11 @@ export default function LLCForShopifyStoresPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* How to Decide */}
-        <motion.section 
+        <section 
           className="py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
@@ -330,15 +295,11 @@ export default function LLCForShopifyStoresPage() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* CTA Section */}
-        <motion.section 
+        <section 
           className="py-16 px-4 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
         >
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
@@ -360,7 +321,7 @@ export default function LLCForShopifyStoresPage() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Footer */}
         <Footer />

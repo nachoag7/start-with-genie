@@ -1,19 +1,27 @@
-'use client'
-
 import React from 'react'
 import Link from 'next/link'
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'LLC for Minors: Young Entrepreneur Business Guide 2025',
+  description: 'Can minors start an LLC? Get expert guidance on legal requirements, parental consent, and business formation for young entrepreneurs under 18. Start your LLC for $49.',
+  openGraph: {
+    title: 'LLC for Minors: Young Entrepreneur Business Guide 2025',
+    description: 'Can minors start an LLC? Get expert guidance on legal requirements, parental consent, and business formation for young entrepreneurs under 18.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LLC for Minors: Young Entrepreneur Business Guide 2025',
+    description: 'Can minors start an LLC? Get expert guidance on legal requirements, parental consent, and business formation for young entrepreneurs under 18.',
+  },
+}
 
 export default function LLCForMinorsPage() {
   return (
     <>
-      <Head>
-        <title>Start an LLC for Minors: Young Entrepreneur Guide</title>
-        <meta name="description" content="Learn how minors can start an LLC and launch their business dreams. Complete guide to legal requirements, benefits, and steps for young entrepreneurs." />
-      </Head>
       <SeoPageLayout>
         <div className="max-w-4xl mx-auto px-4 py-12">
           {/* Hero Section */}
@@ -100,82 +108,24 @@ export default function LLCForMinorsPage() {
               Securing funding is a crucial aspect of starting and growing a business, and minor-owned LLCs have several options to explore. One common source of funding is personal savings or financial support from family and friends. This type of funding is often the most accessible and can provide the initial capital needed to launch the business without the burden of interest or repayment schedules.
             </p>
             <p>
-              Crowdfunding platforms like Kickstarter and Indiegogo offer another avenue for raising funds. These platforms allow young entrepreneurs to present their business ideas to a broad audience and secure small contributions from a large number of people. Successful crowdfunding campaigns not only provide financial support but also help validate the business concept and build a customer base.
+              Another funding option is crowdfunding, which has become increasingly popular among young entrepreneurs. Platforms like Kickstarter and GoFundMe allow minors to present their business ideas to a wide audience and raise funds from supporters who believe in their vision. This approach not only provides financial support but also helps validate the business concept and build a community of supporters.
             </p>
             <p>
-              Grants and competitions specifically aimed at young entrepreneurs can also be valuable sources of funding. Organizations like the National Federation of Independent Business (NFIB) and Junior Achievement offer grants and scholarships to support young business owners. Additionally, many local and national business plan competitions provide cash prizes and mentorship opportunities, giving young entrepreneurs both financial resources and valuable guidance.
-            </p>
-
-            <h2>Managing an LLC as a Minor: Rights and Responsibilities</h2>
-            <p>
-              Managing an LLC as a minor comes with its own set of rights and responsibilities. As members of an LLC, young entrepreneurs have the right to participate in decision-making processes, share in the profits, and access financial records. However, these rights come with the responsibility to act in the best interest of the business and adhere to legal and ethical standards.
-            </p>
-            <p>
-              Minors must also understand their fiduciary duties, which include the duty of loyalty and the duty of care. The duty of loyalty requires members to prioritize the LLC's interests over personal gain, avoiding conflicts of interest and self-dealing. The duty of care involves making informed and prudent decisions to ensure the business's success and sustainability.
-            </p>
-            <p>
-              Additionally, managing an LLC involves maintaining proper records and complying with state regulations. This includes keeping accurate financial records, filing annual reports, and adhering to tax obligations. For minors, these responsibilities can be challenging, but with the support of parents, guardians, and professional advisors, they can develop the skills needed to manage their business effectively.
+              Additionally, some organizations and programs specifically support young entrepreneurs and may offer grants, scholarships, or mentorship opportunities. These resources can provide both financial and educational support, helping minors develop the skills and knowledge needed to run a successful business. By exploring these various funding options, minor-owned LLCs can secure the resources needed to launch and grow their ventures.
             </p>
 
-            <h2>Resources and Support for Young Entrepreneurs</h2>
+            <h2>Conclusion: Empowering the Next Generation of Entrepreneurs</h2>
             <p>
-              Young entrepreneurs have access to a wealth of resources and support networks that can help them navigate the complexities of starting and managing an LLC. Organizations like the Small Business Administration (SBA) offer extensive resources, including business plan templates, financial management guides, and mentorship programs. The SBA's Youth Entrepreneur Guide is specifically designed to help young business owners understand the basics of entrepreneurship.
+              Starting an LLC as a minor represents more than just a business decision—it's an investment in personal growth, financial literacy, and entrepreneurial skills. While the process may seem complex at first, the benefits of forming an LLC far outweigh the challenges. From protecting personal assets to building business credibility, an LLC provides young entrepreneurs with the foundation they need to succeed in today's competitive business landscape.
             </p>
             <p>
-              Mentorship programs can be particularly valuable for young entrepreneurs. Programs like SCORE, which provides free mentoring from experienced business professionals, can offer guidance on various aspects of business management, from marketing to financial planning. Connecting with a mentor can provide young entrepreneurs with insights and advice that can help them avoid common pitfalls and achieve their business goals.
+              The journey of starting an LLC as a minor is not just about creating a business; it's about developing the mindset and skills that will serve young entrepreneurs throughout their careers. By taking this important step, minors can gain valuable experience in business management, financial planning, and strategic thinking. These skills are transferable and can be applied to future ventures, academic pursuits, and professional endeavors.
             </p>
             <p>
-              Educational resources such as online courses, workshops, and webinars are also readily available. Platforms like Coursera, Udemy, and Khan Academy offer courses on entrepreneurship, business management, and financial literacy. These resources can equip young entrepreneurs with the knowledge and skills needed to run a successful LLC. Additionally, many local community colleges and universities offer programs and workshops specifically designed for young business owners.
-            </p>
-
-            <h2>Success Stories of Young Entrepreneurs with LLCs</h2>
-            <p>
-              The journey of starting an LLC as a minor may seem daunting, but numerous young entrepreneurs have successfully navigated this path and achieved remarkable success. One inspiring example is Moziah Bridges, who founded Mo's Bows at the age of nine. Moziah's company, which produces handmade bow ties, quickly gained national attention and secured deals with major retailers. His story demonstrates the power of creativity, determination, and the right business structure.
-            </p>
-            <p>
-              Another success story is that of Mikaila Ulmer, who started Me & the Bees Lemonade at the age of four. Mikaila's lemonade business, which uses honey as a natural sweetener, has grown into a thriving enterprise with distribution in major grocery chains. Her company's mission to save bees has also garnered significant media attention and support, showcasing the potential for young entrepreneurs to make a positive impact on the world.
-            </p>
-            <p>
-              Finally, consider the story of Leanna Archer, who launched her own hair care product line at the age of nine. Leanna's company, Leanna's Inc., has expanded into a successful business with a global customer base. Her story highlights the importance of passion, perseverance, and leveraging the right resources to turn a simple idea into a thriving business.
-            </p>
-
-            <h2>Conclusion: Encouraging Young Minds to Take the Leap</h2>
-            <p>
-              Starting an LLC as a minor is a challenging yet rewarding endeavor that can set the stage for lifelong success in entrepreneurship. By understanding the basics of LLCs, navigating the legal requirements, and leveraging available resources and support, young entrepreneurs can confidently take the leap and turn their business dreams into reality.
-            </p>
-            <p>
-              The journey of entrepreneurship offers invaluable lessons in creativity, problem-solving, and resilience. It encourages young minds to think critically, innovate, and take calculated risks. While the path may be filled with obstacles, the rewards of building a successful business and making a positive impact on the world are well worth the effort.
-            </p>
-            <p>
-              As young entrepreneurs embark on this exciting journey, they should remember that they are not alone. With the support of family, mentors, and a wealth of resources, they have the tools and knowledge needed to succeed. So, whether you are a budding inventor, a creative artist, or an ambitious young entrepreneur, now is the time to take the first step and start your own LLC. The future is bright, and the possibilities are endless.
+              As we look to the future, it's clear that the entrepreneurial spirit is alive and well among young people. By providing them with the tools, knowledge, and support they need to form LLCs and start their businesses, we're not just helping individual entrepreneurs—we're investing in the next generation of business leaders, innovators, and problem-solvers who will shape the economy of tomorrow.
             </p>
           </div>
-
-          {/* CTA */}
-          <section className="mt-16 text-center">
-            <h2 className="text-3xl font-bold mb-4">Need Help Getting It Done?</h2>
-            <p className="text-xl mb-6 text-neutral-700">
-              Start With Genie is a $49 assistant that gives you everything you need to launch your LLC — personalized filing instructions, EIN help, an operating agreement, and 24/7 AI support.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 mb-6">
-              <div className="flex items-center gap-2">
-                <span>✓ No upsells</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>✓ No confusion</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>✓ Built for founders</span>
-              </div>
-            </div>
-            <Link href="https://www.startwithgenie.com">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                Start with Genie →
-              </Button>
-            </Link>
-          </section>
         </div>
-        <Footer />
       </SeoPageLayout>
     </>
   )
