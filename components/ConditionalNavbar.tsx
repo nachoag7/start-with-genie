@@ -6,8 +6,24 @@ import Navbar from './Navbar';
 export default function ConditionalNavbar() {
   const pathname = usePathname();
   
-  // Hide navbar on dashboard, checkout, onboarding and any other routes where it shouldn't appear
-  const hideNavbar = pathname === '/dashboard' || pathname === '/checkout' || pathname === '/onboarding';
+  // Hide navbar on dashboard, checkout, onboarding, and SEO/blog pages
+  const hideNavbar = 
+    pathname === '/dashboard' || 
+    pathname === '/checkout' || 
+    pathname === '/onboarding' ||
+    pathname === '/onboarding-welcome' ||
+    pathname === '/success' ||
+    pathname === '/reset-password' ||
+    pathname === '/loading' ||
+    // SEO/Blog pages - hide navbar on pages with hyphens (most SEO pages)
+    pathname.includes('-') ||
+    // Additional specific SEO pages that don't have hyphens
+    pathname === '/about' ||
+    pathname === '/contact' ||
+    pathname === '/terms' ||
+    pathname === '/privacy' ||
+    pathname === '/disclaimer' ||
+    pathname === '/refund';
   
   if (hideNavbar) {
     return null;
