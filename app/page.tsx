@@ -23,6 +23,20 @@ export const metadata: Metadata = {
     description: 'Launch your LLC with Genie\'s $49 business launch dashboard — we don\'t file for you, but you get everything you need in one place, without the $299+ upsells.',
     images: ['https://startwithgenie.com/genie-og.png'],
   },
+  other: {
+    'application/ld+json': JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Start With Genie",
+      "url": "https://startwithgenie.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://startwithgenie.com/search?q={query}",
+        "query-input": "required name=query",
+      },
+      "description": "Launch your LLC with Genie's $49 business launch dashboard — we don't file for you, but you get everything you need in one place, without the $299+ upsells.",
+    }),
+  },
 }
 
 export default function Home() {

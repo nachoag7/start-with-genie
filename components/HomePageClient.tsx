@@ -81,7 +81,7 @@ const whyGenieItems = [
   {
     icon: <LayoutDashboard size={22} strokeWidth={2} />,
     title: 'Custom dashboard with smart progress tracking',
-    subtitle: 'Stay organized with a simple dashboard that shows exactly what's done and what's next.'
+    subtitle: 'Stay organized with a simple dashboard that shows exactly what\'s done and what\'s next.'
   },
   {
     icon: <HeadphonesIcon size={22} strokeWidth={2} />,
@@ -134,9 +134,9 @@ const compareItems = [
   }
 ];
 
-const compareCard = (idx, col) => {
+const compareCard = (idx: number, col: string) => {
   const item = compareItems[idx];
-  const value = item[col];
+  const value = item[col as keyof typeof item];
   const isGenie = col === 'genie';
   
   return (
@@ -332,29 +332,7 @@ function AboutLLCSection() {
 
 export default function HomePageClient() {
   const router = useRouter()
-  const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(null)
-  const [openCard, setOpenCard] = useState<number | null>(null)
-  const [flashIndex, setFlashIndex] = useState<number | null>(null)
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
-
-  useEffect(() => {
-    cardRefs.current = cardRefs.current.slice(0, featureDetails.length)
-  }, [])
-
-  const handleCardClick = (idx: number) => {
-    setOpenCard(openCard === idx ? null : idx)
-  }
-
-  const toggleFAQ = (index: number) => {
-    setOpenFAQIndex(openFAQIndex === index ? null : index)
-  }
-
-  const scrollToCTA = () => {
-    const ctaElement = document.getElementById('cta-section')
-    if (ctaElement) {
-      ctaElement.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
   return (
     <div className="min-h-screen bg-white">
@@ -362,54 +340,101 @@ export default function HomePageClient() {
       
       <WhatsIncludedStack />
       
-      <SectionDivider />
+      {/* Dashboard Preview Video - "See How Genie Works in 60 Seconds" */}
+      <div className="w-full px-4 mt-4">
+        <DashboardPreviewVideo />
+      </div>
       
-      <WhyGenieSection />
+      {/* Founder's Message Section */}
+      <FounderNote />
       
-      <SectionDivider />
-      
-      <CompareSection />
-      
-      <SectionDivider />
-      
-      <AboutLLCSection />
-      
-      <SectionDivider />
-      
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Ready to start your business?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Get everything you need to launch your LLC for just $49
-            </p>
-          </div>
-          
-          <div className="text-center">
-            <PremiumButton
-              onClick={() => router.push('/start')}
-              className="text-lg px-8 py-4"
-            >
-              Get Started for $49
-            </PremiumButton>
-            <p className="text-sm text-gray-500 mt-4">
-              No hidden fees • No upsells • No surprises
-            </p>
+      {/* AI Assistant Section with Video Demo */}
+      <section className="w-full bg-white py-32 flex flex-col items-center justify-center">
+        <div className="max-w-6xl w-full px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            {/* Column 1: Text Content */}
+            <SectionReveal>
+              <div className="space-y-8 text-center md:text-left">
+                <h2 className="text-3xl md:text-[36px] font-bold text-neutral-900 tracking-tight leading-tight">
+                  Stuck? Get answers in seconds.
+                </h2>
+                
+                <div className="max-w-[560px] mx-auto md:mx-0">
+                  <p className="text-lg text-neutral-600 leading-relaxed">
+                    No more searching through confusing forums or waiting for email replies. Our AI assistant is trained on the LLC formation process to give you instant clarity whenever you need it, 24/7.
+                  </p>
+                </div>
+                
+                <div className="flex justify-center md:justify-start">
+                  <PremiumChecklist
+                    className="mt-6"
+                    items={[
+                      {
+                        title: "24/7 availability",
+                        subtitle: "Always there when you need help.",
+                      },
+                      {
+                        title: "Instant answers, no delays",
+                        subtitle: "Get clarity immediately, not tomorrow.",
+                      },
+                      {
+                        title: "Trained on state-specific rules",
+                        subtitle: "Knows your state's requirements inside out.",
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            </SectionReveal>
+            
+            {/* Column 2: Genie Assistant Demo */}
+            <div className="flex justify-center">
+              <div className="relative w-full max-w-lg">
+                <GenieChat 
+                  avatarSrc="/genie-preview.png"
+                  userName=""
+                  userState=""
+                  isDemo={true}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
       
-      <SectionDivider />
+      <GenieComparison />
       
-      <FAQ 
-        faqData={faqData}
-        openFAQIndex={openFAQIndex}
-        toggleFAQ={toggleFAQ}
-      />
+      <Divider />
+      
+      {/* Final CTA */}
+      <SectionReveal>
+        <section className="w-full max-w-xl mx-auto px-4 py-5 text-center" data-cta-section>
+          <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
+          <Link href="/checkout">
+            <PremiumButton size="md" className="w-full max-w-xs mx-auto hover:scale-[1.015] hover:shadow-md transition-all duration-200 ease-smooth group">
+              <span className="relative text-white">
+                Start My LLC for $49
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300 ease-smooth"></span>
+              </span>
+            </PremiumButton>
+          </Link>
+          <Item delay={0.08}>
+            <p className="text-sm text-neutral-500 mt-3">One payment. Everything included.</p>
+          </Item>
+        </section>
+      </SectionReveal>
+      
+      <FAQ />
       
       <Footer />
+      
+      {/* EIN Guide Popup */}
+      <EINGuidePopup 
+        isOpen={showPopup} 
+        onClose={closePopup} 
+        sourcePage="home" 
+        markEmailSubmitted={markEmailSubmitted}
+      />
     </div>
   );
 }
@@ -420,60 +445,127 @@ function DashboardPreviewVideo() {
   const [isMounted, setIsMounted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Set mounted state to prevent SSR issues
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const handlePlayPause = () => {
+  // Set playback speed to 1.25x on mount
+  useEffect(() => {
+    if (videoRef.current && isMounted) {
+      videoRef.current.playbackRate = 1.25;
+    }
+  }, [isMounted]);
+
+  // Auto-play video when it comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && videoRef.current && isMounted) {
+            videoRef.current.play().catch(() => {
+              // Handle autoplay restrictions
+              console.log('Autoplay prevented by browser');
+            });
+            setIsPlaying(true);
+          }
+        });
+      },
+      { threshold: 0.3 } // Trigger when 30% of video is visible
+    );
+
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
       }
-      setIsPlaying(!isPlaying);
+    };
+  }, [isMounted]);
+
+  // Play video when it comes into view (Framer Motion)
+  // User can pause/resume after that
+  const handlePlayPause = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
     }
   };
 
+  // Sync play/pause state if user uses native controls
   const handleVideoPlay = () => setIsPlaying(true);
   const handleVideoPause = () => setIsPlaying(false);
 
-  if (!isMounted) {
-    return <div className="w-full h-64 bg-gray-200 rounded-lg animate-pulse" />;
-  }
-
   return (
-    <div 
-      className="relative w-full max-w-4xl mx-auto"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <video
-        ref={videoRef}
-        className="w-full h-auto rounded-lg shadow-lg"
-        autoPlay
-        muted
-        loop
-        playsInline
-        onPlay={handleVideoPlay}
-        onPause={handleVideoPause}
-      >
-        <source src="/dashboard-preview.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      
-      {isHovered && (
-        <button
-          onClick={handlePlayPause}
-          className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg transition-opacity"
+    <SectionReveal>
+      <section id="how-it-works" className="w-full flex flex-col items-center justify-center py-3">
+        <h2 className="text-center text-2xl font-semibold mb-2">
+          See How Genie Works in 30 Seconds
+        </h2>
+        <div 
+          className="relative w-full flex justify-center"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          {isPlaying ? (
-            <Pause className="w-16 h-16 text-white" />
-          ) : (
-            <Play className="w-16 h-16 text-white" />
-          )}
-        </button>
-      )}
-    </div>
+          <div className="relative">
+            <motion.video
+              ref={videoRef}
+              muted
+              loop
+              controls
+              controlsList="nodownload noremoteplayback"
+              disablePictureInPicture
+              playsInline
+              preload="metadata"
+              className="rounded-2xl shadow-2xl w-full max-w-[720px] aspect-video bg-black object-cover transition-all duration-200 ease-smooth"
+              style={{ outline: 'none', border: 'none', padding: 0 }}
+              onPlay={handleVideoPlay}
+              onPause={handleVideoPause}
+              whileHover={{ scale: 1.01 }}
+            >
+              <source src="/dashboard-preview.webm" type="video/webm" />
+              <source src="/dashboard-preview-mobile.mp4" type="video/mp4" />
+              <source src="/dashboard-preview.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </motion.video>
+            
+            {/* Top highlight overlay on hover */}
+            <div 
+              className={`absolute inset-0 rounded-2xl bg-gradient-to-b from-white/10 to-transparent pointer-events-none transition-opacity duration-200 ${
+                isHovered ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+            
+            {/* 30s preview pill */}
+            <div 
+              className={`absolute top-4 left-4 bg-black/70 text-white text-xs px-2 py-1 rounded-full transition-opacity duration-200 ${
+                isHovered ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              30s preview
+            </div>
+          </div>
+        </div>
+        <p className="text-gray-500 text-sm mt-2 text-center max-w-md">
+          Get personalized instructions, EIN help, and downloads in one clean dashboard.
+        </p>
+        <div className="text-center mt-6" data-cta-section>
+          <Link href="/checkout">
+            <PremiumButton size="md" className="w-full max-w-xs hover:scale-[1.015] hover:shadow-md transition-all duration-200 ease-smooth group">
+              <span className="relative text-white">
+                Start My LLC for $49
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300 ease-smooth"></span>
+              </span>
+            </PremiumButton>
+          </Link>
+        </div>
+      </section>
+    </SectionReveal>
   );
 } 
