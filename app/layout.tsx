@@ -10,42 +10,47 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://startwithgenie.com'),
-  title: 'Start With Genie – Launch Your LLC for $49',
-  description: 'A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff.',
+  title: {
+    default: 'Start With Genie',
+    template: '%s • Start With Genie',
+  },
+  description: 'Launch your LLC with Genie\'s $49 business launch dashboard — we don\'t file for you, but you get everything you need in one place, without the $299+ upsells.',
   icons: {
     icon: '/favicon.ico?v=2',
   },
   openGraph: {
-    title: 'Start With Genie – Launch Your LLC for $49',
-    description: 'A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff.',
-    url: 'https://startwithgenie.com',
+    type: 'website',
     siteName: 'Start With Genie',
+    title: 'Start With Genie',
+    description: 'Launch your LLC with Genie\'s $49 business launch dashboard — we don\'t file for you, but you get everything you need in one place, without the $299+ upsells.',
+    url: 'https://startwithgenie.com/',
     images: [
       {
         url: 'https://startwithgenie.com/genie-og.png',
         width: 1200,
         height: 628,
-        alt: 'Start With Genie Logo',
+        alt: 'Start With Genie – Business launch dashboard',
       },
     ],
-    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Start With Genie – Launch Your LLC for $49',
-    description: 'A flat $49 assistant that gives you everything you need to start your LLC — no upsells, no fluff.',
+    title: 'Start With Genie',
+    description: 'Launch your LLC with Genie\'s $49 business launch dashboard — we don\'t file for you, but you get everything you need in one place, without the $299+ upsells.',
     images: ['https://startwithgenie.com/genie-og.png'],
   },
   other: {
     'application/ld+json': JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "WebSite",
       "name": "Start With Genie",
-      "url": "https://startwithgenie.com",
-      "logo": "https://startwithgenie.com/genie-og.png",
-      "sameAs": [
-        "https://www.facebook.com/startwithgenie"
-      ]
+      "url": "https://startwithgenie.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://startwithgenie.com/search?q={query}",
+        "query-input": "required name=query"
+      },
+      "description": "Launch your LLC with Genie's $49 business launch dashboard — we don't file for you, but you get everything you need in one place, without the $299+ upsells."
     })
   }
 };
