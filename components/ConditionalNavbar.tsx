@@ -15,12 +15,11 @@ export default function ConditionalNavbar() {
   
   // Apply gray background for sample page to match the page color
   const isSamplePage = pathname === '/sample';
+  const bgColor = isSamplePage ? 'bg-gray-50' : 'bg-white';
   
   return (
     <>
-      <div className={isSamplePage ? 'bg-gray-50' : ''}>
-        <Navbar />
-      </div>
+      <Navbar bgColor={bgColor} />
       <div className="h-14 sm:h-16" />
     </>
   );

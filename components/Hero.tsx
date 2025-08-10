@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-white pt-20 pb-16">
       {/* mesh wave background */}
-      <div className="absolute inset-0 pointer-events-none bg-wave" />
+      <div className="absolute inset-0 pointer-events-none bg-wave md:bg-center bg-top" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 h-full flex items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center w-full">

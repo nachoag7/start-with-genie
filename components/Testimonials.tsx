@@ -1,68 +1,52 @@
 "use client";
 
-import Avatar from "./ui/Avatar";
+import TestimonialNote from "./TestimonialNote";
 
-type Review = {
-  name: string;
-  title: string;
-  headline: string;
-  body: string;
-  avatar?: string; // optional: /reviewers/justin-g.jpg
-};
-
-const reviews: Review[] = [
+const notes = [
   {
+    quote:
+      "Didn't know where to start until I found this. I tried for weeks, then Genie made it simple and I filed with confidence.",
     name: "Dave G.",
-    title: "Opening his first Etsy shop",
-    headline: `Didn't know where to start until I found this.`,
-    body: `I googled for a while and got nowhere. Gave this a shot and got it done for cheap so I recommend.`,
+    role: "Opened his first Etsy shop",
     avatar: "/reviewers/dave-g.jpg",
+    tone: "butter" as const,
+    tilt: -1 as const,
   },
   {
+    quote:
+      "Honestly, just made things simpler. I finally understood each step and didn't second-guess myself.",
     name: "Mohammad A.",
-    title: "Opening an online business",
-    headline: `Honestly? Just made things simpler.`,
-    body: `I didn't know what I was doing at all but the process was pretty clear so it wasn't that hard.`,
+    role: "Opening an online business",
     avatar: "/reviewers/mohammad-a.png",
+    tone: "cotton" as const,
+    tilt: 1 as const,
   },
   {
+    quote:
+      "Helped me stop overthinking. Clear, direct, and no upsells. I felt in control the whole time.",
     name: "Justin G.",
-    title: "First-time business owner",
-    headline: `Helped me stop overthinking.`,
-    body: `Saw this and figured I'd give it a try instead of paying other brands much more. I was satisfied and saved a lot.`,
+    role: "First-time business owner",
     avatar: "/reviewers/justin-g.jpg",
+    tone: "mist" as const,
+    tilt: 2 as const,
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-14">
-      <h2 className="text-center text-2xl font-semibold">
-        From Overwhelmed to Officially Launched
-      </h2>
+    <section className="py-16">
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="text-center text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900">
+          From Overwhelmed to Officially Launched
+        </h2>
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {reviews.map((r, index) => (
-          <article
-            key={r.name}
-            className={`rounded-2xl border border-black/10 bg-white p-6 shadow-sm flex flex-col h-full ${
-              index === 2 ? 'sm:col-span-2 sm:mx-auto sm:max-w-sm lg:col-span-1 lg:mx-0 lg:max-w-none' : ''
-            }`}
-          >
-            <div className="text-amber-500" aria-label="5 out of 5 stars">★★★★★</div>
-
-            <h3 className="mt-3 text-lg font-medium leading-snug">"{r.headline}"</h3>
-            <p className="mt-2 text-sm text-neutral-600 flex-grow">{r.body}</p>
-
-            <div className="mt-6 flex items-center gap-3">
-              <Avatar name={r.name} src={r.avatar} size="md" />
-              <div>
-                <div className="text-sm font-medium">{r.name}</div>
-                <div className="text-xs text-neutral-500">{r.title}</div>
-              </div>
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {notes.map((n, i) => (
+            <div key={i} className="note-in" style={{ animationDelay: `${80 * i}ms` }}>
+              <TestimonialNote {...n} />
             </div>
-          </article>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

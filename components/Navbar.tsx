@@ -11,11 +11,15 @@ const navLinks = [
   { href: "/sample", label: "Sample" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  bgColor?: string;
+}
+
+export default function Navbar({ bgColor = "bg-white" }: NavbarProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 border-b border-neutral-200/30">
+    <header className={`fixed top-0 inset-x-0 z-50 border-b border-neutral-200/30 ${bgColor}`}>
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 sm:h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -43,13 +47,13 @@ export default function Navbar() {
           ))}
           <div className="flex items-center gap-3">
             <Link href="/checkout">
-              <PremiumButton size="sm" className="text-sm">
+              <button className="inline-flex items-center justify-center rounded-full h-10 px-6 text-sm font-medium tracking-tight text-white select-none bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-sm shadow-black/10 transition-all duration-200 ease-out hover:brightness-105 hover:shadow-md hover:shadow-black/15 active:translate-y-[1px] active:brightness-95 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50 focus-visible:ring-offset-2">
                 Get Started
-              </PremiumButton>
+              </button>
             </Link>
             <Link
               href="/login"
-              className="inline-flex items-center justify-center rounded-full px-4 py-2 border border-gray-300 text-gray-900 hover:bg-gray-50 transition text-sm"
+              className="inline-flex items-center justify-center rounded-full h-10 px-6 border border-gray-300 text-gray-900 hover:bg-gray-50 transition text-sm font-medium tracking-tight"
             >
               Log In
             </Link>
@@ -59,13 +63,13 @@ export default function Navbar() {
         {/* Mobile buttons and hamburger */}
         <div className="md:hidden flex items-center gap-2">
           <Link href="/checkout">
-            <PremiumButton size="sm" className="text-xs px-3 py-1.5">
+            <button className="inline-flex items-center justify-center rounded-full h-10 px-6 text-sm font-medium tracking-tight text-white select-none bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-sm shadow-black/10 transition-all duration-200 ease-out hover:brightness-105 hover:shadow-md hover:shadow-black/15 active:translate-y-[1px] active:brightness-95 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50 focus-visible:ring-offset-2">
               Get Started
-            </PremiumButton>
+            </button>
           </Link>
           <Link
             href="/login"
-            className="inline-flex items-center justify-center rounded-full px-3 py-1.5 border border-gray-300 text-gray-900 hover:bg-gray-50 transition text-xs"
+            className="inline-flex items-center justify-center rounded-full h-10 px-6 border border-gray-300 text-gray-900 hover:bg-gray-50 transition text-sm font-medium tracking-tight"
           >
             Log In
           </Link>

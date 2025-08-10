@@ -13,11 +13,13 @@ import EINGuidePopup from '../components/EINGuidePopup'
 import { useEINPopup } from '../hooks/useEINPopup'
 import Timer from '../components/Timer'
 import Hero from '../components/Hero'
-import Testimonials from '../components/Testimonials'
+
 import WhatsIncludedStack from '../components/WhatsIncludedStack'
 import GenieChat from '../components/GenieChat'
 import FounderNote from '../components/FounderNote'
 import FAQ from '../components/FAQ'
+import PremiumChecklist from '../components/PremiumChecklist'
+import GenieComparison from '../components/GenieComparison'
 
 interface FAQItem {
   question: string
@@ -528,8 +530,7 @@ export default function Home() {
           {/* Hero Section */}
           <Hero />
 
-          {/* Testimonial Section - High Trust Design */}
-          <Testimonials />
+
 
           {/* What's Included Section */}
           <WhatsIncludedStack />
@@ -564,62 +565,23 @@ export default function Home() {
                     </p>
                   </div>
                   
-                  <ul className="space-y-5">
-                    <motion.li 
-                      className="flex items-start gap-4"
-                      initial={{ opacity: 0, y: 8 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <div className="w-5 h-5 flex-shrink-0 mt-0.5">
-                        <svg viewBox="0 0 20 20" fill="none" className="w-full h-full">
-                          <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2" fill="none" className="text-green-500"/>
-                          <path d="M7 10L9 12L13 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="font-semibold text-neutral-900">24/7 Availability</span>
-                        <span className="block text-neutral-500 text-sm mt-0.5">Always there when you need help</span>
-                      </div>
-                    </motion.li>
-                    <motion.li 
-                      className="flex items-start gap-4"
-                      initial={{ opacity: 0, y: 8 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
-                      viewport={{ once: true }}
-                    >
-                      <div className="w-5 h-5 flex-shrink-0 mt-0.5">
-                        <svg viewBox="0 0 20 20" fill="none" className="w-full h-full">
-                          <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2" fill="none" className="text-green-500"/>
-                          <path d="M7 10L9 12L13 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="font-semibold text-neutral-900">Instant answers, no delays</span>
-                        <span className="block text-neutral-500 text-sm mt-0.5">Get clarity immediately, not tomorrow</span>
-                      </div>
-                    </motion.li>
-                    <motion.li 
-                      className="flex items-start gap-4"
-                      initial={{ opacity: 0, y: 8 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 }}
-                      viewport={{ once: true }}
-                    >
-                      <div className="w-5 h-5 flex-shrink-0 mt-0.5">
-                        <svg viewBox="0 0 20 20" fill="none" className="w-full h-full">
-                          <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2" fill="none" className="text-green-500"/>
-                          <path d="M7 10L9 12L13 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="font-semibold text-neutral-900">Trained on state-specific rules</span>
-                        <span className="block text-neutral-500 text-sm mt-0.5">Knows your state's requirements inside out</span>
-                      </div>
-                    </motion.li>
-                  </ul>
+                  <PremiumChecklist
+                    className="mt-6"
+                    items={[
+                      {
+                        title: "24/7 availability",
+                        subtitle: "Always there when you need help.",
+                      },
+                      {
+                        title: "Instant answers, no delays",
+                        subtitle: "Get clarity immediately, not tomorrow.",
+                      },
+                      {
+                        title: "Trained on state-specific rules",
+                        subtitle: "Knows your state's requirements inside out.",
+                      },
+                    ]}
+                  />
                 </motion.div>
                 
                 {/* Column 2: Genie Assistant Demo */}
@@ -643,170 +605,7 @@ export default function Home() {
             </div>
           </section>
           
-                    {/* Genie vs. Old Way Comparison Chart */}
-          <section className="w-full bg-white py-20 flex flex-col items-center justify-center">
-            <div className="max-w-6xl w-full px-4">
-              <motion.h2 
-                className="text-2xl md:text-3xl font-semibold text-neutral-900 mb-12 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-                viewport={{ once: true }}
-              >
-                Genie vs. The Old Way
-              </motion.h2>
-              
-              {/* Desktop View - Table */}
-              <div className="hidden md:block">
-                <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden">
-                  <table className="w-full">
-                    <thead className="bg-neutral-50">
-                      <tr>
-                        <th className="px-6 py-4 text-left text-sm font-semibold text-neutral-700 border-b border-neutral-200">Feature</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold text-neutral-700 border-b border-neutral-200">Start With Genie</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold text-neutral-700 border-b border-neutral-200">Traditional Filing Services</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="px-6 py-4 border-b border-neutral-200">
-                          <strong className="text-neutral-900">Control</strong>
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          You file directly and stay in full control.
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          A third party files for you, often with delays.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 py-4 border-b border-neutral-200">
-                          <strong className="text-neutral-900">Clarity</strong>
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          A clear system so you understand every step.
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          A confusing process with little to no insight.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 py-4 border-b border-neutral-200">
-                          <strong className="text-neutral-900">Price</strong>
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          $49 flat fee. No upsells.
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          $0 to $500+ with hidden fees and surprise charges.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 py-4 border-b border-neutral-200">
-                          <strong className="text-neutral-900">Operating Agreement</strong>
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          Included in your kit, fully customizable.
-                        </td>
-                        <td className="px-6 py-4 border-b border-neutral-200 text-neutral-700">
-                          Almost always a separate, expensive add-on.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 py-4">
-                          <strong className="text-neutral-900">Speed</strong>
-                        </td>
-                        <td className="px-6 py-4 text-neutral-700">
-                          Instant access to your documents and tools.
-                        </td>
-                        <td className="px-6 py-4 text-neutral-700">
-                          Days or weeks of processing and waiting.
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              
-              {/* Mobile View - Stacked Layout */}
-              <div className="md:hidden space-y-8">
-                {/* Control Block */}
-                <div className="bg-white rounded-lg border border-neutral-200 p-6">
-                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Control</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">You file directly and stay in full control.</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">A third party files for you, often with delays.</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Clarity Block */}
-                <div className="bg-white rounded-lg border border-neutral-200 p-6">
-                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Clarity</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">A clear system so you understand every step.</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">A confusing process with little to no insight.</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Price Block */}
-                <div className="bg-white rounded-lg border border-neutral-200 p-6">
-                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Price</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">$49 flat fee. No upsells.</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">$0 to $500+ with hidden fees and surprise charges.</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Operating Agreement Block */}
-                <div className="bg-white rounded-lg border border-neutral-200 p-6">
-                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Operating Agreement</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">Included in your kit, fully customizable.</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">Almost always a separate, expensive add-on.</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Speed Block */}
-                <div className="bg-white rounded-lg border border-neutral-200 p-6">
-                  <h4 className="font-semibold text-neutral-900 text-lg mb-4">Speed</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">Instant access to your documents and tools.</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-neutral-700">Days or weeks of processing and waiting.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+                    <GenieComparison />
           
 
           
@@ -875,7 +674,6 @@ function DashboardPreviewVideo() {
       <div className="relative w-full flex justify-center">
         <motion.video
           ref={videoRef}
-          src="/Dashboard-preview.mp4"
           autoPlay
           muted
           loop
@@ -892,7 +690,12 @@ function DashboardPreviewVideo() {
           style={{ outline: 'none', border: 'none', padding: 0 }}
           onPlay={handleVideoPlay}
           onPause={handleVideoPause}
-        />
+        >
+          <source src="/dashboard-preview.webm" type="video/webm" />
+          <source src="/dashboard-preview-mobile.mp4" type="video/mp4" />
+          <source src="/dashboard-preview.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </motion.video>
         {/* Only download, PiP, and remote playback are removed; all other native controls remain */}
       </div>
       <p className="text-gray-500 text-sm mt-2 text-center max-w-md">
