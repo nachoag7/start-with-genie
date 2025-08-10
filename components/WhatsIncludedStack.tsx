@@ -1,0 +1,105 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
+const FEATURES = [
+  {
+    title: "Step-by-Step State Filing",
+    desc: "Personalized to your state so you file with confidence from day one.",
+  },
+  {
+    title: "EIN Walkthrough",
+    desc: "Get your federal tax ID in minutes — no confusion, no delays.",
+  },
+  {
+    title: "Custom Operating Agreement",
+    desc: "A lawyer-inspired template you can personalize in minutes.",
+  },
+  {
+    title: "Clean Founder Dashboard",
+    desc: "All your documents and next steps in one streamlined workspace.",
+  },
+  {
+    title: "24/7 Genie Assistant",
+    desc: "Instant answers whenever you're stuck so you never lose momentum.",
+  },
+];
+
+export default function WhatsIncludedStack() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-animate]"));
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <section aria-labelledby="whats-included" className="relative py-20">
+      <div className="mx-auto max-w-3xl px-6 lg:px-0">
+        <h2
+          id="whats-included"
+          className="text-center text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900"
+        >
+          What's Included
+        </h2>
+
+        <div ref={ref} className="mt-10 relative">
+          {/* vertical rule/path (subtle) */}
+          <div
+            aria-hidden="true"
+            className="absolute left-[24px] top-0 hidden h-full w-px bg-neutral-200/70 md:block"
+          />
+
+          {FEATURES.map((f, i) => (
+            <div
+              key={f.title}
+              data-animate
+              style={{ transitionDelay: `${80 * i}ms` }}
+              className="feature-row opacity-0 translate-y-[8px] will-change-transform"
+            >
+              <div className="grid grid-cols-[48px_1fr] items-start gap-4 md:gap-6">
+                {/* number */}
+                <div className="relative h-12">
+                  <span className="absolute inset-0 select-none text-[28px] font-semibold leading-none text-neutral-200">
+                    {i + 1}
+                  </span>
+                </div>
+
+                {/* copy */}
+                <div>
+                  <h3 className="text-lg md:text-xl font-semibold text-neutral-900">
+                    {f.title}
+                  </h3>
+                  <p className="mt-2 max-w-[60ch] text-[15px] leading-7 text-neutral-600">
+                    {f.desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* divider rhythm */}
+              {i < FEATURES.length - 1 && (
+                <div className="my-6 h-px bg-neutral-200/50" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+} 

@@ -19,8 +19,17 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // Check if current date is Tuesday, August 13, 2025 (Eastern Time)
+    const today = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })).toDateString();
+    const targetDate = 'Tue Aug 13 2025';
+    const isDiscountDay = today === targetDate;
+    
+    // Calculate amount (apply 50% discount if it's the target date)
+    const baseAmount = 4900; // $49 in cents
+    const amount = isDiscountDay ? Math.round(baseAmount * 0.5) : baseAmount;
+    
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 4900, // $49 in cents
+      amount,
       currency: 'usd',
       
       // 👇 Disable Link by only allowing 'card'
@@ -28,6 +37,11 @@ export async function POST(req: NextRequest) {
       
       metadata: {
         product: 'Start With Genie - LLC Setup',
+        ...(isDiscountDay && { 
+          discount_applied: 'H1VrFS1A_50_percent',
+          original_amount: baseAmount.toString(),
+          discount_date: today 
+        }),
       },
     });
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });

@@ -1,17 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
-import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
-import CheckoutOverview from "../../components/CheckoutOverview";
-import CheckoutForm from "../../components/CheckoutForm";
+import Checkout2Col from "../../components/Checkout2Col";
 
 export default function CheckoutPage() {
-  const [currentStep, setCurrentStep] = useState<'overview' | 'checkout'>('overview');
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   // Fetch clientSecret from API on mount
   useEffect(() => {
@@ -37,127 +32,69 @@ export default function CheckoutPage() {
   }, []);
 
   const appearance = {
-    theme: 'none' as any,
     variables: {
-      fontFamily: 'Inter, sans-serif',
-      fontSizeBase: '16px',
-      colorPrimary: '#1e40af',
-      colorText: '#111827',
-      colorBackground: '#ffffff',
-      spacingUnit: '8px',
-      borderRadius: '8px',
-      colorBorder: '#e5e7eb',
-      colorTextSecondary: '#6b7280',
+      fontSizeBase: "16px",
+      borderRadius: "12px",
+      spacingUnit: "10px",
+      colorText: "#111",
+      colorTextPlaceholder: "#9CA3AF",
     },
     rules: {
-      '.Input': {
-        padding: '12px',
-        border: '1px solid #e5e7eb',
-        borderRadius: '8px',
-        backgroundColor: '#f9fafb',
-      },
-      '.Label': {
-        fontWeight: '500',
-        color: '#374151',
-        fontSize: '14px',
-        marginBottom: '4px',
-      },
-      '.Tab': {
-        backgroundColor: '#f9fafb',
-        border: '1px solid #e5e7eb',
-        borderRadius: '8px',
-        padding: '12px 16px',
-        marginBottom: '6px',
-      },
-      '.Tab--selected': {
-        backgroundColor: '#e0e7ff',
-        borderColor: '#1e40af',
-      },
+      ".Input": { minHeight: "44px", padding: "10px 12px" },
+      ".Label": { fontSize: "12px", marginBottom: "6px", color: "#525252" },
+      ".Tab, .Block": { padding: "10px 12px", borderRadius: "12px" },
+      ".Input:focus": { boxShadow: "0 0 0 2px rgba(37,99,235,0.25)" },
     },
+    labels: "above" as const,
   };
 
-  const handleContinueToCheckout = () => {
-    setCurrentStep('checkout');
-  };
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center text-red-600">Payment setup error. Please try again.</div>
+      </div>
+    );
+  }
 
-  const handleBackToOverview = () => {
-    setCurrentStep('overview');
-  };
+  // Show payment form immediately, clientSecret will load in background
+  if (!clientSecret) {
+    return (
+      <main className="mx-auto max-w-2xl px-4 py-8 min-h-[100svh]">
+        <section className="mx-auto w-full max-w-[720px]">
+          <h1 className="text-center font-semibold text-[clamp(20px,2.1vw,26px)] leading-tight tracking-[-0.01em]">
+            Everything you need to launch your business, guided step by step.
+          </h1>
+          <p className="mt-1 text-center text-[15px] leading-snug text-neutral-600">
+            All in one clean, personalized dashboard.
+          </p>
+
+          <div className="mt-4 rounded-2xl border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+            <div className="text-center text-gray-600 py-8">
+              Setting up payment form...
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
-    <div className="min-h-screen relative">
-      {/* Back Button */}
-      <button
-        type="button"
-        onClick={() => {
-          if (window.history.length > 1) {
-            router.back();
-          } else {
-            router.push("/");
-          }
-        }}
-        className="absolute top-8 left-4 sm:top-10 sm:left-6 z-20 flex items-center text-gray-500 hover:text-blue-700 text-sm sm:text-base font-medium transition-colors gap-1 sm:gap-2 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        style={{ textDecoration: 'none', fontWeight: 500 }}
-      >
-        <span className="text-base sm:text-lg">←</span> Back
-      </button>
+    <main className="mx-auto max-w-2xl px-4 py-8 min-h-[100svh]">
+      <section className="mx-auto w-full max-w-[720px]">
+        <h1 className="text-center font-semibold text-[clamp(20px,2.1vw,26px)] leading-tight tracking-[-0.01em]">
+          Everything you need to launch your business, guided step by step.
+        </h1>
+        <p className="mt-1 text-center text-[15px] leading-snug text-neutral-600">
+          All in one clean, personalized dashboard.
+        </p>
 
-      <AnimatePresence mode="wait">
-        {currentStep === 'overview' && (
-          <motion.div
-            key="overview"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="pt-16 sm:pt-20"
-          >
-            <CheckoutOverview onContinue={handleContinueToCheckout} />
-          </motion.div>
-        )}
-        
-        {currentStep === 'checkout' && clientSecret && (
-          <motion.div
-            key="checkout"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="pt-16 sm:pt-20"
-          >
-            <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
-              <CheckoutForm onBack={handleBackToOverview} />
-            </Elements>
-          </motion.div>
-        )}
-        
-        {currentStep === 'checkout' && error && (
-          <motion.div
-            key="error"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="pt-16 sm:pt-20 flex items-center justify-center"
-          >
-            <div className="max-w-md mx-auto text-center p-6 bg-red-50 border border-red-200 rounded-lg">
-              <h3 className="text-lg font-semibold text-red-800 mb-2">Payment Setup Error</h3>
-              <p className="text-red-600 mb-4">{error}</p>
-              <p className="text-sm text-red-500 mb-4">
-                This is likely because Stripe is not configured for local development. 
-                The checkout will work properly when deployed.
-              </p>
-              <button
-                onClick={handleBackToOverview}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-              >
-                Go Back
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        <div className="mt-4 rounded-2xl border border-black/10 bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
+            <Checkout2Col />
+          </Elements>
+        </div>
+      </section>
+    </main>
   );
 } 
  

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { Download, MessageCircle, Mail, RefreshCw, FileText, Building2, CreditCard, CheckCircle, ChevronRight, HelpCircle, X, Bot, BadgeDollarSign, BookOpen, Clock, Eye, Download as DownloadIcon, ScrollText, Send, LogOut } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
+import { formatAppleStyle } from '../../lib/utils'
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator'
 import GenieChat from '../../components/GenieChat'
 import ContactSupportModal from '../../components/ContactSupportModal'
@@ -14,6 +15,8 @@ import llcStates from '../../data/llc_states.json';
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti';
 import ReactDOMServer from 'react-dom/server';
+import DocumentsSection from '../../components/DocumentsSection';
+import DashboardActions from '../../components/DashboardActions';
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
 // Remove: import { OperatingAgreementPDF } from '../../components/pdf/OperatingAgreementPDF';
@@ -120,28 +123,7 @@ export default function DashboardPage() {
   const [checklistOpen, setChecklistOpen] = useState(false)
   const [documentsOpen, setDocumentsOpen] = useState(false)
 
-  // Get current date and time for welcome message
-  const [currentDateTime, setCurrentDateTime] = useState('')
-  
-  useEffect(() => {
-    const updateDateTime = () => {
-      const now = new Date()
-      const options: Intl.DateTimeFormatOptions = {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true
-      }
-      setCurrentDateTime(now.toLocaleDateString('en-US', options))
-    }
-    
-    updateDateTime()
-    const interval = setInterval(updateDateTime, 60000) // Update every minute
-    
-    return () => clearInterval(interval)
-  }, [])
+
 
   useEffect(() => {
     // Always scroll to top on dashboard mount or redirect
@@ -160,7 +142,7 @@ export default function DashboardPage() {
       // Check if user is authenticated
       const { data: { user: authUser } } = await supabase.auth.getUser()
       if (!authUser) {
-        router.push('/onboarding')
+        router.push('/login')
         return
       }
 
@@ -172,7 +154,7 @@ export default function DashboardPage() {
         .single()
 
       if (!userData) {
-        router.push('/onboarding')
+        router.push('/login')
         return
       }
 
@@ -188,7 +170,7 @@ export default function DashboardPage() {
       setDocuments(docs || [])
     } catch (error) {
       console.error('Error fetching user data:', error)
-      router.push('/onboarding')
+      router.push('/login')
     } finally {
       setIsLoading(false)
     }
@@ -221,23 +203,39 @@ export default function DashboardPage() {
     }
   }
 
+  // Handler for new checklist component
+  const handleChecklistToggle = (id: string, next: boolean) => {
+    const itemIndex = checklistItems.findIndex(item => item.id === id);
+    if (itemIndex !== -1) {
+      const newChecklist = [...checklist];
+      newChecklist[itemIndex] = next;
+      updateChecklist(newChecklist);
+    }
+  }
+
   // Progress calculation
   const completedCount = checklist.filter(Boolean).length
   const progress = completedCount / 3
 
-  // Checklist step data
-  const checklistSteps = [
+  // Checklist step data for new components
+  const checklistItems = [
     {
+      id: 'file-llc',
       title: `File your LLC in ${user?.state || '[State]'}`,
-      description: 'This legally registers your business and gives it the authority to operate. Once filed, you\'ll receive your official registration documents.'
+      description: 'We prepared your state specific filing plan. Submit it to register your business and gain legal authority to operate.',
+      completed: checklist[0] || false
     },
     {
+      id: 'apply-ein',
       title: 'Apply for your EIN',
-      description: 'Your Employer Identification Number (EIN) is your business\'s tax ID — required to open a bank account, hire employees, or file taxes. It\'s free through the IRS.'
+      description: 'Get your IRS tax ID fast. Required for banking, payroll, and taxes.',
+      completed: checklist[1] || false
     },
     {
-      title: 'Print and Sign Your Operating Agreement',
-      description: 'We\'ve prepared one for you. Just download it, print, review, and sign. Most banks require a signed Operating Agreement to open an account, and it helps clearly define how your LLC runs.'
+      id: 'sign-agreement',
+      title: 'Print and sign your Operating Agreement',
+      description: 'Your tailored agreement is ready. Sign it to define ownership and protect members.',
+      completed: checklist[2] || false
     }
   ]
 
@@ -330,7 +328,7 @@ export default function DashboardPage() {
     if (!user) return null;
     const isSingleMember = user.is_solo_owner === 'yes';
     const now = new Date();
-    const formattedDate = now.toLocaleDateString();
+    const formattedDate = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     return (
       <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6', position: 'relative', minHeight: isPDF ? '1100px' : undefined }}>
@@ -349,7 +347,7 @@ export default function DashboardPage() {
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
           <li style={{ marginBottom: '4px' }}>Business Name: {user.business_name}</li>
           <li style={{ marginBottom: '4px' }}>State of Formation: {user.state}</li>
-          <li style={{ marginBottom: '4px' }}>Effective Date: {new Date().toLocaleDateString()}</li>
+          <li style={{ marginBottom: '4px' }}>Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</li>
           <li style={{ marginBottom: '4px' }}>Entity Type: {isSingleMember ? 'Single-Member LLC' : 'Multi-Member LLC'}</li>
           <li style={{ marginBottom: '4px' }}>Managed By: Member-managed</li>
           <li style={{ marginBottom: '4px' }}>Principal Address: {user.business_address || '[Not specified]'}</li>
@@ -471,7 +469,7 @@ export default function DashboardPage() {
         <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>LLC Filing Instructions for {user.business_name}</h2>
         <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Forming in {user.state}</div>
         <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your personal LLC assistant</div>
-        <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString()}</div>
+        <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. Why This Step Matters</h3>
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Filing your Articles of Organization is what officially creates your LLC with the state. Once approved, your business becomes legally recognized and ready to operate.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. What You'll Need</h3>
@@ -517,7 +515,7 @@ export default function DashboardPage() {
         <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>EIN Instructions for {user.business_name}</h2>
         <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Formed in {user.state}</div>
         <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your personal LLC assistant</div>
-        <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString()}</div>
+        <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>1. What Is an EIN?</h3>
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>An EIN (Employer Identification Number) is a unique ID issued by the IRS. Think of it as your business's Social Security Number — it's required to:<br/>- Open a business bank account<br/>- File taxes<br/>- Hire employees<br/>- Apply for business credit<br/>Even if you're the only owner, most banks and services will ask for your EIN.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. Do You Need One?</h3>
@@ -566,7 +564,7 @@ export default function DashboardPage() {
     setOpenSection(openSection === id ? null : id)
   }
 
-  const handleChecklistToggle = () => setChecklistOpen((v) => !v)
+
 
   const handleDocumentsToggle = () => setDocumentsOpen((v) => !v)
 
@@ -585,7 +583,7 @@ export default function DashboardPage() {
     }
     // Generate the minimalist footer as a string
     const now = new Date();
-    const formattedDate = now.toLocaleDateString();
+    const formattedDate = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const pdfFooter = `<div style="position:fixed;bottom:32px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#aaa;font-family:-apple-system,Arial,sans-serif;pointer-events:none;">
       <div style="text-align:left;">${formattedDate}, ${formattedTime}</div>
@@ -791,7 +789,7 @@ export default function DashboardPage() {
   ]
 
   // Document HTML content generators (match PDF logic, but HTML)
-  const today = new Date().toLocaleDateString();
+      const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   // --- HTML content for each doc ---
 
   // Remove the pdfLoading and pdfError cards
@@ -833,336 +831,89 @@ export default function DashboardPage() {
   //   );
   // }
 
+  // Prepare documents data for DocumentsSection
+  const docsData = [
+    {
+      id: 'llc-instructions',
+      title: 'LLC Filing Instructions',
+      description: 'Your step by step, state specific filing plan crafted just for your business.',
+      pdfHref: getDocUrl('LLC Filing Instructions')
+    },
+    {
+      id: 'ein-guide', 
+      title: 'EIN Guide',
+      description: 'Your personalized walkthrough to get your federal tax ID fast without confusion.',
+      pdfHref: getDocUrl('EIN Guide')
+    },
+    {
+      id: 'operating-agreement',
+      title: 'Operating Agreement', 
+      description: 'A customizable legal framework designed to match your LLC\'s unique structure.',
+      pdfHref: getDocUrl('Operating Agreement')
+    }
+  ];
+
+  // Document view handlers
+  const handleViewDoc = (doc: any) => {
+    let content;
+    if (doc.id === 'llc-instructions') {
+      content = llcHtml;
+    } else if (doc.id === 'ein-guide') {
+      content = einHtml;
+    } else if (doc.id === 'operating-agreement') {
+      content = oaHtml;
+    }
+    
+    setModalContent({
+      title: doc.title,
+      content: content || <div>Content not available</div>
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleDownloadDoc = (doc: any) => {
+    if (doc.pdfHref) {
+      window.open(doc.pdfHref, '_blank');
+    } else {
+      alert('PDF not available. Please regenerate your documents.');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <img src="/genie-preview.png" alt="Start With Genie" className="h-8 w-8 rounded-full" />
-              <span className="ml-3 text-xl font-semibold text-gray-900">Start With Genie</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={handleSignOut}
-                className="flex items-center text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign Out
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="space-y-8"
-        >
-          {/* Welcome Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="text-center pt-12 pb-10 border-b border-gray-200"
-          >
-            <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
-              Your Business Dashboard
-            </h1>
-            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Track progress and stay organized — all in one place.
-            </p>
-          </motion.div>
-
-          {/* Welcome Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="mb-8"
-          >
-            <h2 className="text-xl font-medium text-[#1c1c1e] mb-1">
-              Welcome back, {user?.full_name?.split(' ')[0]} 👋
+    <main className="mx-auto max-w-6xl px-6 py-8 sm:py-10">
+      <section className="fade-in-up mb-6">
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900">
+              {user?.full_name?.split(' ')[0] ? `Welcome back, ${user?.full_name?.split(' ')[0]}!` : "Welcome back!"}
             </h2>
-            <p className="text-sm text-[#8e8e93] flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              {currentDateTime}
+            <p className="text-sm text-gray-600">
+              {user?.business_name 
+                ? `Everything you need to launch ${user?.business_name} is right here.`
+                : "Everything you need to launch is right here."
+              }
             </p>
-          </motion.div>
+            <p className="text-xs text-gray-400 mt-1">{formatAppleStyle(new Date())}</p>
+          </div>
+          <DashboardActions />
+        </div>
+      </section>
 
-          {/* Progress Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-[#1d1d1f]">Get Set Up</h2>
-              <span className="text-sm font-medium text-[#8e8e93]">{Math.round(progress * 100)}% complete</span>
-            </div>
-            <div className="relative w-full h-1.5 bg-[#f2f2f2] rounded-full overflow-hidden">
-              <motion.div
-                className="absolute left-0 top-0 h-1.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress * 100}%` }}
-                transition={{ duration: 0.8, ease: 'easeInOut' }}
-              />
-            </div>
-          </motion.div>
-
-          {/* Checklist Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6"
-          >
-            <div className="space-y-4">
-              {checklistSteps.map((step, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={`flex items-start space-x-4 p-4 rounded-lg border transition-all duration-200 ${
-                    checklist[idx] 
-                      ? 'bg-green-50 border-green-200' 
-                      : 'bg-gray-50 border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center">
-                    {checklist[idx] ? (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                        className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
-                      >
-                        <CheckCircle className="w-4 h-4 text-white" />
-                      </motion.div>
-                    ) : (
-                      <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center">
-                        <Clock className="w-4 h-4 text-gray-500" />
-                      </div>
-                    )}
-                  </div>
-                  <div className={`flex-1 transition-all ${checklist[idx] ? 'opacity-70' : 'opacity-100'}`}>
-                    <div className={`font-semibold text-[#1d1d1f] ${checklist[idx] ? 'line-through' : ''}`}>
-                      {step.title}
-                    </div>
-                    <div className="text-sm text-[#8e8e93] mt-1">
-                      {step.description}
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => {
-                      const updated = [...checklist]
-                      updated[idx] = !updated[idx]
-                      updateChecklist(updated)
-                    }}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                      checklist[idx]
-                        ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                        : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                    }`}
-                  >
-                    {checklist[idx] ? 'Completed' : 'Mark Complete'}
-                  </button>
-                </motion.div>
-              ))}
-              <AnimatePresence>
-                {showCongrats && (
-                  <motion.div
-                    ref={allSetRef}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <div className="font-semibold text-[#1d1d1f] text-lg">🎉 All Set!</div>
-                        <div className="text-sm text-[#8e8e93] mt-1">
-                          Your business is now fully set up and ready to operate.
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-
-          {/* Documents Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            className="bg-white rounded-xl shadow-sm border border-[#f2f2f2] p-6"
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-[#1d1d1f] flex items-center gap-2">
-                <FileText className="w-5 h-5 text-blue-500" /> Your Documents
-              </h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* LLC Filing Instructions */}
-              <DocumentCard
-                icon={FileText}
-                title="LLC Filing Instructions"
-                subtitle="Step-by-step guide"
-                onViewClick={() => {
-                  setModalContent({
-                    title: 'LLC Filing Instructions',
-                    content: llcHtml || <div>Content not available</div>
-                  });
-                  setIsModalOpen(true);
-                }}
-                onPdfClick={() => {
-                  const llcUrl = getDocUrl('LLC Filing Instructions');
-                  if (llcUrl) {
-                    window.open(llcUrl, '_blank');
-                  } else {
-                    alert('PDF not available. Please regenerate your documents.');
-                  }
-                }}
-              />
-
-              {/* EIN Guide */}
-              <DocumentCard
-                icon={Building2}
-                title="EIN Guide"
-                subtitle="Tax ID application"
-                onViewClick={() => {
-                  setModalContent({
-                    title: 'EIN Guide',
-                    content: einHtml || <div>Content not available</div>
-                  });
-                  setIsModalOpen(true);
-                }}
-                onPdfClick={() => {
-                  const einUrl = getDocUrl('EIN Guide');
-                  if (einUrl) {
-                    window.open(einUrl, '_blank');
-                  } else {
-                    alert('PDF not available. Please regenerate your documents.');
-                  }
-                }}
-              />
-
-              {/* Operating Agreement */}
-              <DocumentCard
-                icon={ScrollText}
-                title="Operating Agreement"
-                subtitle="Legal document"
-                onViewClick={() => {
-                  setModalContent({
-                    title: 'Operating Agreement',
-                    content: oaHtml || <div>Content not available</div>
-                  });
-                  setIsModalOpen(true);
-                }}
-                onPdfClick={() => {
-                  const oaUrl = getDocUrl('Operating Agreement');
-                  if (oaUrl) {
-                    window.open(oaUrl, '_blank');
-                  } else {
-                    alert('PDF not available. Please regenerate your documents.');
-                  }
-                }}
-              />
-            </div>
-          </motion.div>
-
-          {/* Genie Assistant Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.8 }}
-            className="flex justify-center w-full"
-            style={{ marginTop: 48, marginBottom: 48 }}
-          >
-            <div
-              className="bg-white rounded-2xl shadow-sm border border-[#f2f2f2] flex flex-col items-center w-full"
-              style={{
-                maxWidth: 720,
-                width: '100%',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-                padding: '40px 32px',
-                margin: '0 auto',
-              }}
-            >
-              <div className="flex items-center gap-3 mb-4 w-full justify-center">
-                <img src="/genie-preview.png" alt="Genie" className="w-10 h-10 rounded-full" />
-                <div>
-                  <h2 className="text-2xl font-semibold text-gray-900">
-                    Your Genie Assistant
-                  </h2>
-                  <p className="mt-2 text-gray-600 max-w-xl mx-auto">
-                    Ask anything about your LLC setup. From EINs to operating agreements, Genie gives you instant answers to help you move forward.
-                  </p>
-                </div>
-              </div>
-
-              {/* Smart Prompt Suggestions */}
-              <div className="flex flex-wrap gap-2 mb-4 w-full justify-center">
-                <button 
-                  onClick={() => {
-                    const input = document.getElementById('genie-input') as HTMLInputElement;
-                    if (input) {
-                      input.value = "How do I get my EIN?";
-                      input.dispatchEvent(new Event('input', { bubbles: true }));
-                    }
-                  }}
-                  className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
-                >
-                  How do I get my EIN?
-                </button>
-                <button 
-                  onClick={() => {
-                    const input = document.getElementById('genie-input') as HTMLInputElement;
-                    if (input) {
-                      input.value = "Where do I file my LLC?";
-                      input.dispatchEvent(new Event('input', { bubbles: true }));
-                    }
-                  }}
-                  className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
-                >
-                  Where do I file my LLC?
-                </button>
-                <button 
-                  onClick={() => {
-                    const input = document.getElementById('genie-input') as HTMLInputElement;
-                    if (input) {
-                      input.value = "What's an Operating Agreement?";
-                      input.dispatchEvent(new Event('input', { bubbles: true }));
-                    }
-                  }}
-                  className="rounded-full bg-[#f1f1f1] text-sm px-4 py-2 hover:bg-[#e5e5e5] transition-all duration-200"
-                >
-                  What's an Operating Agreement?
-                </button>
-              </div>
-
-              {/* Chat Interface */}
-              <div
-                className="w-full max-w-xl mx-auto bg-white rounded-xl shadow border border-gray-200"
-                style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', marginTop: 8 }}
-              >
-                <GenieChat avatarSrc="/genie-preview.png" />
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
+      <section className="mt-12">
+        <DocumentsSection 
+          docs={docsData}
+          onView={handleViewDoc}
+          onDownload={handleDownloadDoc}
+        />
+      </section>
+      
+      <section className="mt-12 sm:mt-14">
+        <GenieChat 
+          avatarSrc="/genie-preview.png" 
+          userName={user?.full_name}
+          userState={user?.state}
+        />
+      </section>
 
       {/* Document Modal */}
       <AnimatePresence>
@@ -1173,7 +924,7 @@ export default function DashboardPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
             style={{ backdropFilter: 'blur(2px)' }}
             onClick={() => setIsModalOpen(false)}
           >
@@ -1182,8 +933,8 @@ export default function DashboardPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto p-8"
-              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', padding: 24, maxWidth: 600, lineHeight: 1.6, display: 'flex', flexDirection: 'column' }}
+              className="relative bg-white rounded-2xl shadow-2xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6 lg:p-8"
+              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', maxWidth: '600px', lineHeight: 1.6, display: 'flex', flexDirection: 'column' }}
               onClick={e => e.stopPropagation()}
             >
               <button
@@ -1194,7 +945,7 @@ export default function DashboardPage() {
               >
                 <span aria-hidden="true">×</span>
               </button>
-              <h2 className="text-2xl font-bold mb-6 text-gray-900" style={{ fontSize: 24, fontWeight: 700, marginBottom: 24, color: '#1f2937' }}>
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 pr-8" style={{ fontWeight: 700, color: '#1f2937' }}>
                 {modalContent.title}
               </h2>
               <div style={{ maxWidth: 600, margin: '0 auto', lineHeight: 1.6, flex: 1 }}>
@@ -1216,30 +967,6 @@ export default function DashboardPage() {
         <div id="printable-ein-guide-hidden">{einHtml}</div>
         <div id="printable-operating-agreement-hidden">{oaHtmlPDF}</div>
       </div>
-
-
-      </main>
-
-      {/* Footer */}
-      <footer className="mt-16 pt-8 border-t border-gray-100">
-        <div className="text-center">
-          {/* Support Email */}
-          <p className="text-sm text-gray-500 mb-3">
-            Questions? Reach us at{' '}
-            <a 
-              href="mailto:info@startwithgenie.com" 
-              className="text-blue-600 hover:text-blue-700 transition-colors"
-            >
-              info@startwithgenie.com
-            </a>
-          </p>
-          
-          {/* Disclaimer */}
-          <p className="text-xs text-gray-400 leading-relaxed max-w-2xl mx-auto">
-            This product is not a law firm and does not provide legal advice. For complex questions, consult a licensed professional.
-          </p>
-        </div>
-      </footer>
-    </div>
+    </main>
   )
 } 

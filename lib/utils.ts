@@ -83,9 +83,62 @@ export const US_STATES = [
   { value: 'WA', label: 'Washington' },
   { value: 'WV', label: 'West Virginia' },
   { value: 'WI', label: 'Wisconsin' },
-  { value: 'WY', label: 'Wyoming' },
+    { value: 'WY', label: 'Wyoming' },
 ] 
- 
- 
+
+// Helper function to get ordinal suffix (1st, 2nd, 3rd, etc.)
+function getOrdinalSuffix(day: number): string {
+  if (day >= 11 && day <= 13) {
+    return `${day}th`;
+  }
+  switch (day % 10) {
+    case 1: return `${day}st`;
+    case 2: return `${day}nd`;
+    case 3: return `${day}rd`;
+    default: return `${day}th`;
+  }
+}
+
+// Apple-style timestamp formatting
+export function formatAppleStyle(date: Date | string | null | undefined): string {
+  if (!date) return '';
+  
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (isNaN(dateObj.getTime())) return '';
+  
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+  const inputDate = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
+  
+  const timeFormat = new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+  
+  const time = timeFormat.format(dateObj).toUpperCase();
+  
+  if (inputDate.getTime() === today.getTime()) {
+    const todayFormat = new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric'
+    });
+    const ordinalDay = getOrdinalSuffix(dateObj.getDate());
+    const monthName = todayFormat.format(dateObj).split(' ')[0];
+    return `${monthName} ${ordinalDay} at ${time}`;
+  } else if (inputDate.getTime() === yesterday.getTime()) {
+    return `Yesterday at ${time}`;
+  } else {
+    const fullDateFormat = new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+    return `${fullDateFormat.format(dateObj)} at ${time}`;
+  }
+}
+
+
  
  

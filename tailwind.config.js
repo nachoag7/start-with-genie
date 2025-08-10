@@ -51,6 +51,9 @@ module.exports = {
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },
+      perspective: {
+        '1400': '1400px',
+      },
     },
   },
   plugins: [],

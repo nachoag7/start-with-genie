@@ -269,7 +269,7 @@ Submit the application and wait for approval`, 40, y, { spacing: 8 })
   // Footer and disclaimer (no signature section)
   addAppleDisclaimer(doc)
   addAppleFooter(doc)
-  await addGenieWatermark(doc)
+
   
   const pdfBlob = doc.output('blob')
   const { data: { user } } = await supabase.auth.getUser()
@@ -277,6 +277,99 @@ Submit the application and wait for approval`, 40, y, { spacing: 8 })
   
   const fileName = `LLC-Filing-Instructions-${data.businessName.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`
   return await uploadPDFToSupabase(pdfBlob, fileName, user.id)
+}
+
+// Sample version that returns blob URL instead of uploading to Supabase
+export async function generateLLCFilingInstructionsSample(data: DocumentData & { managerType?: string }): Promise<string> {
+  const doc = new jsPDF()
+  const today = new Date().toLocaleDateString()
+  const managerType = data.managerType || 'Member-managed'
+  
+  // Get state info
+  const normalizedState = (data.state || '').trim()
+  let stateInfo: any = {}
+  try {
+    const excelLookup = getStateLLCFilingInfoFromExcel()
+    stateInfo = excelLookup[normalizedState] || stateLLCInfo[normalizedState] || {}
+  } catch (e) {
+    stateInfo = stateLLCInfo[normalizedState] || {}
+  }
+  
+  const filingFee = stateInfo.fee ? (typeof stateInfo.fee === 'string' ? stateInfo.fee : `$${stateInfo.fee}`) : 'Unavailable - please check your state\'s website'
+  const filingTime = stateInfo.time || 'Unavailable - please check your state\'s website'
+  const filingUrl = stateInfo.url || 'Unavailable - please check your state\'s website'
+
+  // Apple-level layout with generous spacing
+  let y = 40
+  
+  // Title
+  y = addAppleHeading(doc, `LLC Filing Instructions for ${data.businessName}`, 40, y, 22)
+  
+  // Subtitle
+  setAppleFont(doc, 'normal')
+  doc.setFontSize(14)
+  doc.text(`Prepared for ${data.fullName} | Forming in ${data.state}`, 40, y)
+  y += 8
+  doc.text('Start With Genie – Your personal LLC assistant', 40, y)
+  y += 8
+  doc.text(`Effective Date: ${today}`, 40, y)
+  y += 24
+
+  // Section 1
+  y = addAppleHeading(doc, '1. Why This Step Matters', 40, y)
+  y = addAppleText(doc, 'Filing your Articles of Organization is what officially creates your LLC with the state. Once approved, your business becomes legally recognized and ready to operate.', 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 2
+  y = addAppleHeading(doc, '2. What You\'ll Need', 40, y)
+  y = addAppleText(doc, `Business name: ${data.businessName} (your official name must include "LLC," "L.L.C.," or "Limited Liability Company")
+Owner name(s): ${data.fullName}
+Business address
+Address Tip: You can usually use your home address, but it must be a physical location — no PO Boxes. If you want privacy, a virtual office address may be an option.
+
+Registered Agent (you or someone else in ${data.state})
+What's a Registered Agent? This is the person or business responsible for receiving legal documents on behalf of your LLC. You can be your own agent if you're a ${data.state} resident with a physical address.
+
+Management structure: ${managerType}
+Filing website login (some states require creating an account)`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 3
+  y = addAppleHeading(doc, `3. Filing Details for ${data.state}`, 40, y)
+  y = addAppleText(doc, `Here's what you need to know to file your LLC:\nFiling Fee: ${filingFee}\nProcessing Time: ${filingTime}\nWhere to File: ${filingUrl}\n(This is the official Secretary of State or business portal for ${data.state})`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 4
+  y = addAppleHeading(doc, '4. Step-by-Step Instructions', 40, y)
+  y = addAppleText(doc, `Go to the link above and create an account (if required)
+
+Select "Form a New LLC" or "Articles of Organization"
+
+Enter your business and owner information:
+- For Business Name, enter "${data.businessName}"
+- Under Principal Office Address, use your business address
+- For Organizers, list your name and title (e.g., "${data.fullName}, Member")
+- For Management Type, choose "${managerType}"
+
+Add your Registered Agent information
+
+Pay the filing fee online
+
+Submit the application and wait for approval`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 5
+  y = addAppleHeading(doc, '5. After You File', 40, y)
+  y = addAppleText(doc, 'Once approved, you\'ll receive a confirmation document or certificate from the state. Save this — you\'ll need it for your EIN, bank account, and taxes.\n\nNext step: Apply for your EIN and sign your Operating Agreement.', 40, y, { spacing: 8 })
+  
+  // Footer and disclaimer (no signature section)
+  addAppleDisclaimer(doc)
+  addAppleFooter(doc)
+
+  
+  const pdfBlob = doc.output('blob')
+  const pdfUrl = URL.createObjectURL(pdfBlob)
+  return pdfUrl
 }
 
 export async function generateEINGuide(data: DocumentData & { einStatus?: string, llcType?: string }): Promise<string> {
@@ -327,7 +420,7 @@ export async function generateEINGuide(data: DocumentData & { einStatus?: string
   // Footer and disclaimer (no signature section)
   addAppleDisclaimer(doc)
   addAppleFooter(doc)
-  await addGenieWatermark(doc)
+
   
   const pdfBlob = doc.output('blob')
   const { data: { user } } = await supabase.auth.getUser()
@@ -335,6 +428,62 @@ export async function generateEINGuide(data: DocumentData & { einStatus?: string
   
   const fileName = `EIN-Guide-${data.businessName.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`
   return await uploadPDFToSupabase(pdfBlob, fileName, user.id)
+}
+
+// Sample version that returns blob URL instead of uploading to Supabase
+export async function generateEINGuideSample(data: DocumentData & { einStatus?: string, llcType?: string }): Promise<string> {
+  const doc = new jsPDF()
+  const today = new Date().toLocaleDateString()
+  const einStatus = data.einStatus || 'Yes, you need an EIN.'
+  const llcType = data.llcType || 'LLC'
+
+  let y = 40
+  
+  // Title
+  y = addAppleHeading(doc, `EIN Instructions for ${data.businessName}`, 40, y, 22)
+  
+  // Subtitle
+  setAppleFont(doc, 'normal')
+  doc.setFontSize(14)
+  doc.text(`Prepared for ${data.fullName} | Formed in ${data.state}`, 40, y)
+  y += 8
+  doc.text('Start With Genie – Your personal LLC assistant', 40, y)
+  y += 8
+  doc.text(`Effective Date: ${today}`, 40, y)
+  y += 24
+
+  // Section 1
+  y = addAppleHeading(doc, '1. What Is an EIN and Why It Matters', 40, y)
+  y = addAppleText(doc, `An EIN (Employer Identification Number) is a unique ID issued by the IRS.\nIt works like a Social Security Number for your business, and it's required for:\n\n- Opening a business bank account\n- Filing taxes\n- Hiring employees\n- Applying for business credit\n\nEven if you're a single-member LLC, most banks and services will still require an EIN.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 2
+  y = addAppleHeading(doc, '2. Who Needs an EIN', 40, y)
+  y = addAppleText(doc, `Based on your answers: ${einStatus}\n\nMost LLCs need an EIN. Even if you don't plan to hire employees, you'll likely need one to:\n\n- Open a business bank account\n- File federal or state taxes\n- Apply for licenses, loans, or payment processors\n\nGetting an EIN is completely free and only takes a few minutes online.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 3
+  y = addAppleHeading(doc, '3. How to Apply for an EIN Online', 40, y)
+  y = addAppleText(doc, `The IRS provides a free online application for LLCs.\n\nWhere to apply:\nhttps://irs.gov/ein\n\nWhen:\nMonday–Friday, 7:00 AM – 10:00 PM EST\n\nWhat you'll need:\n- Your name: ${data.fullName}\n- Your business name: ${data.businessName}\n- Business address\n- Business structure: ${llcType}\n- Confirmation that you are the owner\n\nWhat to expect:\nThe application takes about 10 minutes. Once submitted, your EIN is issued immediately.\n\nYou don't need a lawyer or any advanced paperwork. Just answer honestly, and save your confirmation.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 4
+  y = addAppleHeading(doc, '4. What to Do After You Get Your EIN', 40, y)
+  y = addAppleText(doc, `Once you receive your EIN:\n\n- Download and save your confirmation letter (Form CP 575)\n- Use it to open your business bank account\n- You'll need it for taxes, payroll setup, and applying for credit\n- Come back to your Genie Dashboard to download your Operating Agreement`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 5
+  y = addAppleHeading(doc, '5. Alternate Filing Options (Mail or Fax)', 40, y)
+  y = addAppleText(doc, `If you don't have a Social Security Number or can't use the online application:\n\n1. Download IRS Form SS-4:\n   https://www.irs.gov/forms-pubs/about-form-ss-4\n2. Complete the form using your LLC details\n   (Leave the SSN field blank if you're a non-U.S. resident)\n3. Submit the form to the IRS by:\n   - Fax: 855-641-6935\n   - Mail:\n     Internal Revenue Service\n     Attn: EIN Operation\n     Cincinnati, OH 45999\n\nThis method typically takes 2–4 weeks.`, 40, y, { spacing: 8 })
+  
+  // Footer and disclaimer (no signature section)
+  addAppleDisclaimer(doc)
+  addAppleFooter(doc)
+
+  
+  const pdfBlob = doc.output('blob')
+  const pdfUrl = URL.createObjectURL(pdfBlob)
+  return pdfUrl
 }
 
 export async function generateOperatingAgreement(data: DocumentData & {
@@ -428,7 +577,7 @@ export async function generateOperatingAgreement(data: DocumentData & {
   // Footer and disclaimer
   addAppleDisclaimer(doc)
   addAppleFooter(doc)
-  await addGenieWatermark(doc)
+
   
   const pdfBlob = doc.output('blob')
   const { data: { user } } = await supabase.auth.getUser()
@@ -437,37 +586,106 @@ export async function generateOperatingAgreement(data: DocumentData & {
   const fileName = `Operating-Agreement-${data.businessName.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`
   return await uploadPDFToSupabase(pdfBlob, fileName, user.id)
 }
-// Helper to add watermark to all pages
-async function addGenieWatermark(doc: jsPDF) {
-  const response = await fetch('/genie-preview.png')
-  const blob = await response.blob()
-  const reader = new FileReader()
-  return new Promise<void>((resolve) => {
-    reader.onloadend = function () {
-      const imgData = reader.result as string
-      const pageCount = doc.getNumberOfPages()
-      for (let i = 1; i <= pageCount; i++) {
-        doc.setPage(i)
-        // Set opacity if supported
-        if (typeof doc.setGState === 'function' && typeof doc.GState === 'function') {
-          doc.setGState(doc.GState({ opacity: 0.2 }))
-        }
-        const pageWidth = doc.internal.pageSize.getWidth()
-        const pageHeight = doc.internal.pageSize.getHeight()
-        const imgWidth = 40
-        const imgHeight = 40
-        doc.addImage(imgData, 'PNG', pageWidth - imgWidth - 10, pageHeight - imgHeight - 10, imgWidth, imgHeight)
-        if (typeof doc.setGState === 'function') {
-          if (typeof doc.GState === 'function') {
-            doc.setGState(doc.GState({ opacity: 1 })) // Reset to full opacity
-          }
-        }
-      }
-      resolve()
-    }
-    reader.readAsDataURL(blob)
-  })
-} 
+
+// Sample version that returns blob URL instead of uploading to Supabase
+export async function generateOperatingAgreementSample(data: DocumentData & {
+  llcType?: string,
+  managerType?: string,
+  principalAddress?: string,
+  memberList?: string,
+  contributionSummary?: string,
+  votingRules?: string,
+  optionalAdditionalMembers?: string
+}): Promise<string> {
+  const doc = new jsPDF()
+  const today = new Date().toLocaleDateString()
+  const llcType = data.llcType || 'Single-Member LLC'
+  const managerType = data.managerType || 'Member-managed'
+  const principalAddress = data.principalAddress || '[Not specified]'
+  const contributionSummary = data.contributionSummary || '[Not specified]'
+
+  let y = 40
+  
+  // Title
+  y = addAppleHeading(doc, `Operating Agreement for ${data.businessName}`, 40, y, 22)
+  
+  // Subtitle
+  setAppleFont(doc, 'normal')
+  doc.setFontSize(14)
+  doc.text(`Prepared for ${data.fullName} | Formed in ${data.state}`, 40, y)
+  y += 8
+  doc.text('Start With Genie – Your personal LLC assistant', 40, y)
+  y += 8
+  doc.text(`Effective Date: ${today}`, 40, y)
+  y += 24
+
+  // Section 1
+  y = addAppleHeading(doc, '1. Introduction', 40, y)
+  y = addAppleText(doc, `This Operating Agreement ("Agreement") is made effective as of the date above by and between ${data.fullName} (the "Member") of ${data.businessName}, a limited liability company formed under the laws of the State of ${data.state}.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 2
+  y = addAppleHeading(doc, '2. Company Overview', 40, y)
+  y = addAppleText(doc, `Business Name: ${data.businessName}\nState of Formation: ${data.state}\nEffective Date: ${today}\nEntity Type: Single-Member LLC\nManaged By: ${managerType}\nPrincipal Address: ${principalAddress}`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 3
+  y = addAppleHeading(doc, '3. Purpose of the LLC', 40, y)
+  y = addAppleText(doc, `The purpose of the LLC is to engage in any lawful business activity permitted under the laws of ${data.state}. The Member may modify the purpose as needed.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 4
+  y = addAppleHeading(doc, '4. Ownership', 40, y)
+  y = addAppleText(doc, `Member: ${data.fullName}\n\nThis is a Single-Member LLC, owned and operated by ${data.fullName}.\n\nThe Member owns 100% of the LLC.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 5
+  y = addAppleHeading(doc, '5. Capital Contributions', 40, y)
+  y = addAppleText(doc, `Initial contribution from Member: ${contributionSummary}\n\nNo additional contributions are required unless agreed in writing by the Member.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 6
+  y = addAppleHeading(doc, '6. Profit and Loss Allocation', 40, y)
+  y = addAppleText(doc, 'All profits and losses will be allocated to the Member. Distributions will be made at the discretion of the Member.', 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 7
+  y = addAppleHeading(doc, '7. Management and Voting', 40, y)
+  y = addAppleText(doc, `The LLC is ${managerType}. Major decisions (such as dissolving the LLC) are made by the Member.`, 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 8
+  y = addAppleHeading(doc, '8. Liability Protection', 40, y)
+  y = addAppleText(doc, 'The Member is not personally liable for the debts or obligations of the LLC. The LLC will indemnify the Member to the extent permitted by law.', 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 9
+  y = addAppleHeading(doc, '9. Ownership Changes', 40, y)
+  y = addAppleText(doc, 'The Member may not transfer ownership without written consent from the Member, unless required by law.', 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 10
+  y = addAppleHeading(doc, '10. Dissolution', 40, y)
+  y = addAppleText(doc, 'The LLC may be dissolved upon: (1) a written decision by the Member, or (2) completion of its business purpose. Upon dissolution, assets will be distributed in this order: 1. Creditors 2. Taxes 3. The Member.', 40, y, { spacing: 8 })
+  y += 16
+
+  // Section 11
+  y = addAppleHeading(doc, '11. Governing Law', 40, y)
+  y = addAppleText(doc, `This Agreement is governed by the laws of the State of ${data.state}.`, 40, y, { spacing: 8 })
+  
+  // Signature section
+  y = addAppleSignatureSection(doc, y, data.fullName)
+  
+  // Footer and disclaimer
+  addAppleDisclaimer(doc)
+  addAppleFooter(doc)
+
+  
+  const pdfBlob = doc.output('blob')
+  const pdfUrl = URL.createObjectURL(pdfBlob)
+  return pdfUrl
+}
+ 
  
  
  

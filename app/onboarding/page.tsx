@@ -10,6 +10,7 @@ import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import { motion, AnimatePresence } from 'framer-motion'
 import Footer from '../../components/Footer'
 import { Button } from '../../components/ui/Button'
+import PremiumButton from '../../components/ui/PremiumButton'
 import { CheckCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import bcrypt from 'bcryptjs';
@@ -201,46 +202,36 @@ export default function OnboardingPage() {
   let content: JSX.Element = <></>;
   if (view === 'pre') {
     content = (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50 px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50 px-6 py-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="max-w-lg w-full mx-auto bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-8 border border-gray-100 backdrop-blur-md"
+          className="max-w-lg w-full mx-auto bg-white/90 rounded-3xl shadow-2xl p-12 flex flex-col items-center gap-12 border border-gray-100 backdrop-blur-md"
         >
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 420, damping: 22, delay: 0.1 }}
-            className="flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-2 shadow-sm"
-          >
-            <CheckCircle className="w-12 h-12 text-green-500" strokeWidth={2.5} />
-          </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-            className="text-2xl font-semibold text-gray-900 text-center"
+            className="text-3xl font-semibold text-gray-900 text-center leading-tight mt-4"
           >
-            Let’s get your LLC launch tailored to you.
+            Let's get your LLC launch tailored to you.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-            className="text-base text-gray-600 text-center"
+            className="text-lg text-gray-600 text-center leading-relaxed max-w-md"
           >
             We just need a few quick details to generate your documents and steps.
           </motion.p>
-          <Button
+          <PremiumButton
             size="lg"
-            fullWidth
-            className="mt-2 flex items-center justify-center gap-2 text-base font-semibold rounded-xl shadow-sm bg-gradient-to-br from-[#3A8DFF] to-[#1F6BFF] text-white hover:shadow-lg hover:brightness-105 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200"
-            style={{ background: 'linear-gradient(90deg, #3A8DFF 0%, #1F6BFF 100%)', color: '#fff' }}
+            className="w-full"
             onClick={() => setView('form')}
           >
             Continue
-          </Button>
+          </PremiumButton>
         </motion.div>
       </div>
     );
@@ -370,15 +361,14 @@ export default function OnboardingPage() {
             )}
           </div>
         </div>
-        <Button
+        <PremiumButton
           type="button"
           onClick={nextStep}
-          size="lg"
-          fullWidth
-          className="mt-2"
+          size="md"
+          className="mt-2 w-full"
         >
           Continue
-        </Button>
+        </PremiumButton>
       </motion.div>
     );
 
@@ -493,26 +483,15 @@ export default function OnboardingPage() {
             )}
           </div>
         </div>
-        <div className="flex gap-3 mt-2">
-          <Button
-            type="button"
-            onClick={prevStep}
-            size="lg"
-            fullWidth
-            variant="secondary"
-            className="!bg-white !text-blue-700 border border-blue-200 hover:bg-blue-50"
-          >
-            ← Back
-          </Button>
-          <Button
+        <div className="mt-2">
+          <PremiumButton
             type="submit"
             disabled={isLoading}
             size="lg"
-            fullWidth
-            className=""
+            className="w-full px-8 py-4 text-base font-medium"
           >
             {isLoading ? "Creating your account..." : "Get Started"}
-          </Button>
+          </PremiumButton>
         </div>
       </motion.div>
     );

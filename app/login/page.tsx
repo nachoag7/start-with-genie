@@ -116,7 +116,7 @@ export default function LoginPage() {
             transition={{ duration: 0.7, ease: 'easeOut' }}
             className="w-full max-w-md bg-white rounded-xl shadow-md p-8 flex flex-col gap-6 mt-4"
           >
-            <h1 className="font-semibold text-3xl text-neutral-900 text-center">Sign In to Genie</h1>
+            <h1 className="font-semibold text-3xl text-neutral-900 text-center">Log in</h1>
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <Input
                 label="Email Address"
@@ -153,7 +153,7 @@ export default function LoginPage() {
                   variant="secondary"
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Signing in...' : 'Sign in'}
+                  {isLoading ? 'Logging in...' : 'Log in'}
                 </Button>
               </div>
             </form>

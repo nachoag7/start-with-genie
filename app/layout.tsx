@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ClarityAnalytics from '../components/ClarityAnalytics';
+import ConditionalNavbar from '../components/ConditionalNavbar';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -112,10 +114,8 @@ export default function RootLayout({
             __html: `<!-- Google Tag Manager (noscript) -->\n<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8FB535K" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n<!-- End Google Tag Manager (noscript) -->`
           }} />
         )}
-        {/* Removed global header/nav to prevent duplication on dashboard and other signed-in pages */}
-        <div className="min-h-screen bg-gray-50">
-          {children}
-        </div>
+        <ConditionalNavbar />
+        {children}
         <ClarityAnalytics />
       </body>
     </html>
