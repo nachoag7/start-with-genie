@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "./ui/Button";
 import PremiumButton from "./ui/PremiumButton";
 import SampleDashboardCard from "./SampleDashboardCard";
+import { SectionReveal } from "./reveal";
 
 export default function Hero() {
   return (
@@ -14,34 +15,41 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 h-full flex items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center w-full">
           {/* Left: copy */}
-          <div>
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-gray-900">
-              The New Way to Start Your Business
-            </h1>
-            <p className="mt-5 text-lg text-gray-600">
-              We don't file for you, but we give you everything you need to set up your business with confidence. Personalized LLC filing instructions, EIN setup, and a customizable operating agreement — all for just $49.
-            </p>
+          <SectionReveal>
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-gray-900">
+                The New Way to Start Your Business
+              </h1>
+              <p className="mt-5 text-lg text-gray-600">
+                We don't file for you, but we give you everything you need to set up your business with confidence. Personalized LLC filing instructions, EIN setup, and a customizable operating agreement — all for just $49.
+              </p>
 
-            <div className="mt-8 text-center md:text-left">
-              <Link href="/checkout">
-                <PremiumButton size="md" className="inline-block">
-                  Start My LLC for $49
-                </PremiumButton>
-              </Link>
-            </div>
+              <div className="mt-8 text-center md:text-left">
+                <Link href="/checkout">
+                  <PremiumButton size="md" className="inline-block hover:scale-[1.01] hover:shadow-lg transition-all duration-200 ease-smooth group">
+                    <span className="relative text-white">
+                      Start My LLC for $49
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300 ease-smooth" style={{ animation: 'subtle-underline 0.3s ease-smooth' }}></span>
+                    </span>
+                  </PremiumButton>
+                </Link>
+              </div>
 
-            {/* Trust row */}
-            <div className="mt-4 text-sm text-gray-500 text-center md:text-left">
-              Flat rate. No surprise fees. Just what you need.
+              {/* Trust row */}
+              <div className="mt-4 text-sm text-gray-500 text-center md:text-left">
+                Flat rate. No surprise fees. Just what you need.
+              </div>
             </div>
-          </div>
+          </SectionReveal>
 
           {/* Right: dashboard preview */}
-          <div>
-            <div className="mt-6 md:mt-0 flex justify-center">
-              <SampleDashboardCard />
+          <SectionReveal delay={0.08}>
+            <div>
+              <div className="mt-6 md:mt-0 flex justify-center">
+                <SampleDashboardCard />
+              </div>
             </div>
-          </div>
+          </SectionReveal>
         </div>
       </div>
     </section>

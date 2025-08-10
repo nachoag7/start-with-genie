@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { SectionReveal, StaggerReveal, Item } from "./reveal";
 
 type QA = { q: string; a: string };
 
@@ -58,21 +60,26 @@ export default function FAQ() {
   return (
     <section aria-labelledby="faqs" className="relative py-20">
       <div className="mx-auto max-w-3xl px-6 lg:px-0">
-        <h2 id="faqs" className="text-center text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900">
-          FAQs
-        </h2>
+        <SectionReveal>
+          <h2 id="faqs" className="text-center text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900">
+            FAQs
+          </h2>
+        </SectionReveal>
 
         <div ref={rootRef} className="mt-10 divide-y divide-neutral-200/70">
-          {FAQS.map((item, i) => (
-            <FAQItem
-              key={i}
-              i={i}
-              q={item.q}
-              a={item.a}
-              open={open === i}
-              onToggle={() => setOpen(open === i ? null : i)}
-            />
-          ))}
+          <StaggerReveal>
+            {FAQS.map((item, i) => (
+              <Item key={i}>
+                <FAQItem
+                  i={i}
+                  q={item.q}
+                  a={item.a}
+                  open={open === i}
+                  onToggle={() => setOpen(open === i ? null : i)}
+                />
+              </Item>
+            ))}
+          </StaggerReveal>
         </div>
       </div>
     </section>
@@ -86,7 +93,7 @@ function FAQItem({
   const buttonId = `faq-button-${i}`;
 
   return (
-    <div data-animate style={{ transitionDelay: `${70 * i}ms` }} className="faq-row opacity-0 translate-y-[8px]">
+    <div>
       <button
         id={buttonId}
         aria-controls={contentId}
@@ -95,30 +102,35 @@ function FAQItem({
         className="flex w-full items-start justify-between gap-6 py-5 text-left"
       >
         <span className="text-base md:text-lg font-semibold text-neutral-900">{q}</span>
-        <span
-          className={[
-            "mt-1 flex h-6 w-6 items-center justify-center rounded-md border border-neutral-300 text-neutral-500 transition",
-            open ? "rotate-45" : "",
-          ].join(" ")}
+        <motion.span
+          animate={{ rotate: open ? 45 : 0 }}
+          transition={{ duration: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+          className="mt-1 flex h-6 w-6 items-center justify-center rounded-md border border-neutral-300 text-neutral-500"
           aria-hidden="true"
         >
           +
-        </span>
+        </motion.span>
       </button>
 
-      <div
+      <motion.div
         id={contentId}
         role="region"
         aria-labelledby={buttonId}
-        className={[
-          "overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-out grid",
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-80",
-        ].join(" ")}
+        initial={false}
+        animate={{ 
+          height: open ? "auto" : 0,
+          opacity: open ? 1 : 0.8
+        }}
+        transition={{ 
+          height: { duration: 0.2, ease: [0.22, 0.61, 0.36, 1] },
+          opacity: { duration: 0.15, ease: [0.22, 0.61, 0.36, 1] }
+        }}
+        className="overflow-hidden"
       >
-        <div className="min-h-0">
-          <p className="pb-5 text-[15px] leading-7 text-neutral-600">{a}</p>
+        <div className="pb-5">
+          <p className="text-[15px] leading-7 text-neutral-600">{a}</p>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 } 

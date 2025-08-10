@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { SectionReveal } from "./reveal";
 
 type ChatMessage = {
   id: string;
@@ -237,19 +239,20 @@ export default function GenieChat({
   }
 
   return (
-    <div
-      className="
-        rounded-2xl border border-gray-200
-        bg-gradient-to-b from-white to-slate-50
-        backdrop-blur-sm
-        shadow-sm
-        p-5 sm:p-6
-        space-y-4
-        motion-soft
-        hover:shadow-[0_12px_40px_rgba(2,6,23,0.08)] hover:-translate-y-0.5
-        pb-safe relative
-      "
-    >
+    <SectionReveal>
+      <div
+        className="
+          rounded-2xl border border-gray-200
+          bg-gradient-to-b from-white to-slate-50
+          backdrop-blur-sm
+          shadow-sm
+          p-5 sm:p-6
+          space-y-4
+          motion-soft
+          hover:shadow-[0_12px_40px_rgba(2,6,23,0.08)] hover:-translate-y-0.5
+          pb-safe relative
+        "
+      >
       {/* Header */}
       <div>
         <h2 className="text-sm sm:text-base font-semibold text-gray-900">Your Genie Assistant</h2>
@@ -352,14 +355,20 @@ export default function GenieChat({
           <span>Demo mode - Get full access in your dashboard</span>
         </div>
       )}
-    </div>
+      </div>
+    </SectionReveal>
   );
 }
 
 function MessageBubble({ msg, avatarSrc }: { msg: ChatMessage; avatarSrc: string }) {
   const isAssistant = msg.role === "assistant";
   return (
-    <div className={`flex fade-in-up ${isAssistant ? "items-start" : "items-start justify-end"}`}>
+    <motion.div 
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}
+      className={`flex ${isAssistant ? "items-start" : "items-start justify-end"}`}
+    >
       {isAssistant ? (
         <div className="flex items-start gap-3 max-w-[80%]">
           <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
@@ -374,7 +383,7 @@ function MessageBubble({ msg, avatarSrc }: { msg: ChatMessage; avatarSrc: string
           <RichText content={msg.content} />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 

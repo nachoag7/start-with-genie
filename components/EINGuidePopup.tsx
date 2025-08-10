@@ -16,6 +16,11 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSu
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   console.log('EIN Popup Component: isOpen =', isOpen, 'sourcePage =', sourcePage);
 
@@ -73,23 +78,24 @@ export default function EINGuidePopup({ isOpen, onClose, sourcePage, markEmailSu
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen && isMounted && (
         <>
           {/* Backdrop */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity duration-300 ease-out"
+            initial={{ opacity: 0, backdropFilter: "blur(4px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(4px)" }}
+            transition={{ duration: 0.25, ease: [0.22, 0.61, 0.36, 1] }}
+            className="fixed inset-0 bg-black/20 z-40"
             onClick={onClose}
           />
           
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            initial={{ opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            exit={{ opacity: 0, scale: 0.98, y: 10 }}
+            transition={{ duration: 0.25, ease: [0.22, 0.61, 0.36, 1] }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
             <div className="backdrop-blur-lg bg-white/80 rounded-2xl shadow-2xl max-w-lg w-full relative border border-white/20">
