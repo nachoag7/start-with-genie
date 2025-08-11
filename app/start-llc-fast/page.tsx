@@ -272,7 +272,7 @@ export default function StartLLCFastPage() {
           <div className="flex justify-center mb-6">
             <div className="w-full max-w-[720px] rounded-[10px] shadow-lg overflow-hidden">
               <video
-                src="/Dashboard-preview.mp4"
+                src="/dashboard-preview.mp4"
                 autoPlay
                 muted
                 loop
@@ -280,7 +280,7 @@ export default function StartLLCFastPage() {
                 controlsList="nodownload noremoteplayback"
                 disablePictureInPicture
                 playsInline
-                preload="metadata"
+                preload="none"
                 className="w-full aspect-video bg-black object-cover"
                 style={{ outline: 'none', border: 'none', padding: 0 }}
               />

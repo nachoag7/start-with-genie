@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import PremiumButton from "./ui/PremiumButton";
 
 const navLinks = [
   { href: "/#how-it-works", label: "How it works" },
@@ -29,7 +28,6 @@ export default function Navbar({ bgColor = "bg-white" }: NavbarProps) {
             width={32}
             height={32}
             className="h-8 w-8 rounded-full"
-            priority
           />
           <span className="sr-only">Start With Genie</span>
         </Link>

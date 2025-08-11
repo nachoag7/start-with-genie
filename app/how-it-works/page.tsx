@@ -37,8 +37,9 @@ export default function HowItWorksPage() {
               autoPlay
               muted
               poster="/Dashboard1.png"
+              preload="none"
             >
-              <source src="/Dashboard-preview.mp4" type="video/mp4" />
+              <source src="/dashboard-preview.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <p className="text-sm text-neutral-500 text-center">

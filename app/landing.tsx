@@ -21,11 +21,12 @@ export default function Landing() {
         <h2 className="text-xl font-semibold text-neutral-900 mb-4">See how simple it actually is</h2>
         <div className="aspect-video w-full rounded-lg overflow-hidden bg-black flex items-center justify-center">
           <video
-            src="/Dashboard-preview.mp4"
+            src="/dashboard-preview.mp4"
             autoPlay
             muted
             loop
             playsInline
+            preload="none"
             className="w-full h-full object-cover"
             style={{ maxHeight: 400 }}
           />

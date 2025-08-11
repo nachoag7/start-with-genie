@@ -59,73 +59,9 @@ export default function ResourcesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="antialiased">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#ffffff" />
-        {/* If you want to add more <link> or <meta> tags, add them here inside <head> */}
-        {process.env.NODE_ENV === 'production' && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id=GTM-M8FB535K'+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-M8FB535K');
-              `
-            }}
-          />
-        )}
-        {/* Google Ads Global Site Tag (gtag.js) */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17379321231"></script>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'AW-17379321231');
-                `
-              }}
-            />
-          </>
-        )}
-        {/* Google Analytics Global Site Tag (gtag.js) for G-RVE4MFWE3J */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVE4MFWE3J"></script>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-RVE4MFWE3J');
-                `
-              }}
-            />
-          </>
-        )}
-      </head>
-      <body className={inter.className}>
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <noscript>
-              <iframe
-                src="https://www.googletagmanager.com/ns.html?id=GTM-M8FB535K"
-                height="0"
-                width="0"
-                style={{ display: 'none', visibility: 'hidden' }}
-              />
-            </noscript>
-          </>
-        )}
-        {children}
-        <ClarityAnalytics />
-      </body>
-    </html>
+    <>
+      {children}
+      <ClarityAnalytics />
+    </>
   );
 } 
