@@ -7,7 +7,7 @@ import Footer from '../../components/Footer'
 import SampleDashboardCard from '../../components/SampleDashboardCard'
 import { SectionReveal, StaggerReveal, Item } from '../../components/reveal'
 import { motion } from 'framer-motion'
-import { CheckCircle, Shield, DollarSign, Users, FileText, LayoutDashboard, Bot, ArrowRight, Clock, Zap, XCircle } from 'lucide-react'
+import { CheckCircle, Users, ArrowRight, Clock, Zap } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'The Fastest Way for Dropshippers to Get an LLC and Protect Their Store',
@@ -35,27 +35,22 @@ export const metadata: Metadata = {
 export default function LLCDropshippersPage() {
   const features = [
     {
-      icon: <FileText size={24} />,
       title: "Step-by-Step State Filing",
       desc: "Get exact instructions for your state so you can file correctly the first time and stay compliant. No legal headaches. No wondering if you missed a form.",
     },
     {
-      icon: <DollarSign size={24} />,
       title: "EIN Walkthrough",
       desc: "Your Federal Tax ID is what lets you open a business bank account and connect payment processors like Stripe and PayPal. We walk you through it in minutes so you can start getting paid under your business.",
     },
     {
-      icon: <Shield size={24} />,
       title: "Custom Operating Agreement",
       desc: "A lawyer-inspired template built for ecommerce. Protect your business from disputes and outline exactly who owns what.",
     },
     {
-      icon: <LayoutDashboard size={24} />,
       title: "Clean Founder Dashboard",
       desc: "Every document. Every step. All in one workspace you can access anytime. Perfect for busy store owners who don't want a pile of random files in their inbox.",
     },
     {
-      icon: <Bot size={24} />,
       title: "24/7 Genie Assistant",
       desc: "Instant answers when you're stuck. Whether it's \"How do I get my EIN without an SSN?\" or \"Which state should I file in?\" Genie is there 24/7.",
     },
@@ -150,23 +145,11 @@ export default function LLCDropshippersPage() {
             <p className="text-lg text-gray-700 mb-6">
               Without an LLC, you're taking risks every day:
             </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-start space-x-3">
-                <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Payment holds that last months</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Tax surprises you didn't budget for</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Disputes you can't defend against</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Suppliers who don't take you seriously</span>
-              </li>
+            <ul className="space-y-3 mb-8 list-disc list-inside text-gray-700">
+              <li>Payment holds that last months</li>
+              <li>Tax surprises you didn't budget for</li>
+              <li>Disputes you can't defend against</li>
+              <li>Suppliers who don't take you seriously</li>
             </ul>
             <p className="text-lg text-gray-700">
               Genie doesn't file for you. We give you a clear, personalized system so you can file the right way today and keep every dollar in your control.
@@ -187,19 +170,29 @@ export default function LLCDropshippersPage() {
           <div className="space-y-8">
             {features.map((feature, index) => (
               <SectionReveal key={index}>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
-                    {feature.icon}
+                <div className="grid grid-cols-[48px_1fr] items-start gap-4 md:gap-6 hover:translate-y-[2px] hover:shadow-sm transition-all duration-200 ease-smooth">
+                  {/* number */}
+                  <div className="relative h-12">
+                    <span className="absolute inset-0 select-none text-[28px] font-semibold leading-none text-neutral-200">
+                      {index + 1}
+                    </span>
                   </div>
+
+                  {/* copy */}
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="mt-2 max-w-[60ch] text-[15px] leading-7 text-gray-600">
                       {feature.desc}
                     </p>
                   </div>
                 </div>
+
+                {/* divider rhythm */}
+                {index < features.length - 1 && (
+                  <div className="my-6 h-px bg-neutral-200/50" />
+                )}
               </SectionReveal>
             ))}
           </div>
@@ -207,7 +200,7 @@ export default function LLCDropshippersPage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-gray-50">
+      <section id="how-it-works" className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <SectionReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">

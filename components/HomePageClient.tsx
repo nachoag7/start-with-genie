@@ -7,13 +7,17 @@ import { Button } from './ui/Button'
 import PremiumButton from './ui/PremiumButton'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, CheckCircle2, ShieldCheck, Sparkles, Timer as TimerIcon, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote, Star, Play, Pause } from 'lucide-react'
-import Footer from './Footer'
-import EINGuidePopup from './EINGuidePopup'
+import dynamic from 'next/dynamic'
+
+// Lazy-load components
+const Footer = dynamic(() => import('./Footer'), { ssr: true })
+const GenieChat = dynamic(() => import('./GenieChat'), { ssr: false })
+const EINGuidePopup = dynamic(() => import('./EINGuidePopup'), { ssr: false })
+
 import { useEINPopup } from '../hooks/useEINPopup'
 import Timer from './Timer'
 import Hero from './Hero'
 import WhatsIncludedStack from './WhatsIncludedStack'
-import GenieChat from './GenieChat'
 import FounderNote from './FounderNote'
 import FAQ from './FAQ'
 import PremiumChecklist from './PremiumChecklist'

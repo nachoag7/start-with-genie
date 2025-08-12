@@ -1,148 +1,164 @@
-import React from 'react'
-import type { Metadata } from 'next'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+import { motion } from 'framer-motion'
+import { SectionReveal } from '../../components/reveal'
+import PremiumButton from '../../components/ui/PremiumButton'
 import Footer from '../../components/Footer'
-import { Button } from '../../components/ui/Button'
-import { FileText, CreditCard, ScrollText, ClipboardCheck, LayoutDashboard } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'How It Works – Start With Genie',
-  description: 'See how Start With Genie helps you launch your LLC step-by-step — with instructions, documents, and a clean dashboard made for founders.',
+  title: 'See How Genie Works in 30 Seconds',
+  description: 'Watch how Genie helps you set up your LLC with personalized instructions, EIN help, and downloads in one clean dashboard.',
   openGraph: {
-    title: 'How It Works – Start With Genie',
-    description: 'See how Start With Genie helps you launch your LLC step-by-step — with instructions, documents, and a clean dashboard made for founders.',
+    title: 'See How Genie Works in 30 Seconds',
+    description: 'Watch how Genie helps you set up your LLC with personalized instructions, EIN help, and downloads in one clean dashboard.',
+    url: 'https://startwithgenie.com/how-it-works',
+    images: [
+      {
+        url: 'https://startwithgenie.com/genie-og.png',
+        width: 1200,
+        height: 628,
+        alt: 'Start With Genie – How It Works',
+      },
+    ],
+  },
+  twitter: {
+    title: 'See How Genie Works in 30 Seconds',
+    description: 'Watch how Genie helps you set up your LLC with personalized instructions, EIN help, and downloads in one clean dashboard.',
+    images: ['https://startwithgenie.com/genie-og.png'],
   },
 }
 
 export default function HowItWorksPage() {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Set mounted state to prevent SSR issues
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Set playback speed to 1.25x on mount
+  useEffect(() => {
+    if (videoRef.current && isMounted) {
+      videoRef.current.playbackRate = 1.25;
+    }
+  }, [isMounted]);
+
+  // Auto-play video when it comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && videoRef.current && isMounted) {
+            videoRef.current.play().catch(() => {
+              // Handle autoplay restrictions
+              console.log('Autoplay prevented by browser');
+            });
+            setIsPlaying(true);
+          }
+        });
+      },
+      { threshold: 0.3 } // Trigger when 30% of video is visible
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, [isMounted]);
+
+  // Play video when it comes into view (Framer Motion)
+  // User can pause/resume after that
+  const handlePlayPause = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  // Sync play/pause state if user uses native controls
+  const handleVideoPlay = () => setIsPlaying(true);
+  const handleVideoPause = () => setIsPlaying(false);
+
   return (
-    <div className="min-h-screen bg-neutral-50 flex flex-col">
-      <main className="flex-1">
-        {/* Header Section */}
-        <section className="w-full max-w-6xl mx-auto px-4 py-1 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-2 leading-tight">
-            How It Works
+    <div className="min-h-screen bg-white">
+      <SectionReveal>
+        <section className="w-full flex flex-col items-center justify-center py-32">
+          <h1 className="text-center text-3xl md:text-4xl font-semibold mb-6">
+            See How Genie Works in 30 Seconds
           </h1>
-          <p className="text-xl md:text-2xl text-neutral-600 max-w-3xl mx-auto leading-relaxed mb-4">
-            See exactly what you get — and how fast you'll be up and running.
-          </p>
-        </section>
-
-        {/* Product Preview Video */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-8">
-          <div className="space-y-4">
-            <video 
-              className="w-full rounded-lg shadow-lg" 
-              controls
-              autoPlay
-              muted
-              poster="/Dashboard1.png"
-              preload="none"
-            >
-              <source src="/dashboard-preview.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <p className="text-sm text-neutral-500 text-center">
-              This is your Genie dashboard — personalized for your state, with every step mapped out.
-            </p>
-          </div>
-        </section>
-
-        {/* What's Included */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-8">
-          <h2 className="text-3xl font-semibold text-neutral-900 mb-8 text-center">
-            What's Included
-          </h2>
-          <div className="space-y-4">
-            {/* Step-by-step filing instructions */}
-            <div className="flex items-start gap-4">
-              <FileText className="w-5 h-5 text-neutral-400 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1">
-                  Step-by-step filing instructions
-                </h3>
-                <p className="text-neutral-700 leading-relaxed">
-                  Tailored for your state — no guessing or Googling required.
-                </p>
-              </div>
-            </div>
-
-            {/* EIN guide */}
-            <div className="flex items-start gap-4">
-              <CreditCard className="w-5 h-5 text-neutral-400 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1">
-                  EIN guide
-                </h3>
-                <p className="text-neutral-700 leading-relaxed">
-                  Everything you need to apply online in 5 minutes.
-                </p>
-              </div>
-            </div>
-
-            {/* Operating agreement */}
-            <div className="flex items-start gap-4">
-              <ScrollText className="w-5 h-5 text-neutral-400 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1">
-                  Operating agreement
-                </h3>
-                <p className="text-neutral-700 leading-relaxed">
-                  Downloadable template — edit and use instantly.
-                </p>
-              </div>
-            </div>
-
-            {/* Launch checklist */}
-            <div className="flex items-start gap-4">
-              <ClipboardCheck className="w-5 h-5 text-neutral-400 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1">
-                  Launch checklist
-                </h3>
-                <p className="text-neutral-700 leading-relaxed">
-                  Stay organized and move fast with our founder-ready checklist.
-                </p>
-              </div>
-            </div>
-
-            {/* Your own dashboard */}
-            <div className="flex items-start gap-4">
-              <LayoutDashboard className="w-5 h-5 text-neutral-400 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1">
-                  Your own dashboard
-                </h3>
-                <p className="text-neutral-700 leading-relaxed">
-                  All your documents and steps in one clean place.
-                </p>
+          <div 
+            className="relative w-full flex justify-center"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <div className="relative">
+              <motion.video
+                ref={videoRef}
+                muted
+                loop
+                controls
+                controlsList="nodownload noremoteplayback"
+                disablePictureInPicture
+                playsInline
+                preload="metadata"
+                className="rounded-2xl shadow-2xl w-full max-w-[720px] aspect-video bg-black object-cover transition-all duration-200 ease-smooth"
+                style={{ outline: 'none', border: 'none', padding: 0 }}
+                onPlay={handleVideoPlay}
+                onPause={handleVideoPause}
+                whileHover={{ scale: 1.01 }}
+              >
+                <source src="/dashboard-preview.webm" type="video/webm" />
+                <source src="/dashboard-preview-mobile.mp4" type="video/mp4" />
+                <source src="/dashboard-preview.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </motion.video>
+              
+              {/* Top highlight overlay on hover */}
+              <div 
+                className={`absolute inset-0 rounded-2xl bg-gradient-to-b from-white/10 to-transparent pointer-events-none transition-opacity duration-200 ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+              
+              {/* 30s preview pill */}
+              <div 
+                className={`absolute top-4 left-4 bg-black/70 text-white text-xs px-2 py-1 rounded-full transition-opacity duration-200 ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                30s preview
               </div>
             </div>
           </div>
-        </section>
-
-        {/* What We Don't Do */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-8">
-          <h2 className="text-2xl font-semibold text-neutral-900 mb-4 text-center">
-            What We Don't Do
-          </h2>
-          <p className="text-neutral-700 leading-relaxed text-center">
-            Start With Genie gives you everything you need to file confidently — but we don't file for you, and we don't upsell you on extras you don't need.
+          <p className="text-gray-500 text-sm mt-4 text-center max-w-md">
+            Get personalized instructions, EIN help, and downloads in one clean dashboard.
           </p>
+          <div className="text-center mt-8" data-cta-section>
+            <Link href="/checkout">
+              <PremiumButton size="md" className="w-full max-w-xs hover:scale-[1.015] hover:shadow-md transition-all duration-200 ease-smooth group">
+                <span className="relative text-white">
+                  Start My LLC for $49
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300 ease-smooth"></span>
+                </span>
+              </PremiumButton>
+            </Link>
+          </div>
         </section>
-
-        {/* CTA Section */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-12 text-center">
-          <h2 className="text-3xl font-semibold text-neutral-900 mb-6">
-            Ready to launch?
-          </h2>
-          <Link href="/checkout">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg font-medium rounded-lg transition-colors duration-200">
-              Get Started for $49
-            </Button>
-          </Link>
-        </section>
-      </main>
+      </SectionReveal>
+      
       <Footer />
     </div>
   )
