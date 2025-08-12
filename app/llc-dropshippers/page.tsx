@@ -1,13 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Button } from '../../components/ui/Button'
 import PremiumButton from '../../components/ui/PremiumButton'
 import Footer from '../../components/Footer'
 import SampleDashboardCard from '../../components/SampleDashboardCard'
 import { SectionReveal, StaggerReveal, Item } from '../../components/reveal'
-import { motion } from 'framer-motion'
-import { CheckCircle, Users, ArrowRight, Clock, Zap } from 'lucide-react'
+
 
 export const metadata: Metadata = {
   title: 'The Fastest Way for Dropshippers to Get an LLC and Protect Their Store',
