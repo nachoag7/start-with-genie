@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { SectionReveal, StaggerReveal, Item } from "./reveal";
 
-const FEATURES = [
+const DEFAULT_FEATURES = [
   {
     title: "Step-by-Step State Filing",
     desc: "Personalized to your state so you file with confidence from day one.",
@@ -26,7 +26,11 @@ const FEATURES = [
   },
 ];
 
-export default function WhatsIncludedStack() {
+interface WhatsIncludedStackProps {
+  features?: Array<{ title: string; desc: string }>;
+}
+
+export default function WhatsIncludedStack({ features = DEFAULT_FEATURES }: WhatsIncludedStackProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -70,7 +74,7 @@ export default function WhatsIncludedStack() {
           />
 
           <StaggerReveal>
-            {FEATURES.map((f, i) => (
+            {features.map((f, i) => (
               <Item key={f.title}>
                 <div className="grid grid-cols-[48px_1fr] items-start gap-4 md:gap-6 hover:translate-y-[2px] hover:shadow-sm transition-all duration-200 ease-smooth">
                   {/* number */}
@@ -92,7 +96,7 @@ export default function WhatsIncludedStack() {
                 </div>
 
                 {/* divider rhythm */}
-                {i < FEATURES.length - 1 && (
+                {i < features.length - 1 && (
                   <div className="my-6 h-px bg-neutral-200/50" />
                 )}
               </Item>

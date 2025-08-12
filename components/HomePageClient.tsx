@@ -330,15 +330,29 @@ function AboutLLCSection() {
   );
 }
 
-export default function HomePageClient() {
+interface HomePageClientProps {
+  heroTitle?: string;
+  heroSubtitle?: string;
+  showGenieComparison?: boolean;
+  customFaqs?: Array<{ q: string; a: string }>;
+  customFeatures?: Array<{ title: string; desc: string }>;
+}
+
+export default function HomePageClient({ 
+  heroTitle,
+  heroSubtitle,
+  showGenieComparison = true,
+  customFaqs,
+  customFeatures
+}: HomePageClientProps = {}) {
   const router = useRouter()
   const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
 
   return (
     <div className="min-h-screen bg-white">
-      <Hero />
+      <Hero title={heroTitle} subtitle={heroSubtitle} />
       
-      <WhatsIncludedStack />
+      <WhatsIncludedStack features={customFeatures} />
       
       {/* Dashboard Preview Video - "See How Genie Works in 60 Seconds" */}
       <div className="w-full px-4 mt-4">
@@ -402,7 +416,7 @@ export default function HomePageClient() {
         </div>
       </section>
       
-      <GenieComparison />
+      {showGenieComparison && <GenieComparison />}
       
       <Divider />
       
@@ -424,7 +438,7 @@ export default function HomePageClient() {
         </section>
       </SectionReveal>
       
-      <FAQ />
+      <FAQ faqs={customFaqs} />
       
       <Footer />
       

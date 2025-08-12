@@ -6,7 +6,15 @@ import PremiumButton from "./ui/PremiumButton";
 import SampleDashboardCard from "./SampleDashboardCard";
 import { SectionReveal } from "./reveal";
 
-export default function Hero() {
+interface HeroProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export default function Hero({ 
+  title = "The New Way to Start Your Business",
+  subtitle = "We don't file for you, but we give you everything you need to set up your business with confidence. Personalized LLC filing instructions, EIN setup, and a customizable operating agreement — all for just $49."
+}: HeroProps = {}) {
   return (
     <section className="relative overflow-hidden bg-white pt-20 pb-16">
       {/* mesh wave background */}
@@ -18,10 +26,10 @@ export default function Hero() {
           <SectionReveal>
             <div>
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-gray-900">
-                The New Way to Start Your Business
+                {title}
               </h1>
               <p className="mt-5 text-lg text-gray-600">
-                We don't file for you, but we give you everything you need to set up your business with confidence. Personalized LLC filing instructions, EIN setup, and a customizable operating agreement — all for just $49.
+                {subtitle}
               </p>
 
               <div className="mt-8 text-center md:text-left">

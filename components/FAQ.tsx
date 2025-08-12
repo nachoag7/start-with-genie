@@ -6,7 +6,7 @@ import { SectionReveal, StaggerReveal, Item } from "./reveal";
 
 type QA = { q: string; a: string };
 
-const FAQS: QA[] = [
+const DEFAULT_FAQS: QA[] = [
   {
     q: "Do you file the LLC for me?",
     a: "No. Genie is built for founders who want complete control without paying inflated service fees. We give you the exact steps, documents, and guidance so you can file your LLC with clarity and confidence.",
@@ -33,7 +33,11 @@ const FAQS: QA[] = [
   },
 ];
 
-export default function FAQ() {
+interface FAQProps {
+  faqs?: QA[];
+}
+
+export default function FAQ({ faqs = DEFAULT_FAQS }: FAQProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<number | null>(0); // open first by default
 
@@ -68,7 +72,7 @@ export default function FAQ() {
 
         <div ref={rootRef} className="mt-10 divide-y divide-neutral-200/70">
           <StaggerReveal>
-            {FAQS.map((item, i) => (
+            {faqs.map((item, i) => (
               <Item key={i}>
                 <FAQItem
                   i={i}
