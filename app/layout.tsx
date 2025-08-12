@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ClarityAnalytics from '../components/ClarityAnalytics';
+import GoogleAnalytics from '../components/GoogleAnalytics';
 import ConditionalNavbar from '../components/ConditionalNavbar';
 
 
@@ -79,18 +80,7 @@ export default function RootLayout({
             }}
           />
         )}
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVEM4FWEJ3"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-RVEM4FWEJ3');
-            `
-          }}
-        />
+
         {/* Google Ads */}
         {process.env.NODE_ENV === 'production' && (
           <>
@@ -114,6 +104,7 @@ export default function RootLayout({
         )}
         <ConditionalNavbar />
         {children}
+        <GoogleAnalytics />
         <ClarityAnalytics />
       </body>
     </html>
