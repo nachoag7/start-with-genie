@@ -105,10 +105,10 @@ export default function LLCDropshippersPage() {
             <SectionReveal>
               <div>
                 <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-gray-900">
-                  Get Your Dropshipping LLC in Under an Hour. Keep Your Payments and Suppliers Secure. For $49.
+                  Get Your Dropshipping LLC in Under an Hour. For $49.
                 </h1>
                 <p className="mt-5 text-lg text-gray-600">
-                  Genie doesn't file for you... but it gives you everything you need to legalize your e-com store, for $49. We show you exactly how to file your LLC, get your EIN, and protect your business. Built for dropshippers who want to avoid frozen payouts, tax headaches, and supplier trust issues, without paying inflated service fees.
+                  Genie doesn't file for you... but it gives you everything you need to legalize your e-com store, for $49. Built for dropshippers who want to avoid frozen payouts, tax headaches, and supplier trust issues.
                 </p>
                                  <div className="mt-8 text-center md:text-left">
                    <Link href="/checkout">
