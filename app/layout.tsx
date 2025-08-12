@@ -79,39 +79,34 @@ export default function RootLayout({
             }}
           />
         )}
-        {/* Analytics loaded after page load for better performance */}
+        {/* Google Analytics */}
         {process.env.NODE_ENV === 'production' && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                // Defer analytics loading
-                window.addEventListener('load', function() {
-                  // Google Ads
-                  var script1 = document.createElement('script');
-                  script1.async = true;
-                  script1.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17379321231';
-                  document.head.appendChild(script1);
-                  
-                  script1.onload = function() {
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'AW-17379321231');
-                  };
-                  
-                  // Google Analytics
-                  var script2 = document.createElement('script');
-                  script2.async = true;
-                  script2.src = 'https://www.googletagmanager.com/gtag/js?id=G-RVEM4FWEJ3';
-                  document.head.appendChild(script2);
-                  
-                  script2.onload = function() {
-                    gtag('config', 'G-RVEM4FWEJ3');
-                  };
-                });
-              `
-            }}
-          />
+          <>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVE4MFWE3J"></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-RVE4MFWE3J');
+                `
+              }}
+            />
+          </>
+        )}
+        {/* Google Ads */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17379321231"></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  gtag('config', 'AW-17379321231');
+                `
+              }}
+            />
+          </>
         )}
         {/* Pinterest Base Tag removed as it is now loaded via GTM */}
       </head>
