@@ -13,30 +13,45 @@ declare global {
 export default function GoogleAnalytics() {
   useEffect(() => {
     if (typeof window !== "undefined") {
+      console.log("GoogleAnalytics component mounted");
+      
       // Load Google Analytics script
       const loadGoogleAnalytics = () => {
-        if (window.gtag) return; // prevent duplicate
+        if (window.gtag) {
+          console.log("Google Analytics already loaded");
+          return; // prevent duplicate
+        }
+        
+        console.log("Loading Google Analytics...");
+        
+        // Initialize dataLayer first
+        window.dataLayer = window.dataLayer || [];
         
         // Create and append the gtag script
         const script = document.createElement("script");
         script.src = "https://www.googletagmanager.com/gtag/js?id=G-RVEM4FWEJ3";
         script.async = true;
-        document.head.appendChild(script);
-
-        // Initialize gtag
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function() {
-          window.dataLayer!.push(arguments);
+        
+        // Wait for script to load before initializing gtag
+        script.onload = () => {
+          console.log("Google Analytics script loaded");
+          window.gtag = function() {
+            window.dataLayer!.push(arguments);
+          };
+          window.gtag('js', new Date());
+          window.gtag('config', 'G-RVEM4FWEJ3');
+          console.log("Google Analytics initialized with ID: G-RVEM4FWEJ3");
         };
-        window.gtag('js', new Date());
-        window.gtag('config', 'G-RVEM4FWEJ3');
+        
+        script.onerror = () => {
+          console.error("Failed to load Google Analytics script");
+        };
+        
+        document.head.appendChild(script);
       };
 
-      if (document.readyState === "complete") {
-        loadGoogleAnalytics(); // if already ready
-      } else {
-        window.addEventListener("load", loadGoogleAnalytics); // wait for full load
-      }
+      // Load immediately if possible
+      loadGoogleAnalytics();
     }
   }, []);
 
