@@ -76,7 +76,7 @@ export default function WhatsIncludedStack({ features = DEFAULT_FEATURES }: What
           <StaggerReveal>
             {features.map((f, i) => (
               <Item key={f.title}>
-                <div className="grid grid-cols-[48px_1fr] items-start gap-4 md:gap-6 hover:translate-y-[2px] hover:shadow-sm transition-all duration-200 ease-smooth">
+                <div className="grid grid-cols-[48px_1fr] items-start gap-4 md:gap-6">
                   {/* number */}
                   <div className="relative h-12">
                     <span className="absolute inset-0 select-none text-[28px] font-semibold leading-none text-neutral-200">

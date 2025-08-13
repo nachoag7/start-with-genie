@@ -5,6 +5,7 @@ import { SectionReveal } from '../../components/reveal'
 import PremiumButton from '../../components/ui/PremiumButton'
 import Footer from '../../components/Footer'
 import HowItWorksVideo from './HowItWorksVideo'
+import ConditionalNavbar from '../../components/ConditionalNavbar'
 
 export const metadata: Metadata = {
   title: 'See How Genie Works in 30 Seconds',
@@ -32,6 +33,7 @@ export const metadata: Metadata = {
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen bg-white">
+      <ConditionalNavbar />
       <HowItWorksVideo />
       <Footer />
     </div>

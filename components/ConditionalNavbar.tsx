@@ -17,7 +17,7 @@ export default function ConditionalNavbar() {
     pathname === '/loading' ||
     // SEO/Blog pages - hide navbar on pages with hyphens (most SEO pages)
     // But allow navbar on specific homepage-like pages
-    (pathname.includes('-') && pathname !== '/llc-dropshippers') ||
+    (pathname.includes('-') && pathname !== '/llc-dropshippers' && pathname !== '/how-it-works') ||
     // Additional specific SEO pages that don't have hyphens
     pathname === '/about' ||
     pathname === '/contact' ||
