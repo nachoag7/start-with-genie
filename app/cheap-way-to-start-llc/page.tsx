@@ -21,7 +21,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/Footer";
-import EINGuidePopup from "../../components/EINGuidePopup";
+
 import { useEINPopup } from "../../hooks/useEINPopup";
 
 export default function CheapWayToStartLLCPage() {
@@ -311,7 +311,7 @@ export default function CheapWayToStartLLCPage() {
         </section>
 
         {/* EIN POPUP */}
-        {showPopup && <EINGuidePopup isOpen={showPopup} onClose={closePopup} sourcePage="cheap-way-to-start-llc" markEmailSubmitted={markEmailSubmitted} />}
+
       </main>
 
       <Footer />

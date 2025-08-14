@@ -12,9 +12,7 @@ import dynamic from 'next/dynamic'
 // Lazy-load components
 const Footer = dynamic(() => import('./Footer'), { ssr: true })
 const GenieChat = dynamic(() => import('./GenieChat'), { ssr: false })
-const EINGuidePopup = dynamic(() => import('./EINGuidePopup'), { ssr: false })
 
-import { useEINPopup } from '../hooks/useEINPopup'
 import Timer from './Timer'
 import Hero from './Hero'
 import WhatsIncludedStack from './WhatsIncludedStack'
@@ -348,7 +346,7 @@ export default function HomePageClient({
   customFeatures
 }: HomePageClientProps = {}) {
   const router = useRouter()
-  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -439,13 +437,7 @@ export default function HomePageClient({
       
       <Footer />
       
-      {/* EIN Guide Popup */}
-      <EINGuidePopup 
-        isOpen={showPopup} 
-        onClose={closePopup} 
-        sourcePage="home" 
-        markEmailSubmitted={markEmailSubmitted}
-      />
+
     </div>
   );
 }

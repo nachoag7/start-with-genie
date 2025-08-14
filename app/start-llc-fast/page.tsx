@@ -27,15 +27,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Footer from "../../components/Footer";
-import EINGuidePopup from "../../components/EINGuidePopup";
-import { useEINPopup } from "../../hooks/useEINPopup";
+
+
 import Timer from "../../components/Timer";
 import { Button } from "../../components/ui/Button";
 
 export default function StartLLCFastPage() {
   const [timeSpent, setTimeSpent] = useState("0:00");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -433,13 +433,7 @@ export default function StartLLCFastPage() {
         {/* FOOTER */}
         <Footer />
       
-      {/* EIN Guide Popup */}
-      <EINGuidePopup 
-        isOpen={showPopup}
-        onClose={closePopup}
-        sourcePage="/start-llc-fast"
-        markEmailSubmitted={markEmailSubmitted}
-      />
+
       </main>
     </>
   );

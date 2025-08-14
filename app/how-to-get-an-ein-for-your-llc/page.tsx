@@ -6,11 +6,11 @@ import { Button } from '../../components/ui/Button'
 import { CheckCircle, ArrowRight, CreditCard, Building2, FileText, ShieldCheck, Users, Banknote } from 'lucide-react'
 import Link from 'next/link'
 import SeoPageLayout from '../../components/SeoPageLayout'
-import { useEINPopup } from '../../hooks/useEINPopup'
-import EINGuidePopup from '../../components/EINGuidePopup'
+
+
 
 export default function EINGuidePage() {
-  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
+
   
   const benefits = [
     'Open a business bank account',
@@ -250,13 +250,7 @@ export default function EINGuidePage() {
         </section>
       </div>
       
-      {/* EIN Guide Popup */}
-      <EINGuidePopup
-        isOpen={showPopup}
-        onClose={closePopup}
-        sourcePage="/how-to-get-an-ein-for-your-llc"
-        markEmailSubmitted={markEmailSubmitted}
-      />
+
     </SeoPageLayout>
   )
 }
