@@ -411,8 +411,8 @@ export default function SampleDashboard() {
               Unlock your personalized LLC launch kit now and get everything you need to file with clarity — for just $49.
             </p>
             <Link
-              href="/checkout"
-              className="inline-flex items-center justify-center rounded-lg bg-[#3b82f6] px-8 py-3 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
+              href="/onboarding"
+              className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-3 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
             >
               Get My Full Kit
             </Link>

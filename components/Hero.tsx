@@ -12,8 +12,8 @@ interface HeroProps {
 }
 
 export default function Hero({ 
-  title = "The New Way to Start Your Business",
-  subtitle = "We don't file for you, but we give you everything you need to set up your business with confidence. Personalized LLC filing instructions, EIN setup, and a customizable operating agreement — all for just $49."
+  title = "Everything You Need To Launch Your LLC for $49",
+  subtitle = "Answer a few short questions and get a personalized step by step guide to file your LLC, get your EIN, and sign your Operating Agreement. If it doesn't save you time and money, get a full refund within 7 days"
 }: HeroProps = {}) {
   return (
     <section className="relative overflow-hidden bg-white pt-20 pb-16">
