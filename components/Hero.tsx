@@ -33,7 +33,7 @@ export default function Hero({
               </p>
 
               <div className="mt-8 text-center md:text-left">
-                <Link href="/checkout">
+                <Link href="/onboarding">
                   <PremiumButton size="md" className="inline-block hover:scale-[1.01] hover:shadow-lg transition-all duration-200 ease-smooth group">
                     <span className="relative text-white">
                       Start My LLC for $49

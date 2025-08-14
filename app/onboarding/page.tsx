@@ -135,8 +135,8 @@ export default function OnboardingPage() {
         setIsLoading(false);
         return;
       }
-      // 3. Immediately show success and redirect (no PDF generation)
-      setView('success');
+      // 3. Redirect to dashboard in preview mode
+      router.push('/dashboard?preview=true');
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
@@ -561,27 +561,6 @@ export default function OnboardingPage() {
                 {error}
               </motion.div>
             )}
-
-            <div className="mt-8">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-neutral-200" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-neutral-50 text-neutral-500">
-                    Already have an account?
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <Link href="/login">
-                  <button className="w-full text-sm text-neutral-600 hover:text-neutral-800 hover:underline transition-colors duration-200">
-                    Sign in
-                  </button>
-                </Link>
-              </div>
-            </div>
           </motion.div>
         </main>
         <Footer />

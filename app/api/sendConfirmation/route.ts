@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import Stripe from 'stripe';
+import { supabase } from '../../../lib/supabase';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -41,9 +42,31 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
   }
 
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object as Stripe.Checkout.Session;
-    const customerEmail = session.customer_details?.email || session.customer_email;
+  if (event.type === 'payment_intent.succeeded') {
+    const paymentIntent = event.data.object as Stripe.PaymentIntent;
+    const userId = paymentIntent.metadata?.user_id;
+    
+    if (userId) {
+      try {
+        // Mark user as paid in database
+        const { error: updateError } = await supabase
+          .from('users')
+          .update({ 
+            has_paid: true, 
+            payment_date: new Date().toISOString() 
+          })
+          .eq('id', userId);
+        
+        if (updateError) {
+          console.error('Error updating user payment status:', updateError);
+        }
+      } catch (dbErr) {
+        console.error('Database error:', dbErr);
+      }
+    }
+
+    // Send confirmation email
+    const customerEmail = paymentIntent.receipt_email;
     if (customerEmail) {
       try {
         await resend.emails.send({
@@ -53,7 +76,7 @@ export async function POST(req: NextRequest) {
           html: EMAIL_HTML,
         });
       } catch (emailErr) {
-        return NextResponse.json({ error: 'Failed to send confirmation email', details: emailErr }, { status: 500 });
+        console.error('Failed to send confirmation email:', emailErr);
       }
     }
   }

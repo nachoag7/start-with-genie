@@ -30,7 +30,7 @@ export default function SuccessPage() {
       const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
 
       if (paymentIntent && paymentIntent.status === 'succeeded') {
-        router.push("/onboarding");
+        router.push("/dashboard?payment_success=true");
       } else {
         // Handle failed or pending payment
         router.push("/checkout"); // Or a payment failure page

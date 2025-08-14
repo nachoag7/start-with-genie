@@ -43,7 +43,7 @@ export default function MultiStepCheckout({ onBack }: MultiStepCheckoutProps) {
         payment_method_data: {
           billing_details: { email, name },
         },
-        return_url: `${window.location.origin}/onboarding`,
+        return_url: `${window.location.origin}/success`,
       },
     });
 

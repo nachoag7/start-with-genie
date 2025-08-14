@@ -44,7 +44,7 @@ export default function CheckoutForm({ fieldGap = 14 }: CheckoutFormProps) {
       setError(error.message || "An unexpected error occurred.");
       setLoading(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      router.push("/onboarding");
+      router.push("/dashboard");
     } else {
       setLoading(false);
     }

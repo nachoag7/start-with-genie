@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { supabase } from '../../../lib/supabase';
 
 // Check if Stripe secret key exists
 if (!process.env.STRIPE_SECRET_KEY) {
@@ -19,6 +20,12 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // Get the current user
+    const { data: { user: authUser } } = await supabase.auth.getUser();
+    if (!authUser) {
+      return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
+    }
+
     // Check if current date is Tuesday, August 13, 2025 (Eastern Time)
     const today = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })).toDateString();
     const targetDate = 'Tue Aug 13 2025';
@@ -37,6 +44,7 @@ export async function POST(req: NextRequest) {
       
       metadata: {
         product: 'Start With Genie - LLC Setup',
+        user_id: authUser.id,
         ...(isDiscountDay && { 
           discount_applied: 'H1VrFS1A_50_percent',
           original_amount: baseAmount.toString(),

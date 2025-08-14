@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
 import Checkout2Col from "../../components/Checkout2Col";
@@ -7,29 +8,38 @@ import Checkout2Col from "../../components/Checkout2Col";
 export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
-  // Fetch clientSecret from API on mount
+  // Get client secret from URL params or fetch from API
   useEffect(() => {
-    fetch("/api/create-payment-intent", { method: "POST" })
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(data => {
-            throw new Error(data.error || 'Failed to create payment intent');
-          });
-        }
-        return res.json();
-      })
-      .then(data => {
-        if (data.clientSecret) {
-          setClientSecret(data.clientSecret);
-          setError(null);
-        }
-      })
-      .catch(err => {
-        console.error('Payment intent error:', err);
-        setError(err.message);
-      });
-  }, []);
+    const urlClientSecret = searchParams.get('client_secret');
+    
+    if (urlClientSecret) {
+      setClientSecret(urlClientSecret);
+      setError(null);
+    } else {
+      // Fallback to fetching from API
+      fetch("/api/create-payment-intent", { method: "POST" })
+        .then(res => {
+          if (!res.ok) {
+            return res.json().then(data => {
+              throw new Error(data.error || 'Failed to create payment intent');
+            });
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (data.clientSecret) {
+            setClientSecret(data.clientSecret);
+            setError(null);
+          }
+        })
+        .catch(err => {
+          console.error('Payment intent error:', err);
+          setError(err.message);
+        });
+    }
+  }, [searchParams]);
 
   const appearance = {
     variables: {

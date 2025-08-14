@@ -2,9 +2,9 @@
 
 import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Download, MessageCircle, Mail, RefreshCw, FileText, Building2, CreditCard, CheckCircle, ChevronRight, HelpCircle, X, Bot, BadgeDollarSign, BookOpen, Clock, Eye, Download as DownloadIcon, ScrollText, Send, LogOut } from 'lucide-react'
+import { Download, MessageCircle, Mail, RefreshCw, FileText, Building2, CreditCard, CheckCircle, ChevronRight, HelpCircle, X, Bot, BadgeDollarSign, BookOpen, Clock, Eye, Download as DownloadIcon, ScrollText, Send, LogOut, Lock } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { formatAppleStyle } from '../../lib/utils'
@@ -17,6 +17,8 @@ import confetti from 'canvas-confetti';
 import ReactDOMServer from 'react-dom/server';
 import DocumentsSection from '../../components/DocumentsSection';
 import DashboardActions from '../../components/DashboardActions';
+import PremiumButton from '../../components/ui/PremiumButton';
+import BlurredDashboardOverlay from '../../components/BlurredDashboardOverlay';
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
 // Remove: import { OperatingAgreementPDF } from '../../components/pdf/OperatingAgreementPDF';
@@ -36,6 +38,8 @@ interface User {
   ownership_primary?: string // NEW
   ownership_partner?: string // NEW
   checklist_status?: boolean[] // NEW
+  has_paid?: boolean // NEW
+  payment_date?: string // NEW
 }
 
 interface Document {
@@ -60,33 +64,38 @@ const DocumentCard = ({
   title, 
   subtitle, 
   onViewClick,
-  onPdfClick
+  onPdfClick,
+  isPreview = false
 }: { 
   icon: any; 
   title: string; 
   subtitle: string; 
   onViewClick: () => void;
   onPdfClick: () => void;
+  isPreview?: boolean;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4 }}
-    className="bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01]"
+    className={`bg-white rounded-xl border border-[#f2f2f2] shadow-sm p-5 flex flex-col justify-between h-48 transition-all duration-200 hover:shadow-md hover:scale-[1.01] ${isPreview ? 'relative overflow-hidden' : ''}`}
   >
-    <div className="flex flex-col items-center text-center">
+    {isPreview && (
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white/80 z-10"></div>
+    )}
+    <div className={`flex flex-col items-center text-center ${isPreview ? 'blur-sm' : ''}`}>
       <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
         <Icon className="w-5 h-5 text-blue-600" />
       </div>
       <h3 className="font-medium text-lg text-[#1c1c1e] mb-1">{title}</h3>
       <p className="text-sm text-[#8e8e93]">{subtitle}</p>
     </div>
-    <div className="flex gap-2 mt-6 justify-center">
-      <Button size="md" onClick={onViewClick}>
+    <div className={`flex gap-2 mt-6 justify-center ${isPreview ? 'blur-sm' : ''}`}>
+      <Button size="md" onClick={onViewClick} disabled={isPreview}>
         <Eye className="w-4 h-4" />
         View
       </Button>
-      <Button size="md" variant="secondary" className="!bg-gray-100 !hover:bg-gray-200 !text-gray-700 border-gray-300" onClick={onPdfClick}>
+      <Button size="md" variant="secondary" className="!bg-gray-100 !hover:bg-gray-200 !text-gray-700 border-gray-300" onClick={onPdfClick} disabled={isPreview}>
         <Download className="w-4 h-4 mr-2" /> PDF
       </Button>
     </div>
@@ -102,7 +111,10 @@ export default function DashboardPage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [showGenie, setShowGenie] = useState(false)
+  const [isPreviewMode, setIsPreviewMode] = useState(false)
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
 
   // Add refs for each document section
   const llcRef = useRef<HTMLDivElement>(null)
@@ -123,7 +135,44 @@ export default function DashboardPage() {
   const [checklistOpen, setChecklistOpen] = useState(false)
   const [documentsOpen, setDocumentsOpen] = useState(false)
 
+  // Check if we're in preview mode or payment success
+  useEffect(() => {
+    const preview = searchParams.get('preview')
+    const paymentSuccess = searchParams.get('payment_success')
+    
+    if (preview === 'true') {
+      setIsPreviewMode(true)
+    }
+    
+    if (paymentSuccess === 'true') {
+      // Refresh user data to get updated payment status
+      fetchUserData()
+    }
+  }, [searchParams])
 
+  const handleUnlock = async () => {
+    setIsProcessingPayment(true);
+    try {
+      const response = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create payment intent');
+      }
+
+      const { clientSecret } = await response.json();
+      
+      // Redirect to checkout with the client secret
+      router.push(`/checkout?client_secret=${clientSecret}`);
+    } catch (error) {
+      console.error('Error creating payment intent:', error);
+      setIsProcessingPayment(false);
+    }
+  };
 
   useEffect(() => {
     // Always scroll to top on dashboard mount or redirect
@@ -781,6 +830,9 @@ export default function DashboardPage() {
   }
   if (!user) return null
 
+  // Check if user has paid (default to false if not set)
+  const hasPaid = user.has_paid === true;
+
   // Anchor links
   const docAnchors = [
     { id: 'llc-instructions', label: 'LLC Instructions' },
@@ -879,6 +931,54 @@ export default function DashboardPage() {
     }
   };
 
+  // If user hasn't paid, show blurred dashboard with unlock overlay
+  if (!hasPaid && !isPreviewMode) {
+    return (
+      <div className="relative min-h-screen">
+        {/* Blurred dashboard content */}
+        <div className="blur-sm pointer-events-none">
+          <main className="mx-auto max-w-6xl px-6 py-8 sm:py-10">
+            <section className="fade-in-up mb-6">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <h2 className="text-base sm:text-lg font-semibold text-gray-900">
+                    {user?.full_name?.split(' ')[0] ? `Welcome back, ${user?.full_name?.split(' ')[0]}!` : "Welcome back!"}
+                  </h2>
+                  <p className="text-sm text-gray-600">
+                    {user?.business_name 
+                      ? `Everything you need to launch ${user?.business_name} is right here.`
+                      : "Everything you need to launch is right here."
+                    }
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">{formatAppleStyle(new Date())}</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="mt-12">
+              <DocumentsSection 
+                docs={docsData}
+                onView={handleViewDoc}
+                onDownload={handleDownloadDoc}
+              />
+            </section>
+            
+            <section className="mt-12 sm:mt-14">
+              <GenieChat 
+                avatarSrc="/genie-preview.png" 
+                userName={user?.full_name}
+                userState={user?.state}
+              />
+            </section>
+          </main>
+        </div>
+
+        {/* Unlock overlay */}
+        <BlurredDashboardOverlay onUnlock={handleUnlock} isLoading={isProcessingPayment} />
+      </div>
+    );
+  }
+
   return (
     <main className="mx-auto max-w-6xl px-6 py-8 sm:py-10">
       <section className="fade-in-up mb-6">
@@ -895,24 +995,70 @@ export default function DashboardPage() {
             </p>
             <p className="text-xs text-gray-400 mt-1">{formatAppleStyle(new Date())}</p>
           </div>
-          <DashboardActions />
+          {!isPreviewMode && <DashboardActions />}
         </div>
       </section>
 
-      <section className="mt-12">
-        <DocumentsSection 
-          docs={docsData}
-          onView={handleViewDoc}
-          onDownload={handleDownloadDoc}
-        />
+      {/* Preview Mode Overlay */}
+      {isPreviewMode && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100"
+        >
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 bg-blue-100 rounded-full px-4 py-2 mb-4">
+              <Lock className="w-4 h-4 text-blue-600" />
+              <span className="text-sm text-blue-700 font-medium">Preview Mode</span>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Your Personalized LLC Kit
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Unlock your complete dashboard to access all documents and step-by-step instructions
+            </p>
+            <PremiumButton
+              onClick={handleUnlock}
+              size="lg"
+              className="w-full max-w-md mx-auto text-lg py-4"
+            >
+              <span className="flex items-center gap-2">
+                <Lock className="w-5 h-5" />
+                Unlock My LLC Kit for $49
+              </span>
+            </PremiumButton>
+            <p className="text-sm text-gray-500 mt-3">
+              One-time payment. No recurring fees.
+            </p>
+          </div>
+        </motion.div>
+      )}
+
+      <section className={`mt-12 ${isPreviewMode ? 'relative' : ''}`}>
+        {isPreviewMode && (
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white/80 z-10 pointer-events-none"></div>
+        )}
+        <div className={isPreviewMode ? 'blur-sm pointer-events-none' : ''}>
+          <DocumentsSection 
+            docs={docsData}
+            onView={handleViewDoc}
+            onDownload={handleDownloadDoc}
+          />
+        </div>
       </section>
       
-      <section className="mt-12 sm:mt-14">
-        <GenieChat 
-          avatarSrc="/genie-preview.png" 
-          userName={user?.full_name}
-          userState={user?.state}
-        />
+      <section className={`mt-12 sm:mt-14 ${isPreviewMode ? 'relative' : ''}`}>
+        {isPreviewMode && (
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white/80 z-10 pointer-events-none"></div>
+        )}
+        <div className={isPreviewMode ? 'blur-sm pointer-events-none' : ''}>
+          <GenieChat 
+            avatarSrc="/genie-preview.png" 
+            userName={user?.full_name}
+            userState={user?.state}
+          />
+        </div>
       </section>
 
       {/* Document Modal */}
