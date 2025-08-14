@@ -98,6 +98,18 @@ export async function POST(req: NextRequest) {
           }
         }
         
+        // Link any existing leads to this user
+        if (userId) {
+          const { error: linkError } = await supabase.rpc('link_lead_to_user', {
+            lead_email: customerEmail,
+            user_id: userId
+          });
+          
+          if (linkError) {
+            console.error('Error linking lead to user:', linkError);
+          }
+        }
+        
         // Send magic link for passwordless login
         if (userId) {
           const { error: magicLinkError } = await supabase.auth.admin.generateLink({

@@ -36,7 +36,7 @@ export default function Hero({
                 <Link href="/onboarding">
                   <PremiumButton size="md" className="inline-block hover:scale-[1.01] hover:shadow-lg transition-all duration-200 ease-smooth group">
                     <span className="relative text-white">
-                      Start My LLC for $49
+                      See how easy it is
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300 ease-smooth" style={{ animation: 'subtle-underline 0.3s ease-smooth' }}></span>
                     </span>
                   </PremiumButton>

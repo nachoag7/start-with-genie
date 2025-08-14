@@ -43,17 +43,13 @@ async function handleLeadSubmission(request: NextRequest) {
       );
     }
 
-    // Save to Supabase leads table
-    const { error: supabaseError } = await supabase
-      .from('leads')
-      .insert([
-        {
-          email,
-          source_page: sourcePage,
-          type: type || 'ein_guide',
-          created_at: new Date().toISOString(),
-        }
-      ]);
+    // Save to Supabase incomplete_leads table (they haven't completed the process yet)
+    const { error: supabaseError } = await supabase.rpc('move_lead_to_incomplete', {
+      lead_email: email,
+      source_page: sourcePage,
+      lead_type: type || 'ein_guide',
+      stage: 'email_capture'
+    });
 
     if (supabaseError) {
       console.error('Supabase error:', supabaseError);
