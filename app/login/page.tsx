@@ -3,7 +3,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
@@ -21,6 +21,8 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || '/dashboard'
   
   const {
     register,
@@ -74,10 +76,10 @@ export default function LoginPage() {
         return;
       }
 
-      // User row exists, redirect to dashboard
+      // User row exists, redirect to intended destination
       if (timeoutId) clearTimeout(timeoutId);
       setIsLoading(false);
-      router.push('/dashboard')
+      router.push(redirectTo)
     } catch (err: any) {
       if (timeoutId) clearTimeout(timeoutId);
       setError(err.message || 'Invalid email or password.')

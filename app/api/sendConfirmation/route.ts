@@ -44,31 +44,76 @@ export async function POST(req: NextRequest) {
 
   if (event.type === 'payment_intent.succeeded') {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
-    const userId = paymentIntent.metadata?.user_id;
-    
-    if (userId) {
-      try {
-        // Mark user as paid in database
-        const { error: updateError } = await supabase
-          .from('users')
-          .update({ 
-            has_paid: true, 
-            payment_date: new Date().toISOString() 
-          })
-          .eq('id', userId);
-        
-        if (updateError) {
-          console.error('Error updating user payment status:', updateError);
-        }
-      } catch (dbErr) {
-        console.error('Database error:', dbErr);
-      }
-    }
-
-    // Send confirmation email
     const customerEmail = paymentIntent.receipt_email;
+    
     if (customerEmail) {
       try {
+        // Find user by email
+        let { data: user, error: userError } = await supabase
+          .from('users')
+          .select('id, full_name, business_name')
+          .eq('email', customerEmail)
+          .single();
+        
+        let userId = user?.id;
+        
+        if (!user || userError) {
+          // User doesn't exist, create a basic user record
+          const { data: newUser, error: createError } = await supabase
+            .from('users')
+            .insert({
+              email: customerEmail,
+              full_name: 'LLC Owner', // Default name
+              business_name: 'My Business', // Default business name
+              state: 'CA', // Default state
+              status: 'active',
+              has_paid: true,
+              payment_date: new Date().toISOString(),
+              business_address: 'Not specified',
+              is_solo_owner: 'yes',
+              ownership_primary: '100',
+              ownership_partner: '0',
+              checklist_status: [false, false, false]
+            })
+            .select('id')
+            .single();
+          
+          if (createError) {
+            console.error('Error creating user:', createError);
+          } else {
+            userId = newUser?.id;
+          }
+        } else {
+          // User exists, mark as paid
+          const { error: updateError } = await supabase
+            .from('users')
+            .update({ 
+              has_paid: true, 
+              payment_date: new Date().toISOString() 
+            })
+            .eq('id', user.id);
+          
+          if (updateError) {
+            console.error('Error updating user payment status:', updateError);
+          }
+        }
+        
+        // Send magic link for passwordless login
+        if (userId) {
+          const { error: magicLinkError } = await supabase.auth.admin.generateLink({
+            type: 'magiclink',
+            email: customerEmail,
+            options: {
+              redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://startwithgenie.com'}/dashboard?payment_success=true`
+            }
+          });
+          
+          if (magicLinkError) {
+            console.error('Error generating magic link:', magicLinkError);
+          }
+        }
+        
+        // Send confirmation email
         await resend.emails.send({
           from: 'Start With Genie <info@startwithgenie.com>',
           to: customerEmail,

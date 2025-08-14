@@ -19,6 +19,7 @@ import DocumentsSection from '../../components/DocumentsSection';
 import DashboardActions from '../../components/DashboardActions';
 import PremiumButton from '../../components/ui/PremiumButton';
 import BlurredDashboardOverlay from '../../components/BlurredDashboardOverlay';
+import FrictionlessCheckoutModal from '../../components/FrictionlessCheckoutModal';
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
 // Remove: import { OperatingAgreementPDF } from '../../components/pdf/OperatingAgreementPDF';
@@ -115,6 +116,7 @@ export default function DashboardPage() {
   const [showGenie, setShowGenie] = useState(false)
   const [isPreviewMode, setIsPreviewMode] = useState(false)
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false)
 
   // Add refs for each document section
   const llcRef = useRef<HTMLDivElement>(null)
@@ -150,28 +152,13 @@ export default function DashboardPage() {
     }
   }, [searchParams])
 
-  const handleUnlock = async () => {
-    setIsProcessingPayment(true);
-    try {
-      const response = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  const handleUnlock = () => {
+    setIsCheckoutModalOpen(true);
+  };
 
-      if (!response.ok) {
-        throw new Error('Failed to create payment intent');
-      }
-
-      const { clientSecret } = await response.json();
-      
-      // Redirect to checkout with the client secret
-      router.push(`/checkout?client_secret=${clientSecret}`);
-    } catch (error) {
-      console.error('Error creating payment intent:', error);
-      setIsProcessingPayment(false);
-    }
+  const handleCheckoutSuccess = () => {
+    // Refresh user data to get updated payment status
+    fetchUserData();
   };
 
   useEffect(() => {
@@ -204,6 +191,13 @@ export default function DashboardPage() {
 
       if (!userData) {
         router.push('/login')
+        return
+      }
+
+      // Check if user has completed onboarding (has essential fields)
+      if (!userData.business_name || !userData.state || userData.business_name === 'My Business' || userData.state === 'CA') {
+        // User hasn't completed onboarding, redirect to home
+        router.push('/')
         return
       }
 
@@ -1005,33 +999,26 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100"
+          className="mb-8 text-center"
         >
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 bg-blue-100 rounded-full px-4 py-2 mb-4">
-              <Lock className="w-4 h-4 text-blue-600" />
-              <span className="text-sm text-blue-700 font-medium">Preview Mode</span>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Your Personalized LLC Kit
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              That's it, {user?.full_name?.split(' ')[0] || 'there'}! Your LLC Setup Dashboard is ready.
             </h3>
             <p className="text-gray-600 mb-6">
-              Unlock your complete dashboard to access all documents and step-by-step instructions
+              Unlock everything you need to launch {user?.business_name || 'your business'} with confidence. LLC filing, EIN setup, and your custom Operating Agreement included.
             </p>
-            <PremiumButton
-              onClick={handleUnlock}
-              size="lg"
-              className="w-full max-w-md mx-auto text-lg py-4"
-            >
-              <span className="flex items-center gap-2">
-                <Lock className="w-5 h-5" />
-                Unlock My LLC Kit for $49
-              </span>
-            </PremiumButton>
-            <p className="text-sm text-gray-500 mt-3">
-              One-time payment. No recurring fees.
-            </p>
-          </div>
+          <PremiumButton
+            onClick={handleUnlock}
+            size="lg"
+            className="w-full max-w-md mx-auto text-lg py-4"
+          >
+            <span className="relative text-white">
+              Unlock my dashboard for $49
+            </span>
+          </PremiumButton>
+          <p className="text-sm text-gray-500 mt-3">
+            Instant access. No upsells.
+          </p>
         </motion.div>
       )}
 
@@ -1113,6 +1100,13 @@ export default function DashboardPage() {
         <div id="printable-ein-guide-hidden">{einHtml}</div>
         <div id="printable-operating-agreement-hidden">{oaHtmlPDF}</div>
       </div>
+
+      {/* Frictionless Checkout Modal */}
+      <FrictionlessCheckoutModal
+        isOpen={isCheckoutModalOpen}
+        onClose={() => setIsCheckoutModalOpen(false)}
+        onSuccess={handleCheckoutSuccess}
+      />
     </main>
   )
 } 
