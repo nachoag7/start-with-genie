@@ -22,11 +22,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/Footer";
 
-import { useEINPopup } from "../../hooks/useEINPopup";
+
 
 export default function CheapWayToStartLLCPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { showPopup, closePopup, markEmailSubmitted } = useEINPopup();
+
 
   return (
     <>

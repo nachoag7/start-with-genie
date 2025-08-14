@@ -43,10 +43,7 @@ export default function Hero({
                 </Link>
               </div>
 
-              {/* Trust row */}
-              <div className="mt-4 text-sm text-gray-500 text-center md:text-left">
-                Flat rate. No surprise fees. Just what you need.
-              </div>
+
             </div>
           </SectionReveal>
 
