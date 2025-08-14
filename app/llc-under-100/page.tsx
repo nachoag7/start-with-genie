@@ -20,7 +20,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "../../components/Footer";
-import EINGuidePopup from "../../components/EINGuidePopup";
+
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
