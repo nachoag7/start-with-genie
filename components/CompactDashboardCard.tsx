@@ -362,24 +362,22 @@ export default function CompactDashboardCard() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gray-100/50 rounded-lg p-8 sm:p-10 lg:p-12 -mx-8 sm:-mx-10 lg:-mx-12 -mb-8 sm:-mb-10 lg:-mb-12">
-          <div className="text-center">
-            <h2 className="text-base sm:text-lg font-semibold text-neutral-900 mb-3">
-              Ready to Start Your LLC With Confidence?
-            </h2>
-            <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
-              Unlock your personalized dashboard
-            </p>
-            <Link
-              href="/onboarding"
-              className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-6 py-3 text-sm font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
-            >
-              Unlock My Dashboard
-            </Link>
-            <p className="mt-2 text-[10px] text-neutral-500">
-              One-time payment. Instant access.
-            </p>
-          </div>
+        <section className="text-center">
+          <h2 className="text-base sm:text-lg font-semibold text-neutral-900 mb-3">
+            Ready to Start Your LLC With Confidence?
+          </h2>
+          <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
+            Unlock your personalized dashboard
+          </p>
+          <Link
+            href="/onboarding"
+            className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-6 py-3 text-sm font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
+          >
+            Unlock My Dashboard
+          </Link>
+          <p className="mt-2 text-[10px] text-neutral-500">
+            One-time payment. Instant access.
+          </p>
         </section>
       </div>
 

@@ -354,12 +354,6 @@ export default function HomePageClient({
       
       <WhatsIncludedStack features={customFeatures} />
       
-
-      
-
-      
-      <Divider />
-      
       <FAQ faqs={customFaqs} />
       
       <Footer />

@@ -62,7 +62,7 @@ export default function FAQ({ faqs = DEFAULT_FAQS }: FAQProps) {
   }, []);
 
   return (
-    <section aria-labelledby="faqs" className="relative py-20">
+    <section aria-labelledby="faqs" className="relative pt-10 pb-10">
       <div className="mx-auto max-w-3xl px-6 lg:px-0">
         <SectionReveal>
           <h2 id="faqs" className="text-center text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900">

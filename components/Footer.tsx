@@ -44,12 +44,7 @@ export default function Footer() {
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-neutral-300 group-hover:w-full transition-all duration-300 ease-smooth"></span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/compare" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors duration-200 relative group">
-                    <span>Compare</span>
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-neutral-300 group-hover:w-full transition-all duration-300 ease-smooth"></span>
-                  </Link>
-                </li>
+
 
               </ul>
             </div>
