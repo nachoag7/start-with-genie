@@ -322,7 +322,7 @@ export default function GenieChat({
               rounded-full
               px-3
               shadow-sm
-              ${isMobile ? 'py-0.5' : 'py-1.5'}
+              ${isMobile ? 'py-0' : 'py-1.5'}
             `}
         >
           <textarea
@@ -345,7 +345,7 @@ export default function GenieChat({
               ${maxMessages && messageCount >= maxMessages ? 'animate-pulse cursor-pointer' : ''}
               ${isMobile ? 'py-0' : 'py-1'}
             `}
-            style={{ minHeight: isMobile ? '20px' : '32px' }}
+            style={{ minHeight: isMobile ? '16px' : '32px' }}
           />
           <button
             onClick={handleSend}
