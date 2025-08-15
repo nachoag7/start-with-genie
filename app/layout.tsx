@@ -5,6 +5,7 @@ import './globals.css';
 import ClarityAnalytics from '../components/ClarityAnalytics';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import ConditionalNavbar from '../components/ConditionalNavbar';
+import { ModalProvider } from '../components/ModalContext';
 import { defaultSeo } from '../lib/seo';
 
 
@@ -93,8 +94,10 @@ export default function RootLayout({
             __html: `<!-- Google Tag Manager (noscript) -->\n<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8FB535K" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n<!-- End Google Tag Manager (noscript) -->`
           }} />
         )}
-        <ConditionalNavbar />
-        {children}
+        <ModalProvider>
+          <ConditionalNavbar />
+          {children}
+        </ModalProvider>
         <GoogleAnalytics />
         <ClarityAnalytics />
       </body>

@@ -1,10 +1,20 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
+import { useModal } from './ModalContext';
 import Navbar from './Navbar';
 
 export default function ConditionalNavbar() {
   const pathname = usePathname();
+  
+  // Try to use modal context, but don't fail if not available
+  let isAnyModalOpen = false;
+  try {
+    const modalContext = useModal();
+    isAnyModalOpen = modalContext.isAnyModalOpen;
+  } catch {
+    // Modal context not available, continue without it
+  }
   
   // Hide navbar on dashboard, checkout, onboarding, and SEO/blog pages
   const hideNavbar = 
@@ -24,7 +34,9 @@ export default function ConditionalNavbar() {
     pathname === '/terms' ||
     pathname === '/privacy' ||
     pathname === '/disclaimer' ||
-    pathname === '/refund';
+    pathname === '/refund' ||
+    // Hide navbar when any modal is open
+    isAnyModalOpen;
   
   if (hideNavbar) {
     return null;

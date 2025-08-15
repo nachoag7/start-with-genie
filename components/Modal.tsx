@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect } from "react";
+import { useModal } from "./ModalContext";
 
 export default function Modal({
   open,
@@ -13,16 +14,27 @@ export default function Modal({
   children: ReactNode;
   labelledBy?: string;
 }) {
+  // Try to use modal context, but don't fail if not available
+  let setModalOpen: ((isOpen: boolean) => void) | undefined;
+  try {
+    const modalContext = useModal();
+    setModalOpen = modalContext.setModalOpen;
+  } catch {
+    // Modal context not available, continue without it
+  }
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    setModalOpen?.(true);
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      setModalOpen?.(false);
     };
-  }, [open, onClose]);
+  }, [open, onClose, setModalOpen]);
 
   return (
     <>
