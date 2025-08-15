@@ -162,7 +162,7 @@ export default function GenieChat({
     const ta = taRef.current;
     if (!ta) return;
     if (isMobile) {
-      ta.style.height = "14px"; // Fixed height for mobile - just enough for placeholder
+      ta.style.height = "20px"; // Fixed height for mobile - enough for placeholder
       return;
     }
     ta.style.height = "0px";
@@ -344,12 +344,12 @@ export default function GenieChat({
             className={`
               flex-1 bg-transparent focus:outline-none
               text-sm text-gray-900 placeholder-gray-400
-              resize-none text-center
+              resize-none
               disabled:opacity-50 disabled:cursor-not-allowed
               ${maxMessages && messageCount >= maxMessages ? 'animate-pulse cursor-pointer' : ''}
-              ${isMobile ? 'py-0 leading-tight' : 'py-1 max-h-40'}
+              ${isMobile ? 'py-1 leading-tight' : 'py-1 max-h-40'}
             `}
-            style={{ minHeight: isMobile ? '14px' : '32px', maxHeight: isMobile ? '14px' : '160px' }}
+            style={{ minHeight: isMobile ? '20px' : '32px', maxHeight: isMobile ? '20px' : '160px' }}
           />
           <button
             onClick={handleSend}

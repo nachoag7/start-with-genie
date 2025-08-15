@@ -114,7 +114,7 @@ export default function LimitedGenieChat({
   function autosize() {
     if (!taRef.current) return;
     if (isMobile) {
-      taRef.current.style.height = "16px"; // Fixed height for mobile - just enough for placeholder
+      taRef.current.style.height = "20px"; // Fixed height for mobile - enough for placeholder
       return;
     }
     taRef.current.style.height = 'auto';
@@ -279,12 +279,12 @@ export default function LimitedGenieChat({
             bg-white/80
             px-3
             text-sm sm:text-[15px]
-            text-gray-900 text-center
+            text-gray-900
             placeholder:text-gray-400
             focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300
             disabled:opacity-50 disabled:cursor-not-allowed
             transition-colors
-            ${isMobile ? 'min-h-[16px] max-h-[16px] py-0 leading-tight' : 'min-h-[44px] max-h-[120px] py-2 leading-6'}
+            ${isMobile ? 'min-h-[20px] max-h-[20px] py-1 leading-tight' : 'min-h-[44px] max-h-[120px] py-2 leading-6'}
           `}
           rows={1}
         />

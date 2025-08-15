@@ -23,7 +23,7 @@ const sampleDocs = [
   {
     id: "llc-instructions",
     title: "LLC Filing Instructions",
-    description: "Personalized plan to form your LLC.",
+    description: "Personalized plan to form your LLC",
     viewHref: "#",
     pdfHref: "/sample-pdfs/LLC-Filing-Instructions-Prairie-Tech-Solutions-LLC.pdf"
   },
@@ -37,7 +37,7 @@ const sampleDocs = [
   {
     id: "operating-agreement",
     title: "Operating Agreement", 
-    description: "Personalized template included.",
+    description: "Personalized template included",
     viewHref: "#",
     pdfHref: "/sample-pdfs/Operating-Agreement-Prairie-Tech-Solutions-LLC.pdf"
   }
