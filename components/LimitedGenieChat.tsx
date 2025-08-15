@@ -279,13 +279,12 @@ export default function LimitedGenieChat({
             bg-white/80
             px-3
             text-sm sm:text-[15px]
-            leading-6
             text-gray-900 text-center
             placeholder:text-gray-400
             focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300
             disabled:opacity-50 disabled:cursor-not-allowed
             transition-colors
-            ${isMobile ? 'min-h-[20px] max-h-[120px] py-0' : 'min-h-[44px] max-h-[120px] py-2'}
+            ${isMobile ? 'min-h-[16px] max-h-[16px] py-0 leading-tight' : 'min-h-[44px] max-h-[120px] py-2 leading-6'}
           `}
           rows={1}
         />

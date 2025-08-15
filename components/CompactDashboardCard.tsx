@@ -23,21 +23,21 @@ const sampleDocs = [
   {
     id: "llc-instructions",
     title: "LLC Filing Instructions",
-    description: "Personalized plan to form your LLC",
+    description: "Personalized plan to form your LLC.",
     viewHref: "#",
     pdfHref: "/sample-pdfs/LLC-Filing-Instructions-Prairie-Tech-Solutions-LLC.pdf"
   },
   {
     id: "ein-guide", 
     title: "EIN Guide",
-    description: "Get your tax id fast",
+    description: "Get your Tax ID fast",
     viewHref: "#",
     pdfHref: "/sample-pdfs/EIN-Guide-Prairie-Tech-Solutions-LLC.pdf"
   },
   {
     id: "operating-agreement",
     title: "Operating Agreement", 
-    description: "Personalized template included",
+    description: "Personalized template included.",
     viewHref: "#",
     pdfHref: "/sample-pdfs/Operating-Agreement-Prairie-Tech-Solutions-LLC.pdf"
   }
