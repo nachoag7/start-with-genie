@@ -28,11 +28,29 @@ export default function LimitedGenieChat({
   userName,
   userState,
 }: GenieChatProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const getWelcomeMessage = () => {
+    if (isMobile) {
+      return "Hi! I'm Genie. Ask me anything about your LLC!";
+    }
+    return "Hi! I'm Genie, your LLC setup assistant. This is a preview—ask me anything about forming your LLC, getting an EIN, or your Operating Agreement!";
+  };
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       role: 'assistant',
-      content: "Hi! I'm Genie, your LLC setup assistant. This is a preview—ask me anything about forming your LLC, getting an EIN, or your Operating Agreement!",
+      content: getWelcomeMessage(),
       createdAt: new Date(),
     },
   ]);
@@ -96,8 +114,16 @@ export default function LimitedGenieChat({
 
   function getPlaceholder() {
     if (messageCount >= 1) {
+      if (isMobile) {
+        return "Preview mode - unlock full access!";
+      }
       return "Preview mode - get your full dashboard for unlimited access!";
     }
+    
+    if (isMobile) {
+      return "Ask Genie anything...";
+    }
+    
     return `Ask Genie anything about starting your LLC${userState ? ` in ${userState}` : ''}…`;
   }
 

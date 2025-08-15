@@ -37,11 +37,28 @@ export default function GenieChat({
   compact = false,
   isDemo = false,
 }: GenieChatProps & { isDemo?: boolean }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const getWelcomeMessage = () => {
+    if (isMobile) {
+      return "Hi! I'm Genie. Ask me anything about your LLC!";
+    }
+    return "Hi! I'm Genie, your LLC setup assistant. Ask me anything about forming your LLC, getting an EIN, or your Operating Agreement!";
+  };
   const [messages, setMessages] = useState<ChatMessage[]>(isDemo ? [
     {
       id: 'welcome',
       role: 'assistant',
-      content: "Hi! I'm Genie, your LLC setup assistant. Ask me anything about forming your LLC, getting an EIN, or your Operating Agreement!",
+      content: getWelcomeMessage(),
       createdAt: new Date(),
     },
     {
@@ -72,7 +89,7 @@ export default function GenieChat({
     {
       id: 'welcome',
       role: 'assistant',
-      content: "Hi! I'm Genie, your LLC setup assistant. Ask me anything about forming your LLC, getting an EIN, or your Operating Agreement!",
+      content: getWelcomeMessage(),
       createdAt: new Date(),
     },
   ]);
@@ -148,6 +165,10 @@ export default function GenieChat({
   function getPlaceholder() {
     if (maxMessages && messageCount >= maxMessages) {
       return "Unlock Genie in your dashboard";
+    }
+    
+    if (isMobile) {
+      return "Ask Genie anything...";
     }
     
     return "Ask Genie anything about starting your LLC...";
