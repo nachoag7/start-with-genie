@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "./ui/Button";
 import PremiumButton from "./ui/PremiumButton";
@@ -11,16 +12,31 @@ interface HeroProps {
 }
 
 export default function Hero({ 
-  title = "Confused about launching your business?",
-  subtitle = "Answer a few short questions and get a personalized step by step guide to file your LLC, get your EIN, and sign your Operating Agreement. If it doesn't save you time and money, get a full refund within 7 days"
+  title,
+  subtitle = "Answer a few questions and get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement. If it doesn't save you time and money, get a full refund within 7 days"
 }: HeroProps = {}) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const getTitle = () => {
+    if (title) return title; // Use custom title if provided
+    return isMobile ? "Need an LLC?" : "Confused about launching your business?";
+  };
   return (
     <section className="relative overflow-hidden bg-white pt-16 pb-12">
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         {/* Hero content */}
         <div className="text-center max-w-4xl mx-auto mb-16">
           <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-gray-900">
-            {title}
+            {getTitle()}
           </h1>
           <p className="mt-5 text-lg text-gray-600">
             {subtitle}

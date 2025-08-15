@@ -267,14 +267,13 @@ export default function LimitedGenieChat({
           onKeyDown={onKeyDown}
           placeholder={getPlaceholder()}
           disabled={messageCount >= 1}
-          className="
+          className={`
             flex-1
-            min-h-[44px] max-h-[120px]
             resize-none
             rounded-xl
             border border-gray-200
             bg-white/80
-            px-3 py-2
+            px-3
             text-sm sm:text-[15px]
             leading-6
             text-gray-900
@@ -282,7 +281,8 @@ export default function LimitedGenieChat({
             focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300
             disabled:opacity-50 disabled:cursor-not-allowed
             transition-colors
-          "
+            ${isMobile ? 'min-h-[36px] max-h-[120px] py-1.5' : 'min-h-[44px] max-h-[120px] py-2'}
+          `}
           rows={1}
         />
         <button

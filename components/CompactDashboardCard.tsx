@@ -368,7 +368,7 @@ export default function CompactDashboardCard() {
               Ready to Launch Your Business With Confidence?
             </h2>
             <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
-              Unlock your personalized LLC launch kit now and get everything you need to file with clarity — for just $49.
+              Unlock your LLC launch dashboard with everything you need. For just $49.
             </p>
             <Link
               href="/onboarding"
