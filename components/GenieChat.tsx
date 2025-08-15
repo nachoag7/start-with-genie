@@ -315,15 +315,15 @@ export default function GenieChat({
       {/* Input */}
       {!isDemo && (
         <div
-          className={`
-            flex items-center gap-2
-            bg-white/80
-            border border-gray-200
-            rounded-full
-            px-3 py-1.5
-            shadow-sm
-            ${isMobile ? 'py-1' : 'py-1.5'}
-          `}
+                      className={`
+              flex items-center gap-2
+              bg-white/80
+              border border-gray-200
+              rounded-full
+              px-3
+              shadow-sm
+              ${isMobile ? 'py-0.5' : 'py-1.5'}
+            `}
         >
           <textarea
             ref={taRef}
@@ -343,9 +343,9 @@ export default function GenieChat({
               resize-none max-h-40
               disabled:opacity-50 disabled:cursor-not-allowed
               ${maxMessages && messageCount >= maxMessages ? 'animate-pulse cursor-pointer' : ''}
-              ${isMobile ? 'py-0.5' : 'py-1'}
+              ${isMobile ? 'py-0' : 'py-1'}
             `}
-            style={{ minHeight: isMobile ? '24px' : '32px' }}
+            style={{ minHeight: isMobile ? '20px' : '32px' }}
           />
           <button
             onClick={handleSend}

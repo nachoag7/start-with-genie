@@ -281,7 +281,7 @@ export default function LimitedGenieChat({
             focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300
             disabled:opacity-50 disabled:cursor-not-allowed
             transition-colors
-            ${isMobile ? 'min-h-[36px] max-h-[120px] py-1.5' : 'min-h-[44px] max-h-[120px] py-2'}
+            ${isMobile ? 'min-h-[28px] max-h-[120px] py-1' : 'min-h-[44px] max-h-[120px] py-2'}
           `}
           rows={1}
         />
