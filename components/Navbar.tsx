@@ -48,7 +48,7 @@ export default function Navbar({ bgColor = "bg-white" }: NavbarProps) {
           <div className="flex items-center gap-3">
             <Link href="/onboarding">
               <button className="inline-flex items-center justify-center rounded-full h-9 px-4 text-xs font-medium tracking-tight text-white select-none bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-sm shadow-black/10 transition-all duration-200 ease-out hover:brightness-105 hover:shadow-md hover:shadow-black/15 active:translate-y-[1px] active:brightness-95 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50 focus-visible:ring-offset-2">
-                Launch My LLC
+                Start My LLC
               </button>
             </Link>
             <Link
@@ -64,7 +64,7 @@ export default function Navbar({ bgColor = "bg-white" }: NavbarProps) {
         <div className="md:hidden flex items-center gap-2">
           <Link href="/onboarding">
             <button className="inline-flex items-center justify-center rounded-full h-9 px-4 text-xs font-medium tracking-tight text-white select-none bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-sm shadow-black/10 transition-all duration-200 ease-out hover:brightness-105 hover:shadow-md hover:shadow-black/15 active:translate-y-[1px] active:brightness-95 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50 focus-visible:ring-offset-2">
-              Launch My LLC
+              Start My LLC
             </button>
           </Link>
           <button

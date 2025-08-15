@@ -334,7 +334,7 @@ export default function CompactDashboardCard() {
         {/* Dashboard Title */}
         <section className="text-center mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">
-            Everything You Need to Launch, In One Dashboard
+            Everything You Need, In One Dashboard
           </h2>
         </section>
         
@@ -365,10 +365,10 @@ export default function CompactDashboardCard() {
         <section className="bg-gray-100/50 rounded-lg p-8 sm:p-10 lg:p-12 -mx-8 sm:-mx-10 lg:-mx-12 -mb-8 sm:-mb-10 lg:-mb-12">
           <div className="text-center">
             <h2 className="text-base sm:text-lg font-semibold text-neutral-900 mb-3">
-              Ready to Launch Your Business With Confidence?
+              Ready to Start Your LLC With Confidence?
             </h2>
             <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
-              Unlock your LLC launch dashboard with everything you need. For just $49.
+              Unlock your personalized dashboard
             </p>
             <Link
               href="/onboarding"

@@ -28,14 +28,12 @@ export default function Hero({
 
   const getTitle = () => {
     if (title) return title; // Use custom title if provided
-    return isMobile ? "Need an LLC?" : "Confused about launching your business?";
+    return "Confused about registering your LLC?";
   };
 
   const getSubtitle = () => {
     if (subtitle) return subtitle; // Use custom subtitle if provided
-    return isMobile 
-      ? "Personalized instructions to file your LLC, get your EIN, and sign your Operating Agreement. For just $49"
-      : "Answer a few questions and get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement. If it doesn't save you time and money, get a full refund within 7 days";
+    return "Answer a few questions and get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement. If it doesn't save you time and money, get a full refund within 7 days";
   };
   return (
     <section className="relative overflow-hidden bg-white pt-16 pb-12">
