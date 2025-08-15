@@ -1,28 +1,29 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { SectionReveal, StaggerReveal, Item } from "./reveal";
 
 const DEFAULT_FEATURES = [
   {
-    title: "Step-by-Step State Filing",
-    desc: "Personalized to your state so you file with confidence from day one.",
+    title: "Step-by-Step LLC Filing",
+    desc: "Personalized to your business so you can file confidently from day one.",
   },
   {
     title: "EIN Walkthrough",
-    desc: "Get your federal tax ID in minutes — no confusion, no delays.",
+    desc: "Get your federal tax ID in minutes",
   },
   {
     title: "Custom Operating Agreement",
-    desc: "A lawyer-inspired template you can personalize in minutes.",
+    desc: "A lawyer-inspired template built for solo founders",
   },
   {
     title: "Clean Founder Dashboard",
-    desc: "All your documents and next steps in one streamlined workspace.",
+    desc: "All your documents and next steps in one place.",
   },
   {
     title: "24/7 Genie Assistant",
-    desc: "Instant answers whenever you're stuck so you never lose momentum.",
+    desc: "Instant answers whenever you're stuck.",
   },
 ];
 
@@ -62,7 +63,7 @@ export default function WhatsIncludedStack({ features = DEFAULT_FEATURES }: What
             id="whats-included"
             className="text-center text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900"
           >
-            What's Included
+            Everything you need, nothing you don&apos;t
           </h2>
         </SectionReveal>
 
@@ -102,6 +103,18 @@ export default function WhatsIncludedStack({ features = DEFAULT_FEATURES }: What
               </Item>
             ))}
           </StaggerReveal>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-12 text-center">
+          <Link href="/onboarding">
+            <button className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-3 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]">
+              Get Started Now
+            </button>
+          </Link>
+          <p className="mt-3 text-sm text-neutral-500">
+            One payment. Everything included.
+          </p>
         </div>
       </div>
     </section>

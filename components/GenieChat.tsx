@@ -21,6 +21,8 @@ type GenieChatProps = {
   userName?: string;
   userState?: string;
   maxMessages?: number;
+  disableScroll?: boolean;
+  compact?: boolean;
 };
 
 export default function GenieChat({
@@ -31,6 +33,8 @@ export default function GenieChat({
   userName,
   userState,
   maxMessages,
+  disableScroll = false,
+  compact = false,
   isDemo = false,
 }: GenieChatProps & { isDemo?: boolean }) {
   const [messages, setMessages] = useState<ChatMessage[]>(isDemo ? [
@@ -89,7 +93,7 @@ export default function GenieChat({
 
   // Near-bottom detector with IntersectionObserver
   useEffect(() => {
-    if (!bottomRef.current || !scrollRef.current) return;
+    if (disableScroll || !bottomRef.current || !scrollRef.current) return;
     const el = bottomRef.current;
     const container = scrollRef.current;
     
@@ -99,10 +103,11 @@ export default function GenieChat({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [disableScroll]);
 
   // Smart scroll function
   function scrollToBottom(smooth = true) {
+    if (disableScroll) return;
     bottomRef.current?.scrollIntoView({ 
       behavior: smooth ? "smooth" : "auto", 
       block: "end" 
@@ -111,6 +116,7 @@ export default function GenieChat({
 
   // Stream-aware autoscroll with throttling
   function scheduleScroll() {
+    if (disableScroll) return;
     if (!isNearBottom) return;
     if (rafRef.current) return;
     
@@ -141,20 +147,10 @@ export default function GenieChat({
   // Generate dynamic placeholder based on user data
   function getPlaceholder() {
     if (maxMessages && messageCount >= maxMessages) {
-      return "Preview mode - get your full dashboard for unlimited access!";
+      return "Unlock Genie in your dashboard";
     }
     
-    const firstName = userName?.split(' ')[0]; // Get first name only
-    
-    if (firstName && userState) {
-      return `Ask Genie anything about starting your LLC in ${userState}, ${firstName}…`;
-    } else if (userState) {
-      return `Ask Genie anything about starting your LLC in ${userState}…`;
-    } else if (firstName) {
-      return `Ask Genie anything, ${firstName}…`;
-    } else {
-      return "Ask Genie anything…";
-    }
+    return "Ask Genie anything about starting your LLC...";
   }
 
   async function handleSend() {
@@ -241,22 +237,22 @@ export default function GenieChat({
   return (
     <SectionReveal>
       <div
-        className="
-          rounded-2xl border border-gray-200
+        className={`
+          border border-gray-200
           bg-gradient-to-b from-white to-slate-50
           backdrop-blur-sm
           shadow-sm
-          p-5 sm:p-6
           space-y-4
           motion-soft
           hover:shadow-[0_12px_40px_rgba(2,6,23,0.08)] hover:-translate-y-0.5
           pb-safe relative
-        "
+          ${compact ? 'rounded-lg p-5 sm:p-6 lg:p-7 space-y-5' : 'rounded-2xl p-5 sm:p-6 space-y-4'}
+        `}
       >
       {/* Header */}
       <div>
-        <h2 className="text-sm sm:text-base font-semibold text-gray-900">Your Genie Assistant</h2>
-        <p className="text-xs sm:text-sm text-gray-500">
+        <h2 className={`${compact ? 'text-sm sm:text-base' : 'text-sm sm:text-base'} font-semibold text-gray-900`}>Your Genie Assistant</h2>
+        <p className={`${compact ? 'text-xs sm:text-sm' : 'text-xs sm:text-sm'} text-gray-500`}>
           AI-powered guidance for your LLC setup.
         </p>
       </div>
@@ -264,7 +260,7 @@ export default function GenieChat({
       {/* Messages */}
       <div
         ref={scrollRef}
-        className={`space-y-3 pr-1 bg-transparent relative ${
+        className={`${compact ? 'space-y-2' : 'space-y-3'} pr-1 bg-transparent relative ${
           isDemo ? 'overflow-hidden max-h-[400px]' : 'overflow-y-auto max-h-[400px]'
         }`}
         role="log" 
@@ -310,12 +306,13 @@ export default function GenieChat({
             placeholder={getPlaceholder()}
             disabled={maxMessages && messageCount >= maxMessages}
             rows={1}
-            className="
+            className={`
               flex-1 bg-transparent focus:outline-none
               text-sm text-gray-900 placeholder-gray-400
               resize-none max-h-40 py-1
               disabled:opacity-50 disabled:cursor-not-allowed
-            "
+              ${maxMessages && messageCount >= maxMessages ? 'animate-pulse cursor-pointer' : ''}
+            `}
             style={{ minHeight: '32px' }}
           />
           <button

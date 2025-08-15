@@ -16,7 +16,7 @@ const GenieChat = dynamic(() => import('./GenieChat'), { ssr: false })
 import Timer from './Timer'
 import Hero from './Hero'
 import WhatsIncludedStack from './WhatsIncludedStack'
-import FounderNote from './FounderNote'
+
 import FAQ from './FAQ'
 import PremiumChecklist from './PremiumChecklist'
 
@@ -354,84 +354,11 @@ export default function HomePageClient({
       
       <WhatsIncludedStack features={customFeatures} />
       
-      {/* Founder's Message Section */}
-      <FounderNote />
-      
-      {/* AI Assistant Section with Video Demo */}
-      <section className="w-full bg-white py-32 flex flex-col items-center justify-center">
-        <div className="max-w-6xl w-full px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            {/* Column 1: Text Content */}
-            <SectionReveal>
-              <div className="space-y-8 text-center md:text-left">
-                <h2 className="text-3xl md:text-[36px] font-bold text-neutral-900 tracking-tight leading-tight">
-                  Stuck? Get answers in seconds.
-                </h2>
-                
-                <div className="max-w-[560px] mx-auto md:mx-0">
-                  <p className="text-lg text-neutral-600 leading-relaxed">
-                    No more searching through confusing forums or waiting for email replies. Our AI assistant is trained on the LLC formation process to give you instant clarity whenever you need it, 24/7.
-                  </p>
-                </div>
-                
-                <div className="flex justify-center md:justify-start">
-                  <PremiumChecklist
-                    className="mt-6"
-                    items={[
-                      {
-                        title: "24/7 availability",
-                        subtitle: "Always there when you need help.",
-                      },
-                      {
-                        title: "Instant answers, no delays",
-                        subtitle: "Get clarity immediately, not tomorrow.",
-                      },
-                      {
-                        title: "Trained on state-specific rules",
-                        subtitle: "Knows your state's requirements inside out.",
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-            </SectionReveal>
-            
-            {/* Column 2: Genie Assistant Demo */}
-            <div className="flex justify-center">
-              <div className="relative w-full max-w-lg">
-                <GenieChat 
-                  avatarSrc="/genie-preview.png"
-                  userName=""
-                  userState=""
-                  isDemo={true}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       
 
       
       <Divider />
-      
-      {/* Final CTA */}
-      <SectionReveal>
-        <section className="w-full max-w-xl mx-auto px-4 py-5 text-center" data-cta-section>
-          <h2 className="text-xl font-semibold text-neutral-900 mb-3">Ready to launch your LLC in minutes?</h2>
-          <Link href="/onboarding">
-            <PremiumButton size="md" className="w-full max-w-xs mx-auto hover:scale-[1.015] hover:shadow-md transition-all duration-200 ease-smooth group">
-              <span className="relative text-white">
-                Unlock My LLC Setup
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300 ease-smooth"></span>
-              </span>
-            </PremiumButton>
-          </Link>
-          <Item delay={0.08}>
-            <p className="text-sm text-neutral-500 mt-3">One payment. Everything included.</p>
-          </Item>
-        </section>
-      </SectionReveal>
       
       <FAQ faqs={customFaqs} />
       

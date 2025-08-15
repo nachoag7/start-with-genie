@@ -7,7 +7,7 @@ import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
+
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -25,11 +25,6 @@ const staggerContainer = {
 export default function LLCVsSolePropForOnlyFansCreatorsPage() {
   return (
     <>
-      <Head>
-        <title>LLC vs Sole Proprietorship for OnlyFans Creators</title>
-        <meta name="description" content="Which business structure is better for OnlyFans — an LLC or a sole prop? We break it down clearly for creators." />
-      </Head>
-      
       <SeoPageLayout>
         <div id="llc-vs-sole-prop-for-onlyfans-creators">
           {/* Hero Section */}

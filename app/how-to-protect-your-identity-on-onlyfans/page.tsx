@@ -7,7 +7,7 @@ import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
+
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -25,11 +25,6 @@ const staggerContainer = {
 export default function HowToProtectYourIdentityOnOnlyFansPage() {
   return (
     <>
-      <Head>
-        <title>How to Protect Your Identity as an OnlyFans Creator</title>
-        <meta name="description" content="Want to stay private on OnlyFans? Learn how to use an LLC, EIN, and other tools to protect your real name and info." />
-      </Head>
-      
       <SeoPageLayout>
         <div id="how-to-protect-your-identity-on-onlyfans">
           {/* Hero Section */}

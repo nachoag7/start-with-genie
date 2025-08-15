@@ -7,7 +7,6 @@ import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -25,11 +24,6 @@ const staggerContainer = {
 export default function HowToGetAnEINForOnlyFansPage() {
   return (
     <>
-      <Head>
-        <title>How to Get an EIN for OnlyFans – Step-by-Step Guide</title>
-        <meta name="description" content="Everything OnlyFans creators need to know about getting an EIN for tax, banking, and privacy purposes." />
-      </Head>
-      
       <SeoPageLayout>
         <div id="how-to-get-an-ein-for-onlyfans">
           {/* Hero Section */}

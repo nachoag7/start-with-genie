@@ -24,18 +24,18 @@ export default function UnlockModal({
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
           <div className="text-sm text-neutral-500">Everything you need to launch — for <span className="font-medium text-neutral-900">$49</span>.</div>
           <div className="flex gap-2">
-            <button
-              onClick={onClose}
-              className="rounded-lg border border-black/10 bg-white/70 px-3 py-2 text-sm text-neutral-900 hover:bg-white"
-            >
-              Not now
-            </button>
             <a
               href="/start"
               className="rounded-lg bg-[#3b82f6] px-3 py-2 text-sm font-medium text-white hover:bg-[#2f6fe0] shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
             >
               Get My Dashboard
             </a>
+            <button
+              onClick={onClose}
+              className="rounded-lg border border-black/10 bg-white/70 px-3 py-2 text-sm text-neutral-900 hover:bg-white"
+            >
+              Not now
+            </button>
           </div>
         </div>
       </div>

@@ -6,8 +6,8 @@ import Image from "next/image";
 export default function SampleDashboardCard() {
   return (
     <Link
-      href="/sample"
-      aria-label="Open sample dashboard"
+      href="/onboarding"
+      aria-label="Open dashboard"
       className="group relative block w-full max-w-[720px] rounded-2xl transition-transform duration-300 ease-out hover:scale-[1.01] focus:scale-[1.01] focus:outline-none"
     >
       {/* gradient border */}

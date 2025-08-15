@@ -15,7 +15,7 @@ type Props = {
 export default function InteractivePreviewCard({
   src,
   alt = "Dashboard preview",
-  href = "/sample",
+  href = "/onboarding",
   className = "",
 }: Props) {
   const router = useRouter();

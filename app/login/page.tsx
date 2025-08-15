@@ -10,7 +10,6 @@ import { Input } from '../../components/ui/Input'
 import { supabase } from '../../lib/supabase'
 import { motion } from 'framer-motion'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
 
 interface LoginFormData {
   email: string
@@ -90,11 +89,6 @@ export default function LoginPage() {
 
   return (
     <>
-      <Head>
-        <title>Sign In – Start With Genie</title>
-        <meta name="description" content="Sign in to your Start With Genie dashboard to access your LLC setup, documents, and personalized guidance." />
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
       <div className="min-h-screen bg-neutral-50 flex flex-col">
         {/* Back Home Button */}
         <button

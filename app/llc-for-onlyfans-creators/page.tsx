@@ -7,7 +7,7 @@ import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
+
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -25,11 +25,6 @@ const staggerContainer = {
 export default function LLCForOnlyFansCreatorsPage() {
   return (
     <>
-      <Head>
-        <title>LLC for OnlyFans Creators – Should You File One?</title>
-        <meta name="description" content="Learn if starting an LLC makes sense for your OnlyFans business. Clear, honest answers about taxes, privacy, and protection for creators." />
-      </Head>
-      
       <SeoPageLayout>
         <div id="llc-for-onlyfans-creators">
           {/* Hero Section */}

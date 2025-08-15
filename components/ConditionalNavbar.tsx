@@ -30,9 +30,7 @@ export default function ConditionalNavbar() {
     return null;
   }
   
-  // Apply gray background for sample page to match the page color
-  const isSamplePage = pathname === '/sample';
-  const bgColor = isSamplePage ? 'bg-gray-50' : 'bg-white';
+  const bgColor = 'bg-white';
   
   return (
     <>

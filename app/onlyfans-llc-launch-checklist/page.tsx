@@ -7,7 +7,7 @@ import { Shield, DollarSign, User, Building, AlertTriangle, Calculator, FileText
 import SeoPageLayout from '../../components/SeoPageLayout'
 import { Button } from '../../components/ui/Button'
 import Footer from '../../components/Footer'
-import Head from 'next/head'
+
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -25,11 +25,6 @@ const staggerContainer = {
 export default function OnlyFansLLCLaunchChecklistPage() {
   return (
     <>
-      <Head>
-        <title>OnlyFans Business Checklist – Launch with Confidence</title>
-        <meta name="description" content="The step-by-step checklist to legally set up your OnlyFans business with an LLC, EIN, and more." />
-      </Head>
-      
       <SeoPageLayout>
         <div id="onlyfans-llc-launch-checklist">
           {/* Hero Section */}
