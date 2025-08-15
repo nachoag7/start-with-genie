@@ -4,10 +4,10 @@ import HomePageClient from '../components/HomePageClient'
 
 export const metadata: Metadata = {
   title: 'The New Way to Start Your Business',
-  description: 'Launch your LLC with Genie\'s $49 business launch dashboard — we don\'t file for you, but you get everything you need in one place, without the $299+ upsells.',
+  description: 'Register your LLC with Genie\'s guidance, get everything you need for $49',
   openGraph: {
     title: 'The New Way to Start Your Business',
-    description: 'Launch your LLC with Genie\'s $49 business launch dashboard — we don\'t file for you, but you get everything you need in one place, without the $299+ upsells.',
+    description: 'Register your LLC with Genie\'s guidance, get everything you need for $49',
     url: 'https://startwithgenie.com/',
     images: [
       {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: 'The New Way to Start Your Business',
-    description: 'Launch your LLC with Genie\'s $49 business launch dashboard — we don\'t file for you, but you get everything you need in one place, without the $299+ upsells.',
+    description: 'Register your LLC with Genie\'s guidance, get everything you need for $49',
     images: ['https://startwithgenie.com/genie-og.png'],
   },
   other: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         "target": "https://startwithgenie.com/search?q={query}",
         "query-input": "required name=query",
       },
-      "description": "Launch your LLC with Genie's $49 business launch dashboard — we don't file for you, but you get everything you need in one place, without the $299+ upsells.",
+      "description": "Register your LLC with Genie's guidance, get everything you need for $49",
     }),
   },
 }
