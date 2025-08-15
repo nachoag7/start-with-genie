@@ -113,6 +113,10 @@ export default function LimitedGenieChat({
   // Auto-resize textarea
   function autosize() {
     if (!taRef.current) return;
+    if (isMobile) {
+      taRef.current.style.height = "16px"; // Fixed height for mobile - just enough for placeholder
+      return;
+    }
     taRef.current.style.height = 'auto';
     taRef.current.style.height = Math.min(taRef.current.scrollHeight, 120) + 'px';
   }
@@ -276,7 +280,7 @@ export default function LimitedGenieChat({
             px-3
             text-sm sm:text-[15px]
             leading-6
-            text-gray-900
+            text-gray-900 text-center
             placeholder:text-gray-400
             focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300
             disabled:opacity-50 disabled:cursor-not-allowed

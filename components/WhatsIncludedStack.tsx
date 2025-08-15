@@ -6,16 +6,16 @@ import { SectionReveal, StaggerReveal, Item } from "./reveal";
 
 const DEFAULT_FEATURES = [
   {
-    title: "Step-by-Step LLC Filing",
-    desc: "Personalized to your business so you can file confidently from day one.",
+    title: "LLC Filing Instructions",
+    desc: "Personalized plan to form your LLC",
   },
   {
-    title: "EIN Walkthrough",
-    desc: "Get your federal tax ID in minutes",
+    title: "EIN Guide",
+    desc: "Get your tax id fast",
   },
   {
-    title: "Custom Operating Agreement",
-    desc: "A lawyer-inspired template built for solo founders",
+    title: "Operating Agreement",
+    desc: "Personalized template included",
   },
   {
     title: "Clean Founder Dashboard",
