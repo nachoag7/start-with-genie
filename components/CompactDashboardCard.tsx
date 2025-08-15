@@ -6,7 +6,7 @@ import Link from "next/link";
 import DocumentsSection from "./DocumentsSection";
 import GenieChat from "./GenieChat";
 import UnlockModal from "./UnlockModal";
-import PreviewNoticeModal from "./PreviewNoticeModal";
+
 
 // Sample user data for James White in North Dakota
 const sampleUser = {
@@ -300,20 +300,7 @@ export default function CompactDashboardCard() {
   const [modalContent, setModalContent] = useState({ title: "", content: "" });
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState<any>(null);
-  const [showPreviewNotice, setShowPreviewNotice] = useState(false);
 
-  // Check if user has seen the preview notice
-  useEffect(() => {
-    const hasSeenNotice = localStorage.getItem('seenSampleNotice');
-    if (!hasSeenNotice) {
-      setShowPreviewNotice(true);
-    }
-  }, []);
-
-  const handleClosePreviewNotice = () => {
-    setShowPreviewNotice(false);
-    localStorage.setItem('seenSampleNotice', 'true');
-  };
 
   const handleViewDoc = (doc: any) => {
     let content;
@@ -340,11 +327,7 @@ export default function CompactDashboardCard() {
 
   return (
     <div className="relative w-full max-w-4xl">
-      {/* Preview Notice Modal */}
-      <PreviewNoticeModal 
-        open={showPreviewNotice} 
-        onClose={handleClosePreviewNotice} 
-      />
+
       
       <div className="p-8 sm:p-10 lg:p-12">
         

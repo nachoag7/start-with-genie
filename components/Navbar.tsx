@@ -67,12 +67,6 @@ export default function Navbar({ bgColor = "bg-white" }: NavbarProps) {
               Launch My LLC
             </button>
           </Link>
-          <Link
-            href="/login"
-            className="inline-flex items-center justify-center rounded-full h-10 px-6 border border-gray-300 text-gray-900 hover:bg-gray-50 transition text-sm font-medium tracking-tight"
-          >
-            Log In
-          </Link>
           <button
             aria-label="Toggle menu"
             className="p-2 rounded-md hover:bg-neutral-900/5 transition"
@@ -98,6 +92,13 @@ export default function Navbar({ bgColor = "bg-white" }: NavbarProps) {
                   {link.label}
                 </a>
               ))}
+              <Link
+                href="/login"
+                className="text-sm text-neutral-700 hover:text-neutral-900 transition-colors"
+                onClick={() => setOpen(false)}
+              >
+                Log In
+              </Link>
             </div>
           </div>
         </div>
