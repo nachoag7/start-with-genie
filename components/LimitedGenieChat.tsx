@@ -39,6 +39,18 @@ export default function LimitedGenieChat({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Set initial messages after mobile detection
+  useEffect(() => {
+    setMessages([
+      {
+        id: 'welcome',
+        role: 'assistant',
+        content: getWelcomeMessage(),
+        createdAt: new Date(),
+      },
+    ]);
+  }, [isMobile]);
+
   const getWelcomeMessage = () => {
     if (isMobile) {
       return "Hi! I'm Genie. Ask me anything about your LLC!";
@@ -46,14 +58,7 @@ export default function LimitedGenieChat({
     return "Hi! I'm Genie, your LLC setup assistant. This is a preview—ask me anything about forming your LLC, getting an EIN, or your Operating Agreement!";
   };
 
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 'welcome',
-      role: 'assistant',
-      content: getWelcomeMessage(),
-      createdAt: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
@@ -124,7 +129,7 @@ export default function LimitedGenieChat({
       return "Ask Genie anything...";
     }
     
-    return `Ask Genie anything about starting your LLC${userState ? ` in ${userState}` : ''}…`;
+    return "Ask Genie anything about starting your LLC...";
   }
 
   async function handleSend() {

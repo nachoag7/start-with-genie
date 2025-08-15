@@ -48,51 +48,60 @@ export default function GenieChat({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Set initial messages after mobile detection
+  useEffect(() => {
+    if (isDemo) {
+      setMessages([
+        {
+          id: 'welcome',
+          role: 'assistant',
+          content: getWelcomeMessage(),
+          createdAt: new Date(),
+        },
+        {
+          id: 'demo-question',
+          role: 'user',
+          content: "How do I get an EIN for my LLC?",
+          createdAt: new Date(),
+        },
+        {
+          id: 'demo-answer',
+          role: 'assistant',
+          content: "Getting an EIN is straightforward! Here's the step-by-step process:\n\n1. Go to IRS.gov and search for 'EIN Application'\n2. Click 'Apply Online Now'\n3. Select 'Limited Liability Company' as your entity type\n4. Fill out the application with your LLC details\n5. Submit and you'll get your EIN immediately\n\nYou'll need your LLC formation documents handy. The whole process takes about 10 minutes and it's completely free!\n\nWould you like me to walk you through any specific part of this process?",
+          createdAt: new Date(),
+        },
+        {
+          id: 'demo-followup',
+          role: 'user',
+          content: "What documents do I need?",
+          createdAt: new Date(),
+        },
+        {
+          id: 'demo-followup-answer',
+          role: 'assistant',
+          content: "For your EIN application, you'll need:\n\n• Your LLC's legal name (exactly as filed with your state)\n• Your LLC's business address\n• The name and SSN of your LLC's responsible party (usually you)\n• Your LLC's formation date\n• The type of business you're starting\n\nThat's it! No complex paperwork needed. The IRS just wants to verify your LLC exists and identify who's responsible for tax matters.\n\nPro tip: Have your LLC formation confirmation from your state ready - it makes the process even smoother.",
+          createdAt: new Date(),
+        }
+      ]);
+    } else {
+      setMessages([
+        {
+          id: 'welcome',
+          role: 'assistant',
+          content: getWelcomeMessage(),
+          createdAt: new Date(),
+        },
+      ]);
+    }
+  }, [isMobile, isDemo]);
+
   const getWelcomeMessage = () => {
     if (isMobile) {
       return "Hi! I'm Genie. Ask me anything about your LLC!";
     }
     return "Hi! I'm Genie, your LLC setup assistant. Ask me anything about forming your LLC, getting an EIN, or your Operating Agreement!";
   };
-  const [messages, setMessages] = useState<ChatMessage[]>(isDemo ? [
-    {
-      id: 'welcome',
-      role: 'assistant',
-      content: getWelcomeMessage(),
-      createdAt: new Date(),
-    },
-    {
-      id: 'demo-question',
-      role: 'user',
-      content: "How do I get an EIN for my LLC?",
-      createdAt: new Date(),
-    },
-    {
-      id: 'demo-answer',
-      role: 'assistant',
-      content: "Getting an EIN is straightforward! Here's the step-by-step process:\n\n1. Go to IRS.gov and search for 'EIN Application'\n2. Click 'Apply Online Now'\n3. Select 'Limited Liability Company' as your entity type\n4. Fill out the application with your LLC details\n5. Submit and you'll get your EIN immediately\n\nYou'll need your LLC formation documents handy. The whole process takes about 10 minutes and it's completely free!\n\nWould you like me to walk you through any specific part of this process?",
-      createdAt: new Date(),
-    },
-    {
-      id: 'demo-followup',
-      role: 'user',
-      content: "What documents do I need?",
-      createdAt: new Date(),
-    },
-    {
-      id: 'demo-followup-answer',
-      role: 'assistant',
-      content: "For your EIN application, you'll need:\n\n• Your LLC's legal name (exactly as filed with your state)\n• Your LLC's business address\n• The name and SSN of your LLC's responsible party (usually you)\n• Your LLC's formation date\n• The type of business you're starting\n\nThat's it! No complex paperwork needed. The IRS just wants to verify your LLC exists and identify who's responsible for tax matters.\n\nPro tip: Have your LLC formation confirmation from your state ready - it makes the process even smoother.",
-      createdAt: new Date(),
-    }
-  ] : [
-    {
-      id: 'welcome',
-      role: 'assistant',
-      content: getWelcomeMessage(),
-      createdAt: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
