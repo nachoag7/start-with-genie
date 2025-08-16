@@ -1,41 +1,25 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import HomePageClient from '../components/HomePageClient'
+import { site, defaultMeta } from '../lib/seo'
 
 export const metadata: Metadata = {
-  title: 'The New Way to Start Your Business',
-  description: 'Register your LLC with Genie\'s guidance, get everything you need for $49',
+  title: defaultMeta.title,
+  description: defaultMeta.description,
   openGraph: {
-    title: 'The New Way to Start Your Business',
-    description: 'Register your LLC with Genie\'s guidance, get everything you need for $49',
-    url: 'https://startwithgenie.com/',
-    images: [
-      {
-        url: 'https://startwithgenie.com/genie-og.png',
-        width: 1200,
-        height: 628,
-        alt: 'Start With Genie – Business launch dashboard',
-      },
-    ],
+    type: "website",
+    url: site.url,
+    siteName: site.name,
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    images: [{ url: site.ogImage, width: 1200, height: 630, alt: "Start With Genie" }],
+    locale: "en_US",
   },
   twitter: {
-    title: 'The New Way to Start Your Business',
-    description: 'Register your LLC with Genie\'s guidance, get everything you need for $49',
-    images: ['https://startwithgenie.com/genie-og.png'],
-  },
-  other: {
-    'application/ld+json': JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Start With Genie",
-      "url": "https://startwithgenie.com/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://startwithgenie.com/search?q={query}",
-        "query-input": "required name=query",
-      },
-      "description": "Register your LLC with Genie's guidance, get everything you need for $49",
-    }),
+    card: "summary_large_image",
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    images: [site.ogImage],
   },
 }
 

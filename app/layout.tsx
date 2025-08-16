@@ -6,7 +6,7 @@ import ClarityAnalytics from '../components/ClarityAnalytics';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import ConditionalNavbar from '../components/ConditionalNavbar';
 import { ModalProvider } from '../components/ModalContext';
-import { site, defaultMeta, defaultSeo } from '../lib/seo';
+import { site, defaultMeta } from '../lib/seo';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,10 +24,19 @@ export const metadata: Metadata = {
     icon: '/favicon.ico?v=2',
   },
   openGraph: {
-    ...defaultSeo.openGraph
+    type: "website",
+    url: site.url,
+    siteName: site.name,
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    images: [{ url: site.ogImage, width: 1200, height: 630, alt: "Start With Genie" }],
+    locale: "en_US",
   },
   twitter: {
-    ...defaultSeo.twitter
+    card: "summary_large_image",
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    images: [site.ogImage],
   },
   other: {
     'application/ld+json': JSON.stringify({
