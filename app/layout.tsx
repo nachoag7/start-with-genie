@@ -6,18 +6,20 @@ import ClarityAnalytics from '../components/ClarityAnalytics';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import ConditionalNavbar from '../components/ConditionalNavbar';
 import { ModalProvider } from '../components/ModalContext';
-import { defaultSeo } from '../lib/seo';
-
+import { site, defaultMeta, defaultSeo } from '../lib/seo';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://startwithgenie.com'),
+  metadataBase: new URL(site.url),
   title: {
-    default: defaultSeo.title,
-    template: '%s • Start With Genie',
+    default: defaultMeta.title,
+    template: site.titleTemplate,
   },
-  description: defaultSeo.description,
+  description: defaultMeta.description,
+  alternates: {
+    canonical: site.url,
+  },
   icons: {
     icon: '/favicon.ico?v=2',
   },
@@ -25,25 +27,20 @@ export const metadata: Metadata = {
     ...defaultSeo.openGraph
   },
   twitter: {
-    card: "summary_large_image",
-    site: defaultSeo.twitter.site,
-    creator: defaultSeo.twitter.creator,
-    title: defaultSeo.twitter.title,
-    description: defaultSeo.twitter.description,
-    images: [defaultSeo.twitter.image as any]
+    ...defaultSeo.twitter
   },
   other: {
     'application/ld+json': JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Start With Genie",
-      "url": "https://startwithgenie.com/",
+      "name": site.name,
+      "url": site.url,
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://startwithgenie.com/search?q={query}",
+        "target": `${site.url}/search?q={query}`,
         "query-input": "required name=query"
       },
-      "description": defaultSeo.description
+      "description": defaultMeta.description
     })
   }
 };

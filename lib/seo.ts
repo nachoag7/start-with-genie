@@ -1,30 +1,42 @@
-export const defaultSeo = {
-  title: "Start With Genie — $49 LLC Setup Assistant",
+// lib/seo.ts
+export const site = {
+  name: "Start With Genie",
+  url: "https://startwithgenie.com",
+  ogImage: "https://startwithgenie.com/og/cover.jpg", // ensure this exists
+  titleTemplate: "%s · Start With Genie"
+};
+
+export const defaultMeta = {
+  title: "The New Way to Start Your Business",
   description:
-    "Launch your LLC with Genie's $49 dashboard. Clear steps, EIN help, and an operating agreement. No upsells.",
+    "Launch your LLC with Genie — a $49 dashboard that gives you step-by-step state filing, an EIN guide, and a ready-to-use operating agreement. No upsells.",
+};
+
+export const defaultSeo = {
+  title: defaultMeta.title,
+  description: defaultMeta.description,
   openGraph: {
     type: "website",
-    url: "https://startwithgenie.com",
-    title: "Start With Genie — $49 LLC Setup Assistant",
-    description:
-      "Launch your LLC with Genie's $49 dashboard. Clear steps, EIN help, and an operating agreement. No upsells.",
+    url: site.url,
+    siteName: site.name,
+    title: defaultMeta.title,
+    description: defaultMeta.description,
     images: [
       {
-        url: "https://startwithgenie.com/genie-og.png",
+        url: site.ogImage,
         width: 1200,
         height: 628,
         alt: "Start With Genie – Business launch dashboard"
       }
     ],
-    siteName: "Start With Genie"
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     site: "@startwithgenie",
     creator: "@startwithgenie",
-    title: "Start With Genie — $49 LLC Setup Assistant",
-    description:
-      "Launch your LLC with Genie's $49 dashboard. Clear steps, EIN help, and an operating agreement. No upsells.",
-    image: "https://startwithgenie.com/genie-og.png"
+    title: defaultMeta.title,
+    description: defaultMeta.description,
+    image: site.ogImage
   }
 }; 
