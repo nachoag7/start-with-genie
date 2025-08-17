@@ -371,13 +371,10 @@ export default function CompactDashboardCard() {
           </p>
           <Link
             href="/onboarding"
-            className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-6 py-3 text-sm font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
+                          className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
           >
-            Unlock My Dashboard
+            See how easy it is
           </Link>
-          <p className="mt-2 text-[10px] text-neutral-500">
-            One-time payment. Instant access.
-          </p>
         </section>
       </div>
 

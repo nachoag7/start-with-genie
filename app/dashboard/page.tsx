@@ -1005,7 +1005,7 @@ export default function DashboardPage() {
               That's it, {user?.full_name?.split(' ')[0] || 'there'}! Your LLC Setup Dashboard is ready.
             </h3>
             <p className="text-gray-600 mb-6">
-              Unlock everything you need to launch {user?.business_name || 'your business'} with confidence. LLC filing, EIN setup, and your custom Operating Agreement included.
+              Unlock everything you need to launch {user?.business_name || 'your business'} with confidence. LLC filing, EIN setup, and your custom Operating Agreement included. If it doesn't save you time and money get a full refund.
             </p>
           <PremiumButton
             onClick={handleUnlock}
@@ -1017,7 +1017,7 @@ export default function DashboardPage() {
             </span>
           </PremiumButton>
           <p className="text-sm text-gray-500 mt-3">
-            Instant access. No upsells.
+            Instant access.
           </p>
         </motion.div>
       )}

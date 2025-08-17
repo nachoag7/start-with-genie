@@ -71,7 +71,7 @@ export default function HowItWorksVideo() {
 
   return (
     <SectionReveal>
-      <section className="w-full flex flex-col items-center justify-center py-32">
+      <section className="w-full flex flex-col items-center justify-center py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
         <h1 className="text-center text-3xl md:text-4xl font-semibold mb-6">
           See How Genie Works in 30 Seconds
         </h1>
@@ -123,13 +123,11 @@ export default function HowItWorksVideo() {
           Get personalized instructions, EIN help, and downloads in one clean dashboard.
         </p>
         <div className="text-center mt-8" data-cta-section>
-          <Link href="/checkout">
-            <PremiumButton size="md" className="w-full max-w-xs hover:scale-[1.015] hover:shadow-md transition-all duration-200 ease-smooth group">
-              <span className="relative text-white">
-                Start My LLC for $49
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300 ease-smooth"></span>
-              </span>
-            </PremiumButton>
+          <Link
+            href="/checkout"
+            className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
+          >
+            Unlock My Dashboard
           </Link>
         </div>
       </section>

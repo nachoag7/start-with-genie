@@ -86,7 +86,7 @@ export default function FrictionlessCheckoutForm({
       {/* Trust indicators */}
       <div className="text-center space-y-2">
         <p className="text-xs text-gray-500">
-          Secure by Stripe • Instant access • No upsells
+          Secure by Stripe • Instant access
         </p>
       </div>
     </form>

@@ -33,7 +33,7 @@ export default function Hero({
 
   const getSubtitle = () => {
     if (subtitle) return subtitle; // Use custom subtitle if provided
-    return "Get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement. For just $49";
+    return "Get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement for just $49. If it doesn't save you time and money get a full refund.";
   };
   return (
     <section className="relative overflow-hidden bg-white pt-16 pb-12">
@@ -48,12 +48,11 @@ export default function Hero({
           </p>
 
           <div className="mt-8">
-            <Link href="/onboarding">
-              <PremiumButton size="md" className="inline-block hover:scale-[1.01] hover:shadow-lg transition-all duration-200 ease-smooth">
-                <span className="text-white">
-                  See how easy it is
-                </span>
-              </PremiumButton>
+            <Link
+              href="/onboarding"
+              className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
+            >
+              See how easy it is
             </Link>
           </div>
         </div>

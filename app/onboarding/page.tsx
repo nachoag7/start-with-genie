@@ -68,6 +68,7 @@ export default function OnboardingPage() {
 
   // Move these hooks to the top of the component
   const [successFade, setSuccessFade] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Helper functions must be defined here so they are available in all render branches
   const nextStep = async () => {
@@ -95,7 +96,7 @@ export default function OnboardingPage() {
   };
 
   const onSubmit = async (data: OnboardingFormData) => {
-    setIsLoading(true);
+    setIsSubmitting(true);
     setError("");
     // Ensure capitalization on submit
     const formattedBusinessName = capitalizeWords(data.businessName);
@@ -111,14 +112,14 @@ export default function OnboardingPage() {
       });
       if (signUpError) {
         setError(signUpError.message);
-        setIsLoading(false);
+        setIsSubmitting(false);
         return;
       }
       // 2. Insert into users table using auth user id
       const userId = signUpData?.user?.id;
       if (!userId) {
         setError('Could not get user ID after sign up.');
-        setIsLoading(false);
+        setIsSubmitting(false);
         return;
       }
       const { error: insertError } = await supabase.from("users").insert({
@@ -132,15 +133,19 @@ export default function OnboardingPage() {
       });
       if (insertError) {
         setError(insertError.message);
-        setIsLoading(false);
+        setIsSubmitting(false);
         return;
       }
-      // 3. Redirect to dashboard in preview mode
+      
+      // 3. Brief loading state then redirect
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // 4. Redirect to dashboard in preview mode
       router.push('/dashboard?preview=true');
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -486,11 +491,13 @@ export default function OnboardingPage() {
         <div className="mt-2">
           <PremiumButton
             type="submit"
-            disabled={isLoading}
+            disabled={isSubmitting}
             size="lg"
-            className="w-full px-8 py-4 text-base font-medium"
+            className="w-full px-8 py-4 text-base font-medium transition-all duration-300 ease-in-out"
           >
-            {isLoading ? "Creating your account..." : "Get Started"}
+            <span className="text-white text-center">
+              {isSubmitting ? "Setting up..." : "Get Started"}
+            </span>
           </PremiumButton>
         </div>
       </motion.div>
