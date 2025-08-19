@@ -78,21 +78,21 @@ export default function ProgressChecklist({ userId, links }: Props) {
     <li className="flex items-start gap-3">
       <button
         onClick={() => toggle(key, !steps[key])}
-        className={`mt-0.5 h-4 w-4 rounded border-2 transition-all duration-200 flex items-center justify-center ${
+        className={`mt-0.5 h-5 w-5 sm:h-4 sm:w-4 rounded border-2 transition-all duration-200 flex items-center justify-center ${
           steps[key] 
             ? 'bg-blue-500 border-blue-500 text-white' 
             : 'border-gray-300 hover:border-blue-400'
         }`}
       >
         {steps[key] && (
-          <svg className="h-2.5 w-2.5" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="h-3 w-3 sm:h-2.5 sm:w-2.5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
           </svg>
         )}
       </button>
       <label 
         onClick={() => toggle(key, !steps[key])}
-        className="text-sm leading-6 cursor-pointer text-gray-700 hover:text-gray-900 transition-colors"
+        className="text-sm sm:text-sm leading-6 cursor-pointer text-gray-700 hover:text-gray-900 transition-colors flex-1 min-w-0"
       >
         {label}
       </label>
@@ -125,7 +125,7 @@ export default function ProgressChecklist({ userId, links }: Props) {
               transition={{ duration: 0.3, delay: 0.1 }}
               className="text-center px-4"
             >
-              <div className="text-lg font-semibold text-green-700 mb-2">You're all set!</div>
+              <div className="text-base sm:text-lg font-semibold text-green-700 mb-2">You're all set!</div>
               <div className="text-sm text-green-600 mb-4">Your LLC formation is complete!</div>
               <div className="text-xs text-gray-500 mb-3">Help others start their business journey</div>
               <div className="flex justify-center">
@@ -135,9 +135,12 @@ export default function ProgressChecklist({ userId, links }: Props) {
                     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
                     window.open(url, '_blank');
                   }}
-                  className="px-4 py-2 bg-blue-500 text-white text-sm rounded-full hover:bg-blue-600 transition-colors"
+                  className="px-3 py-2 sm:px-4 bg-blue-500 text-white text-xs sm:text-sm rounded-full hover:bg-blue-600 transition-colors flex items-center gap-2"
                 >
-                  Share on X
+                  Share on
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
                 </button>
               </div>
             </motion.div>
