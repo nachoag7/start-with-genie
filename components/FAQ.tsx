@@ -62,7 +62,7 @@ export default function FAQ({ faqs = DEFAULT_FAQS }: FAQProps) {
   }, []);
 
   return (
-    <section aria-labelledby="faqs" className="relative pt-10 pb-10">
+    <section aria-labelledby="faqs" className="relative -mt-16 pt-1 pb-10">
       <div className="mx-auto max-w-3xl px-6 lg:px-0">
         <SectionReveal>
           <h2 id="faqs" className="text-center text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900">
@@ -70,7 +70,7 @@ export default function FAQ({ faqs = DEFAULT_FAQS }: FAQProps) {
           </h2>
         </SectionReveal>
 
-        <div ref={rootRef} className="mt-10 divide-y divide-neutral-200/70">
+        <div ref={rootRef} className="mt-2 divide-y divide-neutral-200/70">
           <StaggerReveal>
             {faqs.map((item, i) => (
               <Item key={i}>
