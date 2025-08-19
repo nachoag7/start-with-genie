@@ -165,9 +165,9 @@ export default function ProgressChecklist({ userId, links }: Props) {
       </div>
 
       <ul className="space-y-3">
-        {item("llc", <>File your LLC with the state — use Filing Instructions</>)}
-        {item("ein", <>Apply for your EIN — use EIN Guide</>)}
-        {item("oa", <>Sign and Print your Operating Agreement — open Operating Agreement</>)}
+        {item("llc", <>File your LLC with the state</>)}
+        {item("ein", <>Apply for your EIN</>)}
+        {item("oa", <>Sign and Print your Operating Agreement</>)}
         {item("operate", <>Start operating your business (bank account, payments, clients)</>)}
       </ul>
     </section>
