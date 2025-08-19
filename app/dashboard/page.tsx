@@ -1028,11 +1028,11 @@ export default function DashboardPage() {
         </motion.div>
       )}
 
-      <section className={`mt-12 ${isPreviewMode ? 'relative' : ''}`}>
-        {isPreviewMode && (
+      <section className={`mt-12 ${isPreviewMode && !PAYWALL_DISABLED ? 'relative' : ''}`}>
+        {isPreviewMode && !PAYWALL_DISABLED && (
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white/80 z-10 pointer-events-none"></div>
         )}
-        <div className={isPreviewMode ? 'blur-sm pointer-events-none' : ''}>
+        <div className={isPreviewMode && !PAYWALL_DISABLED ? 'blur-sm pointer-events-none' : ''}>
           <DocumentsSection 
             docs={docsData}
             onView={handleViewDoc}
@@ -1041,11 +1041,11 @@ export default function DashboardPage() {
         </div>
       </section>
       
-      <section className={`mt-12 sm:mt-14 ${isPreviewMode ? 'relative' : ''}`}>
-        {isPreviewMode && (
+      <section className={`mt-12 sm:mt-14 ${isPreviewMode && !PAYWALL_DISABLED ? 'relative' : ''}`}>
+        {isPreviewMode && !PAYWALL_DISABLED && (
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white/80 z-10 pointer-events-none"></div>
         )}
-        <div className={isPreviewMode ? 'blur-sm pointer-events-none' : ''}>
+        <div className={isPreviewMode && !PAYWALL_DISABLED ? 'blur-sm pointer-events-none' : ''}>
           <GenieChat 
             avatarSrc="/genie-preview.png" 
             userName={user?.full_name}
