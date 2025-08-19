@@ -20,6 +20,8 @@ import DashboardActions from '../../components/DashboardActions';
 import PremiumButton from '../../components/ui/PremiumButton';
 import BlurredDashboardOverlay from '../../components/BlurredDashboardOverlay';
 import FrictionlessCheckoutModal from '../../components/FrictionlessCheckoutModal';
+import ProgressChecklist from '../../components/ProgressChecklist';
+import { markChecklistStep } from '../../lib/checklist';
 import { PAYWALL_DISABLED } from '../../lib/config';
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
@@ -910,10 +912,13 @@ export default function DashboardPage() {
     let content;
     if (doc.id === 'llc-instructions') {
       content = llcHtml;
+      markChecklistStep('llc', user?.id);
     } else if (doc.id === 'ein-guide') {
       content = einHtml;
+      markChecklistStep('ein', user?.id);
     } else if (doc.id === 'operating-agreement') {
       content = oaHtml;
+      markChecklistStep('oa', user?.id);
     }
     
     setModalContent({
@@ -926,6 +931,14 @@ export default function DashboardPage() {
   const handleDownloadDoc = (doc: any) => {
     if (doc.pdfHref) {
       window.open(doc.pdfHref, '_blank');
+      // Mark checklist step as completed when downloading
+      if (doc.id === 'llc-instructions') {
+        markChecklistStep('llc', user?.id);
+      } else if (doc.id === 'ein-guide') {
+        markChecklistStep('ein', user?.id);
+      } else if (doc.id === 'operating-agreement') {
+        markChecklistStep('oa', user?.id);
+      }
     } else {
       alert('PDF not available. Please regenerate your documents.');
     }
@@ -956,6 +969,14 @@ export default function DashboardPage() {
             </section>
 
             <section className="mt-12">
+              <ProgressChecklist
+                userId={user?.id}
+                links={{
+                  llcUrl: "#llc-instructions",
+                  einUrl: "#ein-guide", 
+                  oaUrl: "#operating-agreement",
+                }}
+              />
               <DocumentsSection 
                 docs={docsData}
                 onView={handleViewDoc}
@@ -1033,6 +1054,14 @@ export default function DashboardPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white/80 z-10 pointer-events-none"></div>
         )}
         <div className={isPreviewMode && !PAYWALL_DISABLED ? 'blur-sm pointer-events-none' : ''}>
+          <ProgressChecklist
+            userId={user?.id}
+            links={{
+              llcUrl: "#llc-instructions",
+              einUrl: "#ein-guide", 
+              oaUrl: "#operating-agreement",
+            }}
+          />
           <DocumentsSection 
             docs={docsData}
             onView={handleViewDoc}
