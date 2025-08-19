@@ -16,6 +16,7 @@ import confetti from 'canvas-confetti';
 import bcrypt from 'bcryptjs';
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator';
 import Script from 'next/script';
+import { PAYWALL_DISABLED } from '../../lib/config';
 // Move libraries array outside component to fix performance warning
 const GOOGLE_MAPS_LIBRARIES: ("places")[] = ["places"];
 
@@ -140,8 +141,12 @@ export default function OnboardingPage() {
       // 3. Brief loading state then redirect
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // 4. Redirect to dashboard in preview mode
-      router.push('/dashboard?preview=true');
+      // 4. Redirect to dashboard - check if paywall is disabled
+      if (PAYWALL_DISABLED) {
+        router.push('/dashboard');
+      } else {
+        router.push('/dashboard?preview=true');
+      }
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {

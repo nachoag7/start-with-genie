@@ -369,12 +369,12 @@ export default function CompactDashboardCard() {
           <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
             Unlock your personalized dashboard
           </p>
-          <Link
-            href="/onboarding"
-                          className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
-          >
-            See how easy it is
-          </Link>
+                      <Link
+              href="/onboarding"
+              className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
+            >
+              Get Instant Access for $49
+            </Link>
         </section>
       </div>
 

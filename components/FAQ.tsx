@@ -16,7 +16,7 @@ const DEFAULT_FAQS: QA[] = [
     a: "Everything you need to register your business, LLC filing instructions, a clear EIN guide, an operating agreement and your AI powered assistant",
   },
   {
-    q: "Is this legit? Can I do it yourself?",
+    q: "Is this legit? Can I do it myself?",
     a: "Yup, every state in the US allows you to file an LLC on your own. Genie makes the process simple so you can register without spending hundreds or confusion",
   },
   {

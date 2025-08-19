@@ -1,9 +1,9 @@
 // lib/seo.ts
 export const site = {
-  name: "Start With Genie",
+  name: "Genie LLC",
   url: "https://startwithgenie.com",
   ogImage: "https://startwithgenie.com/og/cover.jpg", // ensure this exists
-  titleTemplate: "%s · Start With Genie"
+  titleTemplate: "%s · Genie LLC"
 };
 
 export const defaultMeta = {

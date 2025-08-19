@@ -29,8 +29,8 @@ export default function Navbar({ bgColor = "bg-white" }: NavbarProps) {
             className="h-8 w-8 rounded-full"
           />
           <span className="text-base font-semibold tracking-tight">
-            <span className="text-[#111]">Start With </span>
-            <span className="text-blue-600">Genie</span>
+            <span className="text-[#111]">Genie </span>
+            <span className="text-blue-600">LLC</span>
           </span>
         </Link>
 

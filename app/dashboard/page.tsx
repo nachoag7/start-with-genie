@@ -20,6 +20,7 @@ import DashboardActions from '../../components/DashboardActions';
 import PremiumButton from '../../components/ui/PremiumButton';
 import BlurredDashboardOverlay from '../../components/BlurredDashboardOverlay';
 import FrictionlessCheckoutModal from '../../components/FrictionlessCheckoutModal';
+import { PAYWALL_DISABLED } from '../../lib/config';
 // Remove all @react-pdf/renderer and jsPDF imports
 // Remove: import { pdf } from '@react-pdf/renderer';
 // Remove: import { OperatingAgreementPDF } from '../../components/pdf/OperatingAgreementPDF';
@@ -142,7 +143,7 @@ export default function DashboardPage() {
     const preview = searchParams.get('preview')
     const paymentSuccess = searchParams.get('payment_success')
     
-    if (preview === 'true') {
+    if (preview === 'true' || PAYWALL_DISABLED) {
       setIsPreviewMode(true)
     }
     

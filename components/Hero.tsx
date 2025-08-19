@@ -28,7 +28,7 @@ export default function Hero({
 
   const getTitle = () => {
     if (title) return title; // Use custom title if provided
-    return "Confused about registering your LLC?";
+    return "Register Your LLC With Total Confidence.";
   };
 
   const getSubtitle = () => {
@@ -43,16 +43,33 @@ export default function Hero({
           <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-gray-900">
             {getTitle()}
           </h1>
-          <p className="mt-5 text-lg text-gray-600">
-            {getSubtitle()}
-          </p>
+          
+          {/* Sub-headline section */}
+          <div className="mt-6 text-center">
+            <p className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto px-4">
+              Just $49 for the complete kit. If it doesn't save you time and money, get a full refund.
+            </p>
+            
+            <div className="mt-6 max-w-md mx-auto px-4">
+              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 items-start">
+                <span className="text-gray-500 text-center w-4">✓</span>
+                <span className="text-base sm:text-lg text-gray-600 text-left">Step-by-step state filing instructions</span>
+                
+                <span className="text-gray-500 text-center w-4">✓</span>
+                <span className="text-base sm:text-lg text-gray-600 text-left">EIN application guide</span>
+                
+                <span className="text-gray-500 text-center w-4">✓</span>
+                <span className="text-base sm:text-lg text-gray-600 text-left">Customized Operating Agreement</span>
+              </div>
+            </div>
+          </div>
 
           <div className="mt-8">
             <Link
               href="/onboarding"
               className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
             >
-              See how easy it is
+              Personalize Your LLC Setup
             </Link>
           </div>
         </div>
