@@ -154,7 +154,12 @@ export default function DashboardPage() {
   }, [searchParams])
 
   const handleUnlock = () => {
-    setIsCheckoutModalOpen(true);
+    if (PAYWALL_DISABLED) {
+      // If paywall is disabled, just refresh the page to show full dashboard
+      window.location.reload();
+    } else {
+      setIsCheckoutModalOpen(true);
+    }
   };
 
   const handleCheckoutSuccess = () => {
@@ -926,8 +931,8 @@ export default function DashboardPage() {
     }
   };
 
-  // If user hasn't paid, show blurred dashboard with unlock overlay
-  if (!hasPaid && !isPreviewMode) {
+  // If user hasn't paid and paywall is enabled, show blurred dashboard with unlock overlay
+  if (!hasPaid && !isPreviewMode && !PAYWALL_DISABLED) {
     return (
       <div className="relative min-h-screen">
         {/* Blurred dashboard content */}
@@ -990,12 +995,12 @@ export default function DashboardPage() {
             </p>
             <p className="text-xs text-gray-400 mt-1">{formatAppleStyle(new Date())}</p>
           </div>
-          {!isPreviewMode && <DashboardActions />}
+          {(!isPreviewMode || PAYWALL_DISABLED) && <DashboardActions />}
         </div>
       </section>
 
       {/* Preview Mode Overlay */}
-      {isPreviewMode && (
+      {isPreviewMode && !PAYWALL_DISABLED && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
