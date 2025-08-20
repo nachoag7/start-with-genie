@@ -160,11 +160,18 @@ export default function DashboardPage() {
   }, [searchParams])
 
   const handleUnlock = () => {
+    console.log('handleUnlock called');
+    console.log('PAYWALL_DISABLED:', PAYWALL_DISABLED);
+    console.log('Current isCheckoutModalOpen state:', isCheckoutModalOpen);
+    
     if (PAYWALL_DISABLED) {
       // If paywall is disabled, just refresh the page to show full dashboard
+      console.log('Paywall disabled, reloading page');
       window.location.reload();
     } else {
+      console.log('Setting checkout modal to open');
       setIsCheckoutModalOpen(true);
+      console.log('isCheckoutModalOpen should now be true');
     }
   };
 
@@ -172,6 +179,11 @@ export default function DashboardPage() {
     // Refresh user data to get updated payment status
     fetchUserData();
   };
+
+  // Monitor modal state changes
+  useEffect(() => {
+    console.log('isCheckoutModalOpen changed to:', isCheckoutModalOpen);
+  }, [isCheckoutModalOpen]);
 
   useEffect(() => {
     // Always scroll to top on dashboard mount or redirect

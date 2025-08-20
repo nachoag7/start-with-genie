@@ -58,20 +58,9 @@ export default function BlurredDashboardOverlay({ onUnlock, isLoading = false }:
             Unlock my dashboard for $49
           </span>
         )}
-      </PremiumButton>
+              </PremiumButton>
 
-      {/* Test button for debugging */}
-      <button
-        onClick={() => {
-          console.log('Test button clicked');
-          onUnlock();
-        }}
-        className="mt-4 px-4 py-2 bg-red-500 text-white rounded"
-      >
-        Test Payment Modal
-      </button>
-
-      {/* Trust line */}
+        {/* Trust line */}
       <p className="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">
         Instant access. No upsells.
       </p>
