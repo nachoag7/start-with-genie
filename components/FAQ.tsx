@@ -9,7 +9,7 @@ type QA = { q: string; a: string };
 const DEFAULT_FAQS: QA[] = [
   {
     q: "What do I get for $49?",
-    a: "Guided LLC registration, expedited EIN application, a customized operating agreement, and your Genie dashboard with support. Most services charge $300+.",
+    a: "Guided LLC Registration, Expedited EIN Application, a Customized Operating Agreement, and your Genie dashboard with support. Most services charge $300+.",
   },
   {
     q: "Do you file the LLC for me?",
