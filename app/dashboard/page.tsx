@@ -947,7 +947,7 @@ export default function DashboardPage() {
   // If user hasn't paid and paywall is enabled, show blurred dashboard with unlock overlay
   if (!hasPaid && !isPreviewMode && !PAYWALL_DISABLED) {
     return (
-      <div className="relative min-h-screen">
+      <div className="relative">
         {/* Blurred dashboard content */}
         <div className="blur-sm pointer-events-none">
           <main className="mx-auto max-w-6xl px-6 py-8 sm:py-10">

@@ -12,16 +12,7 @@ interface BlurredDashboardOverlayProps {
 
 export default function BlurredDashboardOverlay({ onUnlock, isLoading = false }: BlurredDashboardOverlayProps) {
   return (
-    <div className="relative">
-      {/* Blurred background content */}
-      <div className="blur-sm pointer-events-none select-none">
-        <div className="min-h-screen bg-gray-50">
-          {/* This will be the actual dashboard content that gets blurred */}
-        </div>
-      </div>
-
-      {/* Overlay with unlock CTA */}
-      <div className="absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
