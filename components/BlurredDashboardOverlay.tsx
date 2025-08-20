@@ -53,7 +53,6 @@ export default function BlurredDashboardOverlay({ onUnlock, isLoading = false }:
             Instant access. No upsells.
           </p>
         </motion.div>
-      </div>
     </div>
   )
 } 
