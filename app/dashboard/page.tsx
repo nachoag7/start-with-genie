@@ -219,7 +219,7 @@ export default function DashboardPage() {
       }
 
       // Check if user has completed onboarding (has essential fields)
-      if (!userData.business_name || !userData.state || userData.business_name === 'My Business' || userData.state === 'CA') {
+      if (!userData.business_name || !userData.state) {
         // User hasn't completed onboarding, redirect to home
         router.push('/')
         return
