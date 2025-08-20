@@ -1009,7 +1009,7 @@ export default function DashboardPage() {
         {/* CTA Overlay - positioned higher up */}
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none">
           <div className="pointer-events-auto">
-            <BlurredDashboardOverlay onUnlock={handleUnlock} isLoading={isProcessingPayment} />
+            <BlurredDashboardOverlay onUnlock={handleUnlock} isLoading={isProcessingPayment} businessName={user?.business_name} />
           </div>
         </div>
 
@@ -1055,7 +1055,7 @@ export default function DashboardPage() {
             That's it, {user?.full_name?.split(' ')[0] || 'there'}! Your LLC Setup Dashboard is ready.
           </h3>
           <p className="text-gray-600 mb-8 text-lg">
-            Unlock everything you need to launch {user?.business_name || 'your business'} with confidence. Guided LLC Registration, Expedited EIN Application, and your custom Operating Agreement included. If it doesn't save you time and money get a full refund.
+            Unlock everything you need to launch {user?.business_name || 'your business'} with confidence. If it doesn't save you time and money get a full refund.
           </p>
           <PremiumButton
             onClick={handleUnlock}

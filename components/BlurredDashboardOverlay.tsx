@@ -8,9 +8,10 @@ import PremiumButton from './ui/PremiumButton'
 interface BlurredDashboardOverlayProps {
   onUnlock: () => void
   isLoading?: boolean
+  businessName?: string
 }
 
-export default function BlurredDashboardOverlay({ onUnlock, isLoading = false }: BlurredDashboardOverlayProps) {
+export default function BlurredDashboardOverlay({ onUnlock, isLoading = false, businessName }: BlurredDashboardOverlayProps) {
   const handleButtonClick = () => {
     console.log('CTA button clicked in BlurredDashboardOverlay');
     console.log('onUnlock function:', onUnlock);
@@ -29,7 +30,7 @@ export default function BlurredDashboardOverlay({ onUnlock, isLoading = false }:
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="max-w-2xl mx-auto text-center px-4 sm:px-6 py-4 sm:py-6 bg-white/95 backdrop-blur-sm rounded-2xl border border-gray-200 shadow-lg"
+      className="max-w-2xl mx-auto text-center px-4 sm:px-6 py-4 sm:py-6 bg-white rounded-2xl border border-gray-200 shadow-xl"
     >
       {/* Title */}
       <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
@@ -38,14 +39,14 @@ export default function BlurredDashboardOverlay({ onUnlock, isLoading = false }:
 
       {/* Subtitle */}
       <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-        Get everything you need to register your business confidently, LLC, EIN, and Operating Agreement included.
+        Unlock everything you need to launch {businessName || 'your business'} with confidence. If it doesn't save you time and money get a full refund.
       </p>
 
       {/* CTA Button */}
       <PremiumButton
         onClick={handleButtonClick}
         size="lg"
-        className="w-full max-w-lg mx-auto text-base sm:text-lg py-3 sm:py-4"
+        className="w-full max-w-lg mx-auto text-sm sm:text-base py-3 sm:py-4"
         disabled={isLoading}
       >
         {isLoading ? (
