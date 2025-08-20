@@ -31,20 +31,32 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
-    question: "How long does LLC formation take?",
-    answer: "Timelines vary by state, but you'll get state-specific guidance inside your dashboard immediately."
+    question: "What do I get for $49?",
+    answer: "Guided LLC registration, expedited EIN application, a customized operating agreement, and your Genie dashboard with support. Most services charge $300+."
   },
   {
-    question: "Does Start With Genie file my LLC for me?",
-    answer: "No — Genie gives you clear, personalized steps so you can file directly and avoid unnecessary fees."
+    question: "Do you file the LLC for me?",
+    answer: "No. Genie gives you the exact steps so you file fast and avoid inflated fees."
   },
   {
-    question: "Is this a legal service?",
-    answer: "Nope. We're not a law firm and don't provide legal advice. We provide clear instructions, documents, and friendly support."
+    question: "Is this legit?",
+    answer: "Yes. It's the same process lawyers and filing services use, just simplified and affordable."
   },
   {
-    question: "What's included in the $49?",
-    answer: "You get access to your own personalized dashboard, with your state-specific instructions, EIN guide, an operating agreement, and support from Genie."
+    question: "What if I get stuck?",
+    answer: "Your Genie assistant guides you step by step and answers questions anytime."
+  },
+  {
+    question: "Any ongoing costs?",
+    answer: "No. One-time $49, lifetime access. No upsells."
+  },
+  {
+    question: "How is Genie different?",
+    answer: "Others profit from $300+ add-ons. Genie gives you everything upfront for $49."
+  },
+  {
+    question: "Why only $49?",
+    answer: "Because LLC setup doesn't need to be expensive. Genie is built to give founders clarity and confidence at a fair price."
   }
 ]
 
