@@ -20,6 +20,8 @@ import DashboardActions from '../../components/DashboardActions';
 import PremiumButton from '../../components/ui/PremiumButton';
 import BlurredDashboardOverlay from '../../components/BlurredDashboardOverlay';
 import FrictionlessCheckoutModal from '../../components/FrictionlessCheckoutModal';
+
+
 import ProgressChecklist from '../../components/ProgressChecklist';
 import { markChecklistStep } from '../../lib/checklist';
 import { PAYWALL_DISABLED } from '../../lib/config';
@@ -120,6 +122,8 @@ export default function DashboardPage() {
   const [isPreviewMode, setIsPreviewMode] = useState(false)
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false)
+  
+
 
   // Add refs for each document section
   const llcRef = useRef<HTMLDivElement>(null)
@@ -947,56 +951,63 @@ export default function DashboardPage() {
   // If user hasn't paid and paywall is enabled, show blurred dashboard with unlock overlay
   if (!hasPaid && !isPreviewMode && !PAYWALL_DISABLED) {
     return (
-      <div className="relative">
-        {/* Blurred dashboard content */}
-        <div className="blur-sm pointer-events-none">
-          <main className="mx-auto max-w-6xl px-6 py-8 sm:py-10">
-            <section className="fade-in-up mb-6">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <h2 className="text-base sm:text-lg font-semibold text-gray-900">
-                    {user?.full_name?.split(' ')[0] ? `Welcome back, ${user?.full_name?.split(' ')[0]}!` : "Welcome back!"}
-                  </h2>
-                  <p className="text-sm text-gray-600">
-                    {user?.business_name 
-                      ? `Everything you need to launch ${user?.business_name} is right here.`
-                      : "Everything you need to launch is right here."
-                    }
-                  </p>
-                  <p className="text-xs text-gray-400 mt-1">{formatAppleStyle(new Date())}</p>
-                </div>
-              </div>
-            </section>
+      <main className="mx-auto max-w-6xl px-6 py-8 sm:py-10">
+        <section className="fade-in-up mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900">
+                {user?.full_name?.split(' ')[0] ? `Welcome back, ${user?.full_name?.split(' ')[0]}!` : "Welcome back!"}
+              </h2>
+              <p className="text-sm text-gray-600">
+                {user?.business_name 
+                  ? `Everything you need to launch ${user?.business_name} is right here.`
+                  : "Everything you need to launch is right here."
+                }
+              </p>
+              <p className="text-xs text-gray-400 mt-1">{formatAppleStyle(new Date())}</p>
+            </div>
+          </div>
+        </section>
 
-            <section className="mt-12">
-              <ProgressChecklist
-                userId={user?.id}
-                links={{
-                  llcUrl: "#llc-instructions",
-                  einUrl: "#ein-guide", 
-                  oaUrl: "#operating-agreement",
-                }}
-              />
-              <DocumentsSection 
-                docs={docsData}
-                onView={handleViewDoc}
-                onDownload={handleDownloadDoc}
-              />
-            </section>
-            
-            <section className="mt-12 sm:mt-14">
-              <GenieChat 
-                avatarSrc="/genie-preview.png" 
-                userName={user?.full_name}
-                userState={user?.state}
-              />
-            </section>
-          </main>
+                {/* Blurred dashboard content */}
+        <section className="blur-sm pointer-events-none">
+          <ProgressChecklist
+            userId={user?.id}
+            links={{
+              llcUrl: "#llc-instructions",
+              einUrl: "#ein-guide", 
+              oaUrl: "#operating-agreement",
+            }}
+          />
+          <DocumentsSection 
+            docs={docsData}
+            onView={handleViewDoc}
+            onDownload={handleDownloadDoc}
+          />
+        </section>
+        
+        <section className="mt-12 sm:mt-14 blur-sm pointer-events-none">
+          <GenieChat 
+            avatarSrc="/genie-preview.png" 
+            userName={user?.full_name}
+            userState={user?.state}
+          />
+        </section>
+
+        {/* CTA Overlay - positioned higher up */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none">
+          <div className="pointer-events-auto">
+            <BlurredDashboardOverlay onUnlock={handleUnlock} isLoading={isProcessingPayment} />
+          </div>
         </div>
 
-        {/* Unlock overlay */}
-        <BlurredDashboardOverlay onUnlock={handleUnlock} isLoading={isProcessingPayment} />
-      </div>
+        {/* Frictionless Checkout Modal */}
+        <FrictionlessCheckoutModal
+          isOpen={isCheckoutModalOpen}
+          onClose={() => setIsCheckoutModalOpen(false)}
+          onSuccess={handleCheckoutSuccess}
+        />
+      </main>
     );
   }
 
