@@ -1049,7 +1049,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-12 text-center bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200 shadow-sm"
+          className="mb-12 text-center bg-white rounded-2xl p-8 border border-gray-200 shadow-xl"
         >
           <h3 className="text-2xl font-semibold text-gray-900 mb-3">
             That's it, {user?.full_name?.split(' ')[0] || 'there'}! Your LLC Setup Dashboard is ready.
@@ -1060,9 +1060,9 @@ export default function DashboardPage() {
           <PremiumButton
             onClick={handleUnlock}
             size="lg"
-            className="w-full max-w-lg mx-auto text-xl py-5 shadow-lg"
+            className="w-full max-w-lg mx-auto text-sm sm:text-base py-3 sm:py-4"
           >
-            <span className="relative text-white font-semibold">
+            <span className="relative text-white">
               Unlock my dashboard for $49
             </span>
           </PremiumButton>
