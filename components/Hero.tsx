@@ -6,6 +6,7 @@ import { Button } from "./ui/Button";
 import PremiumButton from "./ui/PremiumButton";
 import CompactDashboardCard from "./CompactDashboardCard";
 
+
 interface HeroProps {
   title?: string;
   subtitle?: string;
@@ -39,38 +40,67 @@ export default function Hero({
     <section className="relative overflow-hidden bg-white pt-8 pb-12">
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         {/* Hero content */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-gray-900">
-            {getTitle()}
-          </h1>
-          
-          {/* Sub-headline section */}
-          <div className="mt-6 text-center">
-            <p className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto px-4">
-              Just $49 for the complete kit. If it doesn't save you time and money, get a full refund.
-            </p>
-            
-            <div className="mt-6 max-w-md mx-auto px-4">
-              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 items-start">
-                <span className="text-gray-500 text-center w-4">✓</span>
-                <span className="text-base sm:text-lg text-gray-600 text-left">Step-by-step state filing instructions</span>
-                
-                <span className="text-gray-500 text-center w-4">✓</span>
-                <span className="text-base sm:text-lg text-gray-600 text-left">EIN application guide</span>
-                
-                <span className="text-gray-500 text-center w-4">✓</span>
-                <span className="text-base sm:text-lg text-gray-600 text-left">Customized Operating Agreement</span>
-              </div>
-            </div>
-          </div>
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="bg-white rounded-lg shadow-2xl p-8 max-w-lg mx-auto">
+            {/* Main Content */}
+            <main className="flex flex-col items-start text-left">
+              <h1 className="text-4xl font-bold text-gray-900 leading-tight mt-4 max-w-md">
+                {getTitle()}
+              </h1>
 
-          <div className="mt-8">
-            <Link
-              href="/onboarding"
-              className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
-            >
-              Personalize Your LLC Setup
-            </Link>
+              <p className="mt-6 text-gray-600 max-w-sm">
+                Just $49 for the complete kit. If it doesn't save you time and money, get a full refund.
+              </p>
+
+              <ul className="mt-6 space-y-4">
+                <li className="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-blue-500 mr-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-800">Guided LLC Registration</span>
+                </li>
+                <li className="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-blue-500 mr-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-800">Expedited EIN Application</span>
+                </li>
+                <li className="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-blue-500 mr-3 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-800">Customized Operating Agreement</span>
+                </li>
+              </ul>
+
+              <Link
+                href="/onboarding"
+                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-8 w-full"
+              >
+                Personalize Your LLC Setup
+              </Link>
+            </main>
           </div>
         </div>
 

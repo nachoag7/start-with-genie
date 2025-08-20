@@ -19,6 +19,7 @@ import WhatsIncludedStack from './WhatsIncludedStack'
 
 import FAQ from './FAQ'
 import PremiumChecklist from './PremiumChecklist'
+import TrustBadge from './TrustBadge'
 
 import Divider from './Divider'
 import { SectionReveal, Item } from './reveal'
@@ -49,11 +50,11 @@ const faqData: FAQItem[] = [
 
 const featureDetails = [
   {
-    label: 'Step-by-step LLC filing instructions',
+          label: 'Guided LLC Registration',
     description: 'Get clear, personalized filing steps based on your state so you can confidently submit your LLC without confusion.'
   },
   {
-    label: 'IRS EIN setup walkthrough',
+          label: 'Expedited EIN Application',
     description: 'Follow a simple, guided process to obtain your EIN from the IRS, with tips for every step.'
   },
   {
@@ -93,7 +94,7 @@ const whyGenieItems = [
   {
     icon: <Sparkles size={22} strokeWidth={2} />,
     title: 'Documents built to launch',
-    subtitle: 'Includes your LLC filing instructions, EIN guide, and operating agreement — everything you need to set up your business, ready to go.'
+    subtitle: 'Everything you need to register your business, Guided LLC Registration, Expedited EIN Application, an operating agreement and your AI powered assistant'
   },
 ];
 
@@ -105,7 +106,7 @@ const compareItems = [
     rocket: 'Basic guidance'
   },
   {
-    feature: 'EIN setup guide',
+          feature: 'Expedited EIN Application',
     genie: 'Step-by-step walkthrough',
     legalzoom: 'Basic instructions',
     rocket: 'Minimal guidance'

@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { Quote, FileText, BookOpen, ListChecks, LayoutDashboard, Bot, CheckCircle, XCircle, Timer, ClipboardCheck, User, Sparkles, DollarSign } from "lucide-react";
+import TrustBadge from "../components/TrustBadge";
 
 export default function Landing() {
   return (
@@ -252,12 +253,19 @@ export default function Landing() {
         <Link href="/checkout" className="w-full">
           <button className="w-full bg-[#1E40AF] text-white text-lg font-semibold py-4 rounded-xl shadow hover:bg-[#1E3A8A] transition">Start My LLC for $49</button>
         </Link>
+        <TrustBadge />
         <div className="text-sm text-gray-500 mt-2">No upsells. No middlemen. Just everything you need to launch in minutes.</div>
       </section>
 
       {/* 11. FAQs */}
       <section className="w-full max-w-2xl mx-auto px-4 py-10">
         <h2 className="text-xl font-semibold text-neutral-900 mb-6 text-center">FAQs</h2>
+        <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
+          <summary className="font-medium text-gray-900 cursor-pointer">What exactly is <strong>The Genie Policy</strong>?</summary>
+          <div className="mt-2 text-gray-700 text-sm">
+            The Genie Policy is our commitment to your success and satisfaction. We're confident that our LLC formation kit provides immense value by saving you time and money. If for any reason you feel it hasn't, just send us an email and we'll process a full, no-questions-asked refund. Your purchase is 100% risk-free.
+          </div>
+        </details>
         <details className="mb-4 bg-white rounded-lg shadow-sm p-4">
           <summary className="font-medium text-gray-900 cursor-pointer">Do you file the LLC for me?</summary>
           <div className="mt-2 text-gray-700 text-sm">

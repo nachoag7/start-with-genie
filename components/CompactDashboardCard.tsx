@@ -6,6 +6,7 @@ import Link from "next/link";
 import DocumentsSection from "./DocumentsSection";
 import GenieChat from "./GenieChat";
 import UnlockModal from "./UnlockModal";
+import { useModal } from "./ModalContext";
 
 
 // Sample user data for James White in North Dakota
@@ -22,14 +23,14 @@ const sampleUser = {
 const sampleDocs = [
   {
     id: "llc-instructions",
-    title: "LLC Filing Instructions",
+            title: "Guided LLC Registration",
     description: "Personalized plan to form your LLC",
     viewHref: "#",
     pdfHref: "/sample-pdfs/LLC-Filing-Instructions-Prairie-Tech-Solutions-LLC.pdf"
   },
   {
     id: "ein-guide", 
-    title: "EIN Guide",
+            title: "Expedited EIN Application",
     description: "Get your Tax ID fast",
     viewHref: "#",
     pdfHref: "/sample-pdfs/EIN-Guide-Prairie-Tech-Solutions-LLC.pdf"
@@ -48,7 +49,7 @@ const renderSampleLLCContent = () => {
   return (
     <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
       <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>
-        LLC Filing Instructions for {sampleUser.businessName}
+        Guided LLC Registration for {sampleUser.businessName}
       </h2>
       <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>
         Prepared for {sampleUser.fullName} | Forming in {sampleUser.state}
@@ -300,6 +301,9 @@ export default function CompactDashboardCard() {
   const [modalContent, setModalContent] = useState({ title: "", content: "" });
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState<any>(null);
+  
+  // Use modal context to hide navbar when modals are open
+  const { setModalOpen } = useModal();
 
 
   const handleViewDoc = (doc: any) => {
@@ -318,11 +322,13 @@ export default function CompactDashboardCard() {
       content: content || <div>Content not available</div>
     });
     setIsModalOpen(true);
+    setModalOpen(true);
   };
 
   const handleDownloadDoc = (doc: any) => {
     setSelectedDoc(doc);
     setUnlockModalOpen(true);
+    setModalOpen(true);
   };
 
   return (
@@ -366,15 +372,47 @@ export default function CompactDashboardCard() {
           <h2 className="text-base sm:text-lg font-semibold text-neutral-900 mb-3">
             Ready to Start Your LLC With Confidence?
           </h2>
-          <p className="text-sm text-neutral-600 mb-4 leading-relaxed">
+          <p className="text-sm text-neutral-600 mb-6 leading-relaxed">
             Unlock your personalized dashboard
           </p>
-                      <Link
-              href="/onboarding"
-              className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
-            >
-              Get Instant Access for $49
-            </Link>
+          
+          <Link
+            href="/onboarding"
+            className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
+          >
+            Get Instant Access for $49
+          </Link>
+        </section>
+
+        {/* Genie Policy Card */}
+        <section className="text-center mt-6">
+          <div 
+            style={{
+              maxWidth: '400px',
+              margin: '0 auto',
+              padding: '16px',
+              textAlign: 'center',
+              backgroundColor: '#f9fafb',
+              border: '1px solid #e5e7eb',
+              borderRadius: '8px'
+            }}
+          >
+            <p style={{
+              fontWeight: '600',
+              fontSize: '14px',
+              margin: '0'
+            }}>
+              Covered by <Link href="/refund" className="text-blue-600 hover:text-blue-800 underline">The Genie Policy</Link>
+            </p>
+            <p style={{
+              fontSize: '12px',
+              color: '#4b5563',
+              marginTop: '4px',
+              marginBottom: '0'
+            }}>
+              If our kit doesn't save you time and money, get a full refund. It's that simple.
+            </p>
+          </div>
         </section>
       </div>
 
@@ -389,7 +427,10 @@ export default function CompactDashboardCard() {
             transition={{ duration: 0.25, ease: 'easeOut' }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
             style={{ backdropFilter: 'blur(2px)' }}
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => {
+              setIsModalOpen(false);
+              setModalOpen(false);
+            }}
           >
             <motion.div
               initial={{ scale: 0.96, opacity: 0 }}
@@ -402,7 +443,10 @@ export default function CompactDashboardCard() {
             >
               <button
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors text-xl font-bold"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setModalOpen(false);
+                }}
                 aria-label="Close"
                 style={{ background: 'none', border: 'none', cursor: 'pointer' }}
               >
@@ -435,7 +479,10 @@ export default function CompactDashboardCard() {
       {/* Unlock Modal for Downloads */}
       <UnlockModal 
         open={unlockModalOpen} 
-        onClose={() => setUnlockModalOpen(false)} 
+        onClose={() => {
+          setUnlockModalOpen(false);
+          setModalOpen(false);
+        }} 
         docTitle={selectedDoc?.title || "Document"}
       />
     </div>

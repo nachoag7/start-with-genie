@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 
 const items = [
   {
-    title: "Step-by-step state filing instructions",
+    title: "Guided LLC Registration",
     desc:
       "Personalized for your state so you know exactly what to file, where, and when — zero guesswork.",
   },
   {
-    title: "EIN application walkthrough",
+    title: "Expedited EIN Application",
     desc:
       "Get your federal tax ID fast with a clear, founder-friendly flow. Finish in minutes without confusion.",
   },

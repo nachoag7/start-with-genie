@@ -325,7 +325,7 @@ export default function DashboardPage() {
 
       await supabase.from('documents').insert({
         user_id: authUser.id,
-        doc_type: 'LLC Filing Instructions',
+        doc_type: 'Guided LLC Registration',
         url: llcUrl
       })
 
@@ -339,7 +339,7 @@ export default function DashboardPage() {
 
       await supabase.from('documents').insert({
         user_id: authUser.id,
-        doc_type: 'EIN Guide',
+        doc_type: 'Expedited EIN Application',
         url: einUrl
       })
 
@@ -517,7 +517,7 @@ export default function DashboardPage() {
     filingUrl = stateInfo['Filing URL'] || 'Unavailable – please check your state’s website';
     llcHtml = (
       <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
-        <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>LLC Filing Instructions for {user.business_name}</h2>
+        <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Guided LLC Registration for {user.business_name}</h2>
         <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Forming in {user.state}</div>
         <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your personal LLC assistant</div>
         <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
@@ -563,7 +563,7 @@ export default function DashboardPage() {
     );
     einHtml = (
       <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
-        <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>EIN Instructions for {user.business_name}</h2>
+        <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Expedited EIN Application for {user.business_name}</h2>
         <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Formed in {user.state}</div>
         <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your personal LLC assistant</div>
         <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
@@ -606,8 +606,8 @@ export default function DashboardPage() {
     'operating-agreement': oaHtml,
   };
   const docModalTitles = {
-    'llc-instructions': 'LLC Filing Instructions',
-    'ein-guide': 'EIN Guide',
+    'llc-instructions': 'Guided LLC Registration',
+    'ein-guide': 'Expedited EIN Application',
     'operating-agreement': 'Operating Agreement',
   };
 
@@ -684,7 +684,7 @@ export default function DashboardPage() {
     printWindow.document.write(`
       <html>
         <head>
-          <title>LLC Filing Instructions</title>
+          <title>Guided LLC Registration</title>
           <style>
             body { font-family: -apple-system, sans-serif; padding: 40px; font-size: 14px; line-height: 1.6; }
           </style>
@@ -709,7 +709,7 @@ export default function DashboardPage() {
     printWindow.document.write(`
       <html>
         <head>
-          <title>EIN Guide</title>
+          <title>Expedited EIN Application</title>
           <style>
             body { font-family: -apple-system, sans-serif; padding: 40px; font-size: 14px; line-height: 1.6; }
           </style>
@@ -773,14 +773,14 @@ export default function DashboardPage() {
       try {
         await Promise.all(missing.map(async (type) => {
           let url = '';
-          if (type === 'LLC Filing Instructions') {
+          if (type === 'Guided LLC Registration') {
             url = await generateLLCFilingInstructions({
               fullName: user.full_name,
               businessName: user.business_name,
               state: user.state,
               email: user.email,
             });
-          } else if (type === 'EIN Guide') {
+          } else if (type === 'Expedited EIN Application') {
             url = await generateEINGuide({
               fullName: user.full_name,
               businessName: user.business_name,
@@ -889,15 +889,15 @@ export default function DashboardPage() {
   const docsData = [
     {
       id: 'llc-instructions',
-      title: 'LLC Filing Instructions',
+              title: 'Guided LLC Registration',
       description: 'Your step by step, state specific filing plan crafted just for your business.',
-      pdfHref: getDocUrl('LLC Filing Instructions')
+              pdfHref: getDocUrl('Guided LLC Registration')
     },
     {
       id: 'ein-guide', 
-      title: 'EIN Guide',
+              title: 'Expedited EIN Application',
       description: 'Your personalized walkthrough to get your federal tax ID fast without confusion.',
-      pdfHref: getDocUrl('EIN Guide')
+              pdfHref: getDocUrl('Expedited EIN Application')
     },
     {
       id: 'operating-agreement',

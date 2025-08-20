@@ -8,6 +8,10 @@ type QA = { q: string; a: string };
 
 const DEFAULT_FAQS: QA[] = [
   {
+    q: "What exactly is The Genie Policy?",
+    a: "The Genie Policy is our commitment to your success and satisfaction. We're confident that our LLC formation kit provides immense value by saving you time and money. If for any reason you feel it hasn't, just send us an email and we'll process a full, no-questions-asked refund. Your purchase is 100% risk-free.",
+  },
+  {
     q: "Do you file the LLC for me?",
     a: "Nope, Genie was built so you don't have to spend hundreds on service fees or hours of research, we give you the exact steps and guidance you need to register your business with confidence.",
   },
@@ -17,7 +21,7 @@ const DEFAULT_FAQS: QA[] = [
   },
   {
     q: "Is this legit? Can I do it myself?",
-    a: "Yup, every state in the US allows you to file an LLC on your own. Genie makes the process simple so you can register without spending hundreds or confusion",
+    a: "Yup, every state in the US allows you to file an LLC on your own. Genie makes the process simple so you can register confidently without spending hundreds.",
   },
   {
     q: "What if I get stuck or confused?",

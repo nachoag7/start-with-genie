@@ -305,7 +305,7 @@ export default function IsLegalZoomWorthItPage() {
                 className="space-y-2"
               >
                 {[
-                  "Step-by-step state filing instructions",
+                  "Guided LLC Registration",
                   "Clean EIN guide",
                   "Operating Agreement included",
                   "Instant answers with the Genie Assistant",

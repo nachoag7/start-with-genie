@@ -6,11 +6,11 @@ import { SectionReveal, StaggerReveal, Item } from "./reveal";
 
 const DEFAULT_FEATURES = [
   {
-    title: "Step-by-Step LLC Filing",
+    title: "Guided LLC Registration",
     desc: "Personalized to your business so you can file confidently from day one.",
   },
   {
-    title: "EIN Walkthrough",
+    title: "Expedited EIN Application",
     desc: "Get your federal tax ID in minutes.",
   },
   {
