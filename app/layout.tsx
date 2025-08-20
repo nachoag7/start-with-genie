@@ -39,18 +39,59 @@ export const metadata: Metadata = {
     images: [site.ogImage],
   },
   other: {
-    'application/ld+json': JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": site.name,
-      "url": site.url,
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": `${site.url}/search?q={query}`,
-        "query-input": "required name=query"
+    'application/ld+json': JSON.stringify([
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": site.name,
+        "url": site.url,
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": `${site.url}/search?q={query}`,
+          "query-input": "required name=query"
+        },
+        "description": defaultMeta.description
       },
-      "description": defaultMeta.description
-    })
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Genie LLC",
+        "url": site.url,
+        "logo": `${site.url}/brandmark-design.png`,
+        "description": "Professional LLC formation service helping entrepreneurs start their businesses with expert guidance for just $49",
+        "sameAs": [
+          "https://startwithgenie.com"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "url": `${site.url}/contact`
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "US"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "LLC Formation Service",
+        "provider": {
+          "@type": "Organization",
+          "name": "Genie LLC"
+        },
+        "description": "Professional LLC formation guidance and document preparation service",
+        "url": site.url,
+        "areaServed": "United States",
+        "serviceType": "Business Formation",
+        "offers": {
+          "@type": "Offer",
+          "price": "49",
+          "priceCurrency": "USD",
+          "description": "Complete LLC formation package including guidance, documents, and support"
+        }
+      }
+    ])
   }
 };
 
