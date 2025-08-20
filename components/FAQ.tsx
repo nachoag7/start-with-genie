@@ -8,16 +8,12 @@ type QA = { q: string; a: string };
 
 const DEFAULT_FAQS: QA[] = [
   {
-    q: "What exactly is The Genie Policy?",
-    a: "The Genie Policy is our commitment to your success and satisfaction. We're confident that our LLC formation kit provides immense value by saving you time and money. If for any reason you feel it hasn't, just send us an email and we'll process a full, no-questions-asked refund. Your purchase is 100% risk-free.",
+    q: "What do I actually get for $49?",
+    a: "Everything you need to register your business, Guided LLC Registration, Expedited EIN Application, an Operating Agreement and your AI powered assistant",
   },
   {
     q: "Do you file the LLC for me?",
     a: "Nope, Genie was built so you don't have to spend hundreds on service fees or hours of research, we give you the exact steps and guidance you need to register your business with confidence.",
-  },
-  {
-    q: "What do I actually get for $49?",
-    a: "Everything you need to register your business, LLC filing instructions, a clear EIN guide, an operating agreement and your AI powered assistant",
   },
   {
     q: "Is this legit? Can I do it myself?",
