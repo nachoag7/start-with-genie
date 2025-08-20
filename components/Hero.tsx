@@ -37,22 +37,22 @@ export default function Hero({
     return "Get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement for just $49. If it doesn't save you time and money get a full refund.";
   };
   return (
-    <section className="relative overflow-hidden bg-white pt-8 pb-12">
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-white pt-4 pb-6 sm:pt-8 sm:pb-12">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero content */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <div className="bg-white rounded-lg shadow-2xl p-8 max-w-lg mx-auto">
+        <div className="max-w-4xl mx-auto mb-8 sm:mb-16">
+          <div className="bg-white rounded-lg shadow-2xl p-4 sm:p-8 max-w-lg mx-auto">
             {/* Main Content */}
             <main className="flex flex-col items-start text-left">
-              <h1 className="text-4xl font-bold text-gray-900 leading-tight mt-4 max-w-md">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mt-2 sm:mt-4 max-w-md">
                 {getTitle()}
               </h1>
 
-              <p className="mt-6 text-gray-600 max-w-sm">
+              <p className="mt-4 sm:mt-6 text-gray-600 max-w-sm">
                 Just $49 for the complete kit. If it doesn't save you time and money, get a full refund.
               </p>
 
-              <ul className="mt-6 space-y-4">
+              <ul className="mt-4 sm:mt-6 space-y-3 sm:space-y-4">
                 <li className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@ export default function Hero({
 
               <Link
                 href="/onboarding"
-                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-8 w-full"
+                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-6 sm:mt-8 w-full"
               >
                 Personalize Your LLC Setup
               </Link>
