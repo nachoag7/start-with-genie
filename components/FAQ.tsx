@@ -8,28 +8,28 @@ type QA = { q: string; a: string };
 
 const DEFAULT_FAQS: QA[] = [
   {
-    q: "What do I actually get for $49?",
-    a: "Everything you need to register your business, Guided LLC Registration, Expedited EIN Application, an Operating Agreement and your AI powered assistant",
+    q: "What do I get for $49?",
+    a: "Guided LLC registration, expedited EIN application, a customized operating agreement, and your Genie dashboard with support. Most services charge $300+.",
   },
   {
     q: "Do you file the LLC for me?",
-    a: "Nope, Genie was built so you don't have to spend hundreds on service fees or hours of research, we give you the exact steps and guidance you need to register your business with confidence.",
+    a: "No. Genie gives you the exact steps so you file fast and avoid inflated fees.",
   },
   {
-    q: "Is this legit? Can I do it myself?",
-    a: "Yup, every state in the US allows you to file an LLC on your own. Genie makes the process simple so you can register confidently without spending hundreds.",
+    q: "Is this legit?",
+    a: "Yes. It's the same process lawyers and filing services use, just simplified and affordable.",
   },
   {
-    q: "What if I get stuck or confused?",
-    a: "AI powered assistant in your dashboard and a friendly support team are here to help",
+    q: "What if I get stuck?",
+    a: "Your Genie assistant guides you step by step and answers questions anytime. There's also a friendly support team one email away.",
   },
   {
-    q: "Is there any ongoing cost?",
-    a: "No. One flat $49 payment gives you lifetime access to your instructions, documents, and assistant.",
+    q: "How is Genie different?",
+    a: "Others profit from $300+ add-ons. Genie gives you everything upfront for $49.",
   },
   {
-    q: "How is Genie different from LegalZoom or ZenBusiness?",
-    a: "They register your business for you, for a lot more. Genie makes the process simple so you don't spend hundreds on unnecessary upsells.",
+    q: "Why only $49?",
+    a: "Because LLC setup doesn't need to be expensive. Genie is built to give founders clarity and confidence at a fair price.",
   },
 ];
 
