@@ -7,9 +7,9 @@ export const site = {
 };
 
 export const defaultMeta = {
-  title: "The New Way to Start Your Business",
+  title: "Genie LLC: Start Your LLC Online for Just $49",
   description:
-    "Register your LLC with Genie's guidance, get everything you need for $49",
+    "Start your dream business with Genie LLC. Register your LLC online in minutes with our expert guidance. Get everything you need to start, all for a simple $49 fee.",
 };
 
  
