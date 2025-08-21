@@ -32,11 +32,7 @@ export default function LLCForDropshippersPage() {
             <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto">
               You made your first sale. That Shopify notification sound hits and it feels amazing. You found a winning product, your ads are working, and this whole dropshipping thing is actually real. Then a different thought creeps in. Am I a real business? What if something goes wrong? Do I need an LLC to dropship?
             </p>
-            <Link href="/checkout">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                Start Your LLC with Genie →
-              </Button>
-            </Link>
+
           </section>
 
           {/* Content */}
@@ -136,13 +132,6 @@ export default function LLCForDropshippersPage() {
             <p>
               We give you the clarity and modern guidance to launch your own LLC correctly. You get a clear roadmap, understand each step, and feel confident you're setting up your dropshipping empire the right way from the start.
             </p>
-            <div className="text-center mt-8">
-              <Link href="/checkout">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                  Launch Your LLC With Clarity →
-                </Button>
-              </Link>
-            </div>
           </div>
         </div>
       </SeoPageLayout>

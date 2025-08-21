@@ -43,17 +43,7 @@ export default function FreelancerLLCNeedPage() {
           >
             The truth about liability protection, tax benefits, and when it's worth the investment for independent contractors.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-          >
-            <Link href="/checkout">
-              <Button className="text-lg px-8 py-3">
-                Launch your LLC for $49 — no upsells, no fluff →
-              </Button>
-            </Link>
-          </motion.div>
+
         </section>
 
         {/* What is an LLC Section */}

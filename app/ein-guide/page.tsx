@@ -43,17 +43,7 @@ export default function EINGuidePage() {
           >
             Learn how to get your EIN (Employer Identification Number) for free from the IRS. Step-by-step instructions for LLC owners and small businesses.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-          >
-            <Link href="/checkout">
-              <Button className="text-lg px-8 py-3">
-                Start Your LLC for $49 →
-              </Button>
-            </Link>
-          </motion.div>
+
         </section>
 
         {/* What is an EIN */}
