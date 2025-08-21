@@ -1,244 +1,195 @@
 import React from "react";
 import Link from "next/link";
+import SeoPageLayout from "../../components/SeoPageLayout";
 import { ShieldCheck, BadgeHelp, DollarSign, Users, Building2, CheckCircle, ArrowRight } from "lucide-react";
 import Footer from "../../components/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LLC vs DBA: Business Structure & Liability Protection Guide 2025",
-  description: "Should you form an LLC or get a DBA? Compare liability protection, business structure, tax benefits, and legal requirements. Get expert advice for your business. Start your LLC for $49.",
+  title: "LLC vs. DBA: The Simple Guide to Choosing Right (2025)",
+  description: "Confused about LLC vs. DBA? One is a legal business structure, the other is just a nickname. Learn which one you actually need to protect yourself and grow.",
+  keywords: "LLC vs DBA, LLC versus DBA, DBA vs LLC, business structure comparison, liability protection, doing business as, limited liability company",
   openGraph: {
-    title: "LLC vs DBA: Business Structure & Liability Protection Guide 2025",
-    description: "Should you form an LLC or get a DBA? Compare liability protection, business structure, tax benefits, and legal requirements.",
+    title: "LLC vs. DBA: The Simple Guide to Choosing Right (2025)",
+    description: "Confused about LLC vs. DBA? One is a legal business structure, the other is just a nickname. Learn which one you actually need to protect yourself and grow.",
+    url: 'https://startwithgenie.com/llc-vs-dba',
+    siteName: 'Genie LLC',
+    images: [{ url: 'https://startwithgenie.com/og/cover.jpg', width: 1200, height: 630, alt: 'LLC vs DBA Guide' }],
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "LLC vs DBA: Business Structure & Liability Protection Guide 2025",
-    description: "Should you form an LLC or get a DBA? Compare liability protection, business structure, tax benefits, and legal requirements.",
+    title: "LLC vs. DBA: The Simple Guide to Choosing Right (2025)",
+    description: "Confused about LLC vs. DBA? One is a legal business structure, the other is just a nickname. Learn which one you actually need to protect yourself and grow.",
+    images: ['https://startwithgenie.com/og/cover.jpg'],
   },
+  other: {
+    'application/ld+json': JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "LLC vs. DBA: The Simple Guide to Choosing Right (2025)",
+      "description": "Confused about LLC vs. DBA? One is a legal business structure, the other is just a nickname. Learn which one you actually need to protect yourself and grow.",
+      "image": "https://startwithgenie.com/og/cover.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "Genie LLC"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Genie LLC",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://startwithgenie.com/brandmark-design.png"
+        }
+      },
+      "datePublished": "2025-01-01",
+      "dateModified": "2025-01-01",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://startwithgenie.com/llc-vs-dba"
+      }
+    })
+  }
 };
 
 export default function LLCvsDBAPage() {
   return (
-    <main className="bg-gray-50 min-h-screen w-full flex flex-col">
-      {/* Home Page Nav Bar */}
-      <nav className="w-full max-w-6xl mx-auto flex items-center justify-between py-6 px-2 md:px-0 sticky top-0 z-10 backdrop-blur-sm bg-neutral-50/80 border-b border-neutral-100">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="p-2 rounded-lg hover:bg-[#f2f2f2] transition-all duration-200 active:scale-95">
-            <img src="/genie-preview.png" alt="Genie Logo" className="h-8 w-8 md:h-10 md:w-10 rounded-full opacity-90" />
-          </Link>
-          <span className="text-base md:text-lg font-medium text-neutral-900 tracking-tight">Start With Genie</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link href="/compare">
-            <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Compare</span>
-          </Link>
-          <Link href="/login">
-            <span className="text-sm text-neutral-500 hover:text-neutral-900 transition">Sign In</span>
-          </Link>
-        </div>
-      </nav>
+    <>
+      <SeoPageLayout>
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          {/* Hero Section */}
+          <section className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
+              LLC vs. DBA: Which One Does Your Business Actually Need?
+            </h1>
+            <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto">
+              You've got a brilliant business idea and the perfect name for it. But as you start to make things official, you run into a wall of confusing acronyms. The biggest offenders? LLC and DBA.
+            </p>
+            <p className="text-lg text-neutral-600 mb-8 max-w-3xl mx-auto">
+              They sound similar, but they are fundamentally different. One protects your personal assets, and the other is just a registered nickname for your business. So, which one is right for you?
+            </p>
+            <p className="text-lg text-neutral-600 mb-8 max-w-3xl mx-auto">
+              Let's break it down in plain English. No legal jargon, just the simple facts you need.
+            </p>
+          </section>
 
-      {/* HERO SECTION */}
-      <section className="w-full max-w-2xl mx-auto px-4 py-12 flex flex-col items-center text-center">
-        <h1 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">LLC vs DBA: What's Actually Right for You?</h1>
-        <p className="text-lg text-neutral-700 mb-8">
-          <strong>Confused between an LLC and a DBA?</strong><br />
-          You're not alone—and the internet hasn't made it easier.<br />
-          Here's the straightforward guide to understanding what you <em>actually</em> need when starting a business in 2025.
-        </p>
-        <Link href="/checkout" className="inline-flex items-center gap-2 bg-blue-600 text-white text-lg font-semibold py-4 px-8 rounded-xl shadow hover:bg-blue-700 transition-all duration-200">
-          Start Your LLC for $49
-          <ArrowRight className="w-5 h-5" />
-        </Link>
-      </section>
+          {/* Content */}
+          <div className="prose prose-lg max-w-none space-y-12">
+            <h2 className="text-3xl font-bold text-neutral-900 mt-16 mb-8">What is a DBA? (Think of it as a Nickname)</h2>
+            <p>
+              A DBA, which stands for "Doing Business As," is also known as a trade name or fictitious name. It's simply a registered name that you use to operate your business under that is different from your legal name.
+            </p>
+            <p>
+              <strong>That's it. A DBA is just a name.</strong>
+            </p>
+            <ul>
+              <li><strong>What it IS:</strong> A public-facing brand name that allows you, a sole proprietor, to operate under a business name. It also lets an existing LLC or corporation operate a second brand without forming a whole new company.</li>
+              <li><strong>What it IS NOT:</strong> A DBA is NOT a business structure. It offers ZERO liability protection. It does not create a separate legal entity. Your business and you are still one and the same in the eyes of the law.</li>
+            </ul>
 
-      {/* What's the Difference Section */}
-      <section className="w-full max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-start gap-3 mb-6">
-          <BadgeHelp className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">What's the Difference Between an LLC and a DBA?</h2>
-        </div>
-        <p className="text-lg text-neutral-700 mb-6">Let's break this down clearly:</p>
-        
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[600px]">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 md:px-6 py-3 md:py-4 text-left text-sm font-semibold text-gray-900">Term</th>
-                  <th className="px-4 md:px-6 py-3 md:py-4 text-left text-sm font-semibold text-gray-900">What It Actually Means</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-200">
-                  <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">LLC (Limited Liability Company)</td>
-                  <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">A legal business structure that protects you personally</td>
-                </tr>
-                <tr>
-                  <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">DBA ("Doing Business As")</td>
-                  <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">A nickname for your business—<em>not</em> a legal structure</td>
-                </tr>
-              </tbody>
-            </table>
+            <h3 className="text-2xl font-semibold text-neutral-800 mt-8 mb-4">Who is a DBA for?</h3>
+            <ul>
+              <li><strong>Sole Proprietors/Freelancers:</strong> A web designer named Jane Doe wants to do business as "Creative Digital Designs." She files a DBA to legally use that name and open a business bank account.</li>
+              <li><strong>Existing LLCs:</strong> "Atlanta Restaurant Group LLC" wants to open a new pizza place called "Peachtree Pies." They can file a DBA for "Peachtree Pies" instead of forming a whole new LLC.</li>
+            </ul>
+
+            <h2 className="text-3xl font-bold text-neutral-900 mt-16 mb-8">What is an LLC? (Think of it as a Suit of Armor)</h2>
+            <p>
+              An LLC, or Limited Liability Company, is a formal business structure registered with the state. It creates a completely separate legal entity from you, the owner.
+            </p>
+            <p>
+              This separation is the key. It builds a legal wall between your business's finances and debts and your personal assets (like your house, car, and savings). This is called liability protection.
+            </p>
+            <ul>
+              <li><strong>What it IS:</strong> A legal business entity that separates you from your business.</li>
+              <li><strong>What it DOES:</strong> It protects your personal assets from business lawsuits and debts. If the business gets sued, your personal finances are generally safe.</li>
+            </ul>
+
+            <h3 className="text-2xl font-semibold text-neutral-800 mt-8 mb-4">Who is an LLC for?</h3>
+            <ul>
+              <li><strong>Serious Entrepreneurs:</strong> Anyone starting a business that will interact with the public, take on debt, or hire employees should strongly consider an LLC.</li>
+              <li><strong>Growing Businesses:</strong> If your side hustle is turning into a real-deal business, forming an LLC is the logical next step to protect what you're building.</li>
+            </ul>
+
+            <h2 className="text-3xl font-bold text-neutral-900 mt-16 mb-8">LLC vs. DBA: The Main Differences at a Glance</h2>
+            <p>
+              This is the easiest way to see the fundamental differences.
+            </p>
+
+            <div className="bg-blue-50 p-8 rounded-lg my-12">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b border-blue-200">
+                    <th className="text-left py-2 font-semibold">Feature</th>
+                    <th className="text-left py-2 font-semibold">LLC (Limited Liability Company)</th>
+                    <th className="text-left py-2 font-semibold">DBA (Doing Business As)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-blue-100">
+                    <td className="py-2"><strong>Legal Structure</strong></td>
+                    <td className="py-2">✅ Creates a separate legal entity.</td>
+                    <td className="py-2">❌ Is NOT a legal entity. It's just a name.</td>
+                  </tr>
+                  <tr className="border-b border-blue-100">
+                    <td className="py-2"><strong>Liability Protection</strong></td>
+                    <td className="py-2">✅ YES. Protects your personal assets.</td>
+                    <td className="py-2">❌ NO. Offers zero liability protection.</td>
+                  </tr>
+                  <tr className="border-b border-blue-100">
+                    <td className="py-2"><strong>How it's Formed</strong></td>
+                    <td className="py-2">File "Articles of Organization" with the state.</td>
+                    <td className="py-2">File a form with the county or state.</td>
+                  </tr>
+                  <tr className="border-b border-blue-100">
+                    <td className="py-2"><strong>Maintenance</strong></td>
+                    <td className="py-2">Requires an annual report and fee.</td>
+                    <td className="py-2">May require periodic renewal, but simpler.</td>
+                  </tr>
+                  <tr className="border-b border-blue-100">
+                    <td className="py-2"><strong>Taxes</strong></td>
+                    <td className="py-2">Flexible "pass-through" taxation.</td>
+                    <td className="py-2">No tax changes. You're taxed as a sole proprietor.</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2"><strong>Bank Account</strong></td>
+                    <td className="py-2">Can open a bank account in the LLC's name.</td>
+                    <td className="py-2">Allows a sole proprietor to open a business bank account.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 className="text-3xl font-bold text-neutral-900 mt-16 mb-8">Can You Have Both? Yes!</h2>
+            <p>
+              This is a very common and smart strategy. You can form an LLC to get the liability protection and then file a DBA if you want to operate under a different name.
+            </p>
+            <p>
+              <strong>Example:</strong> You form "Blue Ridge Holdings LLC" to protect your personal assets. Then you file a DBA to open a coffee shop called "Mountain Morning Coffee."
+            </p>
+            <ul>
+              <li><strong>LLC:</strong> Your suit of armor.</li>
+              <li><strong>DBA:</strong> The cool logo on the front of it.</li>
+            </ul>
+
+            <h2 className="text-3xl font-bold text-neutral-900 mt-16 mb-8">The Bottom Line: Which One Do You Need?</h2>
+            <p>
+              Let's make it super simple.
+            </p>
+            <ul>
+              <li><strong>Choose a DBA if:</strong> You are a freelancer or sole proprietor just starting out, you understand the risks, and you simply need a professional business name to put on your invoices and bank account.</li>
+              <li><strong>Choose an LLC if:</strong> You want to protect your personal assets, you plan to grow, you might hire employees, or you want to be seen as a more formal, established business.</li>
+            </ul>
+            <p>
+              <strong>For 99% of new businesses, the liability protection an LLC offers is invaluable.</strong>
+            </p>
+            <p>
+              If you've decided an LLC is the right move, you don't have to navigate the state paperwork alone. Services can handle the filing for you. While some offer complex packages, a service like Genie LLC is great for a direct, no-fuss approach, focusing purely on getting your LLC filed simply and quickly.
+            </p>
           </div>
         </div>
-        
-        <p className="text-lg text-neutral-700">
-          If you want protection, flexibility, and the ability to open a business bank account, <strong>you need an LLC.</strong><br />
-          A DBA won't do any of that. It's just a way to operate under a different name.
-        </p>
-      </section>
-
-      {/* When a DBA Might Be Enough Section */}
-      <section className="w-full max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-start gap-3 mb-6">
-          <CheckCircle className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">When a DBA <em>Might</em> Be Enough</h2>
-        </div>
-        <p className="text-lg text-neutral-700 mb-4">There are a few scenarios where a DBA can work on its own:</p>
-        <ul className="space-y-3 text-lg text-neutral-700 mb-6">
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You're a <strong>freelancer</strong> or <strong>sole proprietor</strong> using your legal name</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You're running a <strong>side hustle</strong> with almost no liability</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You just want to use a different name on invoices or flyers</span>
-          </li>
-        </ul>
-        <p className="text-lg text-neutral-700">
-          But remember: with a DBA alone, <em>you and your business are legally the same</em>. If anything goes wrong, it's on you personally.
-        </p>
-      </section>
-
-      {/* When You Definitely Need an LLC Section */}
-      <section className="w-full max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-start gap-3 mb-6">
-          <ShieldCheck className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">When You Definitely Need an LLC</h2>
-        </div>
-        <p className="text-lg text-neutral-700 mb-4">If any of this sounds like you, <strong>don't skip the LLC</strong>:</p>
-        <ul className="space-y-3 text-lg text-neutral-700 mb-6">
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You're accepting payments as a business name</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You want to <strong>separate your finances</strong></span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You're building a <strong>brand</strong>, working with clients, or hiring contractors</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You want to be taken seriously by banks and platforms</span>
-          </li>
-        </ul>
-        <p className="text-lg text-neutral-700">
-          An LLC gives you legal protection and legitimacy—<em>without unnecessary complications.</em>
-        </p>
-      </section>
-
-      {/* Can You Have Both Section */}
-      <section className="w-full max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-start gap-3 mb-6">
-          <Building2 className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">Can You Have Both?</h2>
-        </div>
-        <p className="text-lg text-neutral-700 mb-4">
-          Yes. Many business owners operate under an LLC and file a DBA <em>for branding purposes.</em>
-        </p>
-        <p className="text-lg text-neutral-700 mb-4">For example:</p>
-        <ul className="space-y-2 text-lg text-neutral-700 mb-6">
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>You register <strong>Smith Holdings LLC</strong></span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>But you file a DBA to operate publicly as <strong>Smith Consulting</strong></span>
-          </li>
-        </ul>
-        <p className="text-lg text-neutral-700">
-          This gives you the best of both worlds: legal protection <strong>and</strong> the ability to use the brand name you want.
-        </p>
-      </section>
-
-      {/* Which One Is Cheaper Section */}
-      <section className="w-full max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-start gap-3 mb-6">
-          <DollarSign className="w-6 h-6 text-gray-500 mt-1 flex-shrink-0" />
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">Which One Is Cheaper in the Long Run?</h2>
-        </div>
-        <p className="text-lg text-neutral-700 mb-4">
-          A DBA is cheaper <em>up front</em>—usually $10 to $100 depending on your state.<br />
-          But it comes with <strong>zero protection</strong>, so even one lawsuit or dispute could wipe you out.
-        </p>
-        <p className="text-lg text-neutral-700 mb-4">
-          An LLC costs more to file (usually $50 to $150) but gives you:
-        </p>
-        <ul className="space-y-3 text-lg text-neutral-700 mb-6">
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>Personal liability protection</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>A real business identity</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>Easier banking + tax options</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0"></div>
-            <span>More trust with clients and platforms</span>
-          </li>
-        </ul>
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <p className="text-lg text-blue-900 font-medium">
-            💡 <strong>Bottom line:</strong> If you plan to <em>actually grow your business</em>, an LLC is almost always worth it.
-          </p>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="w-full max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 lg:p-12 text-center">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-neutral-900 mb-4">Want the Easiest Way to Set Up an LLC?</h2>
-          <p className="text-base md:text-lg text-neutral-700 mb-4 md:mb-6">
-            Start With Genie gives you <strong>everything you need to launch your LLC for just $49</strong>—step-by-step instructions, templates, EIN guide, and more.
-          </p>
-          <p className="text-base md:text-lg text-neutral-700 mb-6 md:mb-8">
-            No complications. Just clear guidance in one clean dashboard.
-          </p>
-          <Link href="/checkout" className="inline-flex items-center gap-2 bg-blue-600 text-white text-base md:text-lg font-semibold py-3 md:py-4 px-6 md:px-8 rounded-xl shadow hover:bg-blue-700 transition-all duration-200">
-            Start Your LLC with Genie
-            <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-          </Link>
-        </div>
-      </section>
-
-      {/* Next Article Section */}
-      <section className="w-full max-w-4xl mx-auto px-4 py-8">
-        <div className="border-t border-gray-200 pt-8">
-          <p className="text-lg text-neutral-700">
-            <em>Read next: </em>
-            <Link href="/best-time-to-start-llc-2025" className="text-blue-600 hover:text-blue-700 underline">
-              When's the Best Time to Start an LLC in 2025
-            </Link>
-          </p>
-        </div>
-      </section>
-
+      </SeoPageLayout>
       <Footer />
-    </main>
+    </>
   );
-} 
+}
