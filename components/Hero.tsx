@@ -98,7 +98,7 @@ export default function Hero({
                 href="/onboarding"
                 className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-6 sm:mt-8 w-full"
               >
-                Personalize Your LLC Setup
+                Personalize My LLC Setup
               </Link>
             </main>
           </div>
