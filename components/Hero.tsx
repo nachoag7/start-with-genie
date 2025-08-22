@@ -37,26 +37,26 @@ export default function Hero({
     return "Get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement for just $49. If it doesn't save you time and money get a full refund.";
   };
   return (
-    <section className="relative overflow-hidden bg-white pt-0 pb-6 sm:pt-1 sm:pb-12">
+    <section className="relative overflow-hidden bg-white pt-0 pb-6 sm:pt-0 sm:pb-12">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero content */}
-        <div className="max-w-4xl mx-auto mb-8 sm:mb-16">
-          <div className="bg-white rounded-lg shadow-2xl p-4 sm:p-8 max-w-lg mx-auto">
+        <div className="max-w-6xl mx-auto mb-4 sm:mb-8">
+          <div className="bg-white rounded-lg shadow-2xl p-3 sm:p-6 max-w-2xl mx-auto">
             {/* Main Content */}
             <main className="flex flex-col items-start text-left">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mt-2 sm:mt-4 max-w-md">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mt-0 sm:mt-0 max-w-2xl">
                 {getTitle()}
               </h1>
 
-              <p className="mt-4 sm:mt-6 text-gray-600 max-w-sm">
+              <p className="mt-2 sm:mt-3 text-gray-600 max-w-lg text-base sm:text-lg">
                 Just $49 for the complete kit. If it doesn't save you time and money, get a full refund.
               </p>
 
-              <ul className="mt-4 sm:mt-6 space-y-3 sm:space-y-4">
+              <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
                 <li className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-blue-500 mr-3 flex-shrink-0"
+                    className="h-7 w-7 text-blue-500 mr-3 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -64,12 +64,12 @@ export default function Hero({
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-800">Guided LLC Registration</span>
+                  <span className="text-gray-800 text-base sm:text-lg">Guided LLC Registration</span>
                 </li>
                 <li className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-blue-500 mr-3 flex-shrink-0"
+                    className="h-7 w-7 text-blue-500 mr-3 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -77,12 +77,12 @@ export default function Hero({
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-800">Expedited EIN Application</span>
+                  <span className="text-gray-800 text-base sm:text-lg">Expedited EIN Application</span>
                 </li>
                 <li className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-blue-500 mr-3 flex-shrink-0"
+                    className="h-7 w-7 text-blue-500 mr-3 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -90,25 +90,25 @@ export default function Hero({
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-800">Customized Operating Agreement</span>
+                  <span className="text-gray-800 text-base sm:text-lg">Customized Operating Agreement</span>
                 </li>
               </ul>
 
               <Link
                 href="/onboarding"
-                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-6 sm:mt-8 w-full"
+                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-3 sm:mt-4 w-full"
               >
                 Personalize My LLC Setup
               </Link>
               
-              <p className="text-xs text-gray-400 text-center mt-4 w-full">
+              <p className="text-xs text-gray-400 text-center mt-2 w-full">
                 Full refund if our kit doesn't save you time and money.
               </p>
 
               {/* Trust Strip */}
-              <div className="flex justify-center mt-3 w-full">
-                <div className="inline-flex items-center bg-gray-50 rounded-full px-4 py-2 shadow-sm border border-blue-600">
-                  <span className="text-sm font-medium text-gray-700 text-center">
+              <div className="flex justify-center mt-2 w-full">
+                <div className="inline-flex items-center bg-gray-50 rounded-full px-3 py-1.5 shadow-sm border border-blue-600">
+                  <span className="text-xs font-medium text-gray-700 text-center">
                     3 new LLCs started with Genie this week
                   </span>
                 </div>
