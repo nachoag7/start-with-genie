@@ -37,7 +37,7 @@ export default function Hero({
     return "Get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement for just $49. If it doesn't save you time and money get a full refund.";
   };
   return (
-    <section className="relative overflow-hidden bg-white pt-4 pb-6 sm:pt-8 sm:pb-12">
+    <section className="relative overflow-hidden bg-white pt-0 pb-6 sm:pt-1 sm:pb-12">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero content */}
         <div className="max-w-4xl mx-auto mb-8 sm:mb-16">
