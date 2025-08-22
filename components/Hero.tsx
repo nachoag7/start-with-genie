@@ -100,6 +100,19 @@ export default function Hero({
               >
                 Personalize My LLC Setup
               </Link>
+              
+              <p className="text-xs text-gray-400 text-center mt-4 w-full">
+                Full refund if our kit doesn't save you time and money.
+              </p>
+
+              {/* Trust Strip */}
+              <div className="flex justify-center mt-3 w-full">
+                <div className="inline-flex items-center bg-gray-50 rounded-full px-4 py-2 shadow-sm border border-blue-600">
+                  <span className="text-sm font-medium text-gray-700 text-center">
+                    3 new LLCs started with Genie this week
+                  </span>
+                </div>
+              </div>
             </main>
           </div>
         </div>
