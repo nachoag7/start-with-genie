@@ -355,7 +355,7 @@ export default function DashboardPage() {
 
       await supabase.from('documents').insert({
         user_id: authUser.id,
-        doc_type: 'Expedited EIN Application',
+        doc_type: 'Guided EIN Application',
         url: einUrl
       })
 
@@ -579,7 +579,7 @@ export default function DashboardPage() {
     );
     einHtml = (
       <div className="space-y-6" style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
-        <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Expedited EIN Application for {user.business_name}</h2>
+        <h2 className="text-2xl font-bold text-gray-900" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' }}>Guided EIN Application for {user.business_name}</h2>
         <div className="text-gray-700" style={{ fontSize: '16px', color: '#374151', marginBottom: '8px' }}>Prepared for {user.full_name} | Formed in {user.state}</div>
         <div className="text-gray-500 text-sm mb-2" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '8px' }}>Start With Genie – Your personal LLC assistant</div>
         <div className="text-gray-500 text-sm mb-4" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
@@ -587,7 +587,9 @@ export default function DashboardPage() {
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>An EIN (Employer Identification Number) is a unique ID issued by the IRS. Think of it as your business's Social Security Number — it's required to:<br/>- Open a business bank account<br/>- File taxes<br/>- Hire employees<br/>- Apply for business credit<br/>Even if you're the only owner, most banks and services will ask for your EIN.</p>
         <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>2. Do You Need One?</h3>
         <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>Most LLCs do need an EIN. Even if you're a single-member LLC with no employees, you'll likely need it for banking, taxes, or applying for licenses.<br/>Good news: getting an EIN is completely free and only takes a few minutes.</p>
-        <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. How to Apply Online (Recommended)</h3>
+        <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>3. When Can You Apply?</h3>
+        <p style={{ fontSize: '14px', marginBottom: '16px', color: '#374151' }}>You can only apply for an EIN after your LLC has been officially approved by your state.<br/><br/>Once the Secretary of State confirms your LLC, you can complete the EIN application the same day.<br/><br/>This ensures the IRS links your EIN to your legal business name correctly.</p>
+        <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. How to Apply Online (Recommended)</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
           <li style={{ marginBottom: '4px' }}>The IRS provides a free online application for EINs.</li>
           <li style={{ marginBottom: '4px' }}>Where to apply: <a href="https://irs.gov/ein" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>https://irs.gov/ein</a></li>
@@ -595,13 +597,13 @@ export default function DashboardPage() {
           <li style={{ marginBottom: '4px' }}>What you'll need: your name ({user.full_name}), your business name ({user.business_name}), business address, business structure: LLC, whether you are the owner</li>
           <li style={{ marginBottom: '4px' }}>The application takes about 10 minutes. You'll receive your EIN immediately after submission.</li>
         </ul>
-        <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>4. After You Apply</h3>
+        <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. After You Apply</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
           <li style={{ marginBottom: '4px' }}>Save the confirmation letter (CP 575) — this is your proof of EIN</li>
           <li style={{ marginBottom: '4px' }}>You'll need it to open a business bank account, file taxes, and set up payroll</li>
           <li style={{ marginBottom: '4px' }}>Come back to your Genie Dashboard to download your Operating Agreement</li>
         </ul>
-        <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>5. Alternate Filing (Mail or Fax)</h3>
+        <h3 className="font-semibold text-lg mt-4" style={{ fontSize: '18px', fontWeight: '600', marginTop: '24px', marginBottom: '12px', color: '#1f2937' }}>6. Alternate Filing (Mail or Fax)</h3>
         <ul className="list-disc ml-6" style={{ fontSize: '14px', marginBottom: '16px', color: '#374151', paddingLeft: '24px' }}>
           <li style={{ marginBottom: '4px' }}>If you don't have a Social Security Number or can't use the online form: download Form SS-4, fill it out and send it by mail or fax to the IRS</li>
           <li style={{ marginBottom: '4px' }}>This method takes longer, but works for non-U.S. residents and others with special cases.</li>
@@ -623,7 +625,7 @@ export default function DashboardPage() {
   };
   const docModalTitles = {
     'llc-instructions': 'Guided LLC Registration',
-    'ein-guide': 'Expedited EIN Application',
+    'ein-guide': 'Guided EIN Application',
     'operating-agreement': 'Operating Agreement',
   };
 
@@ -725,7 +727,7 @@ export default function DashboardPage() {
     printWindow.document.write(`
       <html>
         <head>
-          <title>Expedited EIN Application</title>
+          <title>Guided EIN Application</title>
           <style>
             body { font-family: -apple-system, sans-serif; padding: 40px; font-size: 14px; line-height: 1.6; }
           </style>
@@ -796,7 +798,7 @@ export default function DashboardPage() {
               state: user.state,
               email: user.email,
             });
-          } else if (type === 'Expedited EIN Application') {
+          } else if (type === 'Guided EIN Application') {
             url = await generateEINGuide({
               fullName: user.full_name,
               businessName: user.business_name,
@@ -911,9 +913,9 @@ export default function DashboardPage() {
     },
     {
       id: 'ein-guide', 
-              title: 'Expedited EIN Application',
+              title: 'Guided EIN Application',
       description: 'Your personalized walkthrough to get your federal tax ID fast without confusion.',
-              pdfHref: getDocUrl('Expedited EIN Application')
+                              pdfHref: getDocUrl('Guided EIN Application')
     },
     {
       id: 'operating-agreement',

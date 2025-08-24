@@ -30,7 +30,7 @@ const sampleDocs = [
   },
   {
     id: "ein-guide", 
-            title: "Expedited EIN Application",
+            title: "Guided EIN Application",
     description: "Get your Tax ID fast",
     viewHref: "#",
     pdfHref: "/sample-pdfs/EIN-Guide-Prairie-Tech-Solutions-LLC.pdf"

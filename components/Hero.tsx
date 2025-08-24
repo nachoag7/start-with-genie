@@ -77,7 +77,7 @@ export default function Hero({
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-800 text-base sm:text-lg">Expedited EIN Application</span>
+                  <span className="text-gray-800 text-base sm:text-lg">Guided EIN Application</span>
                 </li>
                 <li className="flex items-center">
                   <svg
@@ -96,7 +96,7 @@ export default function Hero({
 
               <Link
                 href="/onboarding"
-                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-lg font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-3 sm:mt-4 w-full"
+                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
               >
                 Personalize My LLC Setup
               </Link>

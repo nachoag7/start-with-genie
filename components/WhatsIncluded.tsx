@@ -9,7 +9,7 @@ const items = [
       "Personalized for your state so you know exactly what to file, where, and when — zero guesswork.",
   },
   {
-    title: "Expedited EIN Application",
+    title: "Guided EIN Application",
     desc:
       "Get your federal tax ID fast with a clear, founder-friendly flow. Finish in minutes without confusion.",
   },

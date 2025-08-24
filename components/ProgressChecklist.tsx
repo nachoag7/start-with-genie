@@ -7,7 +7,7 @@ type StepKey = "llc" | "ein" | "oa" | "operate";
 
 export type ChecklistLinks = {
   llcUrl: string;    // link to LLC Filing Instructions view
-  einUrl: string;    // link to Expedited EIN Application view
+  einUrl: string;    // link to Guided EIN Application view
   oaUrl: string;     // link to Operating Agreement view
 };
 

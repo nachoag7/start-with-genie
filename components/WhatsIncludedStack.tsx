@@ -10,7 +10,7 @@ const DEFAULT_FEATURES = [
     desc: "Personalized to your business so you can file confidently from day one.",
   },
   {
-    title: "Expedited EIN Application",
+    title: "Guided EIN Application",
     desc: "Get your federal tax ID in minutes.",
   },
   {

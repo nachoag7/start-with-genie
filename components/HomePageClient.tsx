@@ -32,7 +32,7 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     question: "What do I get for $49?",
-    answer: "Guided LLC registration, expedited EIN application, a customized operating agreement, and your Genie dashboard with support. Most services charge $300+."
+    answer: "Guided LLC registration, guided EIN application, a customized operating agreement, and your Genie dashboard with support. Most services charge $300+."
   },
   {
     question: "Do you file the LLC for me?",
@@ -66,7 +66,7 @@ const featureDetails = [
     description: 'Get clear, personalized filing steps based on your state so you can confidently submit your LLC without confusion.'
   },
   {
-          label: 'Expedited EIN Application',
+          label: 'Guided EIN Application',
     description: 'Follow a simple, guided process to obtain your EIN from the IRS, with tips for every step.'
   },
   {
@@ -106,7 +106,7 @@ const whyGenieItems = [
   {
     icon: <Sparkles size={22} strokeWidth={2} />,
     title: 'Documents built to launch',
-    subtitle: 'Everything you need to register your business, Guided LLC Registration, Expedited EIN Application, an operating agreement and your AI powered assistant'
+    subtitle: 'Everything you need to register your business, Guided LLC Registration, Guided EIN Application, an operating agreement and your AI powered assistant'
   },
 ];
 
@@ -118,7 +118,7 @@ const compareItems = [
     rocket: 'Basic guidance'
   },
   {
-          feature: 'Expedited EIN Application',
+          feature: 'Guided EIN Application',
     genie: 'Step-by-step walkthrough',
     legalzoom: 'Basic instructions',
     rocket: 'Minimal guidance'
