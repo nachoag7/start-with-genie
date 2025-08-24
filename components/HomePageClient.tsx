@@ -15,6 +15,8 @@ const GenieChat = dynamic(() => import('./GenieChat'), { ssr: false })
 
 import Timer from './Timer'
 import Hero from './Hero'
+import HowItWorks from './HowItWorks'
+import CompactDashboardCard from './CompactDashboardCard'
 import WhatsIncludedStack from './WhatsIncludedStack'
 
 import FAQ from './FAQ'
@@ -364,6 +366,15 @@ export default function HomePageClient({
   return (
     <div className="min-h-screen bg-white">
       <Hero title={heroTitle} subtitle={heroSubtitle} />
+      
+      <HowItWorks />
+      
+      {/* Dashboard Sample */}
+      <section className="py-20 bg-white">
+        <div className="flex justify-center">
+          <CompactDashboardCard />
+        </div>
+      </section>
       
       <WhatsIncludedStack features={customFeatures} />
       

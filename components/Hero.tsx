@@ -123,11 +123,6 @@ export default function Hero({
           </div>
         </div>
 
-        {/* Dashboard preview below hero */}
-        <div className="flex justify-center">
-          <CompactDashboardCard />
-        </div>
-
       </div>
     </section>
   );
