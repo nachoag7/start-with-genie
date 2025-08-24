@@ -29,7 +29,7 @@ export default function Hero({
 
   const getTitle = () => {
     if (title) return title; // Use custom title if provided
-    return "Register Your LLC With Total Confidence.";
+    return "Register Your LLC Yourself With Total Confidence";
   };
 
   const getSubtitle = () => {
@@ -49,7 +49,7 @@ export default function Hero({
               </h1>
 
               <p className="mt-2 sm:mt-3 text-gray-600 max-w-lg text-base sm:text-lg">
-                Just $49 for the complete kit. If it doesn't save you time and money, get a full refund.
+                We don't file for you, but we give you everything you need to do it yourself with confidence, for just $49. Full refund guarantee if we don't save you time and money.
               </p>
 
               <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3">

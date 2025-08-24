@@ -25,7 +25,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-20 bg-white">
+    <section className="pt-0 pb-12 sm:pb-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
@@ -64,7 +64,7 @@ const HowItWorks = () => {
               </div>
 
               {/* Image */}
-              <div className={`w-full ${step.id === 3 ? 'max-w-lg sm:max-w-2xl' : 'max-w-sm sm:max-w-md'}`}>
+              <div className={`w-full ${step.id === 3 ? 'max-w-lg sm:max-w-2xl' : 'max-w-md sm:max-w-lg'}`}>
                 <img 
                   src={step.image} 
                   alt={step.title}
