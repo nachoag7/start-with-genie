@@ -272,11 +272,10 @@ export default function KentuckyLLCPage() {
             Get everything you need to form your LLC in Kentucky with our guided process.
           </p>
           <Link 
-            href="/start"
-            className="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            href="/onboarding"
+            className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
           >
             Start My LLC
-            <ArrowRight className="ml-2" size={20} />
           </Link>
         </section>
 

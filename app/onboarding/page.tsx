@@ -12,7 +12,7 @@ import Footer from '../../components/Footer'
 import { Button } from '../../components/ui/Button'
 import PremiumButton from '../../components/ui/PremiumButton'
 import { CheckCircle } from 'lucide-react';
-import confetti from 'canvas-confetti';
+
 import bcrypt from 'bcryptjs';
 import { generateLLCFilingInstructions, generateEINGuide, generateOperatingAgreement } from '../../lib/pdf-generator';
 import Script from 'next/script';
@@ -177,20 +177,7 @@ export default function OnboardingPage() {
     }
   };
 
-  // Fire confetti on pre-form screen mount
-  React.useEffect(() => {
-    if (view === 'pre') {
-      confetti({
-        particleCount: 60,
-        spread: 60,
-        origin: { y: 0.6 },
-        scalar: 1.1,
-        ticks: 180,
-        zIndex: 9999,
-        colors: ['#3A8DFF', '#1F6BFF', '#7DD3FC', '#F3F4F6'],
-      });
-    }
-  }, [view]);
+
 
   // Move this useEffect to the top level, after all useState declarations
   useEffect(() => {
@@ -214,27 +201,17 @@ export default function OnboardingPage() {
     content = (
       <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50 px-6 py-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
           className="max-w-lg w-full mx-auto bg-white/90 rounded-3xl shadow-2xl p-12 flex flex-col items-center gap-12 border border-gray-100 backdrop-blur-md"
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-            className="text-3xl font-semibold text-gray-900 text-center leading-tight mt-4"
-          >
+          <h2 className="text-3xl font-semibold text-gray-900 text-center leading-tight mt-4">
             Let's get your LLC launch tailored to you.
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-            className="text-lg text-gray-600 text-center leading-relaxed max-w-md"
-          >
+          </h2>
+          <p className="text-lg text-gray-600 text-center leading-relaxed max-w-md">
             We just need a few quick details to generate your documents and steps.
-          </motion.p>
+          </p>
           <PremiumButton
             size="lg"
             className="w-full"
