@@ -124,12 +124,14 @@ export default function OnlyFansEINPage() {
           </h2>
           
           <div className="space-y-6">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-neutral-900 mb-3">1. Form Your LLC</h3>
-              <p className="text-neutral-700">
-                Your EIN is tied to a legal entity. Have your LLC name exactly as filed with your state.
-              </p>
-            </div>
+                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+               <h3 className="text-xl font-semibold text-neutral-900 mb-3">
+                 <Link href="/" className="text-blue-600 hover:text-blue-800 underline">1. Form Your LLC</Link>
+               </h3>
+               <p className="text-neutral-700">
+                 Your EIN is tied to a legal entity. Have your LLC name exactly as filed with your state.
+               </p>
+             </div>
             
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
               <h3 className="text-xl font-semibold text-neutral-900 mb-3">2. Apply Online With the IRS During Open Hours</h3>
