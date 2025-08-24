@@ -41,9 +41,9 @@ export default function Hero({
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero content */}
         <div className="max-w-6xl mx-auto mb-4 sm:mb-8">
-          <div className="bg-white rounded-lg shadow-2xl p-3 sm:p-6 max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             {/* Main Content */}
-            <main className="flex flex-col items-start text-left">
+            <main className="flex flex-col items-center text-center">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mt-0 sm:mt-0 max-w-2xl">
                 {getTitle()}
               </h1>
@@ -96,14 +96,20 @@ export default function Hero({
 
               <Link
                 href="/onboarding"
-                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-3 sm:mt-4 w-full"
+                className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-lg font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)] mt-3 sm:mt-4 w-full"
               >
                 Personalize My LLC Setup
               </Link>
               
-              <p className="text-xs text-gray-400 text-center mt-2 w-full">
-                Full refund if our kit doesn't save you time and money.
-              </p>
+              {/* Refund Policy */}
+              <div className="mt-4 w-full max-w-md mx-auto text-center">
+                <p className="text-base font-semibold text-gray-900 mb-1">
+                  Covered by <Link href="/refund" className="text-blue-600 hover:text-blue-800 underline">The Genie Policy</Link>
+                </p>
+                <p className="text-sm text-gray-600">
+                  If our kit doesn't save you time and money, get a full refund. It's that simple.
+                </p>
+              </div>
 
               {/* Trust Strip */}
               <div className="flex justify-center mt-2 w-full">
@@ -121,6 +127,7 @@ export default function Hero({
         <div className="flex justify-center">
           <CompactDashboardCard />
         </div>
+
       </div>
     </section>
   );

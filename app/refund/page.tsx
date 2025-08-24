@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import Footer from '../../components/Footer'
+import Navbar from '../../components/Navbar'
 
 export const metadata: Metadata = {
   title: 'Genie Policy – Start With Genie',
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
 export default function RefundPolicyPage() {
   return (
     <div className="min-h-screen bg-neutral-50 flex flex-col">
-      <main className="flex-1">
+      <Navbar />
+      <main className="flex-1 pt-16">
         {/* Header Section */}
         <section className="w-full max-w-6xl mx-auto px-4 py-1 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-2 leading-tight">
