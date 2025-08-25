@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { withRateLimit, leadLimiter } from '../../../lib/rate-limit';
 import { validateAndSanitize, leadSchema } from '../../../lib/validation';
+import { withCSRFProtection } from '../../../lib/csrf';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -194,4 +195,4 @@ The Start With Genie Team`,
   }
 }
 
-export const POST = withRateLimit(handleLeadSubmission, leadLimiter); 
+export const POST = withCSRFProtection(withRateLimit(handleLeadSubmission, leadLimiter)); 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '../../../lib/supabase';
 import { withRateLimit } from '../../../lib/rate-limit';
 import { validateAndSanitize, contactSchema, sanitizeHtml } from '../../../lib/validation';
+import { withCSRFProtection } from '../../../lib/csrf';
 
 async function handleContactSupport(req: NextRequest) {
   try {
@@ -117,7 +118,7 @@ async function handleContactSupport(req: NextRequest) {
   }
 }
 
-export const POST = withRateLimit(handleContactSupport); 
+export const POST = withCSRFProtection(withRateLimit(handleContactSupport)); 
  
  
  

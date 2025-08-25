@@ -1,19 +1,18 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from './ui/Button'
-import PremiumButton from './ui/PremiumButton'
+import { PremiumButton } from './ui/PremiumButton'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Zap, LayoutDashboard, HeadphonesIcon, FileText, ShieldOff, GaugeCircle, User, BadgeDollarSign, CheckCircle, CheckCircle2, ShieldCheck, Sparkles, Timer as TimerIcon, ArrowRightLeft, XCircle, Users, ThumbsUp, Shield, BarChart, DollarSign, Banknote, Rocket, Briefcase, KeyRound, ScrollText, ClipboardCheck, Bot, BadgeCheck, ListChecks, Clock, Quote, Star, Play, Pause } from 'lucide-react'
+import { LayoutDashboard, HeadphonesIcon, FileText, ShieldCheck, Sparkles, DollarSign, Users } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 // Lazy-load components
 const Footer = dynamic(() => import('./Footer'), { ssr: true })
 const GenieChat = dynamic(() => import('./GenieChat'), { ssr: false })
 
-import Timer from './Timer'
 import Hero from './Hero'
 import HowItWorks from './HowItWorks'
 import CompactDashboardCard from './CompactDashboardCard'
@@ -24,7 +23,6 @@ import PremiumChecklist from './PremiumChecklist'
 import TrustBadge from './TrustBadge'
 
 import Divider from './Divider'
-import { SectionReveal, Item } from './reveal'
 
 interface FAQItem {
   question: string

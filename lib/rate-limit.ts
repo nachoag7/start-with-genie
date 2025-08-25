@@ -1,132 +1,110 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server';
 
 interface RateLimitConfig {
-  windowMs: number
-  maxRequests: number
-  message?: string
+  windowMs: number;
+  maxRequests: number;
 }
 
 class RateLimiter {
-  private requests: Map<string, { count: number; resetTime: number }> = new Map()
-  public config: RateLimitConfig
+  private requests: Map<string, { count: number; resetTime: number }> = new Map();
+  public config: RateLimitConfig;
 
   constructor(config: RateLimitConfig) {
-    this.config = config
+    this.config = config;
   }
 
   isAllowed(identifier: string): boolean {
-    const now = Date.now()
-    const record = this.requests.get(identifier)
+    const now = Date.now();
+    const record = this.requests.get(identifier);
 
     if (!record || now > record.resetTime) {
-      // First request or window expired
+      // Reset or create new record
       this.requests.set(identifier, {
         count: 1,
         resetTime: now + this.config.windowMs,
-      })
-      return true
+      });
+      return true;
     }
 
     if (record.count >= this.config.maxRequests) {
-      return false
+      return false;
     }
 
-    record.count++
-    return true
+    record.count++;
+    return true;
   }
 
-  getRemainingTime(identifier: string): number {
-    const record = this.requests.get(identifier)
-    if (!record) return 0
-    return Math.max(0, record.resetTime - Date.now())
+  getRemaining(identifier: string): number {
+    const record = this.requests.get(identifier);
+    if (!record) return this.config.maxRequests;
+    return Math.max(0, this.config.maxRequests - record.count);
   }
 
-  cleanup() {
-    const now = Date.now()
-    this.requests.forEach((record, key) => {
-      if (now > record.resetTime) {
-        this.requests.delete(key)
-      }
-    })
+  getResetTime(identifier: string): number {
+    const record = this.requests.get(identifier);
+    return record ? record.resetTime : Date.now() + this.config.windowMs;
   }
 }
 
-// Create rate limiters for different endpoints
-const authLimiter = new RateLimiter({
+// Create rate limiters
+export const apiLimiter = new RateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  maxRequests: 5, // 5 attempts per 15 minutes
-  message: 'Too many authentication attempts. Please try again later.',
-})
+  maxRequests: 100,
+});
 
-const apiLimiter = new RateLimiter({
-  windowMs: 60 * 1000, // 1 minute
-  maxRequests: 100, // 100 requests per minute
-  message: 'Too many requests. Please try again later.',
-})
+export const leadLimiter = new RateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  maxRequests: 10,
+});
 
-const leadLimiter = new RateLimiter({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  maxRequests: 3, // 3 lead submissions per hour
-  message: 'Too many lead submissions. Please try again later.',
-})
+export const authLimiter = new RateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  maxRequests: 5,
+});
 
-// Cleanup expired records every 5 minutes
-setInterval(() => {
-  authLimiter.cleanup()
-  apiLimiter.cleanup()
-  leadLimiter.cleanup()
-}, 5 * 60 * 1000)
-
+// Rate limiting middleware
 export function withRateLimit(
   handler: (req: NextRequest) => Promise<NextResponse>,
   limiter: RateLimiter = apiLimiter
 ) {
-  return async (req: NextRequest) => {
-    const identifier = await getClientIdentifier(req)
+  return async (req: NextRequest): Promise<NextResponse> => {
+    const identifier = getClientIdentifier(req);
     
     if (!limiter.isAllowed(identifier)) {
-      const remainingTime = limiter.getRemainingTime(identifier)
       return NextResponse.json(
-        { 
-          error: limiter.config.message || 'Rate limit exceeded',
-          retryAfter: Math.ceil(remainingTime / 1000)
-        },
+        { error: 'Too many requests. Please try again later.' },
         { 
           status: 429,
           headers: {
-            'Retry-After': Math.ceil(remainingTime / 1000).toString(),
-            'X-RateLimit-Limit': limiter.config.maxRequests.toString(),
-            'X-RateLimit-Remaining': '0',
-            'X-RateLimit-Reset': new Date(Date.now() + remainingTime).toISOString(),
+            'X-RateLimit-Remaining': limiter.getRemaining(identifier).toString(),
+            'X-RateLimit-Reset': limiter.getResetTime(identifier).toString(),
+            'Retry-After': Math.ceil(limiter.config.windowMs / 1000).toString(),
           }
         }
-      )
+      );
     }
 
-    return handler(req)
-  }
+    const response = await handler(req);
+    
+    // Add rate limit headers to response
+    response.headers.set('X-RateLimit-Remaining', limiter.getRemaining(identifier).toString());
+    response.headers.set('X-RateLimit-Reset', limiter.getResetTime(identifier).toString());
+    
+    return response;
+  };
 }
 
-async function getClientIdentifier(req: NextRequest): Promise<string> {
+// Get client identifier for rate limiting
+function getClientIdentifier(req: NextRequest): string {
   // Use IP address as primary identifier
-  const ip = req.headers.get('x-forwarded-for') || 
-             req.headers.get('x-real-ip') || 
-             'unknown'
+  const ip = req.ip || req.headers.get('x-forwarded-for') || 'unknown';
   
-  // For authentication endpoints, also consider the email if available
-  if (req.url.includes('/api/auth') || req.url.includes('/login')) {
-    try {
-      const body = await req.clone().json()
-      const email = body?.email
-      if (email) {
-        return `${ip}:${email}`
-      }
-    } catch {
-      // If we can't parse the body, just use IP
-    }
+  // For authenticated requests, include user ID if available
+  const authHeader = req.headers.get('authorization');
+  if (authHeader) {
+    // Extract user ID from token if possible
+    return `${ip}:${authHeader.split(' ')[1]?.slice(0, 8) || 'auth'}`;
   }
   
-  return ip
-}
-
-export { authLimiter, apiLimiter, leadLimiter } 
+  return ip;
+} 

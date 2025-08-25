@@ -39,13 +39,25 @@ export default function GenieChat({
 }: GenieChatProps & { isDemo?: boolean }) {
   const [isMobile, setIsMobile] = useState(false);
 
+  // Optimize resize handling with throttling
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    // Throttle resize events to improve performance
+    let timeoutId: NodeJS.Timeout;
+    const throttledCheckMobile = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkMobile, 100);
+    };
+    
+    window.addEventListener('resize', throttledCheckMobile, { passive: true });
+    return () => {
+      window.removeEventListener('resize', throttledCheckMobile);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   // Set initial messages after mobile detection

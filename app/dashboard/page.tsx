@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { useEffect, useState } from 'react'
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Download, MessageCircle, Mail, RefreshCw, FileText, Building2, CreditCard, CheckCircle, ChevronRight, HelpCircle, X, Bot, BadgeDollarSign, BookOpen, Clock, Eye, Download as DownloadIcon, ScrollText, Send, LogOut, Lock } from 'lucide-react'
+import { Download, Eye } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { supabase } from '../../lib/supabase'
 import { formatAppleStyle } from '../../lib/utils'
@@ -14,12 +14,13 @@ import ContactSupportModal from '../../components/ContactSupportModal'
 import llcStates from '../../data/llc_states.json';
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti';
-import ReactDOMServer from 'react-dom/server';
 import DocumentsSection from '../../components/DocumentsSection';
 import DashboardActions from '../../components/DashboardActions';
 import PremiumButton from '../../components/ui/PremiumButton';
 import BlurredDashboardOverlay from '../../components/BlurredDashboardOverlay';
 import FrictionlessCheckoutModal from '../../components/FrictionlessCheckoutModal';
+import { DocumentContent } from '../../components/DocumentContent';
+import { useUserData, useDocuments } from '../../hooks/useDataFetching';
 
 
 import ProgressChecklist from '../../components/ProgressChecklist';
@@ -110,13 +111,14 @@ const DocumentCard = ({
 
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<User | null>(null)
-  const [documents, setDocuments] = useState<Document[]>([])
+  // Use optimized data fetching hooks
+  const { data: user, loading: userLoading, error: userError, refetch: refetchUser } = useUserData();
+  const { data: documents, loading: documentsLoading, refetch: refetchDocuments } = useDocuments(user?.id);
+  
   const [isLoading, setIsLoading] = useState(true)
-  const [isRegenerating, setIsRegenerating] = useState(false)
+
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const router = useRouter()
-  const pathname = usePathname()
   const searchParams = useSearchParams()
   const [showGenie, setShowGenie] = useState(false)
   const [isPreviewMode, setIsPreviewMode] = useState(false)
@@ -125,11 +127,6 @@ export default function DashboardPage() {
   
 
 
-  // Add refs for each document section
-  const llcRef = useRef<HTMLDivElement>(null)
-  const einRef = useRef<HTMLDivElement>(null)
-  const oaRef = useRef<HTMLDivElement>(null)
-  const allSetRef = useRef<HTMLDivElement>(null);
   const confettiPlayedRef = useRef(false);
 
   // Checklist state
@@ -177,7 +174,7 @@ export default function DashboardPage() {
 
   const handleCheckoutSuccess = () => {
     // Refresh user data to get updated payment status
-    fetchUserData();
+    refetchUser();
   };
 
   // Monitor modal state changes
@@ -225,16 +222,8 @@ export default function DashboardPage() {
         return
       }
 
-      setUser(userData)
-
-      // Get user documents
-      const { data: docs } = await supabase
-        .from('documents')
-        .select('*')
-        .eq('user_id', authUser.id)
-        .order('created_at', { ascending: false })
-
-      setDocuments(docs || [])
+      // User data is now handled by useUserData hook
+      // Documents are handled by useDocuments hook
     } catch (error) {
       console.error('Error fetching user data:', error)
       router.push('/login')
@@ -244,8 +233,9 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
-    fetchUserData()
-  }, [router])
+    // Data fetching is now handled by hooks
+    setIsLoading(false);
+  }, [])
 
   // Remove auto-scrolling behavior - let users stay where they are
 
@@ -311,77 +301,7 @@ export default function DashboardPage() {
     router.push('/')
   }
 
-  const handleRegenerateDocuments = async () => {
-    if (!user) return
-    
-    setIsRegenerating(true)
-    try {
-      // Delete existing documents
-      const { data: { user: authUser } } = await supabase.auth.getUser()
-      if (!authUser) return
 
-      // Delete from database
-      await supabase
-        .from('documents')
-        .delete()
-        .eq('user_id', authUser.id)
-
-      // Delete from storage (optional - Supabase will handle orphaned files)
-      
-      // Regenerate documents
-      console.log('[DEBUG] Regenerating documents...')
-      
-      // Generate LLC Filing Instructions
-      const llcUrl = await generateLLCFilingInstructions({
-        fullName: user.full_name,
-        businessName: user.business_name,
-        state: user.state,
-        email: user.email
-      })
-
-      await supabase.from('documents').insert({
-        user_id: authUser.id,
-        doc_type: 'Guided LLC Registration',
-        url: llcUrl
-      })
-
-      // Generate EIN Guide
-      const einUrl = await generateEINGuide({
-        fullName: user.full_name,
-        businessName: user.business_name,
-        state: user.state,
-        email: user.email
-      })
-
-      await supabase.from('documents').insert({
-        user_id: authUser.id,
-        doc_type: 'Guided EIN Application',
-        url: einUrl
-      })
-
-      // Generate Operating Agreement
-      const oaUrl = await generateOperatingAgreement({
-        fullName: user.full_name,
-        businessName: user.business_name,
-        state: user.state,
-        email: user.email
-      })
-
-      await supabase.from('documents').insert({
-        user_id: authUser.id,
-        doc_type: 'Operating Agreement',
-        url: oaUrl
-      })
-
-      // Refresh documents
-      await fetchUserData()
-      
-    } catch (error) {
-      console.error('Error regenerating documents:', error)
-    } finally {
-      setIsRegenerating(false)
-    }
-  }
 
   // Helper: Anchor scroll
   // Remove scrollToSection and any scroll logic
@@ -612,10 +532,10 @@ export default function DashboardPage() {
     );
   }
 
-  // For dashboard preview:
-  const oaHtml: React.ReactNode = renderOAContent(user!, false);
+  // For dashboard preview: Use optimized DocumentContent component
+  const oaHtml: React.ReactNode = user ? <DocumentContent type="operating-agreement" user={user} isPDF={false} /> : null;
   // For PDF generation:
-  const oaHtmlPDF: React.ReactNode = renderOAContent(user!, true);
+  const oaHtmlPDF: React.ReactNode = user ? <DocumentContent type="operating-agreement" user={user} isPDF={true} /> : null;
 
   // Modal content map (must be after llcHtml, einHtml, oaHtml)
   const docModalContent = {

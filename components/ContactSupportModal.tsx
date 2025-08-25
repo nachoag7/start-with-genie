@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { X, Send, Mail, MessageCircle, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { fetchWithCSRF } from '../lib/csrf-client';
 
 interface ContactSupportModalProps {
   isOpen: boolean;
@@ -25,11 +26,8 @@ export default function ContactSupportModal({ isOpen, onClose }: ContactSupportM
     setSubmitStatus('idle');
 
     try {
-      const response = await fetch('/api/contact-support', {
+      const response = await fetchWithCSRF('/api/contact-support', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(formData),
       });
 

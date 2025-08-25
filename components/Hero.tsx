@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "./ui/Button";
 import PremiumButton from "./ui/PremiumButton";
-import CompactDashboardCard from "./CompactDashboardCard";
 
 
 interface HeroProps {
