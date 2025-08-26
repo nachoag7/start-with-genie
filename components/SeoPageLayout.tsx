@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Navbar from './Navbar'
+import Footer from './Footer'
 
 interface SeoPageLayoutProps {
   children: React.ReactNode
@@ -44,6 +45,7 @@ export default function SeoPageLayout({
           </p>
         </div>
       </main>
+      <Footer />
     </div>
   )
 } 

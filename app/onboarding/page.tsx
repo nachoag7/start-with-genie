@@ -44,7 +44,7 @@ declare global {
 
 export default function OnboardingPage() {
   // All hooks at the top
-  const [view, setView] = useState<'pre' | 'form' | 'success'>('pre');
+  const [view, setView] = useState<'pre' | 'form' | 'success'>('form');
   const [formStep, setFormStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -209,9 +209,6 @@ export default function OnboardingPage() {
           <h2 className="text-3xl font-semibold text-gray-900 text-center leading-tight mt-4">
             Let's get your LLC launch tailored to you.
           </h2>
-          <p className="text-lg text-gray-600 text-center leading-relaxed max-w-md">
-            We just need a few quick details to generate your documents and steps.
-          </p>
           <PremiumButton
             size="lg"
             className="w-full"
