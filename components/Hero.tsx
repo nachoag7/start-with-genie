@@ -33,7 +33,7 @@ export default function Hero({
 
   const getSubtitle = () => {
     if (subtitle) return subtitle; // Use custom subtitle if provided
-    return "Get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement for just $49. If it doesn't save you time and money get a full refund.";
+    return "Get a personalized guide to file your LLC, get your EIN, and sign your Operating Agreement for just $49.";
   };
   return (
     <section className="relative overflow-hidden bg-white pt-0 pb-6 sm:pt-0 sm:pb-12">
@@ -48,7 +48,7 @@ export default function Hero({
               </h1>
 
               <p className="mt-2 sm:mt-3 text-gray-600 max-w-lg text-base sm:text-lg">
-                We don't file for you, but we give you everything you need to do it yourself with confidence, for just $49. Full refund guarantee if we don't save you time and money.
+                We don't file for you, but we give you everything you need to do it yourself with confidence, for just $49.
               </p>
 
               <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
@@ -93,14 +93,14 @@ export default function Hero({
                 </li>
               </ul>
 
-              <Link
+                            <Link
                 href="/onboarding"
                 className="inline-flex items-center justify-center rounded-full bg-[#3b82f6] px-8 py-4 text-base font-medium text-white hover:bg-[#2f6fe0] transition-all duration-200 hover:scale-105 shadow-[0_6px_18px_rgba(59,130,246,0.35)]"
               >
                 Personalize My LLC Setup
               </Link>
               
-              {/* Refund Policy */}
+              {/* Genie Policy */}
               <div className="mt-4 w-full max-w-md mx-auto text-center">
                 <p className="text-base font-semibold text-gray-900 mb-1">
                   Covered by <Link href="/refund" className="text-blue-600 hover:text-blue-800 underline">The Genie Policy</Link>
